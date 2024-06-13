@@ -19,6 +19,7 @@ void main() => runApp(
       GetPage(name: '/newMaterial', page: () => new_material()),
       GetPage(name: '/buildingWork', page: () => building_work()),
     ],
+
   ),
 );
 
