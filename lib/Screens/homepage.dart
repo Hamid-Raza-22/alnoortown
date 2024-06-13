@@ -1,6 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
+import 'package:get/get.dart';
+import '../ViewModels/AllNoorViewModel.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -9,6 +12,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final HomeController controller = Get.put(HomeController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +55,6 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Column(
                 children: [
-
                   const SizedBox(height: 100),
                   GridView.count(
                     crossAxisCount: 2,
@@ -74,76 +78,68 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildCard(BuildContext context, String title, IconData icon, Widget page) {
-    return StatefulBuilder(
-      builder: (BuildContext context, StateSetter setState) {
-        bool _isTapped = false;
-
-        return GestureDetector(
-          onTapDown: (_) {
-            setState(() {
-              _isTapped = true;
-            });
-          },
-          onTapUp: (_) {
-            setState(() {
-              _isTapped = false;
-            });
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => page),
-            );
-          },
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            decoration: BoxDecoration(
-              color: _isTapped ? const Color(0xA6C69840) : Colors.transparent,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 3,
-                  blurRadius: 5,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                child: Container(
-                  decoration: BoxDecoration(
+    return GestureDetector(
+      onTapDown: (_) {
+        controller.toggleTapped();
+      },
+      onTapUp: (_) {
+        controller.toggleTapped();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => page),
+        );
+      },
+      child: Obx(() {
+        return AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          decoration: BoxDecoration(
+            color: controller.isTapped.value ? const Color(0xA6C69840) : Colors.transparent,
+            borderRadius: BorderRadius.circular(15),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 3,
+                blurRadius: 5,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(15),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
                     color: Colors.white.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(15),
-                    border: Border.all(
-                      color: Colors.white.withOpacity(0.2),
-                      width: 1.5,
-                    ),
+                    width: 1.5,
                   ),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(icon, size: 40, color: Colors.black54),
-                        const SizedBox(height: 10),
-                        Text(
-                          title,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          ),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(icon, size: 40, color: Colors.black54),
+                      const SizedBox(height: 10),
+                      Text(
+                        title,
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
             ),
           ),
         );
-      },
+      }),
     );
   }
 }
