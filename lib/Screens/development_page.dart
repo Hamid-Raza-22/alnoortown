@@ -14,7 +14,7 @@ class _development_pageState extends State<development_page> {
   bool startAnimation = false;
 
   List<String> texts = [
-    "Road Maintenance",
+    "Road Maintenance ",
     "Sewerage Work",
     "Light Poles Work",
     "MainDrain Work",
