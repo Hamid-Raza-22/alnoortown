@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import '../ViewModels/AllNoorViewModel.dart';
 
@@ -55,17 +54,17 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 100),
+                  const SizedBox(height: 140),
                   GridView.count(
                     crossAxisCount: 2,
-                    crossAxisSpacing: 26,
-                    mainAxisSpacing: 26,
+                    crossAxisSpacing: 29,
+                    mainAxisSpacing: 29,
                     shrinkWrap: true,
                     children: <Widget>[
-                      buildCard(context, 'Development Work', Icons.developer_mode, DevelopmentWorkPage()),
-                      buildCard(context, 'Material Shifting', Icons.swap_horiz, MaterialShiftingPage()),
-                      buildCard(context, 'New Material', Icons.new_releases, NewMaterialPage()),
-                      buildCard(context, 'Building Work', Icons.build, BuildingWorkPage()),
+                      buildCard(context, 'assets/images/development_work.png', '/development'),
+                      buildCard(context, 'assets/images/material_shifting.png', '/materialShifting'),
+                      buildCard(context, 'assets/images/new_material.png', '/newMaterial'),
+                      buildCard(context, 'assets/images/building_work.png', '/buildingWork'),
                     ],
                   ),
                 ],
@@ -77,24 +76,23 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget buildCard(BuildContext context, String title, IconData icon, Widget page) {
+  Widget buildCard(BuildContext context, String imagePath, String route) {
     return GestureDetector(
       onTapDown: (_) {
         controller.toggleTapped();
       },
       onTapUp: (_) {
         controller.toggleTapped();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => page),
-        );
+        Get.toNamed(route);
       },
       child: Obx(() {
         return AnimatedContainer(
           duration: const Duration(milliseconds: 200),
+          width: 180,
+          height: 180,
           decoration: BoxDecoration(
             color: controller.isTapped.value ? const Color(0xA6C69840) : Colors.transparent,
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
                 color: Colors.grey.withOpacity(0.3),
@@ -105,34 +103,23 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           child: ClipRRect(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(20),
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(15),
+                  borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: Colors.white.withOpacity(0.2),
                     width: 1.5,
                   ),
                 ),
                 child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(icon, size: 40, color: Colors.black54),
-                      const SizedBox(height: 10),
-                      Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ],
+                  child: Image.asset(
+                    imagePath,
+                    height: 120,
+                    width: 120,
                   ),
                 ),
               ),
@@ -140,67 +127,6 @@ class _HomePageState extends State<HomePage> {
           ),
         );
       }),
-    );
-  }
-}
-
-class DevelopmentWorkPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Development Work'),
-        backgroundColor: const Color(0xFFC69840),
-      ),
-      body: const Center(
-        child: Text('Details about Development Work'),
-      ),
-    );
-  }
-}
-
-
-class MaterialShiftingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Material Shifting'),
-        backgroundColor: const Color(0xFF0D0700),
-      ),
-      body: const Center(
-        child: Text('Details about Material Shifting'),
-      ),
-    );
-  }
-}
-
-class NewMaterialPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('New Material'),
-        backgroundColor: const Color(0xFFC69840),
-      ),
-      body: const Center(
-        child: Text('Details about New Material'),
-      ),
-    );
-  }
-}
-
-class BuildingWorkPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Building Work'),
-        backgroundColor: const Color(0xFF0D0700),
-      ),
-      body: const Center(
-        child: Text('Details about Building Work'),
-      ),
     );
   }
 }
