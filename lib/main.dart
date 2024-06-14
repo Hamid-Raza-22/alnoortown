@@ -14,12 +14,11 @@ void main() => runApp(
     getPages: [
       GetPage(name: '/', page: () => SplashScreen()),
       GetPage(name: '/home', page: () => HomePage()),
-      GetPage(name: '/development', page: () => development_page()),
+      GetPage(name: '/development', page: () => DevelopmentPage()),
       GetPage(name: '/materialShifting', page: () => MaterialShiftingPage()),
       GetPage(name: '/newMaterial', page: () => new_material()),
       GetPage(name: '/buildingWork', page: () => building_work()),
     ],
-
   ),
 );
 

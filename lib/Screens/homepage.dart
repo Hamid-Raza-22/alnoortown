@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../ViewModels/AllNoorViewModel.dart';
@@ -54,7 +53,7 @@ class _HomePageState extends State<HomePage> {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 140),
+                  const SizedBox(height: 120),
                   GridView.count(
                     crossAxisCount: 2,
                     crossAxisSpacing: 29,
@@ -78,55 +77,45 @@ class _HomePageState extends State<HomePage> {
 
   Widget buildCard(BuildContext context, String imagePath, String route) {
     return GestureDetector(
-      onTapDown: (_) {
-        controller.toggleTapped();
-      },
-      onTapUp: (_) {
-        controller.toggleTapped();
+      onTap: () {
         Get.toNamed(route);
       },
-      child: Obx(() {
-        return AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          width: 180,
-          height: 180,
-          decoration: BoxDecoration(
-            color: controller.isTapped.value ? const Color(0xA6C69840) : Colors.transparent,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
-                spreadRadius: 3,
-                blurRadius: 5,
-                offset: const Offset(0, 3),
+      child: Container(
+        width: 180,
+        height: 180,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: Colors.white.withOpacity(0.2),
+                width: 1.5,
               ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                    width: 1.5,
-                  ),
-                ),
-                child: Center(
-                  child: Image.asset(
-                    imagePath,
-                    height: 120,
-                    width: 120,
-                  ),
-                ),
+            ),
+            child: Center(
+              child: Image.asset(
+                imagePath,
+                height: 120,
+                width: 120,
               ),
             ),
           ),
-        );
-      }),
+        ),
+      ),
     );
   }
 }

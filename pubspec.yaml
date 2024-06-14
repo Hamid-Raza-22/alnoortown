@@ -72,6 +72,10 @@ flutter:
     - assets/images/material_shifting.png
     - assets/images/new_material.png
     - assets/images/material_shifting.png
+    - assets/images/light_poles_work.png
+    - assets/images/maindrain_work.png
+    - assets/images/road_maintenance.png
+    - assets/images/sewerage_work.png
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
