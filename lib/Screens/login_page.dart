@@ -19,20 +19,20 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _login() {
-    String email = _emailController.text;
-    String password = _passwordController.text;
-
-    if ((email == 'arfa' && password == '0000') ||
-        (email == 'hamid' && password == '0000')) {
+    // String email = _emailController.text;
+    // String password = _passwordController.text;
+    //
+    // if ((email == 'arfa' && password == '0000') ||
+    //     (email == 'hamid' && password == '0000')) {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomePage()),
       );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid credentials')),
-      );
-    }
+    // } else {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     const SnackBar(content: Text('Invalid credentials')),
+    //   );
+    // }
   }
 
   @override

@@ -1,6 +1,10 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../ViewModels/AllNoorViewModel.dart';
+  // Ensure this import path matches your project structure
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,66 +13,113 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final HomeController controller = Get.put(HomeController());
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        padding: EdgeInsets.zero,
+      body: Column(
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              color: Color(0xFFC69840),
-              borderRadius: BorderRadius.only(
-                bottomRight: Radius.circular(50),
-              ),
-            ),
-            child: Column(
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.zero,
               children: [
-                const SizedBox(height: 50),
-                ListTile(
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                  title: Text(
-                    'Clockin Timer',
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFC69840),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(50),
+                    ),
                   ),
-                  subtitle: Text(
-                    '00:00:00',
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white54),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 50),
+                      ListTile(
+                        contentPadding: const EdgeInsets.symmetric(horizontal: 30),
+                        title: Text(
+                          'Clockin Timer',
+                          style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                        ),
+                        subtitle: Obx(() {
+                          return Text(
+
+                            controller.formattedDurationString.value,
+                            style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white54),
+                          );
+                        }),
+                      ),
+                      const SizedBox(height: 30)
+                    ],
                   ),
                 ),
-                const SizedBox(height: 30)
+                Container(
+                  color: const Color(0xFFC69840),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(200)),
+                    ),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 100),
+                        GridView.count(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 26,
+                          mainAxisSpacing: 26,
+                          shrinkWrap: true,
+                          children: <Widget>[
+                            buildCard(context, 'assets/images/development_work.png', '/development'),
+                            buildCard(context, 'assets/images/material_shifting.png', '/materialShifting'),
+                            buildCard(context, 'assets/images/new_material.png', '/newMaterial'),
+                            buildCard(context, 'assets/images/building_work.png', '/buildingWork'),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
           Container(
-            color: const Color(0xFFC69840),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(topLeft: Radius.circular(200)),
-              ),
-              child: Column(
-                children: [
-                  const SizedBox(height: 120),
-                  GridView.count(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 29,
-                    mainAxisSpacing: 29,
-                    shrinkWrap: true,
-                    children: <Widget>[
-                      buildCard(context, 'assets/images/development_work.png', '/development'),
-                      buildCard(context, 'assets/images/material_shifting.png', '/materialShifting'),
-                      buildCard(context, 'assets/images/new_material.png', '/newMaterial'),
-                      buildCard(context, 'assets/images/building_work.png', '/buildingWork'),
-                    ],
+            color: Colors.transparent,
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            child: Obx(() {
+              return ElevatedButton.icon(
+                onPressed: () async {
+                  controller.toggleClockInOut();
+                },
+                icon: Icon(
+                  controller.isClockedIn.value ? Icons.timer_off : Icons.timer,
+                  color: controller.isClockedIn.value ? Colors.red : Colors.green,
+                ),
+                label: Text(
+                  controller.isClockedIn.value ? 'Clock Out' : 'Clock In',
+                  style: const TextStyle(fontSize: 14),
+                ),
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: controller.isClockedIn.value ? Colors.red : Colors.green,
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            }),
           ),
         ],
       ),

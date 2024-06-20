@@ -1,9 +1,9 @@
 plugins {
-    id "com.android.application"
-    id "kotlin-android"
-    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'dev.flutter.flutter-gradle-plugin'
+    // Remove any unnecessary or conflicting plugins
 }
-
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
@@ -24,8 +24,8 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.metaxperts.al_noor_town"
-    compileSdk flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
+    compileSdkVersion 34  // or the latest version
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -45,7 +45,9 @@ android {
         applicationId "com.metaxperts.al_noor_town"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion 21
+        minSdkVersion 23
+        targetSdkVersion 34
+
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
@@ -64,4 +66,15 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    // Add other dependencies here
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == 'org.jetbrains.kotlin') {
+            details.useVersion '1.8.10'
+        }
+    }
+}
