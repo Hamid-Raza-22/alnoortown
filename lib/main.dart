@@ -22,8 +22,8 @@ Future<void> main() async {
         GetPage(name: '/home', page: () => const HomePage()),
         GetPage(name: '/development', page: () => const DevelopmentPage()),
         GetPage(name: '/materialShifting', page: () => const MaterialShiftingPage()),
-      GetPage(name: '/newMaterial', page: () => const new_material()),
-      GetPage(name: '/buildingWork', page: () => const building_work()),
+      GetPage(name: '/newMaterial', page: () => const NewMaterial()),
+      GetPage(name: '/buildingWork', page: () => const BuildingWork()),
     ],
 
   ),

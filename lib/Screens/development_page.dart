@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'light_poles_work.dart';
+import 'maindrain_work_page.dart';
+import 'road_maintenance_page.dart';
+import 'sewerage_work_page.dart';
+
 
 class DevelopmentPage extends StatefulWidget {
   const DevelopmentPage({Key? key}) : super(key: key);
@@ -75,60 +80,90 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
   }
 
   Widget item(int index) {
-    return AnimatedContainer(
-      height: 140,
-      width: screenWidth,
-      curve: Curves.linear,
-      duration: Duration(milliseconds: 300 + (index * 200)),
-      transform: Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
-      margin: const EdgeInsets.only(
-        bottom: 12,
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: screenWidth / 20,
-      ),
-      decoration: BoxDecoration(
-        color: const Color(0xFFF3F4F6),
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.3),
-            spreadRadius: 3,
-            blurRadius: 5,
-            offset: const Offset(0.3, 3),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Image.asset(
-              imagePaths[index],
-              height: 58,
-              width: 57,
+    return GestureDetector(
+      onTap: () {
+        switch (index) {
+          case 0:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RoadMaintenancePage()),
+            );
+            break;
+          case 1:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SewerageWork()),
+            );
+            break;
+          case 2:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  LightPolesWork()),
+            );
+            break;
+          case 3:
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => maindrain()),
+            );
+            break;
+        }
+      },
+      child: AnimatedContainer(
+        height: 130,
+        width: screenWidth,
+        curve: Curves.linear,
+        duration: Duration(milliseconds: 300 + (index * 200)),
+        transform: Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
+        margin: const EdgeInsets.only(
+          bottom: 12,
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: screenWidth / 20,
+        ),
+        decoration: BoxDecoration(
+          color: const Color(0xFFF3F4F6),
+          borderRadius: BorderRadius.circular(12),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: const Offset(0.3, 3),
             ),
-          ),
-          Container(
-            width: 0.7,
-            height: 80,
-            color:  Colors.grey.withOpacity(0.3),
-            margin: const EdgeInsets.symmetric(horizontal: 8),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: Text(
-                texts[index],
-                style: const TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.w500,
-                  color: Color(0xFFC69840),
+          ],
+        ),
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Image.asset(
+                imagePaths[index],
+                height: 58,
+                width: 57,
+              ),
+            ),
+            Container(
+              width: 0.7,
+              height: 80,
+              color:  Colors.grey.withOpacity(0.3),
+              margin: const EdgeInsets.symmetric(horizontal: 8),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  texts[index],
+                  style: const TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFFC69840),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
