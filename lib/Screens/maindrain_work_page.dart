@@ -5,9 +5,9 @@ class maindrain extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Road Maintenance"),
+        title: const Text("Road Maintenance"),
       ),
-      body: Center(
+      body: const Center(
         child: Text("Road Maintenance Page Content"),
       ),
     );

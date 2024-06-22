@@ -10,6 +10,6 @@ class NewMaterial extends StatefulWidget {
 class _NewMaterialState extends State<NewMaterial> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

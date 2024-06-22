@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:flutter_foreground_task/flutter_foreground_task.dart';
 
-import '../Globals/Globals.dart';
 import '../main.dart';
 
 class HomeController extends GetxController {
@@ -28,11 +25,6 @@ class HomeController extends GetxController {
     Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   }
 
-  String _getFormattedTime() {
-    final now = DateTime.now();
-    final formatter = DateFormat('HH:mm:ss a');
-    return formatter.format(now);
-  }
 
   void _saveCurrentTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -118,8 +110,8 @@ class HomeController extends GetxController {
   }
 
   void _initializeNotification() {
-    final initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
-    final initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
+    const initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
+    final initializationSettings = const InitializationSettings(android: initializationSettingsAndroid);
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 

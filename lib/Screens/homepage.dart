@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -105,14 +104,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 },
                 icon: Icon(
                   controller.isClockedIn.value ? Icons.timer_off : Icons.timer,
-                  color: controller.isClockedIn.value ? Color(0xFFC69840):Color(0xFFC69840),
+                  color: controller.isClockedIn.value ? const Color(0xFFC69840):const Color(0xFFC69840),
                 ),
                 label: Text(
                   controller.isClockedIn.value ? 'Clock Out' : 'Clock In',
                   style: const TextStyle(fontSize: 14),
                 ),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: controller.isClockedIn.value ? Color(0xFFC69840) : Color(0xFFC69840),
+                  foregroundColor: controller.isClockedIn.value ? const Color(0xFFC69840) : const Color(0xFFC69840),
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

@@ -83,6 +83,9 @@ flutter:
     - assets/images/maindrain_work.png
     - assets/images/road_maintenance.png
     - assets/images/sewerage_work.png
+    - assets/images/machines.png
+    - assets/images/water_tanker.png
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'light_poles_work.dart';
-import 'maindrain_work_page.dart';
 import 'road_maintenance_page.dart';
 import 'sewerage_work_page.dart';
-
+import 'water_tanker.dart';
 
 class DevelopmentPage extends StatefulWidget {
-  const DevelopmentPage({Key? key}) : super(key: key);
+  const DevelopmentPage({super.key});
 
   @override
   State<DevelopmentPage> createState() => _DevelopmentPageState();
@@ -84,9 +83,96 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
       onTap: () {
         switch (index) {
           case 0:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => RoadMaintenancePage()),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text(
+                    'Pick Your Machinery',
+                    style: TextStyle(
+                      color: Color(0xFFC69840),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const RoadMaintenancePage()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/machines.png',
+                              height: 100,
+                              width: 100,
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Machines',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFC69840),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => WaterTanker()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/water_tanker.png',
+                              height: 100,
+                              width: 100,
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Water Tanker',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFC69840),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      child: const Text(
+                        'Close',
+                        style: TextStyle(color: Color(0xFFC69840)),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  backgroundColor: Colors.white,
+                  elevation: 5,
+                  contentPadding: const EdgeInsets.all(20),
+                );
+              },
             );
             break;
           case 1:
@@ -98,14 +184,14 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
           case 2:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) =>  LightPolesWork()),
+              MaterialPageRoute(builder: (context) => const LightPolesWork()),
             );
             break;
           case 3:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => maindrain()),
-            );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => Maindrain()),
+          // );
             break;
         }
       },
@@ -146,7 +232,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
             Container(
               width: 0.7,
               height: 80,
-              color:  Colors.grey.withOpacity(0.3),
+              color: Colors.grey.withOpacity(0.3),
               margin: const EdgeInsets.symmetric(horizontal: 8),
             ),
             Expanded(

@@ -10,6 +10,6 @@ class BuildingWork extends StatefulWidget {
 class _BuildingWorkState extends State<BuildingWork> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

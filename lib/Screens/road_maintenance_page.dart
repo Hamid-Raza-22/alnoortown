@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
 import 'package:intl/intl.dart';
 
 class RoadMaintenancePage extends StatefulWidget {
+  const RoadMaintenancePage({super.key});
+
   @override
   _RoadMaintenancePageState createState() => _RoadMaintenancePageState();
 }
 
 class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
   final List<String> machines = [
-    "Excavator", "Bulldozer", "Crane", "Loader", "Dump Truck", "Forklift", "Paver"
+    "Excavator", "Bulldozer", "Crane", "Loader", "Dump Truck", "Forklift", "Paver", "Other"
   ];
   final List<Icon> machineIcons = [
-    Icon(Icons.construction, color: Color(0xFFC69840)), // Example: Changing color to blue
-    Icon(Icons.agriculture, color: Color(0xFFC69840)),
-    Icon(Icons.account_balance, color: Color(0xFFC69840)),
-    Icon(Icons.local_shipping, color: Color(0xFFC69840)),
-    Icon(Icons.fire_truck, color: Color(0xFFC69840)),
-    Icon(Icons.precision_manufacturing, color: Color(0xFFC69840)),
-    Icon(Icons.add_box, color: Color(0xFFC69840)),
+    const Icon(Icons.construction, color: Color(0xFFC69840)),
+    const Icon(Icons.agriculture, color: Color(0xFFC69840)),
+    const Icon(Icons.account_balance, color: Color(0xFFC69840)),
+    const Icon(Icons.local_shipping, color: Color(0xFFC69840)),
+    const Icon(Icons.fire_truck, color: Color(0xFFC69840)),
+    const Icon(Icons.precision_manufacturing, color: Color(0xFFC69840)),
+    const Icon(Icons.add_box, color: Color(0xFFC69840)),
+    const Icon(Icons.edit, color: Color(0xFFC69840)),
   ];
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
 
   List<Map<String, dynamic>> containerDataList = [];
+  String? otherMachine;
+  List<String> userAddedMachines = [];
 
   @override
   void initState() {
@@ -56,23 +60,23 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
             child: Center(
               child: Text(
                 getCurrentDate(),
-                style: TextStyle(fontSize: 14),
+                style: const TextStyle(fontSize: 14),
               ),
             ),
           ),
         ],
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ...containerDataList.asMap().entries.map((entry) {
               int index = entry.key;
               return buildContainer(index);
-            }).toList(),
-            SizedBox(height: 16),
+            }),
+            const SizedBox(height: 16),
             Center(
               child: FloatingActionButton(
                 onPressed: () {
@@ -80,8 +84,8 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
                     containerDataList.add(createInitialContainerData());
                   });
                 },
-                child: Icon(Icons.add),
-                backgroundColor: Color(0xFFC69840),
+                backgroundColor: const Color(0xFFC69840),
+                child: const Icon(Icons.add),
               ),
             ),
           ],
@@ -93,17 +97,17 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
   Widget buildContainer(int index) {
     var containerData = containerDataList[index];
     return Card(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(50.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(containerData),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             const Text(
               "Machine",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
@@ -111,26 +115,135 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
             const SizedBox(height: 8),
             DropdownButtonFormField<String>(
               value: containerData["selectedMachine"],
-              items: machines.asMap().entries.map((entry) {
-                int idx = entry.key;
-                String machine = entry.value;
-                return DropdownMenuItem(
-                  value: machine,
-                  child: Row(
-                    children: [
-                      machineIcons[idx],
-                      SizedBox(width: 8),
-                      Text(machine),
-                    ],
-                  ),
-                );
+              items: [...machines, ...userAddedMachines].map((machine) {
+                int idx = machines.indexOf(machine);
+                if (idx == -1) {
+                  return DropdownMenuItem(
+                    value: machine,
+                    child: Row(
+                      children: [
+                        const Icon(Icons.add, color: Color(0xFFC69840)),
+                        const SizedBox(width: 8),
+                        Text(machine),
+                      ],
+                    ),
+                  );
+                } else {
+                  return DropdownMenuItem(
+                    value: machine,
+                    child: Row(
+                      children: [
+                        machineIcons[idx],
+                        const SizedBox(width: 8),
+                        Text(machine),
+                      ],
+                    ),
+                  );
+                }
               }).toList(),
               onChanged: (value) {
                 setState(() {
                   containerData["selectedMachine"] = value;
+                  if (value == "Other") {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        String newMachineName = '';
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          elevation: 0.0,
+                          backgroundColor: Colors.transparent,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10.0),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                const Padding(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: Text(
+                                    'Other Machines',
+                                    style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFC69840),
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                  child: TextField(
+                                    onChanged: (text) {
+                                      newMachineName = text;
+                                    },
+                                    decoration: InputDecoration(
+                                      hintText: "Enter machine name",
+                                      border: OutlineInputBorder(
+                                        borderSide: const BorderSide(color: Color(0xFFC69840)),
+                                        borderRadius: BorderRadius.circular(8.0),
+                                      ),
+                                      contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 16.0),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    TextButton(
+                                      child: const Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                          color: Color(0xFFC69840),
+                                          fontSize: 16.0,
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      style: ButtonStyle(
+                                        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFC69840)),
+                                        padding: MaterialStateProperty.all<EdgeInsets>(
+                                          const EdgeInsets.symmetric(horizontal: 16.0),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        setState(() {
+                                          if (newMachineName.isNotEmpty) {
+                                            userAddedMachines.add(newMachineName);
+                                            containerData["selectedMachine"] = newMachineName;
+                                          }
+                                          Navigator.of(context).pop();
+                                        });
+                                      },
+                                      child: const Text(
+                                        "OK",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 16.0),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }
                 });
               },
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
@@ -157,15 +270,15 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
                     ),
                   );
                 },
-                child: const Text('Submit', style: TextStyle(color: Color(0xFFC69840))), // Text color golden
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFF3F4F6),
+                  backgroundColor: const Color(0xFFF3F4F6),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   textStyle: const TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
+                child: const Text('Submit', style: TextStyle(color: Color(0xFFC69840))),
               ),
             ),
             const SizedBox(height: 10),
@@ -175,11 +288,11 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
                 children: [
                   Text(
                     '${containerData["clockInTime"]}',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                   ),
                   Text(
                     '${containerData["clockOutTime"]}',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                   ),
                 ],
               ),
@@ -195,10 +308,10 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
       children: [
         Expanded(
           child: buildDropdownField(
-              "Block No." , containerData, "selectedBlock", blocks
+              "Block No.", containerData, "selectedBlock", blocks
           ),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         Expanded(
           child: buildDropdownField(
               "Street No.", containerData, "selectedStreet", streets
@@ -214,7 +327,7 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
@@ -230,7 +343,7 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
               containerData[key] = value;
             });
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),
@@ -251,13 +364,13 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
               containerData["clockInTime"] = getCurrentTime();
             });
           },
-          icon: Icon(Icons.access_time, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.access_time, color: Color(0xFFC69840)),
           label: const Text('Time In', style: TextStyle(color: Color(0xFFC69840))),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFF3F4F6),
+            backgroundColor: const Color(0xFFF3F4F6),
             padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 10),
             textStyle: const TextStyle(fontSize: 12),
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
           ),
@@ -268,13 +381,13 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
               containerData["clockOutTime"] = getCurrentTime();
             });
           },
-          icon: Icon(Icons.access_time, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.access_time, color: Color(0xFFC69840)),
           label: const Text('Time Out', style: TextStyle(color: Color(0xFFC69840))),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFF3F4F6),
+            backgroundColor: const Color(0xFFF3F4F6),
             padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 10),
             textStyle: const TextStyle(fontSize: 12),
-            shape: RoundedRectangleBorder(
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
           ),
