@@ -89,7 +89,7 @@ class _WaterTankerState extends State<WaterTanker> {
                 },
                 backgroundColor: Colors.transparent,
                 elevation: 0, // No shadow
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
+                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
               ),
             ),
           ],
@@ -249,7 +249,7 @@ class WaterLoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100, // Adjust the height as needed
+      height: 100,
       child: WaveWidget(
         config: CustomConfig(
           gradients: [
