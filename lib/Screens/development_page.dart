@@ -130,7 +130,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => WaterTanker()),
+                                builder: (context) => const WaterTanker()),
                           );
                         },
                         child: Column(
@@ -178,7 +178,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
           case 1:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SewerageWork()),
+              MaterialPageRoute(builder: (context) => const SewerageWork()),
             );
             break;
           case 2:

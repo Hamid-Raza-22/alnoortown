@@ -18,7 +18,7 @@ Future<void> main() async {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       getPages: [
-        GetPage(name: '/', page: () => SplashScreen()),
+        GetPage(name: '/', page: () => const SplashScreen()),
         GetPage(name: '/home', page: () => const HomePage()),
         GetPage(name: '/development', page: () => const DevelopmentPage()),
         GetPage(name: '/materialShifting', page: () => const MaterialShiftingPage()),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-class maindrain extends StatelessWidget {
+class Maindrain extends StatelessWidget {
+  const Maindrain({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

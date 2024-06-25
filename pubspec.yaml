@@ -41,7 +41,7 @@ dependencies:
   workmanager: ^0.5.2
   flutter_foreground_task: ^6.5.0
   intl: ^0.19.0
-
+  wave: ^0.2.2
 
 dev_dependencies:
   flutter_test:
@@ -72,7 +72,6 @@ flutter:
   assets:
     - assets/images/
     - assets/images/gate_view.png
-    - assets/images/home.png
     - assets/images/development_work.png
     - assets/images/splashscreen.png
     - assets/images/building_work.png
@@ -85,6 +84,7 @@ flutter:
     - assets/images/sewerage_work.png
     - assets/images/machines.png
     - assets/images/water_tanker.png
+    - assets/images/truck-01.png
 
   # assets:
   #   - images/a_dot_burr.jpeg
