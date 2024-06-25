@@ -53,18 +53,27 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Center(
-              child: Text(
-                getCurrentDate(),
-                style: const TextStyle(fontSize: 14),
-              ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(220.0),
+        child: AppBar(
+          flexibleSpace: FlexibleSpaceBar(
+            background: Image.asset(
+              'assets/images/machinespage.gif',
+              fit: BoxFit.fitHeight,
             ),
           ),
-        ],
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Center(
+                child: Text(
+                  getCurrentDate(),
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -84,8 +93,9 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
                     containerDataList.add(createInitialContainerData());
                   });
                 },
-                backgroundColor: const Color(0xFFC69840),
-                child: const Icon(Icons.add),
+                backgroundColor: Colors.transparent,
+                elevation: 0, // No shadow
+                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
               ),
             ),
           ],
@@ -97,209 +107,209 @@ class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
   Widget buildContainer(int index) {
     var containerData = containerDataList[index];
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-      color: Colors.white,
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildBlockStreetRow(containerData),
-            const SizedBox(height: 16),
-            const Text(
-              "Machine",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
-            ),
-            const SizedBox(height: 8),
-            DropdownButtonFormField<String>(
-              value: containerData["selectedMachine"],
-              items: [...machines, ...userAddedMachines].map((machine) {
-                int idx = machines.indexOf(machine);
-                if (idx == -1) {
-                  return DropdownMenuItem(
-                    value: machine,
-                    child: Row(
-                      children: [
-                        const Icon(Icons.add, color: Color(0xFFC69840)),
-                        const SizedBox(width: 8),
-                        Text(machine),
-                      ],
-                    ),
-                  );
-                } else {
-                  return DropdownMenuItem(
-                    value: machine,
-                    child: Row(
-                      children: [
-                        machineIcons[idx],
-                        const SizedBox(width: 8),
-                        Text(machine),
-                      ],
-                    ),
-                  );
-                }
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  containerData["selectedMachine"] = value;
-                  if (value == "Other") {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        String newMachineName = '';
-                        return Dialog(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          elevation: 0.0,
-                          backgroundColor: Colors.transparent,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10.0),
-                              color: Colors.white,
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                const Padding(
-                                  padding: EdgeInsets.all(16.0),
-                                  child: Text(
-                                    'Other Machines',
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(0xFFC69840),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                                  child: TextField(
-                                    onChanged: (text) {
-                                      newMachineName = text;
-                                    },
-                                    decoration: InputDecoration(
-                                      hintText: "Enter machine name",
-                                      border: OutlineInputBorder(
-                                        borderSide: const BorderSide(color: Color(0xFFC69840)),
-                                        borderRadius: BorderRadius.circular(8.0),
-                                      ),
-                                      contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 16.0),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: <Widget>[
-                                    TextButton(
-                                      child: const Text(
-                                        "Cancel",
-                                        style: TextStyle(
-                                          color: Color(0xFFC69840),
-                                          fontSize: 16.0,
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    TextButton(
-                                      style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFC69840)),
-                                        padding: MaterialStateProperty.all<EdgeInsets>(
-                                          const EdgeInsets.symmetric(horizontal: 16.0),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (newMachineName.isNotEmpty) {
-                                            userAddedMachines.add(newMachineName);
-                                            containerData["selectedMachine"] = newMachineName;
-                                          }
-                                          Navigator.of(context).pop();
-                                        });
-                                      },
-                                      child: const Text(
-                                        "OK",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 16.0),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }
-                });
-              },
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFC69840)),
-                ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 8),
-              ),
-            ),
-            const SizedBox(height: 20),
-            buildTimeButtons(containerData),
-            const SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  final selectedMachine = containerData["selectedMachine"];
-                  final selectedBlock = containerData["selectedBlock"];
-                  final selectedStreet = containerData["selectedStreet"];
-                  final clockInTime = containerData["clockInTime"];
-                  final clockOutTime = containerData["clockOutTime"];
+        margin: const EdgeInsets.only(bottom: 16),
+    elevation: 3,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    color: Colors.white,
+    child: Padding(
+    padding: const EdgeInsets.all(24.0),
+    child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+    buildBlockStreetRow(containerData),
+    const SizedBox(height: 16),
+    const Text(
+    "Machine",
+    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+    ),
+    const SizedBox(height: 8),
+    DropdownButtonFormField<String>(
+    value: containerData["selectedMachine"],
+    items: [...machines, ...userAddedMachines].map((machine) {
+    int idx = machines.indexOf(machine);
+    if (idx == -1) {
+    return DropdownMenuItem(
+    value: machine,
+    child: Row(
+    children: [
+    const Icon(Icons.add, color: Color(0xFFC69840)),
+    const SizedBox(width: 8),
+    Text(machine),
+    ],
+    ),
+    );
+    } else {
+    return DropdownMenuItem(
+    value: machine,
+    child: Row(
+    children: [
+    machineIcons[idx],
+    const SizedBox(width: 8),
+    Text(machine),
+    ],
+    ),
+    );
+    }
+    }).toList(),
+    onChanged: (value) {
+    setState(() {
+    containerData["selectedMachine"] = value;
+    if (value == "Other") {
+    showDialog(
+    context: context,
+    builder: (BuildContext context) {
+    String newMachineName = '';
+    return Dialog(
+    shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(10.0),
+    ),
+    elevation: 0.0,
+    backgroundColor: Colors.transparent,
+    child: Container(
+    decoration: BoxDecoration(
+    borderRadius: BorderRadius.circular(10.0),
+    color: Colors.white,
+    ),
+    child: Column(
+    mainAxisSize: MainAxisSize.min,
+    children: <Widget>[
+    const Padding(
+    padding: EdgeInsets.all(16.0),
+    child: Text(
+    'Other Machines',
+    style: TextStyle(
+    fontSize: 18.0,
+    fontWeight: FontWeight.bold,
+    color: Color(0xFFC69840),
+    ),
+    ),
+    ),
+    Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0),
+    child: TextField(
+    onChanged: (text) {
+    newMachineName = text;
+    },
+    decoration: InputDecoration(
+    hintText: "Enter machine name",
+    border: OutlineInputBorder(
+    borderSide: const BorderSide(color: Color(0xFFC69840)),
+    borderRadius: BorderRadius.circular(8.0),
+    ),
+    contentPadding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
+    ),
+    ),
+    ),
+    const SizedBox(height: 16.0),
+    Row(
+    mainAxisAlignment: MainAxisAlignment.end,
+    children: <Widget>[
+    TextButton(
+    child: const Text(
+    "Cancel",
+    style: TextStyle(
+    color: Color(0xFFC69840),
+    fontSize: 16.0,
+    ),
+    ),
+    onPressed: () {
+    Navigator.of(context).pop();
+    },
+    ),
+    TextButton(
+    style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFC69840)),
+    padding: MaterialStateProperty.all<EdgeInsets>(
+    const EdgeInsets.symmetric(horizontal: 16.0),
+    ),
+    ),
+    onPressed: () {
+    setState(() {
+    if (newMachineName.isNotEmpty) {
+    userAddedMachines.add(newMachineName);
+    containerData["selectedMachine"] = newMachineName;
+    }
+    Navigator.of(context).pop();
+    });
+    },
+    child: const Text(
+    "OK",
+    style: TextStyle(
+    color: Colors.white,
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+    ),
+    ),
+    ),
+    const SizedBox(width: 16.0),
+    ],
+    ),
+    ],
+    ),
+    ),
+    );
+    },
+    );
+    }
+    });
+    },
+    decoration: const InputDecoration(
+    border: OutlineInputBorder(
+    borderSide: BorderSide(color: Color(0xFFC69840)),
+    ),
+    contentPadding: EdgeInsets.symmetric(horizontal: 8),
+    ),
+    ),
+    const SizedBox(height: 20),
+    buildTimeButtons(containerData),
+    const SizedBox(height: 20),
+    Center(
+    child: ElevatedButton(
+    onPressed: () {
+    final selectedMachine = containerData["selectedMachine"];
+    final selectedBlock = containerData["selectedBlock"];
+    final selectedStreet = containerData["selectedStreet"];
+    final clockInTime = containerData["clockInTime"];
+    final clockOutTime = containerData["clockOutTime"];
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedMachine, $selectedBlock, $selectedStreet, Time In: $clockInTime, Time Out: $clockOutTime',
-                      ),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                ),
-                child: const Text('Submit', style: TextStyle(color: Color(0xFFC69840))),
-              ),
-            ),
-            const SizedBox(height: 10),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    '${containerData["clockInTime"]}',
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
-                  ),
-                  Text(
-                    '${containerData["clockOutTime"]}',
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+    ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+    content: Text(
+    'Selected: $selectedMachine, $selectedBlock, $selectedStreet, Time In: $clockInTime, Time Out: $clockOutTime',
+    ),
+    ),
+    );
+    },
+    style: ElevatedButton.styleFrom(
+    backgroundColor: const Color(0xFFF3F4F6),
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+    textStyle: const TextStyle(fontSize: 14),
+    shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.zero,
+    ),
+    ),
+    child: const Text('Submit', style: TextStyle(color: Color(0xFFC69840))),
+    ),
+    ),
+    const SizedBox(height: 10),
+    Center(
+    child: Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+    Text(
+    '${containerData["clockInTime"]}',
+    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+    ),
+    Text(
+    '${containerData["clockOutTime"]}',
+    style: const TextStyle(fontSize: 14, fontWeight : FontWeight.bold, color: Color(0xFFC69840)),
+    ),
+    ],
+    ),
+    )
+    ],
+    ),
+    ),
     );
   }
 

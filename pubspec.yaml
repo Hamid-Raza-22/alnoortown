@@ -43,6 +43,8 @@ dependencies:
   intl: ^0.19.0
   wave: ^0.2.2
 
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -85,6 +87,7 @@ flutter:
     - assets/images/machines.png
     - assets/images/water_tanker.png
     - assets/images/truck-01.png
+    - assets/images/machinespage.gif
 
   # assets:
   #   - images/a_dot_burr.jpeg
