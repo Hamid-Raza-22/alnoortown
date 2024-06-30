@@ -1,7 +1,12 @@
+import 'package:al_noor_town/Screens/light%20_wires_work.dart';
+import 'package:al_noor_town/Screens/pipe_lying.dart';
+import 'package:al_noor_town/Screens/poles.dart';
 import 'package:flutter/material.dart';
-import 'light_poles_work.dart';
-import 'road_maintenance_page.dart';
-import 'sewerage_work_page.dart';
+import 'backfilling.dart';
+import 'exavation.dart';
+import 'manholes.dart';
+import 'machines.dart';
+import 'poles_foundation.dart';
 import 'water_tanker.dart';
 
 class DevelopmentPage extends StatefulWidget {
@@ -102,7 +107,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const RoadMaintenancePage()),
+                                builder: (context) =>
+                                const Machines()),
                           );
                         },
                         child: Column(
@@ -114,7 +120,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                             ),
                             const SizedBox(height: 10),
                             const Text(
-                              'Machines',
+                              'Machine',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -176,22 +182,289 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
             );
             break;
           case 1:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SewerageWork()),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text(
+                    'Select your Work',
+                    style: TextStyle(
+                      color: Color(0xFFC69840),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Exavation()),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/exavation.png',
+                                  height: 100,
+                                  width: 100,
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Exavation',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFC69840),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 40),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Backfiling()),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/backfiling.png',
+                                  height: 100,
+                                  width: 100,
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Back Filling',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFC69840),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                        ],
+                      ),
+                      const SizedBox(height: 20), // Adjust height as needed
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Manholes()),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/manholes.png',
+                                  height: 100,
+                                  width: 100,
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Manholes',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFC69840),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 40),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const Pipeline()),
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Image.asset(
+                                  'assets/images/pipelines.png',
+                                  height: 100,
+                                  width: 100,
+                                ),
+                                const SizedBox(height: 10),
+                                const Text(
+                                  'Pipelines',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xFFC69840),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      child: const Text(
+                        'Close',
+                        style: TextStyle(color: Color(0xFFC69840)),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  backgroundColor: Colors.white,
+                  elevation: 5,
+                  contentPadding: const EdgeInsets.all(20),
+                );
+              },
             );
             break;
           case 2:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LightPolesWork()),
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text(
+                    'Select Your Work',
+                    style: TextStyle(
+                      color: Color(0xFFC69840),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                const Polesfoundation()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/pol-01.png',
+                              height: 100,
+                              width: 100,
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              'Poles Exavation',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFC69840),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Poles()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/polesssssss-01.png',
+                              height: 100,
+                              width: 100,
+                            ),
+                            const SizedBox(height: 5),
+                            const Text(
+                              'Poles',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFC69840),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const LightWiresWork()),
+                          );
+                        },
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/images/lightwire-01.png',
+                              height: 100,
+                              width: 100,
+                            ),
+                            const SizedBox(height: 5),
+                            const Text(
+                              'Light Wires',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFFC69840),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    TextButton(
+                      child: const Text(
+                        'Close',
+                        style: TextStyle(color: Color(0xFFC69840)),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  backgroundColor: Colors.white,
+                  elevation: 5,
+                  contentPadding: const EdgeInsets.all(20),
+                );
+              },
             );
             break;
           case 3:
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => Maindrain()),
-          // );
+
             break;
         }
       },
@@ -200,7 +473,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
         width: screenWidth,
         curve: Curves.linear,
         duration: Duration(milliseconds: 300 + (index * 200)),
-        transform: Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
+        transform:
+        Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
         margin: const EdgeInsets.only(
           bottom: 12,
         ),

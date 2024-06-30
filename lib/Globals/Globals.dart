@@ -1,8 +1,4 @@
-
-
-
 import 'dart:async';
-
 
 bool isClockedIn = false;
 late Timer timer;

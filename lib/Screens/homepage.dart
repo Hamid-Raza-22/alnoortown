@@ -1,9 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../ViewModels/AllNoorViewModel.dart';
-  // Ensure this import path matches your project structure
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -54,7 +51,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         ),
                         subtitle: Obx(() {
                           return Text(
-
                             controller.formattedDurationString.value,
                             style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white54),
                           );
@@ -81,10 +77,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           mainAxisSpacing: 26,
                           shrinkWrap: true,
                           children: <Widget>[
-                            buildCard(context, 'assets/images/development_work.png', '/development'),
-                            buildCard(context, 'assets/images/material_shifting.png', '/materialShifting'),
-                            buildCard(context, 'assets/images/new_material.png', '/newMaterial'),
-                            buildCard(context, 'assets/images/building_work.png', '/buildingWork'),
+                            buildCard(context, 'assets/images/development_work.png', 'Development Work', '/development'),
+                            buildCard(context, 'assets/images/material_shifting.png', 'Material Shifting', '/materialShifting'),
+                            buildCard(context, 'assets/images/new_material.png', 'New Material', '/newMaterial'),
+                            buildCard(context, 'assets/images/building_work.png', 'Building Work', '/buildingWork'),
                           ],
                         ),
                       ],
@@ -104,14 +100,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 },
                 icon: Icon(
                   controller.isClockedIn.value ? Icons.timer_off : Icons.timer,
-                  color: controller.isClockedIn.value ? const Color(0xFFC69840):const Color(0xFFC69840),
+                  color: const Color(0xFFC69840),
                 ),
                 label: Text(
                   controller.isClockedIn.value ? 'Clock Out' : 'Clock In',
                   style: const TextStyle(fontSize: 14),
                 ),
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: controller.isClockedIn.value ? const Color(0xFFC69840) : const Color(0xFFC69840),
+                  foregroundColor: const Color(0xFFC69840),
                   backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -124,7 +120,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       ),
     );
   }
-  Widget buildCard(BuildContext context, String imagePath, String route) {
+
+  Widget buildCard(BuildContext context, String imagePath, String name, String route) {
     return GestureDetector(
       onTap: () {
         Get.toNamed(route);
@@ -155,12 +152,23 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                 width: 1.5,
               ),
             ),
-            child: Center(
-              child: Image.asset(
-                imagePath,
-                height: 120,
-                width: 120,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  imagePath,
+                  height: 120,
+                  width: 120,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  name,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Color(0xFFC69840),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
             ),
           ),
         ),

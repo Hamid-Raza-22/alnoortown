@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class RoadMaintenancePage extends StatefulWidget {
-  const RoadMaintenancePage({super.key});
+class Machines extends StatefulWidget {
+  const Machines({super.key});
 
   @override
-  _RoadMaintenancePageState createState() => _RoadMaintenancePageState();
+  _MachinesState createState() => _MachinesState();
 }
 
-class _RoadMaintenancePageState extends State<RoadMaintenancePage> {
+class _MachinesState extends State<Machines> {
   final List<String> machines = [
     "Excavator", "Bulldozer", "Crane", "Loader", "Dump Truck", "Forklift", "Paver", "Other"
   ];

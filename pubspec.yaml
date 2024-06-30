@@ -88,6 +88,15 @@ flutter:
     - assets/images/water_tanker.png
     - assets/images/truck-01.png
     - assets/images/machinespage.gif
+    - assets/images/exavation.png
+    - assets/images/pipelines.png
+    - assets/images/manholes.png
+    - assets/images/backfiling.png
+    - assets/images/pol-01.png
+    - assets/images/polesssssss-01.png
+    - assets/images/wire-01.png
+    - assets/images/lightwire-01.png
+
 
   # assets:
   #   - images/a_dot_burr.jpeg
