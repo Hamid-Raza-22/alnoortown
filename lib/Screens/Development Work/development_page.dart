@@ -1,13 +1,23 @@
-import 'package:al_noor_town/Screens/light%20_wires_work.dart';
-import 'package:al_noor_town/Screens/pipe_lying.dart';
-import 'package:al_noor_town/Screens/poles.dart';
+
 import 'package:flutter/material.dart';
-import 'backfilling.dart';
-import 'exavation.dart';
-import 'manholes.dart';
-import 'machines.dart';
-import 'poles_foundation.dart';
-import 'water_tanker.dart';
+
+import 'Light poles work/light _wires_work.dart';
+import 'Light poles work/poles.dart';
+import 'Light poles work/poles_foundation.dart';
+import 'Main Drain Work/asphaltwork.dart';
+import 'Main Drain Work/brick_work.dart';
+import 'Main Drain Work/iron_work.dart';
+import 'Main Drain Work/main_drain_exavation.dart';
+import 'Main Drain Work/manholes _slabs.dart';
+import 'Main Drain Work/plaster_work.dart';
+import 'Main Drain Work/shuttering_work.dart';
+import 'Road Maintenance/machines.dart';
+import 'Road Maintenance/water_tanker.dart';
+import 'Sewerage Work/backfilling.dart';
+import 'Sewerage Work/exavation.dart';
+import 'Sewerage Work/manholes.dart';
+import 'Sewerage Work/pipe_lying.dart';
+
 
 class DevelopmentPage extends StatefulWidget {
   const DevelopmentPage({super.key});
@@ -464,7 +474,249 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
             );
             break;
           case 3:
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
 
+                return AlertDialog(
+                  title: const Text(
+                    'Select Your Work',
+                    style: TextStyle(
+                      color: Color(0xFFC69840),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  content: SingleChildScrollView(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const BrickWork()),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/pol-01.png',
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  const Text(
+                                    'BrickWork',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFC69840),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const PlasterWork()),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/polesssssss-01.png',
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  const Text(
+                                    'Plaster Work',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFC69840),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const ShutteringWork()),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/lightwire-01.png',
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  const Text(
+                                    'Shuttering Work',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFC69840),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 10), // Reduced space between columns
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const IronWork()),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/exavation.png',
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  const Text(
+                                    'Iron Work',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFC69840),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 15),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const ManholesSlabs()),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/exavation.png',
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  const Text(
+                                    'Manholes Slabs',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFC69840),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const AsphaltWork()),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/exavation.png',
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  const Text(
+                                    'Asphalt Work',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFC69840),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 5),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const MainDrainExavation()),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  Image.asset(
+                                    'assets/images/exavation.png',
+                                    height: 80,
+                                    width: 80,
+                                  ),
+                                  const SizedBox(height: 5),
+                                  const Text(
+                                    'Main Drain Exavation',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color(0xFFC69840),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  actions: [
+                    TextButton(
+                      child: const Text(
+                        'Close',
+                        style: TextStyle(color: Color(0xFFC69840)),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  backgroundColor: Colors.white,
+                  elevation: 5,
+                  contentPadding: const EdgeInsets.all(20),
+                );
+
+
+
+
+
+
+              },
+            );
             break;
         }
       },
