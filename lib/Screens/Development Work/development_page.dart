@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 
+import '../Building Work/Mosque/mosque_exavation_work.dart';
 import 'Light poles work/light _wires_work.dart';
 import 'Light poles work/poles.dart';
 import 'Light poles work/poles_foundation.dart';
@@ -428,7 +429,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const LightWiresWork()),
+                                builder: (context) => const MosqueExavationWork()),
                           );
                         },
                         child: Column(

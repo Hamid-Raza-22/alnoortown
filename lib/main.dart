@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'ViewModels/AllNoorViewModel.dart';
-import 'Screens/Building Work/building_work.dart';
+import 'Screens/Building Work/Mosque/mosque_exavation_work.dart';
 import 'Screens/Development Work/development_page.dart';
 import 'Screens/homepage.dart';
 import 'Screens/Material Shifting/material_shifting.dart';
@@ -23,7 +23,7 @@ Future<void> main() async {
         GetPage(name: '/development', page: () => const DevelopmentPage()),
         GetPage(name: '/materialShifting', page: () => const MaterialShiftingPage()),
       GetPage(name: '/newMaterial', page: () => const NewMaterial()),
-      GetPage(name: '/buildingWork', page: () => const BuildingWork()),
+      GetPage(name: '/buildingWork', page: () => const MosqueExavationWork()),
     ],
 
   ),
