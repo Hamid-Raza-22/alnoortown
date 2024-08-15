@@ -26,6 +26,31 @@ class HomeController extends GetxController {
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   void _saveCurrentTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     DateTime currentTime = DateTime.now();
@@ -168,4 +193,5 @@ class HomeController extends GetxController {
       payload: 'item x',
     );
   }
+
 }

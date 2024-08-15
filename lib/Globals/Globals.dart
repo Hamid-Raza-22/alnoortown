@@ -1,5 +1,13 @@
 import 'dart:async';
-
+String tableNameMachine= 'machine';
+String tableNameTanker='tanker';
+String tableNameExavation='exavation';
+String tableNameFiling='filing';
+String tableNameManholes='manholes';
+String tableNamePipeline='pipeline';
+String tableNameLight='light';
+String tableNamePolesExavation='polesExavation';
+String tableNamePoles='poles';
 bool isClockedIn = false;
 late Timer timer;
 int secondsPassed=0;
