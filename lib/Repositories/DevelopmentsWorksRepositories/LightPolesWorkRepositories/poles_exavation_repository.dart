@@ -12,7 +12,7 @@ class PolesExavationRepository{
 
   Future<List<PolesExavationModel>> getPolesExavation() async{
     var dbClient = await dbHelper.db;
-    List<Map> maps = await dbClient.query(tableNameLight,columns:['id','blockNo','streetNo','lengthTotal']);
+    List<Map> maps = await dbClient.query(tableNamePolesExavation,columns:['id','blockNo','streetNo','lengthTotal']);
     List<PolesExavationModel> polesExavation = [];
     for(int i = 0; i<maps.length; i++)
     {

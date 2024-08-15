@@ -1,29 +1,29 @@
-class PlasterWorkModel{
+class ManholesSlabModel{
   int? id;
   String? blockNo;
   String? streetNo;
-  String? completedLength;
+  String? numOfCompSlab;
 
 
 
 
-  PlasterWorkModel({
+  ManholesSlabModel({
     this.id,
     this.blockNo,
     this.streetNo,
-    this.completedLength,
+    this.numOfCompSlab,
 
 
 
   });
 
-  factory PlasterWorkModel.fromMap(Map<dynamic,dynamic>json)
+  factory ManholesSlabModel.fromMap(Map<dynamic,dynamic>json)
   {
-    return PlasterWorkModel(
+    return ManholesSlabModel(
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
-      completedLength: json['completedLength'],
+      numOfCompSlab: json['numOfCompSlab'],
 
 
     );
@@ -34,7 +34,7 @@ class PlasterWorkModel{
       'id':id,
       'blockNo':blockNo,
       'streetNo':streetNo,
-      'completedLength':completedLength,
+      'numOfCompSlab':numOfCompSlab,
 
     };
   }

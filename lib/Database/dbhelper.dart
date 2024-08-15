@@ -19,7 +19,7 @@ class DBHelper{
   }
   initDatabase() async{
     io.Directory documentDirectory = await getApplicationDocumentsDirectory();
-    String path = join(documentDirectory.path,'alnoor.db');
+    String path = join(documentDirectory.path,'alNoor.db');
     var db = openDatabase(path,version: 1,onCreate: _onCreate);
     return db;
   }
@@ -30,5 +30,21 @@ class DBHelper{
     db.execute("CREATE TABLE filing(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, status TEXT)");
     db.execute("CREATE TABLE pipeline(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT)");
     db.execute("CREATE TABLE light(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, totalLength TEXT)");
+    db.execute("CREATE TABLE polesExavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, lengthTotal TEXT)");
+    db.execute("CREATE TABLE poles(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, totalLength TEXT)");
+    db.execute("CREATE TABLE asphalt(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfTons TEXT,backFillingStatus TEXT)");
+    db.execute("CREATE TABLE brick(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT)");
+    db.execute("CREATE TABLE iron(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfTons TEXT,backFillingStatus TEXT)");
+    db.execute("CREATE TABLE drain(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT)");
+    db.execute("CREATE TABLE slab(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfCompSlab TEXT)");
+    db.execute("CREATE TABLE plaster(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT)");
+    db.execute("CREATE TABLE shuttering(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT)");
+    db.execute("CREATE TABLE shifting(id INTEGER PRIMARY KEY,fromBlock TEXT, toBlock TEXT, numOfShift TEXT)");
+    db.execute("CREATE TABLE shuttering(id INTEGER PRIMARY KEY,blockNo TEXT, completionStatus TEXT)");
+    db.execute("CREATE TABLE newMaterials(id INTEGER PRIMARY KEY,sand TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT)");
+
+
+
+
   }
 }

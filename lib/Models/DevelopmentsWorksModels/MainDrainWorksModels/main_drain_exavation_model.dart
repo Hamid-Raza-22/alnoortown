@@ -1,4 +1,4 @@
-class PlasterWorkModel{
+class MainDrainExavationModel{
   int? id;
   String? blockNo;
   String? streetNo;
@@ -7,7 +7,7 @@ class PlasterWorkModel{
 
 
 
-  PlasterWorkModel({
+  MainDrainExavationModel({
     this.id,
     this.blockNo,
     this.streetNo,
@@ -17,9 +17,9 @@ class PlasterWorkModel{
 
   });
 
-  factory PlasterWorkModel.fromMap(Map<dynamic,dynamic>json)
+  factory MainDrainExavationModel.fromMap(Map<dynamic,dynamic>json)
   {
-    return PlasterWorkModel(
+    return MainDrainExavationModel(
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
