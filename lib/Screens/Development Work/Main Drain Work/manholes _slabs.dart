@@ -1,14 +1,21 @@
+import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/manholes_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/manholes_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class ManholesSlabs extends StatefulWidget {
   const ManholesSlabs({super.key});
 
   @override
-  _ManholesSlabsState createState() => _ManholesSlabsState();
+  ManholesSlabsState createState() => ManholesSlabsState();
 }
 
-class _ManholesSlabsState extends State<ManholesSlabs> {
+class ManholesSlabsState extends State<ManholesSlabs> {
+  ManholesViewModel manholesViewModel=Get.put(ManholesViewModel());
+  DBHelper dbHelper = DBHelper();
+  int? manId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
   List<Map<String, dynamic>> containerDataList = [];
@@ -134,11 +141,18 @@ class _ManholesSlabsState extends State<ManholesSlabs> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
 
+                  await manholesViewModel.addWorker(ManholesModel(
+                    id: manId,
+                    blockNo: selectedBlock,
+                    streetNo: selectedStreet,
+                    length: numTankers,
+                  ));
+                  // await dbHelper.showAsphaltData();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

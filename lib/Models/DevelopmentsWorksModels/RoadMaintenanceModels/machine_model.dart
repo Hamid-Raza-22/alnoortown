@@ -1,10 +1,12 @@
 class MachineModel{
   int? id;
-  String? blockNo;
+  dynamic blockNo;
   String? streetNo;
-  String? machine;
+  dynamic machine;
   String? timeIn;
-  String? timeOut;
+  dynamic timeOut;
+  dynamic date;
+
 
   MachineModel({
     this.id,
@@ -12,7 +14,8 @@ class MachineModel{
     this.streetNo,
     this.machine,
     this.timeIn,
-    this.timeOut
+    this.timeOut,
+    this.date
   });
 
   factory MachineModel.fromMap(Map<dynamic,dynamic>json)
@@ -24,6 +27,7 @@ class MachineModel{
       machine: json['machine'],
       timeIn: json['timeIn'],
       timeOut: json['timeOut'],
+      date:  json['date']
     );
   }
 
@@ -35,6 +39,7 @@ class MachineModel{
       'machine':machine,
       'timeIn':timeIn,
       'timeOut':timeOut,
+      'date':date
     };
   }
 }

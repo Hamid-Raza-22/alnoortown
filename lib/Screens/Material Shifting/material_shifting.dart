@@ -1,5 +1,9 @@
+import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Models/MaterialShiftingModels/shifting_work_model.dart';
+import 'package:al_noor_town/ViewModels/MaterialShiftingViewModel/material_shifting_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class MaterialShiftingPage extends StatefulWidget {
   const MaterialShiftingPage({super.key});
@@ -9,6 +13,9 @@ class MaterialShiftingPage extends StatefulWidget {
 }
 
 class _MaterialShiftingPageState extends State<MaterialShiftingPage> {
+  MaterialShiftingViewModel materialShiftingViewModel=Get.put(MaterialShiftingViewModel());
+  DBHelper dbHelper = DBHelper();
+  int? shiftId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   List<Map<String, dynamic>> containerDataList = [];
@@ -151,15 +158,24 @@ class _MaterialShiftingPageState extends State<MaterialShiftingPage> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {
-                  final selectedBlock = containerData["selectedBlock"];
-                  final selectedStreet = containerData["selectedStreet"];
-                  final selectedShifting = containerData["selectedShifting"];
+                onPressed: () async {
+                  final fromBlock = containerData["fromBlock"];
+                  final toBlock = containerData["toBlock"];
+                  final numOfShift = containerData["numOfShift"];
+
+                  await materialShiftingViewModel.addPipe(ShiftingWorkModel(
+                    id: shiftId,
+                    fromBlock: fromBlock,
+                    toBlock: toBlock,
+                    numOfShift: numOfShift,
+
+                  ));
+                  // await dbHelper.showAsphaltData();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Shifting: $selectedShifting',
+                        'Selected: $fromBlock, $toBlock, No. of Shifting: $numOfShift',
                       ),
                     ),
                   );

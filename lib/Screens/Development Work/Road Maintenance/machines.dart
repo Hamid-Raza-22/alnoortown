@@ -1,14 +1,22 @@
+import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import '../../../Models/DevelopmentsWorksModels/RoadMaintenanceModels/machine_model.dart';
 
 class Machines extends StatefulWidget {
   const Machines({super.key});
 
   @override
-  _MachinesState createState() => _MachinesState();
+  MachinesState createState() => MachinesState();
 }
 
-class _MachinesState extends State<Machines> {
+class MachinesState extends State<Machines> {
+  MachineViewModel machineViewModel=Get.put(MachineViewModel());
+  DBHelper dbHelper = DBHelper();
+  int? machineId;
   final List<String> machines = [
     "Excavator", "Bulldozer", "Crane", "Loader", "Dump Truck", "Forklift", "Paver", "Other"
   ];
@@ -225,10 +233,10 @@ class _MachinesState extends State<Machines> {
                                     ),
                                     TextButton(
                                       style: ButtonStyle(
-                                        backgroundColor: MaterialStateProperty
+                                        backgroundColor: WidgetStateProperty
                                             .all<Color>(
                                             const Color(0xFFC69840)),
-                                        padding: MaterialStateProperty.all<
+                                        padding: WidgetStateProperty.all<
                                             EdgeInsets>(
                                           const EdgeInsets.symmetric(
                                               horizontal: 16.0),
@@ -278,12 +286,29 @@ class _MachinesState extends State<Machines> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final selectedMachine = containerData["selectedMachine"];
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final clockInTime = containerData["clockInTime"];
                   final clockOutTime = containerData["clockOutTime"];
+                  {
+                    await machineViewModel.addMachine(MachineModel(
+                        id: machineId,
+                        blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      machine: selectedMachine,
+                      timeIn: clockInTime,
+                      timeOut: clockOutTime,
+
+                    ));
+
+                   // await machineViewModel.deleteMachine(11);
+                   // await dbHelper.showMachineData();
+                    await machineViewModel.fetchAllMachine();
+                   // nameController.text = "";
+                  }
+
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

@@ -5,10 +5,10 @@ class LightWiresWork extends StatefulWidget {
   const LightWiresWork({super.key});
 
   @override
-  _LightWiresWorkState createState() => _LightWiresWorkState();
+  LightWiresWorkState createState() => LightWiresWorkState();
 }
 
-class _LightWiresWorkState extends State<LightWiresWork> {
+class LightWiresWorkState extends State<LightWiresWork> {
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
   List<Map<String, dynamic>> containerDataList = [];
@@ -41,7 +41,7 @@ class _LightWiresWorkState extends State<LightWiresWork> {
             height: double.infinity,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/lightwire-01.png'),
+                image: AssetImage('assets/images/lightWire-01.png'),
                 fit: BoxFit.fitHeight,
               ),
             ),

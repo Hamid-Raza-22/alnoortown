@@ -1,5 +1,9 @@
+import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/mosque_exavation_work.dart';
+import 'package:al_noor_town/ViewModels/BuidingWorkViewModel/mosque_exavation_view_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class MosqueExavationWork extends StatefulWidget {
   const MosqueExavationWork({super.key});
@@ -9,6 +13,9 @@ class MosqueExavationWork extends StatefulWidget {
 }
 
 class _MosqueExavationWorkState extends State<MosqueExavationWork> {
+  MosqueExavationViewMode mosqueExavationViewMode=Get.put(MosqueExavationViewMode());
+  DBHelper dbHelper = DBHelper();
+  int? mosqueId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   List<Map<String, dynamic>> containerDataList = [];
 
@@ -111,14 +118,22 @@ class _MosqueExavationWorkState extends State<MosqueExavationWork> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
-                  final status = containerData["status"];
+                  final completionStatus = containerData["completionStatus"];
+
+                  await mosqueExavationViewMode.addLight(MosqueExavationWorkModel(
+                    id: mosqueId,
+                    blockNo: selectedBlock,
+                    completionStatus: completionStatus,
+
+                  ));
+                  // await dbHelper.showAsphaltData();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, Backfilling Status: $status',
+                        'Selected: $selectedBlock, Backfilling completionStatus: $completionStatus',
                       ),
                     ),
                   );

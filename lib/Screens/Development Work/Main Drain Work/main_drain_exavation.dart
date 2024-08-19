@@ -1,5 +1,9 @@
+import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/main_drain_exavation_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/main_drain_exavation_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class MainDrainExavation extends StatefulWidget {
   const MainDrainExavation({super.key});
@@ -9,6 +13,9 @@ class MainDrainExavation extends StatefulWidget {
 }
 
 class _MainDrainExavationState extends State<MainDrainExavation> {
+  MainDrainExavationViewModel mainDrainExavationViewModel=Get.put(MainDrainExavationViewModel());
+  DBHelper dbHelper = DBHelper();
+  int? drainId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
   List<Map<String, dynamic>> containerDataList = [];
@@ -134,10 +141,19 @@ class _MainDrainExavationState extends State<MainDrainExavation> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+
+                  await mainDrainExavationViewModel.addWork(MainDrainExavationModel(
+                    id: drainId,
+                    blockNo: selectedBlock,
+                    streetNo: selectedStreet,
+                    completedLength: numTankers,
+
+                  ));
+                  // await dbHelper.showAsphaltData();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

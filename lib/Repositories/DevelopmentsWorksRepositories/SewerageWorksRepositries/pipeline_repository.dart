@@ -6,8 +6,6 @@ import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/
 
 
 
-
-
 class PipelineRepository{
 
   DBHelper dbHelper = DBHelper();

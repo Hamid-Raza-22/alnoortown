@@ -1,6 +1,6 @@
 class MosqueExavationWorkModel{
   int? id;
-  String? blockNo;
+  dynamic blockNo;
   String? completionStatus;
 
 

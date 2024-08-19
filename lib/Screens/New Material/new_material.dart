@@ -1,5 +1,8 @@
+import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class NewMaterial extends StatefulWidget {
   const NewMaterial({Key? key}) : super(key: key);
@@ -9,6 +12,9 @@ class NewMaterial extends StatefulWidget {
 }
 
 class _NewMaterialState extends State<NewMaterial> {
+  NewMaterialViewModel newMaterialViewModel=Get.put(NewMaterialViewModel());
+  DBHelper dbHelper = DBHelper();
+  int? brickId;
   List<Map<String, dynamic>> containerDataList = [];
 
   @override

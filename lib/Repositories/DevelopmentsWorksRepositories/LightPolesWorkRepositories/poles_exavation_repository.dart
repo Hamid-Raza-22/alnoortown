@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/dbhelper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_exavation_model.dart';
+import 'package:flutter/foundation.dart';
+
 
 
 
@@ -10,16 +12,45 @@ class PolesExavationRepository{
 
   DBHelper dbHelper = DBHelper();
 
-  Future<List<PolesExavationModel>> getPolesExavation() async{
+  Future<List<PolesExavationModel>> getPolesExavation() async {
+    // Get the database client
     var dbClient = await dbHelper.db;
-    List<Map> maps = await dbClient.query(tableNamePolesExavation,columns:['id','blockNo','streetNo','lengthTotal']);
+
+    // Query the database
+    List<Map> maps = await dbClient.query(
+        tableNamePolesExavation,
+        columns: ['id', 'blockNo', 'streetNo', 'tankerNo']
+    );
+
+    // Print the raw data retrieved from the database
+    if (kDebugMode) {
+      print('Raw data from database:');
+    }
+    for (var map in maps) {
+      if (kDebugMode) {
+        print(map);
+      }
+    }
+
+    // Convert the raw data into a list of MachineModel objects
     List<PolesExavationModel> polesExavation = [];
-    for(int i = 0; i<maps.length; i++)
-    {
+    for (int i = 0; i < maps.length; i++) {
       polesExavation.add(PolesExavationModel.fromMap(maps[i]));
     }
+
+    // Print the list of MachineModel objects
+    if (kDebugMode) {
+      print('Parsed TankerModel objects:');
+    }
+    // for (var item in machine) {
+    //   if (kDebugMode) {
+    //     print(item);
+    //   }
+    // }
+
     return polesExavation;
   }
+
 
 
 

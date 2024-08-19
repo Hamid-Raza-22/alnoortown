@@ -3,21 +3,48 @@
 import 'package:al_noor_town/Database/dbhelper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/light_wires_model.dart';
-
-
+import 'package:flutter/foundation.dart';
 
 class LightWiresRepository{
 
   DBHelper dbHelper = DBHelper();
 
-  Future<List<LightWiresModel>> getLightWires() async{
+  Future<List<LightWiresModel>> getLightWires() async {
+    // Get the database client
     var dbClient = await dbHelper.db;
-    List<Map> maps = await dbClient.query(tableNameLight,columns:['id','blockNo','streetNo','machine','timeIn','timeOut']);
+
+    // Query the database
+    List<Map> maps = await dbClient.query(
+        tableNameLight,
+        columns: ['id', 'blockNo', 'streetNo', 'tankerNo']
+    );
+
+    // Print the raw data retrieved from the database
+    if (kDebugMode) {
+      print('Raw data from database:');
+    }
+    for (var map in maps) {
+      if (kDebugMode) {
+        print(map);
+      }
+    }
+
+    // Convert the raw data into a list of MachineModel objects
     List<LightWiresModel> lightWires = [];
-    for(int i = 0; i<maps.length; i++)
-    {
+    for (int i = 0; i < maps.length; i++) {
       lightWires.add(LightWiresModel.fromMap(maps[i]));
     }
+
+    // Print the list of MachineModel objects
+    if (kDebugMode) {
+      print('Parsed LightWiresModel objects:');
+    }
+    // for (var item in machine) {
+    //   if (kDebugMode) {
+    //     print(item);
+    //   }
+    // }
+
     return lightWires;
   }
 

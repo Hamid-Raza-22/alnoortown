@@ -2,8 +2,7 @@ class IronWorksModel{
   int? id;
   String? blockNo;
   String? streetNo;
-  String? numOfTons;
-  String? backFillingStatus;
+  String? completedLength;
 
 
 
@@ -11,8 +10,7 @@ class IronWorksModel{
     this.id,
     this.blockNo,
     this.streetNo,
-    this.numOfTons,
-    this.backFillingStatus,
+    this.completedLength,
 
 
   });
@@ -23,8 +21,7 @@ class IronWorksModel{
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
-      numOfTons: json['numOfTons'],
-      backFillingStatus: json['backFillingStatus'],
+      completedLength: json['completedLength'],
 
     );
   }
@@ -33,8 +30,7 @@ class IronWorksModel{
     return {
       'id':id,
       'blockNo':blockNo,
-      'streetNo':streetNo,
-      'backFillingStatus':backFillingStatus,
+      'completedLength':completedLength,
 
     };
   }

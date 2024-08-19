@@ -1,5 +1,9 @@
+import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/tanker_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/tanker_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:wave/wave.dart';
 import 'package:wave/config.dart';
 
@@ -10,7 +14,10 @@ class WaterTanker extends StatefulWidget {
   _WaterTankerState createState() => _WaterTankerState();
 }
 
-class _WaterTankerState extends State<WaterTanker> {
+class _WaterTankerState extends State<WaterTanker>  {
+  TankerViewModel tankerViewModel=Get.put(TankerViewModel());
+  DBHelper dbHelper = DBHelper();
+  int? tankerId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
   List<Map<String, dynamic>> containerDataList = [];
@@ -146,10 +153,24 @@ class _WaterTankerState extends State<WaterTanker> {
                 const SizedBox(height: 20),
                 Center(
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       final selectedBlock = containerData["selectedBlock"];
                       final selectedStreet = containerData["selectedStreet"];
                       final selectedTankers = containerData["selectedTankers"];
+                      {
+                       await tankerViewModel.addTanker(TankerModel(
+                            id: tankerId,
+                            blockNo: selectedBlock,
+                            streetNo: selectedStreet,
+                            tankerNo: selectedTankers,
+
+
+
+                        ));
+                       await tankerViewModel.fetchAllTanker();
+                       // await dbHelper.showTankerData();
+                        // nameController.text = "";
+                      }
 
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

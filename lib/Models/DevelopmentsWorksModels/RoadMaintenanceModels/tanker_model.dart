@@ -2,7 +2,7 @@ class TankerModel{
   int? id;
   String? blockNo;
   String? streetNo;
-  String? tankerNo;
+  dynamic tankerNo;
 
 
   TankerModel ({
