@@ -9,10 +9,10 @@ class MaterialShiftingPage extends StatefulWidget {
   const MaterialShiftingPage({super.key});
 
   @override
-  _MaterialShiftingPageState createState() => _MaterialShiftingPageState();
+  MaterialShiftingPageState createState() => MaterialShiftingPageState();
 }
 
-class _MaterialShiftingPageState extends State<MaterialShiftingPage> {
+class MaterialShiftingPageState extends State<MaterialShiftingPage> {
   MaterialShiftingViewModel materialShiftingViewModel=Get.put(MaterialShiftingViewModel());
   DBHelper dbHelper = DBHelper();
   int? shiftId;
@@ -162,16 +162,18 @@ class _MaterialShiftingPageState extends State<MaterialShiftingPage> {
                   final fromBlock = containerData["fromBlock"];
                   final toBlock = containerData["toBlock"];
                   final numOfShift = containerData["numOfShift"];
+                  {
+                    await materialShiftingViewModel.addShift(ShiftingWorkModel(
+                      id: shiftId,
+                      fromBlock: fromBlock,
+                      toBlock: toBlock,
+                      numOfShift: numOfShift,
 
-                  await materialShiftingViewModel.addPipe(ShiftingWorkModel(
-                    id: shiftId,
-                    fromBlock: fromBlock,
-                    toBlock: toBlock,
-                    numOfShift: numOfShift,
 
-                  ));
-                  // await dbHelper.showAsphaltData();
-
+                    ));
+                    await materialShiftingViewModel.fetchAllShifting();
+                    // await dbHelper.showAsphaltData();
+                  }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

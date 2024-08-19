@@ -145,16 +145,17 @@ class _ManholesState extends State<Manholes> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  {
+                    await manholesViewModel.addWorker(ManholesModel(
+                      id: holeId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      length: numTankers,
 
-                  await manholesViewModel.addWorker(ManholesModel(
-                    id: holeId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    length: numTankers,
-
-                  ));
-                  // await dbHelper.showAsphaltData();
-
+                    ));
+                    await manholesViewModel.fetchAllWorker();
+                    // await dbHelper.showAsphaltData();
+                  }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

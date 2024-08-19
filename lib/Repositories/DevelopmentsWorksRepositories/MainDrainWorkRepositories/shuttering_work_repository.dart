@@ -18,7 +18,7 @@ class ShutteringWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameShuttering,
-        columns: ['id', 'blockNo', 'streetNo', 'tankerNo']
+        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date']
     );
 
     // Print the raw data retrieved from the database

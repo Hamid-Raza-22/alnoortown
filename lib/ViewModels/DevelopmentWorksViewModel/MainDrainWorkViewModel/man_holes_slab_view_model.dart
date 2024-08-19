@@ -12,7 +12,7 @@ class ManHolesSlabViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllMan ();
+    //fetchAllMan ();
   }
 
   fetchAllMan() async{
@@ -23,7 +23,7 @@ class ManHolesSlabViewModel extends GetxController {
 
   addMan(ManholesSlabModel manholesSlabModel){
     manholesSlabRepository.add(manholesSlabModel);
-    fetchAllMan();
+    //fetchAllMan();
   }
 
   updateMan(ManholesSlabModel manholesSlabModel){

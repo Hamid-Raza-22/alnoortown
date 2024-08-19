@@ -35,7 +35,7 @@ class DBHelper{
     db.execute(
         "CREATE TABLE pipeline(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT, date TEXT)");
     db.execute(
-        "CREATE TABLE light(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, totalLength TEXT, date TEXT)");
+        "CREATE TABLE light(id INTEGER PRIMARY KEY,blockNo TEXT, status TEXT, date TEXT)");
     db.execute(
         "CREATE TABLE polesExavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, lengthTotal TEXT, date TEXT)");
     db.execute(

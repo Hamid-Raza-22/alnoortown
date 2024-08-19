@@ -1,15 +1,16 @@
 class PolesExavationModel{
   int? id;
-  String? blockNo;
-  String? streetNo;
-  String? lengthTotal;
-
+  dynamic blockNo;
+  dynamic streetNo;
+  dynamic lengthTotal;
+  dynamic date;
 
   PolesExavationModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.lengthTotal,
+    this.date
 
   });
 
@@ -20,6 +21,7 @@ class PolesExavationModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       lengthTotal: json['lengthTotal'],
+        date:  json['date']
 
     );
   }
@@ -30,6 +32,7 @@ class PolesExavationModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'lengthTotal':lengthTotal,
+      'date':date
 
     };
   }

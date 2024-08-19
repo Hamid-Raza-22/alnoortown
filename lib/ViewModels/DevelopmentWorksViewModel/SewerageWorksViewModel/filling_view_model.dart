@@ -12,7 +12,7 @@ class FillingViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllFill ();
+    //fetchAllFill ();
   }
 
   fetchAllFill() async{
@@ -23,7 +23,7 @@ class FillingViewModel extends GetxController {
 
   addFill(FilingModel filingModel){
     fillingRepository.add(filingModel);
-    fetchAllFill();
+    //fetchAllFill();
   }
 
   updateFill(FilingModel filingModel){

@@ -145,16 +145,17 @@ class _MainDrainExavationState extends State<MainDrainExavation> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  {
+                    await mainDrainExavationViewModel.addWork(
+                        MainDrainExavationModel(
+                          id: drainId,
+                          blockNo: selectedBlock,
+                          streetNo: selectedStreet,
+                          completedLength: numTankers,
 
-                  await mainDrainExavationViewModel.addWork(MainDrainExavationModel(
-                    id: drainId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    completedLength: numTankers,
-
-                  ));
-                  // await dbHelper.showAsphaltData();
-
+                        ));
+                    await mainDrainExavationViewModel.fetchAllDrain();
+                  }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

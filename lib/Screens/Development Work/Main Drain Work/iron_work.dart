@@ -15,7 +15,7 @@ class IronWork extends StatefulWidget {
 class _IronWorkState extends State<IronWork> {
   IronWorkViewModel ironWorkViewModel=Get.put(IronWorkViewModel());
   DBHelper dbHelper = DBHelper();
-  int? brickId;
+  int? ironId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
   List<Map<String, dynamic>> containerDataList = [];
@@ -145,16 +145,18 @@ class _IronWorkState extends State<IronWork> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final completedLength = containerData["numTankers"];
-
+{
                   await ironWorkViewModel.addWorks(IronWorksModel(
-                    id: brickId,
+                    id: ironId,
                     blockNo: selectedBlock,
                     streetNo: selectedStreet,
                     completedLength: completedLength,
 
                   ));
                   // await dbHelper.showAsphaltData();
-                  // nameController.text = "";
+                  await ironWorkViewModel.fetchAllWorks();
+}
+
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

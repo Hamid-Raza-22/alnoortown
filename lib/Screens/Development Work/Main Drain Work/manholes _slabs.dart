@@ -1,5 +1,7 @@
 import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/manholes_slab_model.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/manholes_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/man_holes_slab_view_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/manholes_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +15,7 @@ class ManholesSlabs extends StatefulWidget {
 }
 
 class ManholesSlabsState extends State<ManholesSlabs> {
-  ManholesViewModel manholesViewModel=Get.put(ManholesViewModel());
+  ManHolesSlabViewModel manHolesSlabViewModel=Get.put(ManHolesSlabViewModel());
   DBHelper dbHelper = DBHelper();
   int? manId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
@@ -145,14 +147,15 @@ class ManholesSlabsState extends State<ManholesSlabs> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
-
-                  await manholesViewModel.addWorker(ManholesModel(
-                    id: manId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    length: numTankers,
-                  ));
-                  // await dbHelper.showAsphaltData();
+                  {
+                    await manHolesSlabViewModel.addMan(ManholesSlabModel(
+                      id: manId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      //numTankers: numTankers,
+                    ));
+                    await manHolesSlabViewModel.fetchAllMan();
+                  }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

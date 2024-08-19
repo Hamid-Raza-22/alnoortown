@@ -1,8 +1,9 @@
 class PolesModel{
   int? id;
-  String? blockNo;
-  String? streetNo;
-  String? totalLength;
+  dynamic blockNo;
+  dynamic streetNo;
+  dynamic totalLength;
+  dynamic date;
 
 
   PolesModel({
@@ -10,6 +11,7 @@ class PolesModel{
     this.blockNo,
     this.streetNo,
     this.totalLength,
+    this.date
 
   });
 
@@ -20,6 +22,7 @@ class PolesModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       totalLength: json['totalLength'],
+        date:  json['date']
 
     );
   }
@@ -30,6 +33,7 @@ class PolesModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'totalLength':totalLength,
+      'date':date
 
     };
   }

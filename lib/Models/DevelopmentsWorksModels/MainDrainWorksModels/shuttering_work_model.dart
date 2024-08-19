@@ -1,8 +1,9 @@
 class ShutteringWorkModel{
   int? id;
-  String? blockNo;
-  String? streetNo;
-  String? completedLength;
+  dynamic blockNo;
+  dynamic streetNo;
+  dynamic completedLength;
+  dynamic date;
 
 
 
@@ -12,6 +13,7 @@ class ShutteringWorkModel{
     this.blockNo,
     this.streetNo,
     this.completedLength,
+    this.date
 
 
 
@@ -24,7 +26,7 @@ class ShutteringWorkModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
-
+        date:  json['date']
 
     );
   }
@@ -35,7 +37,7 @@ class ShutteringWorkModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'ShutteringWorkModel':ShutteringWorkModel,
-
+      'date':date
     };
   }
 }

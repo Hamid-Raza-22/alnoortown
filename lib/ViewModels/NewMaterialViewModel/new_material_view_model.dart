@@ -12,7 +12,7 @@ class NewMaterialViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllNew ();
+    //fetchAllNew ();
   }
 
   fetchAllNew() async{
@@ -23,7 +23,7 @@ class NewMaterialViewModel extends GetxController {
 
   addNew(NewMaterialModel newMaterialModel){
     newMaterialRepository.add(newMaterialModel);
-    fetchAllNew();
+    //fetchAllNew();
   }
 
   updateNew(NewMaterialModel newMaterialModel){

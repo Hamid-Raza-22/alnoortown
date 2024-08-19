@@ -12,7 +12,7 @@ class MaterialShiftingViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllShifting ();
+    //fetchAllShifting ();
   }
 
   fetchAllShifting() async{
@@ -21,17 +21,17 @@ class MaterialShiftingViewModel extends GetxController {
 
   }
 
-  addPipe(ShiftingWorkModel shiftingWorkModel){
+  addShift(ShiftingWorkModel shiftingWorkModel){
     shiftingWorkRepository.add(shiftingWorkModel);
-    fetchAllShifting();
+    //fetchAllShifting();
   }
 
-  updatePipe(ShiftingWorkModel shiftingWorkModel){
+  updateShift(ShiftingWorkModel shiftingWorkModel){
     shiftingWorkRepository.update(shiftingWorkModel);
     fetchAllShifting();
   }
 
-  deletePipe(int id){
+  deleteShift(int id){
     shiftingWorkRepository.delete(id);
     fetchAllShifting();
   }

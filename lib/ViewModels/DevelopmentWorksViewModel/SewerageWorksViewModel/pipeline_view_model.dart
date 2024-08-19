@@ -12,7 +12,7 @@ class PipelineViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllPipe ();
+   // fetchAllPipe ();
   }
 
   fetchAllPipe() async{
@@ -23,7 +23,7 @@ class PipelineViewModel extends GetxController {
 
   addPipe(PipelineModel pipelineModel){
     pipelineRepository.add(pipelineModel);
-    fetchAllPipe();
+    //fetchAllPipe();
   }
 
   updatePipe(PipelineModel pipelineModel){

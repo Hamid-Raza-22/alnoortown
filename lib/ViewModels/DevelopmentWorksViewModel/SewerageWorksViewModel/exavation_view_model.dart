@@ -12,7 +12,7 @@ class ExavationViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllExa ();
+    //fetchAllExa ();
   }
 
   fetchAllExa() async{
@@ -23,7 +23,7 @@ class ExavationViewModel extends GetxController {
 
   addExa(ExavationModel exavationModel){
     exavationRepository.add(exavationModel);
-    fetchAllExa();
+    //fetchAllExa();
   }
 
   updateExa(ExavationModel exavationModel){

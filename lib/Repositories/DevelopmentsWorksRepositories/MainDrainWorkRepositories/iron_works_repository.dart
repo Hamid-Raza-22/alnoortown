@@ -19,7 +19,7 @@ class IronWorksRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameIron,
-        columns: ['id', 'blockNo', 'streetNo', 'tankerNo']
+        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date']
     );
 
     // Print the raw data retrieved from the database

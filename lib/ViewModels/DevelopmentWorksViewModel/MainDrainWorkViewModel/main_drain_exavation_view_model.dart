@@ -12,7 +12,7 @@ class MainDrainExavationViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllDrain();
+    //fetchAllDrain();
   }
 
   fetchAllDrain() async{
@@ -23,7 +23,7 @@ class MainDrainExavationViewModel extends GetxController {
 
   addWork(MainDrainExavationModel mainDrainExavationModel){
     mainDrainExavationRepository.add(mainDrainExavationModel);
-    fetchAllDrain();
+    //fetchAllDrain();
   }
 
   updateWork(MainDrainExavationModel mainDrainExavationModel){

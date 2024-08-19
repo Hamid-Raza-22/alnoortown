@@ -145,15 +145,16 @@ class ExavationState extends State<Exavation> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  {
+                    await exavationViewModel.addExa(ExavationModel(
+                      id: exaId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      length: numTankers,
 
-                  await exavationViewModel.addExa(ExavationModel(
-                    id: exaId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    length: numTankers,
-
-                  ));
-                  // await dbHelper.showAsphaltData();
+                    ));
+                    await exavationViewModel.fetchAllExa();
+                  }   // await dbHelper.showAsphaltData();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

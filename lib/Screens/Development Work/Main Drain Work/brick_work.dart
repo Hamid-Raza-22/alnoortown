@@ -156,6 +156,7 @@ class _BrickWorkState extends State<BrickWork> {
                     ));
                    // await dbHelper.showAsphaltData();
                     // nameController.text = "";
+                    await brickWorkViewModel.fetchAllBrick();
                   }
 
                   ScaffoldMessenger.of(context).showSnackBar(

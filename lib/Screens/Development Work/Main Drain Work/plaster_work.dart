@@ -145,14 +145,15 @@ class PlasterWorkState extends State<PlasterWork> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["completedLength"];
-
-                  await plasterWorkViewModel.addMan(PlasterWorkModel(
-                    id: plasterId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    completedLength: numTankers,
-                  ));
-                  // await dbHelper.showAsphaltData();
+                  {
+                    await plasterWorkViewModel.addMan(PlasterWorkModel(
+                      id: plasterId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      completedLength: numTankers,
+                    ));
+                    await plasterWorkViewModel.fetchAllPlaster();
+                  }   // await dbHelper.showAsphaltData();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

@@ -12,7 +12,7 @@ class PolesViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllPole();
+   // fetchAllPole();
   }
 
   fetchAllPole() async{
@@ -23,7 +23,7 @@ class PolesViewModel extends GetxController {
 
   addPole(PolesModel polesModel){
     polesRepository.add(polesModel);
-    fetchAllPole();
+    //fetchAllPole();
   }
 
   updatePole(PolesModel polesModel){

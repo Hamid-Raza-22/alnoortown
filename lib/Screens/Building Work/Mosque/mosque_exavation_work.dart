@@ -9,10 +9,10 @@ class MosqueExavationWork extends StatefulWidget {
   const MosqueExavationWork({super.key});
 
   @override
-  _MosqueExavationWorkState createState() => _MosqueExavationWorkState();
+  MosqueExavationWorkState createState() => MosqueExavationWorkState();
 }
 
-class _MosqueExavationWorkState extends State<MosqueExavationWork> {
+class MosqueExavationWorkState extends State<MosqueExavationWork> {
   MosqueExavationViewMode mosqueExavationViewMode=Get.put(MosqueExavationViewMode());
   DBHelper dbHelper = DBHelper();
   int? mosqueId;
@@ -122,7 +122,7 @@ class _MosqueExavationWorkState extends State<MosqueExavationWork> {
                   final selectedBlock = containerData["selectedBlock"];
                   final completionStatus = containerData["completionStatus"];
 
-                  await mosqueExavationViewMode.addLight(MosqueExavationWorkModel(
+                  await mosqueExavationViewMode.addMosque(MosqueExavationWorkModel(
                     id: mosqueId,
                     blockNo: selectedBlock,
                     completionStatus: completionStatus,

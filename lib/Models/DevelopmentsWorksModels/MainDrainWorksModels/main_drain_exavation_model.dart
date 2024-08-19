@@ -1,9 +1,9 @@
 class MainDrainExavationModel{
   int? id;
-  String? blockNo;
-  String? streetNo;
-  String? completedLength;
-
+  dynamic blockNo;
+  dynamic streetNo;
+  dynamic completedLength;
+  dynamic date;
 
 
 
@@ -12,6 +12,7 @@ class MainDrainExavationModel{
     this.blockNo,
     this.streetNo,
     this.completedLength,
+    this.date
 
 
 
@@ -24,6 +25,7 @@ class MainDrainExavationModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
+        date:  json['date']
 
 
     );
@@ -35,6 +37,7 @@ class MainDrainExavationModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'completedLength':completedLength,
+      'date':date
 
     };
   }

@@ -12,7 +12,7 @@ class ShutteringWorkViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllShutter ();
+    //fetchAllShutter ();
   }
 
   fetchAllShutter() async{
@@ -23,7 +23,7 @@ class ShutteringWorkViewModel extends GetxController {
 
   addShutter(ShutteringWorkModel shutteringWorkModel){
     shutteringWorkRepository.add(shutteringWorkModel);
-    fetchAllShutter();
+    //fetchAllShutter();
   }
 
   updateShutter(ShutteringWorkModel shutteringWorkModel){

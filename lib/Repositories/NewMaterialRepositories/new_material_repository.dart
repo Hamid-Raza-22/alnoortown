@@ -3,6 +3,7 @@
 import 'package:al_noor_town/Database/dbhelper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
 import 'package:al_noor_town/Models/NewMaterialModels/new_material_model.dart';
+import 'package:flutter/foundation.dart';
 
 
 
@@ -10,16 +11,46 @@ class NewMaterialRepository{
 
   DBHelper dbHelper = DBHelper();
 
-  Future<List<NewMaterialModel>> getNewMaterial() async{
+  Future<List<NewMaterialModel>> getNewMaterial() async {
+    // Get the database client
     var dbClient = await dbHelper.db;
-    List<Map> maps = await dbClient.query(tableNameNewMaterials,columns:['id','sand','base','subBase','waterBound','otherMaterial']);
+
+    // Query the database
+    List<Map> maps = await dbClient.query(
+        tableNameNewMaterials,
+        columns: ['id', 'sand', 'base', 'subBase','waterBound','otherMaterial','date']
+    );
+
+    // Print the raw data retrieved from the database
+    if (kDebugMode) {
+      print('Raw data from database:');
+    }
+    for (var map in maps) {
+      if (kDebugMode) {
+        print(map);
+      }
+    }
+
+    // Convert the raw data into a list of MachineModel objects
     List<NewMaterialModel> newMaterial = [];
-    for(int i = 0; i<maps.length; i++)
-    {
+    for (int i = 0; i < maps.length; i++) {
       newMaterial.add(NewMaterialModel.fromMap(maps[i]));
     }
+
+    // Print the list of MachineModel objects
+    if (kDebugMode) {
+      print('Parsed NewMaterialModel objects:');
+    }
+    // for (var item in machine) {
+    //   if (kDebugMode) {
+    //     print(item);
+    //   }
+    // }
+
     return newMaterial;
   }
+
+
 
 
 

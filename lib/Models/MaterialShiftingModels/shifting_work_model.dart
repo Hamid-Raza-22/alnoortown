@@ -1,8 +1,9 @@
 class ShiftingWorkModel{
   int? id;
-  String? fromBlock;
-  String? toBlock;
-  String? numOfShift;
+  dynamic fromBlock;
+  dynamic toBlock;
+  dynamic numOfShift;
+  dynamic date;
 
 
 
@@ -12,6 +13,7 @@ class ShiftingWorkModel{
     this.fromBlock,
     this.toBlock,
     this.numOfShift,
+    this.date
 
 
 
@@ -24,7 +26,7 @@ class ShiftingWorkModel{
       fromBlock: json['fromBlock'],
       toBlock: json['toBlock'],
       numOfShift: json['numOfShift'],
-
+        date:  json['date']
 
     );
   }
@@ -35,7 +37,7 @@ class ShiftingWorkModel{
       'fromBlock':fromBlock,
       'toBlock':toBlock,
       'numOfShift':numOfShift,
-
+      'date':date
     };
   }
 }

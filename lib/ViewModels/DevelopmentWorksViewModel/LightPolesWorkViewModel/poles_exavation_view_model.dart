@@ -11,7 +11,7 @@ class PolesExavationViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllPoleExa();
+    //fetchAllPoleExa();
   }
 
   fetchAllPoleExa() async{
@@ -22,7 +22,7 @@ class PolesExavationViewModel extends GetxController {
 
   addPoleExa(PolesExavationModel polesExavationModel){
     polesExavationRepository.add(polesExavationModel);
-    fetchAllPoleExa();
+    //fetchAllPoleExa();
   }
 
   updatePoleExa(PolesExavationModel polesExavationModel){

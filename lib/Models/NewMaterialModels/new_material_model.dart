@@ -1,11 +1,12 @@
 class NewMaterialModel{
   int? id;
-  String? sand;
-  String? soil;
-  String? base;
-  String? subBase;
-  String? waterBound;
-  String? otherMaterial;
+  dynamic sand;
+  dynamic soil;
+  dynamic base;
+  dynamic subBase;
+  dynamic waterBound;
+  dynamic otherMaterial;
+  dynamic date;
 
 
 
@@ -17,6 +18,7 @@ class NewMaterialModel{
     this.subBase,
     this.waterBound,
     this.otherMaterial,
+    this.date
 
 
 
@@ -32,7 +34,7 @@ class NewMaterialModel{
       subBase: json['subBase'],
       waterBound: json['waterBound'],
       otherMaterial: json['otherMaterial'],
-
+        date:  json['date']
 
     );
   }
@@ -45,6 +47,7 @@ class NewMaterialModel{
       'subBase':subBase,
       'waterBound':waterBound,
       'otherMaterial':otherMaterial,
+      'date':date
 
 
     };

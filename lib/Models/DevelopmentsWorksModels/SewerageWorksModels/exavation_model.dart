@@ -1,9 +1,10 @@
 
 class ExavationModel{
   int? id;
-  String? blockNo;
-  String? streetNo;
-  String? length;
+  dynamic blockNo;
+  dynamic streetNo;
+  dynamic length;
+  dynamic date;
 
 
   ExavationModel({
@@ -11,6 +12,7 @@ class ExavationModel{
     this.blockNo,
     this.streetNo,
     this.length,
+    this.date
 
   });
 
@@ -21,6 +23,7 @@ class ExavationModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       length: json['length'],
+        date:  json['date']
 
     );
   }
@@ -31,6 +34,7 @@ class ExavationModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'length':length,
+      'date':date
 
     };
   }
