@@ -1,18 +1,26 @@
 import 'package:al_noor_town/Screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
-import 'ViewModels/AllNoorViewModel.dart';
+import 'HiveClasses/child.dart';
+import 'HiveClasses/parent.dart';
+import 'ViewModels/all_noor_view_model.dart';
 import 'Screens/Building Work/Mosque/mosque_exavation_work.dart';
 import 'Screens/Development Work/development_page.dart';
-import 'Screens/homepage.dart';
+import 'Screens/home_page.dart';
 import 'Screens/Material Shifting/material_shifting.dart';
 import 'Screens/New Material/new_material.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+  await Hive.initFlutter();
+  Hive.registerAdapter(ParentAdapter());
+  Hive.registerAdapter(ChildAdapter());
+  await Hive.openBox<Parent>('parentsBox');
+  await Hive.openBox('credentialsBox');
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,

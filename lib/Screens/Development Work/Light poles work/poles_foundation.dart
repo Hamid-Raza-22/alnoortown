@@ -152,7 +152,7 @@ class _PolesfoundationState extends State<Polesfoundation> {
                       streetNo: selectedStreet,
                       lengthTotal: numTankers
                     ));
-                    //await tankerViewModel.fetchAllTanker();
+                    await polesExavationViewModel.fetchAllPoleExa();
                     // await dbHelper.showTankerData();
                     // nameController.text = "";
                   }

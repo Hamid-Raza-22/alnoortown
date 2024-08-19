@@ -52,12 +52,12 @@ class ShutteringWorkRepository{
 
   Future<int>add(ShutteringWorkModel shutteringWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameDrain,shutteringWorkModel.toMap());
+    return await dbClient.insert(tableNameShuttering,shutteringWorkModel.toMap());
   }
 
   Future<int>update(ShutteringWorkModel shutteringWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameDrain,shutteringWorkModel.toMap(),
+    return await dbClient.update(tableNameShuttering,shutteringWorkModel.toMap(),
         where: 'id = ?', whereArgs: [shutteringWorkModel.id]);
 
   }

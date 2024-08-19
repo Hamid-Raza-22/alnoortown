@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../ViewModels/AllNoorViewModel.dart';
+import '../ViewModels/all_noor_view_model.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

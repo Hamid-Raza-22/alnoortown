@@ -123,7 +123,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "No. of Shifting",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
@@ -159,9 +159,9 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  final fromBlock = containerData["fromBlock"];
-                  final toBlock = containerData["toBlock"];
-                  final numOfShift = containerData["numOfShift"];
+                  final fromBlock = containerData["selectedBlock"];
+                  final toBlock = containerData["selectedStreet"];
+                  final numOfShift = containerData["selectedShifting"];
                   {
                     await materialShiftingViewModel.addShift(ShiftingWorkModel(
                       id: shiftId,

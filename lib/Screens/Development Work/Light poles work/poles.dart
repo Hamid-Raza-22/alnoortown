@@ -151,12 +151,8 @@ class _PolesState extends State<Poles> {
                       blockNo: selectedBlock,
                       streetNo: selectedStreet,
                       totalLength: numTankers,
-
-
-
-
                     ));
-                    //await polesViewModel.fetchAllTanker();
+                    await polesViewModel.fetchAllPole();
                     // await dbHelper.showTankerData();
                     // nameController.text = "";
                   }

@@ -5,18 +5,12 @@ class ShutteringWorkModel{
   dynamic completedLength;
   dynamic date;
 
-
-
-
   ShutteringWorkModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.completedLength,
     this.date
-
-
-
   });
 
   factory ShutteringWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -36,7 +30,7 @@ class ShutteringWorkModel{
       'id':id,
       'blockNo':blockNo,
       'streetNo':streetNo,
-      'ShutteringWorkModel':ShutteringWorkModel,
+      'completedLength':completedLength,
       'date':date
     };
   }

@@ -17,7 +17,7 @@ class ManholesSlabRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameManholes,
+        tableNameSlab,
         columns: ['id', 'blockNo', 'streetNo', 'numOfCompSlab','date']
     );
 

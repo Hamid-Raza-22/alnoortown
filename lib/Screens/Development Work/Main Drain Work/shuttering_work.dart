@@ -152,6 +152,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
                           blockNo: selectedBlock,
                           streetNo: selectedStreet,
                           completedLength: numTankers,
+
                         ));
                     await shutteringWorkViewModel.fetchAllShutter();
                   }  // await dbHelper.showAsphaltData();

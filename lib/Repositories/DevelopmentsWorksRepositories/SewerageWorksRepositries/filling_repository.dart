@@ -54,7 +54,7 @@ class FillingRepository{
 
   Future<int>add(FilingModel filingModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameMachine,filingModel.toMap());
+    return await dbClient.insert(tableNameFiling,filingModel.toMap());
   }
 
   Future<int>update(FilingModel filingModel) async{

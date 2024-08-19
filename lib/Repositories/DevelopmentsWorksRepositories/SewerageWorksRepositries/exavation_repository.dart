@@ -57,7 +57,7 @@ class ExavationRepository{
 
   Future<int>add(ExavationModel exavationModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameMachine,exavationModel.toMap());
+    return await dbClient.insert(tableNameExavation,exavationModel.toMap());
   }
 
   Future<int>update(ExavationModel exavationModel) async{

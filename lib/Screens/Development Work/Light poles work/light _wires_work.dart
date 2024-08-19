@@ -154,11 +154,8 @@ class LightWiresWorkState extends State<LightWiresWork> {
                       streetNo: selectedStreet,
                       totalLength: numTankers,
 
-
-
-
                     ));
-                    //await tankerViewModel.fetchAllTanker();
+                    await lightWiresViewModel.fetchAllLight();
                     // await dbHelper.showTankerData();
                     // nameController.text = "";
                   }

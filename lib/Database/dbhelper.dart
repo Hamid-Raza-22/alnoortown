@@ -1,10 +1,10 @@
 
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
-
 import 'dart:io' as io;
-
 import 'package:sqflite/sqflite.dart';
+
+
 
 
 class DBHelper{
@@ -59,7 +59,7 @@ class DBHelper{
     db.execute(
         "CREATE TABLE mosque(id INTEGER PRIMARY KEY,blockNo TEXT, completionStatus TEXT, date TEXT)");
     db.execute(
-        "CREATE TABLE newMaterials(id INTEGER PRIMARY KEY,sand TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT, date TEXT)");
+        "CREATE TABLE newMaterials(id INTEGER PRIMARY KEY,sand TEXT, soil TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT,otherMaterialValue TEXT, date TEXT)");
   }
 
 
