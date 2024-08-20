@@ -2,7 +2,7 @@ class MosqueExavationWorkModel{
   int? id;
   dynamic blockNo;
   String? completionStatus;
-
+  final String? timestamp; //added by arfa
 
 
 
@@ -10,7 +10,7 @@ class MosqueExavationWorkModel{
     this.id,
     this.blockNo,
     this.completionStatus,
-
+    this.timestamp, //added by arfa
 
 
   });

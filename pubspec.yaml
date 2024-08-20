@@ -58,7 +58,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
   animate_do: ^3.1.2
-
+  shared_preferences: ^2.3.2
 
 
 # For information on the generic Dart part of this file, see the
@@ -100,6 +100,7 @@ flutter:
     - assets/images/lightwire-01.png
     - assets/images/trackter-01.png
     - assets/images/new_material-01.png
+    - assets/images/mosqueexavationwork.png
 
 
   # assets:

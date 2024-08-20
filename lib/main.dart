@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
+import 'Screens/Building Work/building_work_navigation.dart';
 import 'ViewModels/AllNoorViewModel.dart';
 import 'Screens/Building Work/Mosque/mosque_exavation_work.dart';
 import 'Screens/Development Work/development_page.dart';
@@ -23,7 +24,7 @@ Future<void> main() async {
         GetPage(name: '/development', page: () => const DevelopmentPage()),
         GetPage(name: '/materialShifting', page: () => const MaterialShiftingPage()),
       GetPage(name: '/newMaterial', page: () => const NewMaterial()),
-      GetPage(name: '/buildingWork', page: () => const MosqueExavationWork()),
+      GetPage(name: '/buildingWork', page: () => const  Building_Navigation_Page()),
     ],
 
   ),

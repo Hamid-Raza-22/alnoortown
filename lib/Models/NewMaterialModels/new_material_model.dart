@@ -7,9 +7,6 @@ class NewMaterialModel{
   String? waterBound;
   String? otherMaterial;
 
-
-
-
   NewMaterialModel({
     this.id,
     this.sand,
@@ -17,9 +14,6 @@ class NewMaterialModel{
     this.subBase,
     this.waterBound,
     this.otherMaterial,
-
-
-
 
   });
 
