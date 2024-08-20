@@ -1,20 +1,16 @@
 class ShutteringWorkModel{
   int? id;
-  String? blockNo;
-  String? streetNo;
-  String? completedLength;
-
-
-
+  dynamic blockNo;
+  dynamic streetNo;
+  dynamic completedLength;
+  dynamic date;
 
   ShutteringWorkModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.completedLength,
-
-
-
+    this.date
   });
 
   factory ShutteringWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -24,7 +20,7 @@ class ShutteringWorkModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
-
+        date:  json['date']
 
     );
   }
@@ -34,8 +30,8 @@ class ShutteringWorkModel{
       'id':id,
       'blockNo':blockNo,
       'streetNo':streetNo,
-      'ShutteringWorkModel':ShutteringWorkModel,
-
+      'completedLength':completedLength,
+      'date':date
     };
   }
 }

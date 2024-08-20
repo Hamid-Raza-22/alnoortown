@@ -1,8 +1,9 @@
 class IronWorksModel{
   int? id;
-  String? blockNo;
-  String? streetNo;
-  String? completedLength;
+  dynamic blockNo;
+  dynamic streetNo;
+  dynamic completedLength;
+  dynamic date;
 
 
 
@@ -11,6 +12,7 @@ class IronWorksModel{
     this.blockNo,
     this.streetNo,
     this.completedLength,
+    this.date
 
 
   });
@@ -22,6 +24,8 @@ class IronWorksModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
+        date:  json['date']
+
 
     );
   }
@@ -31,6 +35,7 @@ class IronWorksModel{
       'id':id,
       'blockNo':blockNo,
       'completedLength':completedLength,
+      'date':date
 
     };
   }

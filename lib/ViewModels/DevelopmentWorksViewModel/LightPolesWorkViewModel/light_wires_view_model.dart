@@ -14,7 +14,7 @@ class LightWiresViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllLight();
+    //fetchAllLight();
   }
 
   fetchAllLight() async{
@@ -25,7 +25,7 @@ class LightWiresViewModel extends GetxController {
 
   addLight(LightWiresModel lightWiresModel){
     lightWiresRepository.add(lightWiresModel);
-    fetchAllLight();
+    //fetchAllLight();
   }
 
   updateLight(LightWiresModel lightWiresModel){

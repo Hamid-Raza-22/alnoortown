@@ -145,16 +145,17 @@ class _PipelineState extends State<Pipeline> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  {
+                    await pipelineViewModel.addPipe(PipelineModel(
+                      id: pipeId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      length: numTankers,
 
-                  await pipelineViewModel.addPipe(PipelineModel(
-                    id: pipeId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    length: numTankers,
-
-                  ));
-                  // await dbHelper.showAsphaltData();
-
+                    ));
+                    await pipelineViewModel.fetchAllPipe();
+                    // await dbHelper.showAsphaltData();
+                  }
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

@@ -12,29 +12,27 @@ class NewMaterialViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllNew ();
+    fetchAllNewMaterial ();
   }
 
-  fetchAllNew() async{
+  fetchAllNewMaterial() async{
     var material = await newMaterialRepository.getNewMaterial();
     allNew .value = material;
 
   }
 
-  addNew(NewMaterialModel newMaterialModel){
+  addNewMaterial(NewMaterialModel newMaterialModel){
     newMaterialRepository.add(newMaterialModel);
-    fetchAllNew();
+    fetchAllNewMaterial();
   }
 
-  updateNew(NewMaterialModel newMaterialModel){
+  updateNewMaterial(NewMaterialModel newMaterialModel){
     newMaterialRepository.update(newMaterialModel);
-    fetchAllNew();
+    fetchAllNewMaterial();
   }
 
   deleteNew(int id){
     newMaterialRepository.delete(id);
-    fetchAllNew();
+    fetchAllNewMaterial();
   }
-
 }
-

@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Models/NewMaterialModels/new_material_model.dart';
 import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -66,7 +67,7 @@ class _NewMaterialState extends State<NewMaterial> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20),
-            Center(
+            const Center(
               child: Text(
                 'New Material',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
@@ -123,7 +124,29 @@ class _NewMaterialState extends State<NewMaterial> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  final sand = containerData["sand"];
+                  final soil = containerData["soil"];
+                  final base = containerData["base"];
+                  final subBase = containerData["subBase"];
+                  final waterBound = containerData["waterBound"];
+                  final otherMaterial = containerData["otherMaterial"];
+                  final otherMaterialValue = containerData["otherMaterialValue"];
+                  await newMaterialViewModel.addNewMaterial(
+                      NewMaterialModel(
+                        sand: sand,
+
+                        subBase: subBase,
+                        base: base,
+                        waterBound: waterBound,
+                        otherMaterial: otherMaterial,
+
+                      ));
+
+
+
+
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -173,7 +196,7 @@ class _NewMaterialState extends State<NewMaterial> {
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFC69840)),
+            border: Border.all(color: const Color(0xFFC69840)),
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: Row(
@@ -189,7 +212,7 @@ class _NewMaterialState extends State<NewMaterial> {
                     hintText: 'Other Material',
                     hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
                   ),
                   style: const TextStyle(color: Color(0xFFC69840)),
                 ),
@@ -197,7 +220,7 @@ class _NewMaterialState extends State<NewMaterial> {
               Row(
                 children: [
                   IconButton(
-                    icon: Icon(Icons.remove, color: Color(0xFFC69840)),
+                    icon: const Icon(Icons.remove, color: Color(0xFFC69840)),
                     onPressed: () {
                       setState(() {
                         if (containerData["otherMaterialValue"] > 0) {
@@ -211,7 +234,7 @@ class _NewMaterialState extends State<NewMaterial> {
                     style: const TextStyle(fontSize: 16, color: Color(0xFFC69840)),
                   ),
                   IconButton(
-                    icon: Icon(Icons.add, color: Color(0xFFC69840)),
+                    icon: const Icon(Icons.add, color: Color(0xFFC69840)),
                     onPressed: () {
                       setState(() {
                         containerData["otherMaterialValue"]++;
@@ -251,14 +274,14 @@ class _NewMaterialState extends State<NewMaterial> {
         const SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Color(0xFFC69840)),
+            border: Border.all(color: const Color(0xFFC69840)),
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: Icon(Icons.remove, color: Color(0xFFC69840)),
+                icon: const Icon(Icons.remove, color: Color(0xFFC69840)),
                 onPressed: () {
                   setState(() {
                     if (containerData[fieldName] > 0) {
@@ -272,7 +295,7 @@ class _NewMaterialState extends State<NewMaterial> {
                 style: const TextStyle(fontSize: 16, color: Color(0xFFC69840)),
               ),
               IconButton(
-                icon: Icon(Icons.add, color: Color(0xFFC69840)),
+                icon: const Icon(Icons.add, color: Color(0xFFC69840)),
                 onPressed: () {
                   setState(() {
                     containerData[fieldName]++;

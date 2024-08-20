@@ -145,14 +145,17 @@ class ShutteringWorkState extends State<ShutteringWork> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  {
+                    await shutteringWorkViewModel.addShutter(
+                        ShutteringWorkModel(
+                          id: shutterId,
+                          blockNo: selectedBlock,
+                          streetNo: selectedStreet,
+                          completedLength: numTankers,
 
-                  await shutteringWorkViewModel.addShutter(ShutteringWorkModel(
-                    id: shutterId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    completedLength: numTankers,
-                  ));
-                  // await dbHelper.showAsphaltData();
+                        ));
+                    await shutteringWorkViewModel.fetchAllShutter();
+                  }  // await dbHelper.showAsphaltData();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

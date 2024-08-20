@@ -12,7 +12,7 @@ class ManholesViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllWorker ();
+    //fetchAllWorker ();
   }
 
   fetchAllWorker() async{
@@ -23,7 +23,7 @@ class ManholesViewModel extends GetxController {
 
   addWorker(ManholesModel manholesModel){
     manholesRepository.add(manholesModel);
-    fetchAllWorker();
+    //fetchAllWorker();
   }
 
   updateWorker(ManholesModel manholesModel){

@@ -19,7 +19,7 @@ class PolesRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePoles,
-        columns: ['id', 'blockNo', 'streetNo', 'tankerNo']
+        columns: ['id', 'blockNo', 'streetNo', 'totalLength','date']
     );
 
     // Print the raw data retrieved from the database

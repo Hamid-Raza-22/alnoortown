@@ -12,7 +12,7 @@ class PlasterWorkViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllPlaster ();
+   // fetchAllPlaster ();
   }
 
   fetchAllPlaster() async{
@@ -23,7 +23,7 @@ class PlasterWorkViewModel extends GetxController {
 
   addMan(PlasterWorkModel plasterWorkModel){
     plasterWorkRepository.add(plasterWorkModel);
-    fetchAllPlaster();
+   // fetchAllPlaster();
   }
 
   updateMan(PlasterWorkModel plasterWorkModel){

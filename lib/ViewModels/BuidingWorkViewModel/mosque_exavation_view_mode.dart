@@ -14,7 +14,7 @@ class MosqueExavationViewMode extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllMosque();
+    //fetchAllMosque();
   }
 
   fetchAllMosque() async{
@@ -23,12 +23,12 @@ class MosqueExavationViewMode extends GetxController {
 
   }
 
-  addLight(MosqueExavationWorkModel mosqueExavationWorkModel){
+  addMosque(MosqueExavationWorkModel mosqueExavationWorkModel){
     mosqueExavationRepository.add(mosqueExavationWorkModel);
-    fetchAllMosque();
+    //fetchAllMosque();
   }
 
-  updateLight(MosqueExavationWorkModel mosqueExavationWorkModel){
+  updateMosque(MosqueExavationWorkModel mosqueExavationWorkModel){
     mosqueExavationRepository.update(mosqueExavationWorkModel);
     fetchAllMosque();
   }

@@ -1,8 +1,9 @@
 class ManholesSlabModel{
   int? id;
-  String? blockNo;
-  String? streetNo;
-  String? numOfCompSlab;
+  dynamic blockNo;
+  dynamic streetNo;
+  dynamic numOfCompSlab;
+  dynamic date;
 
 
 
@@ -12,6 +13,7 @@ class ManholesSlabModel{
     this.blockNo,
     this.streetNo,
     this.numOfCompSlab,
+    this.date
 
 
 
@@ -24,6 +26,7 @@ class ManholesSlabModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       numOfCompSlab: json['numOfCompSlab'],
+        date:  json['date']
 
 
     );
@@ -35,6 +38,7 @@ class ManholesSlabModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'numOfCompSlab':numOfCompSlab,
+      'date':date
 
     };
   }

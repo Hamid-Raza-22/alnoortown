@@ -12,7 +12,7 @@ class BrickWorkViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllBrick();
+    //fetchAllBrick();
   }
 
   fetchAllBrick() async{
@@ -23,7 +23,7 @@ class BrickWorkViewModel extends GetxController {
 
   addBrick(BrickWorkModel brickWorkModel){
     brickWorkRepository.add(brickWorkModel);
-    fetchAllBrick();
+    //fetchAllBrick();
   }
 
   updateBrick(BrickWorkModel brickWorkModel){

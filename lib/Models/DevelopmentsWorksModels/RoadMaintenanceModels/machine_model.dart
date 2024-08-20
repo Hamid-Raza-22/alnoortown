@@ -1,9 +1,9 @@
 class MachineModel{
   int? id;
   dynamic blockNo;
-  String? streetNo;
+  dynamic streetNo;
   dynamic machine;
-  String? timeIn;
+  dynamic timeIn;
   dynamic timeOut;
   dynamic date;
 

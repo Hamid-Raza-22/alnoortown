@@ -14,7 +14,7 @@ class IronWorkViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllWorks();
+    //fetchAllWorks();
   }
 
   fetchAllWorks() async{
@@ -25,7 +25,7 @@ class IronWorkViewModel extends GetxController {
 
   addWorks(IronWorksModel ironWorksModel){
     ironWorksRepository.add(ironWorksModel);
-    fetchAllWorks();
+   // fetchAllWorks();
   }
 
   updateWorks(IronWorksModel ironWorksModel){

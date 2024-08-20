@@ -12,7 +12,7 @@ class AsphaltWorkViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllAsphalt();
+    //fetchAllAsphalt();
   }
 
   fetchAllAsphalt() async{
@@ -23,7 +23,7 @@ class AsphaltWorkViewModel extends GetxController {
 
   addAsphalt(AsphaltWorkModel asphaltWorkModel){
     asphaltWorkRepository.add(asphaltWorkModel);
-    fetchAllAsphalt();
+    //fetchAllAsphalt();
   }
 
   updateAsphalt(AsphaltWorkModel asphaltWorkModel){

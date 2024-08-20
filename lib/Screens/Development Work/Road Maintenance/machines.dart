@@ -66,7 +66,7 @@ class MachinesState extends State<Machines> {
         child: AppBar(
           flexibleSpace: FlexibleSpaceBar(
             background: Image.asset(
-              'assets/images/machinespage.gif',
+              'assets/images/machinesPage.gif',
               fit: BoxFit.fitHeight,
             ),
           ),

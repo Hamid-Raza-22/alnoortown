@@ -1,8 +1,8 @@
 class MosqueExavationWorkModel{
   int? id;
   dynamic blockNo;
-  String? completionStatus;
-  final String? timestamp; //added by arfa
+  dynamic completionStatus;
+  dynamic date;
 
 
 
@@ -10,7 +10,7 @@ class MosqueExavationWorkModel{
     this.id,
     this.blockNo,
     this.completionStatus,
-    this.timestamp, //added by arfa
+    this.date
 
 
   });
@@ -21,7 +21,7 @@ class MosqueExavationWorkModel{
       id: json['id'],
       blockNo: json['blockNo'],
       completionStatus: json['completionStatus'],
-
+        date:  json['date']
 
 
     );
@@ -32,7 +32,7 @@ class MosqueExavationWorkModel{
       'id':id,
       'blockNo':blockNo,
       'completionStatus':completionStatus,
-
+      'date':date
 
     };
   }

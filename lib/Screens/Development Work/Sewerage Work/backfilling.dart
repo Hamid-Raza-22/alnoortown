@@ -160,15 +160,16 @@ class _BackfilingState extends State<Backfiling> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final status = containerData["status"];
+                  {
+                    await fillingViewModel.addFill(FilingModel(
+                      id: fillingId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      status: status,
 
-                  await fillingViewModel.addFill(FilingModel(
-                    id: fillingId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    status: status,
-
-                  ));
-                  // await dbHelper.showAsphaltData();
+                    ));
+                    await fillingViewModel.fetchAllFill();
+                  }   // await dbHelper.showAsphaltData();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(

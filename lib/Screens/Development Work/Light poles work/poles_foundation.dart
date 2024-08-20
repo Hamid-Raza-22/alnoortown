@@ -1,5 +1,9 @@
+import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_exavation_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_exavation_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
 class Polesfoundation extends StatefulWidget {
   const Polesfoundation({super.key});
@@ -9,6 +13,9 @@ class Polesfoundation extends StatefulWidget {
 }
 
 class _PolesfoundationState extends State<Polesfoundation> {
+  PolesExavationViewModel polesExavationViewModel=Get.put(PolesExavationViewModel());
+  DBHelper dbHelper = DBHelper();
+  int? exId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
   List<Map<String, dynamic>> containerDataList = [];
@@ -134,10 +141,21 @@ class _PolesfoundationState extends State<Polesfoundation> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  {
+                    await polesExavationViewModel.addPoleExa(PolesExavationModel(
+                      id: exId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      lengthTotal: numTankers
+                    ));
+                    await polesExavationViewModel.fetchAllPoleExa();
+                    // await dbHelper.showTankerData();
+                    // nameController.text = "";
+                  }
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

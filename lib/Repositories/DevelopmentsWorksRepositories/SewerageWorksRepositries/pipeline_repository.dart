@@ -3,23 +3,51 @@
 import 'package:al_noor_town/Database/dbhelper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/pipeline_model.dart';
-
-
+import 'package:flutter/foundation.dart';
 
 class PipelineRepository{
 
   DBHelper dbHelper = DBHelper();
 
-  Future<List<PipelineModel>> getPipeline() async{
+  Future<List<PipelineModel>> getPipeline() async {
+    // Get the database client
     var dbClient = await dbHelper.db;
-    List<Map> maps = await dbClient.query(tableNameManholes,columns:['id','blockNo','streetNo','length']);
-    List<PipelineModel> filing = [];
-    for(int i = 0; i<maps.length; i++)
-    {
-      filing.add(PipelineModel.fromMap(maps[i]));
+
+    // Query the database
+    List<Map> maps = await dbClient.query(
+        tableNamePipeline,
+        columns: ['id', 'blockNo', 'streetNo', 'length','date']
+    );
+
+    // Print the raw data retrieved from the database
+    if (kDebugMode) {
+      print('Raw data from database:');
     }
-    return filing;
+    for (var map in maps) {
+      if (kDebugMode) {
+        print(map);
+      }
+    }
+
+    // Convert the raw data into a list of MachineModel objects
+    List<PipelineModel> pipeline = [];
+    for (int i = 0; i < maps.length; i++) {
+      pipeline.add(PipelineModel.fromMap(maps[i]));
+    }
+
+    // Print the list of MachineModel objects
+    if (kDebugMode) {
+      print('Parsed PipelineModel objects:');
+    }
+    // for (var item in machine) {
+    //   if (kDebugMode) {
+    //     print(item);
+    //   }
+    // }
+
+    return pipeline;
   }
+
 
 
 
