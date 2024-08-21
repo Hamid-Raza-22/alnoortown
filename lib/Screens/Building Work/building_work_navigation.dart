@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'Mosque/ceiling_work.dart';
 import 'Mosque/doors_work.dart';
 import 'Mosque/electricity_work.dart';
@@ -9,19 +8,6 @@ import 'Mosque/mosque_exavation_work.dart';
 import 'Mosque/paint_work.dart';
 import 'Mosque/sanitory_work.dart';
 import 'Mosque/tiles_work.dart';
-
-void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Building_Navigation_Page(),
-    );
-  }
-}
 
 class Building_Navigation_Page extends StatefulWidget {
   const Building_Navigation_Page({super.key});
@@ -290,7 +276,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
       case "First Floor":
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => FirstFloor()),
+          MaterialPageRoute(builder: (context) => FirstFloorWork()),
         );
         break;
       case "Tiles Work":
