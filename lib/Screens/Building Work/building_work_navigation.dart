@@ -1,13 +1,22 @@
+import 'package:al_noor_town/Screens/Building%20Work/Fountain%20Park/CubstonesWork/road_curbstones_work.dart';
 import 'package:flutter/material.dart';
-import 'Mosque/ceiling_work.dart';
-import 'Mosque/doors_work.dart';
-import 'Mosque/electricity_work.dart';
-import 'Mosque/first_floor.dart';
-import 'Mosque/foundation_work.dart';
-import 'Mosque/mosque_exavation_work.dart';
-import 'Mosque/paint_work.dart';
-import 'Mosque/sanitory_work.dart';
-import 'Mosque/tiles_work.dart';
+import 'Fountain Park/BoundaryGril/boundary_gril_work.dart';
+import 'Fountain Park/GazeboWork/gazebo_work.dart';
+import 'Fountain Park/MainEntranceTilesWork/main_entrance_tiles.dart';
+import 'Fountain Park/MainStage/main_stage_work.dart';
+import 'Fountain Park/MudFilling/mud_filling_work.dart';
+import 'Fountain Park/PlantationWork/plantationwork.dart';
+import 'Fountain Park/SittingAreaWork/sittingareawork.dart';
+import 'Fountain Park/WalkingTracksWork/walking_tracks_work.dart';
+import 'Mosque/CeilingWork/ceiling_work.dart';
+import 'Mosque/DoorsWork/doors_work.dart';
+import 'Mosque/ElectricityWork/electricity_work.dart';
+import 'Mosque/FirstFloorWork/first_floor.dart';
+import 'Mosque/FoundationWork/foundation_work.dart';
+import 'Mosque/MosqueExavationWork/mosque_exavation_work.dart';
+import 'Mosque/PaintWork/paint_work.dart';
+import 'Mosque/SanitaryWork/sanitory_work.dart';
+import 'Mosque/TilesWork/tiles_work.dart';
 
 class Building_Navigation_Page extends StatefulWidget {
   const Building_Navigation_Page({super.key});
@@ -71,12 +80,12 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: Text(
+        title: const Text(
           "Building Work",
           style: TextStyle(
             color: Color(0xFFC69840),
@@ -201,6 +210,30 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
       Icons.door_front_door, // Doors Work
     ];
 
+    List<String> fountainParkNames = [
+      "Mud Filling Work",
+      "Walking Tracks Work",
+      "Cubstones Work",
+      "Sitting Area Work",
+      "Plantation Work",
+      "Main Entrance Tiles Work",
+      "Boundary Grill Work",
+      "Gazebo Work",
+      "Main Stage"
+    ];
+
+    List<IconData> fountainParkIcons = [
+      Icons.landscape, // Mud Filling Work
+      Icons.directions_walk, // Walking Tracks Work
+      Icons.satellite, // Cubstones Work
+      Icons.event_seat, // Sitting Area Work
+      Icons.local_florist, // Plantation Work
+      Icons.crop_square, // Main Entrance Tiles Work
+      Icons.security, // Boundary Grill Work
+      Icons.park, // Gazebo Work
+      Icons.theater_comedy, // Main Stage
+    ];
+
     if (texts[index] == "Mosque") {
       showDialog(
         context: context,
@@ -212,7 +245,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
             ),
             title: Text(
               texts[index],
-              style: TextStyle(
+              style: const TextStyle(
                 color: Color(0xFFC69840),
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -226,11 +259,66 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                 return ListTile(
                   leading: Icon(
                     mosqueIcons[idx],
-                    color: Color(0xFFC69840),
+                    color: const Color(0xFFC69840),
                   ),
                   title: Text(
                     name,
-                    style: TextStyle(
+                    style: const TextStyle(
+                      color: Color(0xFFC69840),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                    navigateToWorkPage(name); // Navigate to the correct page
+                  },
+                );
+              }).toList(),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  "Close",
+                  style: TextStyle(color: Color(0xFFC69840)),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    } else if (texts[index] == "Fountain Park") {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            title: Text(
+              texts[index],
+              style: const TextStyle(
+                color: Color(0xFFC69840),
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: fountainParkNames.asMap().entries.map((entry) {
+                int idx = entry.key;
+                String name = entry.value;
+                return ListTile(
+                  leading: Icon(
+                    fountainParkIcons[idx],
+                    color: const Color(0xFFC69840),
+                  ),
+                  title: Text(
+                    name,
+                    style: const TextStyle(
                       color: Color(0xFFC69840),
                       fontWeight: FontWeight.w600,
                     ),
@@ -260,65 +348,33 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
   }
 
   void navigateToWorkPage(String name) {
-    switch (name) {
-      case "Excavation Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MosqueExavationWork()),
-        );
-        break;
-      case "Foundation Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => FoundationWork()),
-        );
-        break;
-      case "First Floor":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => FirstFloorWork()),
-        );
-        break;
-      case "Tiles Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => TilesWork()),
-        );
-        break;
-      case "Sanitary Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => SanitaryWork()),
-        );
-        break;
-      case "Ceiling Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => CeilingWork()),
-        );
-        break;
-      case "Paint Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => PaintWork()),
-        );
-        break;
-      case "Electricity Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ElectricityWork()),
-        );
-        break;
-      case "Doors Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => DoorsWork()),
-        );
-        break;
+    // Define a mapping between names and pages
+    Map<String, Widget> pageMap = {
+      "Excavation Work": const MosqueExavationWork(),
+      "Foundation Work": const FoundationWork(),
+      "First Floor": const FirstFloorWork(),
+      "Tiles Work": const TilesWork(),
+      "Sanitary Work": const SanitaryWork(),
+      "Ceiling Work": const CeilingWork(),
+      "Paint Work": const PaintWork(),
+      "Electricity Work": const ElectricityWork(),
+      "Doors Work": const DoorsWork(),
+      "Mud Filling Work": const MudFillingWork(),
+      "Walking Tracks Work": const WalkingTracksWork(),
+      "Cubstones Work": const CubstonesWork(),
+      "Sitting Area Work": const SittingAreaWork(),
+      "Plantation Work": const PlantationWork(),
+      "Main Entrance Tiles Work": const MainEntranceTilesWork(),
+      "Boundary Grill Work": const BoundaryGrillWork(),
+      "Gazebo Work": const GazeboWork(),
+      "Main Stage": const MainStageWork(),
+    };
+
+    Widget? page = pageMap[name];
+    if (page != null) {
+      Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => page),
+      );
     }
   }
 }
-
-
-
-

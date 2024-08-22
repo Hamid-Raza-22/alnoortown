@@ -104,6 +104,16 @@ flutter:
     - assets/images/lightwire-01.png
     - assets/images/trackter-01.png
     - assets/images/new_material-01.png
+    - assets/images/Electrician.png
+    - assets/images/tiles.png
+    - assets/images/firstfloor.png
+    - assets/images/bgel.png
+    - assets/images/walkingtracks.png
+    - assets/images/sitttingarea.png
+    - assets/images/curbstone.png
+    - assets/images/plantation.png
+
+
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
@@ -133,3 +143,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+assets/images/sitttingarea:
+  png:
