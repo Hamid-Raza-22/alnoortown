@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class SummaryPage extends StatelessWidget {
+class TilesWorkSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-  const SummaryPage({super.key, required this.containerDataList});
+  const TilesWorkSummary({super.key, required this.containerDataList});
 
+  @override
+  State<TilesWorkSummary> createState() => _TilesWorkSummaryState();
+}
+
+class _TilesWorkSummaryState extends State<TilesWorkSummary> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 1,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
@@ -20,7 +24,7 @@ class SummaryPage extends StatelessWidget {
           },
         ),
         title: const Text(
-          'Summary',
+          'Tiles Work Summary',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -36,7 +40,7 @@ class SummaryPage extends StatelessWidget {
           children: [
             // Table Header
             Container(
-              color: Color(0xFFC69840),
+              color: const Color(0xFFC69840),
               child: Padding(
                 padding: const EdgeInsets.symmetric(vertical: 12.0),
                 child: Row(
@@ -54,9 +58,9 @@ class SummaryPage extends StatelessWidget {
             // Data Grid
             Expanded(
               child: ListView.builder(
-                itemCount: containerDataList.length,
+                itemCount: widget.containerDataList.length,
                 itemBuilder: (context, index) {
-                  final data = containerDataList[index];
+                  final data = widget.containerDataList[index];
                   return _buildDataRow(data);
                 },
               ),
@@ -84,7 +88,7 @@ class SummaryPage extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: const Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),

@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-class PaintWork extends StatefulWidget {
-  const PaintWork({super.key});
+import 'MosqueSummaryPage.dart';
+
+class MosqueExavationWork extends StatefulWidget {
+  const MosqueExavationWork({super.key});
 
   @override
-  _PaintWorkState createState() => _PaintWorkState();
+  _MosqueExavationWorkState createState() => _MosqueExavationWorkState();
 }
 
-class _PaintWorkState extends State<PaintWork> {
+class _MosqueExavationWorkState extends State<MosqueExavationWork> {
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -31,19 +32,22 @@ class _PaintWorkState extends State<PaintWork> {
     _loadData();
   }
 
+  // Load data specific to excavation work from SharedPreferences
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('paintWorkDataList'); // Unique key for Paint Work
+    String? savedData = prefs.getString('excavationWorkDataList'); // Unique key for excavation work
     if (savedData != null) {
       setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+        containerDataList =
+        List<Map<String, dynamic>>.from(json.decode(savedData));
       });
     }
   }
 
+  // Save data specific to excavation work to SharedPreferences
   Future<void> _saveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('paintWorkDataList', json.encode(containerDataList)); // Unique key for Paint Work
+    await prefs.setString('excavationWorkDataList', json.encode(containerDataList)); // Unique key for excavation work
   }
 
   Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
@@ -73,14 +77,15 @@ class _PaintWorkState extends State<PaintWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PaintWorkSummary(containerDataList: containerDataList),
+                  builder: (context) =>
+                      MosqueSummaryPage(containerDataList: containerDataList),
                 ),
               );
             },
           ),
         ],
         title: const Text(
-          'Paint Work',
+          'Mosque Excavation Work',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -88,7 +93,7 @@ class _PaintWorkState extends State<PaintWork> {
       ),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Image.asset(
               'assets/images/mosqueexavationwork.png',
@@ -131,7 +136,7 @@ class _PaintWorkState extends State<PaintWork> {
             }),
             const SizedBox(height: 16),
             const Text(
-              "Paint Work Status:",
+              "Excavation Completion Status:",
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -148,11 +153,15 @@ class _PaintWorkState extends State<PaintWork> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(selectedBlock, selectedStatus);
+                    Map<String, dynamic> newEntry =
+                    createNewEntry(selectedBlock, selectedStatus);
+
                     setState(() {
                       containerDataList.add(newEntry);
                     });
+
                     await _saveData();
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Entry added successfully!'),
@@ -168,7 +177,8 @@ class _PaintWorkState extends State<PaintWork> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   textStyle: const TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
@@ -236,116 +246,3 @@ class _PaintWorkState extends State<PaintWork> {
 }
 
 
-class PaintWorkSummary extends StatelessWidget {
-  final List<Map<String, dynamic>> containerDataList;
-
-  const PaintWorkSummary({super.key, required this.containerDataList});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: const Text(
-          'Paint Work Summary',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFC69840),
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Table Header
-            Container(
-              color: const Color(0xFFC69840),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(child: _buildHeaderCell("Block No")),
-                    Expanded(child: _buildHeaderCell("Status")),
-                    Expanded(child: _buildHeaderCell("Date")),
-                    Expanded(child: _buildHeaderCell("Time")),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 8),
-            // Data Grid
-            Expanded(
-              child: ListView.builder(
-                itemCount: containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = containerDataList[index];
-                  return _buildDataRow(data);
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHeaderCell(String title) {
-    return Center(
-      child: Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDataRow(Map<String, dynamic> data) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFC69840), width: 1.0),
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(child: _buildCell(data["selectedBlock"])),
-            Expanded(child: _buildCell(data["status"])),
-            Expanded(child: _buildCell(DateFormat('dd/MM/yyyy').format(DateTime.parse(data["timestamp"])))),
-            Expanded(child: _buildCell(DateFormat('HH:mm').format(DateTime.parse(data["timestamp"])))),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCell(String? content) {
-    return Center(
-      child: Text(
-        content ?? '',
-        style: const TextStyle(
-          fontSize: 14,
-          color: Color(0xFFC69840),
-        ),
-      ),
-    );
-  }
-}
