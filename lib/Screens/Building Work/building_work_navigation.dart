@@ -1,5 +1,9 @@
 import 'package:al_noor_town/Screens/Building%20Work/Fountain%20Park/CubstonesWork/road_curbstones_work.dart';
 import 'package:flutter/material.dart';
+import '../Roads Compaction Work/BaseSubBaseCompaction.dart';
+import '../Roads Compaction Work/CompactionAfterWaterBound.dart';
+import '../Roads Compaction Work/SandCompaction.dart';
+import '../Roads Compaction Work/SoilCompaction.dart';
 import 'Fountain Park/BoundaryGril/boundary_gril_work.dart';
 import 'Fountain Park/GazeboWork/gazebo_work.dart';
 import 'Fountain Park/MainEntranceTilesWork/main_entrance_tiles.dart';
@@ -121,7 +125,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                       shrinkWrap: true,
                       itemCount: texts.length,
                       itemBuilder: (context, index) {
-                        return item(context, index);
+                        return item(index);
                       },
                     ),
                     const SizedBox(height: 40),
@@ -135,10 +139,10 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     );
   }
 
-  Widget item(BuildContext context, int index) {
+  Widget item(int index) {
     return GestureDetector(
       onTap: () {
-        showAlertBox(context, index);
+        showAlertBox(index);
       },
       child: AnimatedContainer(
         height: 55,
@@ -192,7 +196,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     );
   }
 
-  void showAlertBox(BuildContext context, int index) {
+  void showAlertBox(int index) {
     List<String> mosqueNames = [
       "Excavation Work",
       "Foundation Work",
@@ -259,6 +263,20 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
       Icons.emoji_objects, // Monuments Work
     ];
 
+    List<String> roadsCompactionNames = [
+      "Sand Compaction",
+      "Soil Compaction",
+      "Base & Sub base compaction",
+      "Compaction after Water Bound",
+    ];
+
+    List<IconData> roadsCompactionIcons = [
+      Icons.note_sharp, // Sand Compaction
+      Icons.terrain, // Soil Compaction
+      Icons.layers, // Base & Sub base compaction
+      Icons.water_damage, // Compaction after Water Bound
+    ];
+
     if (texts[index] == "Mosque") {
       showDialog(
         context: context,
@@ -266,51 +284,85 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
           return AlertDialog(
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(10),
             ),
-            title: Text(
-              texts[index],
-              style: const TextStyle(
-                color: Color(0xFFC69840),
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
+            title: const Text(
+              "Mosque Work",
+              style: TextStyle(color: Color(0xFFC69840)),
             ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: mosqueNames.asMap().entries.map((entry) {
-                int idx = entry.key;
-                String name = entry.value;
-                return ListTile(
-                  leading: Icon(
-                    mosqueIcons[idx],
-                    color: const Color(0xFFC69840),
-                  ),
-                  title: Text(
-                    name,
-                    style: const TextStyle(
-                      color: Color(0xFFC69840),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                    navigateToWorkPage(context, name); // Pass context to method
-                  },
-                );
-              }).toList(),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
+            content: SizedBox(
+              width: double.maxFinite,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: mosqueNames.length,
+                itemBuilder: (context, mosqueIndex) {
+                  return ListTile(
+                    leading: Icon(mosqueIcons[mosqueIndex],
+                        color: const Color(0xFFC69840)),
+                    title: Text(mosqueNames[mosqueIndex]),
+                    onTap: () {
+                      // Navigate to the corresponding page
+                      Navigator.of(context).pop();
+                      if (mosqueIndex == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MosqueExavationWork()),
+                        );
+                      } else if (mosqueIndex == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FoundationWork()),
+                        );
+                      } else if (mosqueIndex == 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FirstFloorWork()),
+                        );
+                      } else if (mosqueIndex == 3) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const TilesWork()),
+                        );
+                      } else if (mosqueIndex == 4) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SanitaryWork()),
+                        );
+                      } else if (mosqueIndex == 5) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CeilingWork()),
+                        );
+                      } else if (mosqueIndex == 6) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PaintWork()),
+                        );
+                      } else if (mosqueIndex == 7) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ElectricityWork()),
+                        );
+                      } else if (mosqueIndex == 8) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const DoorsWork()),
+                        );
+                      }
+                    },
+                  );
                 },
-                child: const Text(
-                  "Close",
-                  style: TextStyle(color: Color(0xFFC69840)),
-                ),
               ),
-            ],
+            ),
           );
         },
       );
@@ -321,51 +373,84 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
           return AlertDialog(
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(10),
             ),
-            title: Text(
-              texts[index],
-              style: const TextStyle(
-                color: Color(0xFFC69840),
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
+            title: const Text(
+              "Fountain Park Work",
+              style: TextStyle(color: Color(0xFFC69840)),
             ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: fountainParkNames.asMap().entries.map((entry) {
-                int idx = entry.key;
-                String name = entry.value;
-                return ListTile(
-                  leading: Icon(
-                    fountainParkIcons[idx],
-                    color: const Color(0xFFC69840),
-                  ),
-                  title: Text(
-                    name,
-                    style: const TextStyle(
-                      color: Color(0xFFC69840),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                    navigateToWorkPage(context, name); // Pass context to method
-                  },
-                );
-              }).toList(),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
+            content: SizedBox(
+              width: double.maxFinite,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: fountainParkNames.length,
+                itemBuilder: (context, fountainParkIndex) {
+                  return ListTile(
+                    leading: Icon(fountainParkIcons[fountainParkIndex],
+                        color: const Color(0xFFC69840)),
+                    title: Text(fountainParkNames[fountainParkIndex]),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      if (fountainParkIndex == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MudFillingWork()),
+                        );
+                      } else if (fountainParkIndex == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const WalkingTracksWork()),
+                        );
+                      } else if (fountainParkIndex == 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CubstonesWork()),
+                        );
+                      } else if (fountainParkIndex == 3) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SittingAreaWork()),
+                        );
+                      } else if (fountainParkIndex == 4) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PlantationWork()),
+                        );
+                      } else if (fountainParkIndex == 5) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainEntranceTilesWork()),
+                        );
+                      } else if (fountainParkIndex == 6) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BoundaryGrillWork()),
+                        );
+                      } else if (fountainParkIndex == 7) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const GazeboWork()),
+                        );
+                      } else if (fountainParkIndex == 8) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainStageWork()),
+                        );
+                      }
+                    },
+                  );
                 },
-                child: const Text(
-                  "Close",
-                  style: TextStyle(color: Color(0xFFC69840)),
-                ),
               ),
-            ],
+            ),
           );
         },
       );
@@ -376,91 +461,130 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
           return AlertDialog(
             backgroundColor: Colors.white,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(10),
             ),
-            title: Text(
-              texts[index],
-              style: const TextStyle(
-                color: Color(0xFFC69840),
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-              ),
+            title: const Text(
+              "Mini Parks Work",
+              style: TextStyle(color: Color(0xFFC69840)),
             ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: miniParksNames.asMap().entries.map((entry) {
-                int idx = entry.key;
-                String name = entry.value;
-                return ListTile(
-                  leading: Icon(
-                    miniParksIcons[idx],
-                    color: const Color(0xFFC69840),
-                  ),
-                  title: Text(
-                    name,
-                    style: const TextStyle(
-                      color: Color(0xFFC69840),
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                    navigateToWorkPage(context, name); // Pass context to method
-                  },
-                );
-              }).toList(),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
+            content: SizedBox(
+              width: double.maxFinite,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: miniParksNames.length,
+                itemBuilder: (context, miniParksIndex) {
+                  return ListTile(
+                    leading: Icon(miniParksIcons[miniParksIndex],
+                        color: const Color(0xFFC69840)),
+                    title: Text(miniParksNames[miniParksIndex]),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      if (miniParksIndex == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MiniParkMudFilling()),
+                        );
+                      } else if (miniParksIndex == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const GrassWork()),
+                        );
+                      } else if (miniParksIndex == 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const MiniParkCurbstonesWork()),
+                        );
+                      } else if (miniParksIndex == 3) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FancyLightPoles()),
+                        );
+                      } else if (miniParksIndex == 4) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const PlantationWorkmp()),
+                        );
+                      } else if (miniParksIndex == 5) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MonumentsWork()),
+                        );
+                      }
+                    },
+                  );
                 },
-                child: const Text(
-                  "Close",
-                  style: TextStyle(color: Color(0xFFC69840)),
-                ),
               ),
-            ],
+            ),
+          );
+        },
+      );
+    } else if (texts[index] == "Roads Compaction Work") {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            title: const Text(
+              "Roads Compaction",
+              style: TextStyle(color: Color(0xFFC69840)),
+            ),
+            content: SizedBox(
+              width: double.maxFinite,
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: roadsCompactionNames.length,
+                itemBuilder: (context, roadsCompactionIndex) {
+                  return ListTile(
+                    leading: Icon(roadsCompactionIcons[roadsCompactionIndex],
+                        color: const Color(0xFFC69840)),
+                    title: Text(roadsCompactionNames[roadsCompactionIndex]),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      if (roadsCompactionIndex == 0) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SandCompaction()),
+                        );
+                      } else if (roadsCompactionIndex == 1) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SoilCompaction()),
+                        );
+                      } else if (roadsCompactionIndex == 2) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const BaseSubBaseCompaction()),
+                        );
+                      } else if (roadsCompactionIndex == 3) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const CompactionAfterWaterBound()),
+                        );
+                      }
+                    },
+                  );
+                },
+              ),
+            ),
           );
         },
       );
     }
   }
-
-  void navigateToWorkPage(BuildContext context, String name) {
-    Map<String, Widget> pageMap = {
-      "Excavation Work": const MosqueExavationWork(),
-      "Foundation Work": const FoundationWork(),
-      "First Floor": const FirstFloorWork(),
-      "Tiles Work": const TilesWork(),
-      "Sanitary Work": const SanitaryWork(),
-      "Ceiling Work": const CeilingWork(),
-      "Paint Work": const PaintWork(),
-      "Electricity Work": const ElectricityWork(),
-      "Doors Work": const DoorsWork(),
-      "Mud Filling Work": const MudFillingWork(),
-      "Walking Tracks Work": const WalkingTracksWork(),
-      "Cubstones Work": const CubstonesWork(),
-      "Sitting Area Work": const SittingAreaWork(),
-      "Plantation Work": const PlantationWork(),
-      "Main Entrance Tiles Work": const MainEntranceTilesWork(),
-      "Boundary Grill Work": const BoundaryGrillWork(),
-      "Gazebo Work": const GazeboWork(),
-      "Main Stage": const MainStageWork(),
-      "Mini Park Mud Filling": const MiniParkMudFilling(),
-      "Grass Work": const GrassWork(),
-      "Mini Park Curbstones Work": const MiniParkCurbstonesWork(),
-      "Fancy Light Poles": const FancyLightPoles(),
-      "Plantation Work mp": const PlantationWorkmp(),
-      "Monuments Work": const MonumentsWork(),
-    };
-
-    Widget? page = pageMap[name];
-    if (page != null) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => page),
-      );
-    }
-  }
 }
-
