@@ -8,6 +8,12 @@ import 'Fountain Park/MudFilling/mud_filling_work.dart';
 import 'Fountain Park/PlantationWork/plantationwork.dart';
 import 'Fountain Park/SittingAreaWork/sittingareawork.dart';
 import 'Fountain Park/WalkingTracksWork/walking_tracks_work.dart';
+import 'Mini Park/Curbstones Work MiniPark/Curbstones_minipark.dart';
+import 'Mini Park/Fancy Light Poles/FancyLightPoles.dart';
+import 'Mini Park/Grass Work/grasswork.dart';
+import 'Mini Park/Mini Park Mud Filling/MP_Mud_Filling.dart';
+import 'Mini Park/Monumentswork/MonumentsWork.dart';
+import 'Mini Park/PlantationWorkMiniPark/minipark_plantation.dart';
 import 'Mosque/CeilingWork/ceiling_work.dart';
 import 'Mosque/DoorsWork/doors_work.dart';
 import 'Mosque/ElectricityWork/electricity_work.dart';
@@ -17,6 +23,7 @@ import 'Mosque/MosqueExavationWork/mosque_exavation_work.dart';
 import 'Mosque/PaintWork/paint_work.dart';
 import 'Mosque/SanitaryWork/sanitory_work.dart';
 import 'Mosque/TilesWork/tiles_work.dart';
+
 
 class Building_Navigation_Page extends StatefulWidget {
   const Building_Navigation_Page({super.key});
@@ -114,7 +121,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                       shrinkWrap: true,
                       itemCount: texts.length,
                       itemBuilder: (context, index) {
-                        return item(index);
+                        return item(context, index);
                       },
                     ),
                     const SizedBox(height: 40),
@@ -128,10 +135,10 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     );
   }
 
-  Widget item(int index) {
+  Widget item(BuildContext context, int index) {
     return GestureDetector(
       onTap: () {
-        showAlertBox(index);
+        showAlertBox(context, index);
       },
       child: AnimatedContainer(
         height: 55,
@@ -185,7 +192,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     );
   }
 
-  void showAlertBox(int index) {
+  void showAlertBox(BuildContext context, int index) {
     List<String> mosqueNames = [
       "Excavation Work",
       "Foundation Work",
@@ -234,6 +241,24 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
       Icons.theater_comedy, // Main Stage
     ];
 
+    List<String> miniParksNames = [
+      "Mini Park Mud Filling",
+      "Grass Work",
+      "Mini Park Curbstones Work",
+      "Fancy Light Poles",
+      "Plantation Work mp",
+      "Monuments Work",
+    ];
+
+    List<IconData> miniParksIcons = [
+      Icons.landscape, // Mud Filling Work
+      Icons.grass, // Grass Work
+      Icons.satellite, // Curbstones Work
+      Icons.lightbulb, // Fancy Light Poles
+      Icons.local_florist, // Plantation Work
+      Icons.emoji_objects, // Monuments Work
+    ];
+
     if (texts[index] == "Mosque") {
       showDialog(
         context: context,
@@ -270,7 +295,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                   ),
                   onTap: () {
                     Navigator.of(context).pop(); // Close the dialog
-                    navigateToWorkPage(name); // Navigate to the correct page
+                    navigateToWorkPage(context, name); // Pass context to method
                   },
                 );
               }).toList(),
@@ -325,7 +350,62 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                   ),
                   onTap: () {
                     Navigator.of(context).pop(); // Close the dialog
-                    navigateToWorkPage(name); // Navigate to the correct page
+                    navigateToWorkPage(context, name); // Pass context to method
+                  },
+                );
+              }).toList(),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text(
+                  "Close",
+                  style: TextStyle(color: Color(0xFFC69840)),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    } else if (texts[index] == "Mini Parks") {
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(15),
+            ),
+            title: Text(
+              texts[index],
+              style: const TextStyle(
+                color: Color(0xFFC69840),
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: miniParksNames.asMap().entries.map((entry) {
+                int idx = entry.key;
+                String name = entry.value;
+                return ListTile(
+                  leading: Icon(
+                    miniParksIcons[idx],
+                    color: const Color(0xFFC69840),
+                  ),
+                  title: Text(
+                    name,
+                    style: const TextStyle(
+                      color: Color(0xFFC69840),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pop(); // Close the dialog
+                    navigateToWorkPage(context, name); // Pass context to method
                   },
                 );
               }).toList(),
@@ -347,8 +427,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     }
   }
 
-  void navigateToWorkPage(String name) {
-    // Define a mapping between names and pages
+  void navigateToWorkPage(BuildContext context, String name) {
     Map<String, Widget> pageMap = {
       "Excavation Work": const MosqueExavationWork(),
       "Foundation Work": const FoundationWork(),
@@ -368,6 +447,12 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
       "Boundary Grill Work": const BoundaryGrillWork(),
       "Gazebo Work": const GazeboWork(),
       "Main Stage": const MainStageWork(),
+      "Mini Park Mud Filling": const MiniParkMudFilling(),
+      "Grass Work": const GrassWork(),
+      "Mini Park Curbstones Work": const MiniParkCurbstonesWork(),
+      "Fancy Light Poles": const FancyLightPoles(),
+      "Plantation Work mp": const PlantationWorkmp(),
+      "Monuments Work": const MonumentsWork(),
     };
 
     Widget? page = pageMap[name];
@@ -378,3 +463,4 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     }
   }
 }
+
