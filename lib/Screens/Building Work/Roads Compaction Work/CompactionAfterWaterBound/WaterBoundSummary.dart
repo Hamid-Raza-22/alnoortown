@@ -1,17 +1,17 @@
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class Plantation_Mini_Summary extends StatefulWidget {
+class WaterBoundSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-  const Plantation_Mini_Summary({Key? key, required this.containerDataList})
-      : super(key: key);
+  const WaterBoundSummary({super.key, required this.containerDataList});
 
   @override
-  State<Plantation_Mini_Summary> createState() => _Plantation_Mini_SummaryState();
+  State<WaterBoundSummary> createState() => _WaterBoundSummaryState();
 }
 
-class _Plantation_Mini_SummaryState extends State<Plantation_Mini_Summary> {
+class _WaterBoundSummaryState extends State<WaterBoundSummary> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,19 +25,19 @@ class _Plantation_Mini_SummaryState extends State<Plantation_Mini_Summary> {
           },
         ),
         title: const Text(
-          'Plantation Work Summary',
+          'Compaction After WaterBound Summary',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(12.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
-            columnSpacing: 16.0,
-            headingRowColor: WidgetStateProperty.all(const Color(0xFFC69840)),
+            columnSpacing: 12.0,
+            headingRowColor: MaterialStateProperty.all(const Color(0xFFC69840)),
             border: const TableBorder(
               horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
               verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
@@ -45,22 +45,25 @@ class _Plantation_Mini_SummaryState extends State<Plantation_Mini_Summary> {
             columns: const [
               DataColumn(label: Text('Start Date', style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('End Date', style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('Total Dumpers', style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('Status', style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('Date', style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('Time', style: TextStyle(fontWeight: FontWeight.bold))),
             ],
             rows: widget.containerDataList.map((entry) {
-              DateTime timestamp = DateTime.parse(entry['timestamp']);
+              DateTime? startDate = entry['startDate'] != null ? DateTime.parse(entry['startDate']) : null;
+              DateTime? endDate = entry['endDate'] != null ? DateTime.parse(entry['endDate']) : null;
+              String dumpers = entry['dumpers'] ?? 'N/A';
+              String status = entry['status'] ?? 'N/A';
+              DateTime? timestamp = entry['timestamp'] != null ? DateTime.parse(entry['timestamp']) : null;
+
               return DataRow(cells: [
-                DataCell(Text(entry['startDate'] != null
-                    ? DateFormat('d MMM yyyy').format(DateTime.parse(entry['startDate']))
-                    : '')),
-                DataCell(Text(entry['endDate'] != null
-                    ? DateFormat('d MMM yyyy').format(DateTime.parse(entry['endDate']))
-                    : '')),
-                DataCell(Text(entry['status'] ?? '')),
-                DataCell(Text(DateFormat('d MMM yyyy').format(timestamp))), // Date
-                DataCell(Text(DateFormat('h:mm a').format(timestamp))), // Time
+                DataCell(Text(startDate != null ? DateFormat('d MMM yyyy').format(startDate) : 'N/A')),
+                DataCell(Text(endDate != null ? DateFormat('d MMM yyyy').format(endDate) : 'N/A')),
+                DataCell(Text(dumpers)),
+                DataCell(Text(status)),
+                DataCell(Text(timestamp != null ? DateFormat('d MMM yyyy').format(timestamp) : 'N/A')),
+                DataCell(Text(timestamp != null ? DateFormat('h:mm a').format(timestamp) : 'N/A')),
               ]);
             }).toList(),
           ),

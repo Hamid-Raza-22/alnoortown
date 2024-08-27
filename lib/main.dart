@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
-import 'Screens/Building Work/Mosque/MosqueExavationWork/mosque_exavation_work.dart';
 import 'Screens/Building Work/building_work_navigation.dart';
 import 'Screens/Development Work/development_page.dart';
 import 'Screens/home_page.dart';
@@ -26,10 +25,10 @@ Future<void> main() async {
       GetPage(name: '/newMaterial', page: () => const NewMaterial()),
       GetPage(name: '/buildingWork', page: () => const Building_Navigation_Page()),
     ],
-
   ),
 );
 }
+
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     final prefs = await SharedPreferences.getInstance();

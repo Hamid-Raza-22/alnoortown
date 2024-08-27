@@ -3,18 +3,22 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import 'BoundaryGrillWorkSummary.dart';
+import 'RoadsWaterSupplySummary.dart';
 
-class BoundaryGrilWork extends StatefulWidget {
-  const BoundaryGrilWork({super.key});
+class RoadsWaterSupplyWork extends StatefulWidget {
+  const RoadsWaterSupplyWork({super.key});
 
   @override
-  _BoundaryGrilWorkState createState() => _BoundaryGrilWorkState();
+  _RoadsWaterSupplyWorkState createState() => _RoadsWaterSupplyWorkState();
 }
 
-class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
+class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
+  TextEditingController roadNoController = TextEditingController();
+  TextEditingController totalLengthController = TextEditingController();
+  String? selectedBlock;
+  String? selectedRoadSide; // New variable for Road Side
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
 
@@ -26,7 +30,7 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
 
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('BoundaryGrillWorkDataList'); // Updated key
+    String? savedData = prefs.getString('RoadsWaterSupplyWorkDataList');
     if (savedData != null) {
       setState(() {
         containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
@@ -36,13 +40,17 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
 
   Future<void> _saveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('BoundaryGrillWorkDataList', json.encode(containerDataList)); // Updated key
+    await prefs.setString('RoadsWaterSupplyWorkDataList', json.encode(containerDataList));
   }
 
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
+  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? roadSide, String? totalLength, String? status) {
     return {
       "startDate": startDate?.toIso8601String(),
       "endDate": endDate?.toIso8601String(),
+      "block": block,
+      "roadNo": roadNo,
+      "roadSide": roadSide,
+      "totalLength": totalLength,
       "status": status,
       "timestamp": DateTime.now().toIso8601String(),
     };
@@ -67,14 +75,15 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoundaryGrillWorkSummary(containerDataList: containerDataList),
+                  builder: (context) =>
+                      RoadsWaterSupplySummary(containerDataList: containerDataList),
                 ),
               );
             },
           ),
         ],
         title: const Text(
-          'Boundary Grill Work',
+          'Roads Water Supply Work',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -109,7 +118,7 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 14),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
@@ -118,26 +127,42 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            buildDropdownRow("Block No:", selectedBlock, ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"], (value) {
+              setState(() {
+                selectedBlock = value;
+              });
+            }),
+            const SizedBox(height: 16),
+            buildTextFieldRow("Road No:", roadNoController),
+            const SizedBox(height: 16),
+            buildDropdownRow("Road Side:", selectedRoadSide, ["Left", "Right"], (value) { // Dropdown for Road Side
+              setState(() {
+                selectedRoadSide = value;
+              });
+            }),
+            const SizedBox(height: 16),
+            buildTextFieldRow("Total Length:", totalLengthController),
+            const SizedBox(height: 16),
             buildDatePickerRow(
               "Start Date:",
               selectedStartDate,
                   (date) => setState(() => selectedStartDate = date),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 16),
             buildDatePickerRow(
               "Expected Completion Date:",
               selectedEndDate,
                   (date) => setState(() => selectedEndDate = date),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 16),
             const Text(
-              "Boundary Grill Work Completion Status:",
+              "Water Supply Completion Status:",
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
@@ -149,10 +174,18 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
                 onPressed: () async {
                   if (selectedStartDate != null &&
                       selectedEndDate != null &&
+                      roadNoController.text.isNotEmpty &&
+                      totalLengthController.text.isNotEmpty &&
+                      selectedBlock != null &&
+                      selectedRoadSide != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     Map<String, dynamic> newEntry = createNewEntry(
                       selectedStartDate,
                       selectedEndDate,
+                      selectedBlock,
+                      roadNoController.text,
+                      selectedRoadSide, // Save Road Side data
+                      totalLengthController.text,
                       selectedStatus,
                     );
 
@@ -192,6 +225,36 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
           ],
         ),
       ),
+    );
+  }
+
+  Widget buildDropdownRow(String label, String? selectedValue, List<String> items, ValueChanged<String?> onChanged) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFC69840)),
+        ),
+        const SizedBox(height: 8),
+        DropdownButtonFormField<String>(
+          value: selectedValue,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.symmetric(horizontal: 8),
+          ),
+          items: items.map((item) {
+            return DropdownMenuItem<String>(
+              value: item,
+              child: Text(item),
+            );
+          }).toList(),
+          onChanged: onChanged,
+        ),
+      ],
     );
   }
 
@@ -239,26 +302,44 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
     );
   }
 
+  Widget buildTextFieldRow(String label, TextEditingController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFC69840)),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+          ),
+        ),
+      ],
+    );
+  }
+
   Widget buildStatusRadioButtons(ValueChanged<String?> onChanged) {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process'),
-          value: 'In Process',
+          title: const Text('In Progress'),
+          value: 'In Progress',
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done'),
-          value: 'Done',
+          title: const Text('Completed'),
+          value: 'Completed',
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
         ),
       ],
     );
   }
 }
-
-

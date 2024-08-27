@@ -1,20 +1,20 @@
+import 'package:al_noor_town/Screens/Building%20Work/Street%20Roads%20Water%20Channels/waterchannelsummary.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import 'BoundaryGrillWorkSummary.dart';
-
-class BoundaryGrilWork extends StatefulWidget {
-  const BoundaryGrilWork({super.key});
+class StreetRoadsWaterChannels extends StatefulWidget {
+  const StreetRoadsWaterChannels({super.key});
 
   @override
-  _BoundaryGrilWorkState createState() => _BoundaryGrilWorkState();
+  _StreetRoadsWaterChannelsState createState() => _StreetRoadsWaterChannelsState();
 }
 
-class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
-  DateTime? selectedStartDate;
-  DateTime? selectedEndDate;
+class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
+  TextEditingController roadNoController = TextEditingController();
+  TextEditingController noOfWaterChannelsController = TextEditingController();
+  String? selectedBlock;
+  String? selectedRoadSide;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
 
@@ -26,7 +26,7 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
 
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('BoundaryGrillWorkDataList'); // Updated key
+    String? savedData = prefs.getString('WaterChannelsDataList');
     if (savedData != null) {
       setState(() {
         containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
@@ -36,13 +36,15 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
 
   Future<void> _saveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('BoundaryGrillWorkDataList', json.encode(containerDataList)); // Updated key
+    await prefs.setString('WaterChannelsDataList', json.encode(containerDataList));
   }
 
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
+  Map<String, dynamic> createNewEntry(String? block, String? roadNo, String? roadSide, String? noOfWaterChannels, String? status) {
     return {
-      "startDate": startDate?.toIso8601String(),
-      "endDate": endDate?.toIso8601String(),
+      "block": block,
+      "roadNo": roadNo,
+      "roadSide": roadSide,
+      "noOfWaterChannels": noOfWaterChannels,
       "status": status,
       "timestamp": DateTime.now().toIso8601String(),
     };
@@ -67,14 +69,15 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoundaryGrillWorkSummary(containerDataList: containerDataList),
+                  builder: (context) =>
+                      WaterChannelsSummary(containerDataList: containerDataList),
                 ),
               );
             },
           ),
         ],
         title: const Text(
-          'Boundary Grill Work',
+          'Street Roads Water Channels',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -109,7 +112,7 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 14),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
@@ -118,26 +121,30 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildDatePickerRow(
-              "Start Date:",
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
-            ),
-            const SizedBox(height: 10),
-            buildDatePickerRow(
-              "Expected Completion Date:",
-              selectedEndDate,
-                  (date) => setState(() => selectedEndDate = date),
-            ),
-            const SizedBox(height: 10),
+            buildDropdownRow("Block No:", selectedBlock, ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"], (value) {
+              setState(() {
+                selectedBlock = value;
+              });
+            }),
+            const SizedBox(height: 16),
+            buildTextFieldRow("Road No:", roadNoController),
+            const SizedBox(height: 16),
+            buildDropdownRow("Road Side:", selectedRoadSide, ["Left", "Right"], (value) {
+              setState(() {
+                selectedRoadSide = value;
+              });
+            }),
+            const SizedBox(height: 16),
+            buildTextFieldRow("No of Water Channels:", noOfWaterChannelsController),
+            const SizedBox(height: 16),
             const Text(
-              "Boundary Grill Work Completion Status:",
+              "Water Channels Completion Status:",
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 4),
+            const SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
@@ -147,12 +154,16 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
-                      selectedEndDate != null &&
+                  if (roadNoController.text.isNotEmpty &&
+                      noOfWaterChannelsController.text.isNotEmpty &&
+                      selectedBlock != null &&
+                      selectedRoadSide != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
+                      selectedBlock,
+                      roadNoController.text,
+                      selectedRoadSide, // Save Road Side data
+                      noOfWaterChannelsController.text,
                       selectedStatus,
                     );
 
@@ -195,7 +206,7 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
     );
   }
 
-  Widget buildDatePickerRow(String label, DateTime? selectedDate, ValueChanged<DateTime?> onChanged) {
+  Widget buildDropdownRow(String label, String? selectedValue, List<String> items, ValueChanged<String?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -207,32 +218,40 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
               color: Color(0xFFC69840)),
         ),
         const SizedBox(height: 8),
-        GestureDetector(
-          onTap: () async {
-            DateTime? pickedDate = await showDatePicker(
-              context: context,
-              initialDate: selectedDate ?? DateTime.now(),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2101),
+        DropdownButtonFormField<String>(
+          value: selectedValue,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.symmetric(horizontal: 8),
+          ),
+          items: items.map((item) {
+            return DropdownMenuItem<String>(
+              value: item,
+              child: Text(item),
             );
-            onChanged(pickedDate);
-          },
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-            decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFC69840)),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Text(
-              selectedDate != null
-                  ? DateFormat('d MMM yyyy').format(selectedDate)
-                  : 'Select Date',
-              style: const TextStyle(
-                fontSize: 14,
-                color: Color(0xFFC69840),
-              ),
-            ),
+          }).toList(),
+          onChanged: onChanged,
+        ),
+      ],
+    );
+  }
+
+  Widget buildTextFieldRow(String label, TextEditingController controller) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFC69840)),
+        ),
+        const SizedBox(height: 8),
+        TextField(
+          controller: controller,
+          decoration: const InputDecoration(
+            border: OutlineInputBorder(),
           ),
         ),
       ],
@@ -243,22 +262,18 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process'),
-          value: 'In Process',
+          title: const Text('In Progress'),
+          value: 'In Progress',
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done'),
-          value: 'Done',
+          title: const Text('Completed'),
+          value: 'Completed',
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
         ),
       ],
     );
   }
 }
-
-
