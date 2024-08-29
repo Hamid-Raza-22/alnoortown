@@ -27,34 +27,39 @@ class LoginPageState extends State<LoginPage> {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
 
-      // Login successful, navigate to the HomePage
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    } on FirebaseAuthException catch (e) {
-      String errorMessage;
-
-      if (e.code == 'user-not-found') {
-        errorMessage = 'No user found for that email.';
-      } else if (e.code == 'wrong-password') {
-        errorMessage = 'Wrong password provided for that user.';
-      } else {
-        errorMessage = 'Login failed. Please try again later.';
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(errorMessage)),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('An unexpected error occurred: $e')),
-      );
-    }
+    // try {
+    //   UserCredential userCredential = await FirebaseAuth.instance
+    //       .signInWithEmailAndPassword(email: email, password: password);
+    //
+    //   // Login successful, navigate to the HomePage
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => const HomePage()),
+    //   );
+    // } on FirebaseAuthException catch (e) {
+    //   String errorMessage;
+    //
+    //   if (e.code == 'user-not-found') {
+    //     errorMessage = 'No user found for that email.';
+    //   } else if (e.code == 'wrong-password') {
+    //     errorMessage = 'Wrong password provided for that user.';
+    //   } else {
+    //     errorMessage = 'Login failed. Please try again later.';
+    //   }
+    //
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text(errorMessage)),
+    //   );
+    // } catch (e) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text('An unexpected error occurred: $e')),
+    //   );
+    // }
   }
 
 
