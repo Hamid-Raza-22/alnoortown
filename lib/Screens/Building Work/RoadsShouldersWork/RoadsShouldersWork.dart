@@ -94,7 +94,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueExcavationwork.png',
+              'assets/images/mosqueExcavationWork.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),

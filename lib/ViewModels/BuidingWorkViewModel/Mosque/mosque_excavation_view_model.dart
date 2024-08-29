@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 
 
 
-class MosqueExcavationViewMode extends GetxController {
+class MosqueExcavationViewModel extends GetxController {
 
   var allMosque = <MosqueExcavationWorkModel>[].obs;
   MosqueExcavationRepository mosqueExcavationRepository = MosqueExcavationRepository();

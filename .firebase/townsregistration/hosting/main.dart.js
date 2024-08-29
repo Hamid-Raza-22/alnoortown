@@ -44448,7 +44448,7 @@ return A.i(b.d6("String","BoundaryGrillWorkDataList",B.N.dA(q.r)),$async$tW)
 case 2:return A.n(null,r)}})
 return A.o($async$tW,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.a7w(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.a7x(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a79),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.a7x(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a79),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.bY("Start Date:",s.d,new A.a7p(s)),o=s.bY("Expected Completion Date:",s.e,new A.a7q(s)),n=new A.a7r(s),m=s.f,l=t.N,k=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.at,o,B.at,B.a8R,B.a9,A.H(A.a([A.c6(B.o,m,n,B.bn,"In Process",l),A.c6(B.o,m,n,B.bm,"Done",l)],k),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.a7s(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],k),B.p,B.f,B.e),r),B.h,5,B.bM,new A.aC(q,B.l))},
 bY(a,b,c){var s=null,r=A.C(a,s,s,s,B.t,s,s),q=A.dp(B.o,1),p=A.ah(8)
@@ -44692,7 +44692,7 @@ return A.i(b.d6("String","GazeboWorkDataList",B.N.dA(q.r)),$async$uh)
 case 2:return A.n(null,r)}})
 return A.o($async$uh,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aE5(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aE6(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a8S),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aE6(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a8S),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.bY("Start Date:",s.d,new A.aE_(s)),o=s.bY("Expected Completion Date:",s.e,new A.aE0(s)),n=new A.aE1(s),m=s.f,l=t.N,k=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.at,o,B.at,B.a6Q,B.a9,A.H(A.a([A.c6(B.o,m,n,B.bn,"In Process",l),A.c6(B.o,m,n,B.bm,"Done",l)],k),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aE2(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],k),B.p,B.f,B.e),r),B.h,5,B.bM,new A.aC(q,B.l))},
 bY(a,b,c){var s=null,r=A.C(a,s,s,s,B.t,s,s),q=A.dp(B.o,1),p=A.ah(8)
@@ -44811,7 +44811,7 @@ return A.i(b.d6("String","MainEntranceTilesWorkDataList",B.N.dA(q.r)),$async$ux)
 case 2:return A.n(null,r)}})
 return A.o($async$ux,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aG1(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aG2(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a7f),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aG2(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a7f),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.bY("Start Date:",s.d,new A.aFW(s)),o=s.bY("Expected Completion Date:",s.e,new A.aFX(s)),n=new A.aFY(s),m=s.f,l=t.N,k=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.at,o,B.at,B.a7n,B.a9,A.H(A.a([A.c6(B.o,m,n,B.bn,"In Process",l),A.c6(B.o,m,n,B.bm,"Done",l)],k),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aFZ(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],k),B.p,B.f,B.e),r),B.h,5,B.bM,new A.aC(q,B.l))},
 bY(a,b,c){var s=null,r=A.C(a,s,s,s,B.t,s,s),q=A.dp(B.o,1),p=A.ah(8)
@@ -44930,7 +44930,7 @@ return A.i(b.d6("String","MainStageWorkDataList",B.N.dA(q.r)),$async$uy)
 case 2:return A.n(null,r)}})
 return A.o($async$uy,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aGg(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aGh(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a7b),B.h,A.H(A.a([A.aP(s,A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),B.q,s,s,s,s,s,s,s,s,s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aGh(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a7b),B.h,A.H(A.a([A.aP(s,A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),B.q,s,s,s,s,s,s,s,s,s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.bY("Start Date:",s.d,new A.aGa(s)),o=s.bY("Expected Completion Date:",s.e,new A.aGb(s)),n=new A.aGc(s),m=s.f,l=t.N,k=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.at,o,B.at,B.a8w,B.a9,A.H(A.a([A.c6(B.o,m,n,B.bn,"In Process",l),A.c6(B.o,m,n,B.bm,"Done",l)],k),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aGd(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],k),B.p,B.f,B.e),r),B.h,5,B.bM,new A.aC(q,B.l))},
 bY(a,b,c){var s=null,r=A.C(a,s,s,s,B.t,s,s),q=A.dp(B.o,1),p=A.ah(8)
@@ -45058,7 +45058,7 @@ return A.i(b.d6("String","excavationWorkDataList",B.N.dA(q.w)),$async$uC)
 case 2:return A.n(null,r)}})
 return A.o($async$uC,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aHL(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aHM(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.Bz),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aHM(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.Bz),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.bY("Start Date:",s.d,new A.aHF(s)),o=s.bY("Expected Completion Date:",s.e,new A.aHG(s)),n=t.p,m=A.H(A.a([A.C("Total Dumpers:",r,r,r,B.t,r,r),B.B,A.ly(!0,B.bC,!1,r,!0,B.u,r,A.nG(),s.f,r,r,r,r,r,2,B.a1,B.A,!0,r,!0,r,!1,r,B.bJ,r,r,r,B.bH,r,r,r,1,r,r,!1,"\u2022",r,r,r,r,r,!1,r,!1,r,!0,r,B.M,r,r,B.bA,B.bp,r,r,r,r,r,r,r,B.aa,r,B.cq,r,r,r,r)],n),B.p,B.f,B.e),l=new A.aHH(s),k=s.r,j=t.N
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.v,o,B.v,m,B.v,B.BC,B.B,A.H(A.a([A.c6(B.o,k,l,B.bn,"In Process",j),A.c6(B.o,k,l,B.bm,"Done",j)],n),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aHI(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],n),B.p,B.f,B.e),r),B.h,5,B.Z,new A.aC(q,B.l))},
 bY(a,b,c){var s=null,r=A.C(a,s,s,s,B.t,s,s),q=A.dp(B.o,1),p=A.ah(8)
@@ -45885,7 +45885,7 @@ return A.i(b.d6("String","excavationWorkDataList",B.N.dA(q.w)),$async$tT)
 case 2:return A.n(null,r)}})
 return A.o($async$tT,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aH4(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aH5(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.Bz),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aH5(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.Bz),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.bY("Start Date:",s.d,new A.aGZ(s)),o=s.bY("Expected Completion Date:",s.e,new A.aH_(s)),n=t.p,m=A.H(A.a([A.C("Total Dumpers:",r,r,r,B.t,r,r),B.B,A.ly(!0,B.bC,!1,r,!0,B.u,r,A.nG(),s.f,r,r,r,r,r,2,B.a1,B.A,!0,r,!0,r,!1,r,B.bJ,r,r,r,B.bH,r,r,r,1,r,r,!1,"\u2022",r,r,r,r,r,!1,r,!1,r,!0,r,B.M,r,r,B.bA,B.bp,r,r,r,r,r,r,r,B.aa,r,B.cq,r,r,r,r)],n),B.p,B.f,B.e),l=new A.aH0(s),k=s.r,j=t.N
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.v,o,B.v,m,B.v,B.BC,B.B,A.H(A.a([A.c6(B.o,k,l,B.bn,"In Process",j),A.c6(B.o,k,l,B.bm,"Done",j)],n),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aH1(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],n),B.p,B.f,B.e),r),B.h,5,B.Z,new A.aC(q,B.l))},
 bY(a,b,c){var s=null,r=A.C(a,s,s,s,B.t,s,s),q=A.dp(B.o,1),p=A.ah(8)
@@ -46274,7 +46274,7 @@ return A.i(b.d6("String","ceilingWorkDataList",B.N.dA(q.e)),$async$tZ)
 case 2:return A.n(null,r)}})
 return A.o($async$tZ,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.a8b(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.a8c(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a75),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.a8c(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a75),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.fL(new A.a86(s)),o=new A.a87(s),n=s.r,m=t.N,l=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.v,B.a6O,B.B,A.H(A.a([A.c6(B.o,n,o,B.bn,"In Process",m),A.c6(B.o,n,o,B.bm,"Done",m)],l),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.a88(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],l),B.p,B.f,B.e),r),B.h,5,B.Z,new A.aC(q,B.l))},
 fL(a){var s=this.d,r=A.U(s).i("W<1,cv<q>>")
@@ -46385,7 +46385,7 @@ return A.i(b.d6("String","doorsWorkDataList",B.N.dA(q.e)),$async$u4)
 case 2:return A.n(null,r)}})
 return A.o($async$u4,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aaG(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aaH(this,a),s,s)],q),B.h,!0,0,s,s,r,s,s,B.a8A),s,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aaH(this,a),s,s)],q),B.h,!0,0,s,s,r,s,s,B.a8A),s,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.fL(new A.aaB(s)),o=new A.aaC(s),n=s.r,m=t.N,l=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.v,B.a7l,B.B,A.H(A.a([A.c6(B.o,n,o,B.bn,"In Process",m),A.c6(B.o,n,o,B.bm,"Done",m)],l),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aaD(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],l),B.p,B.f,B.e),r),B.h,5,B.Z,new A.aC(q,B.l))},
 fL(a){var s=this.d,r=A.U(s).i("W<1,cv<q>>")
@@ -46748,7 +46748,7 @@ return A.i(b.d6("String","foundationWorkDataList",B.N.dA(q.e)),$async$ug)
 case 2:return A.n(null,r)}})
 return A.o($async$ug,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aeY(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aeZ(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a8e),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aeZ(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a8e),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15)
 return A.cl(new A.a5(B.M,A.H(A.a([s.fL(new A.aeO(s)),B.v,s.Js(),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aeP(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],t.p),B.p,B.f,B.e),r),B.h,5,B.Z,new A.aC(q,B.l))},
 fL(a){var s=this.d,r=A.U(s).i("W<1,cv<q>>")
@@ -46879,7 +46879,7 @@ return A.i(b.d6("String","excavationWorkDataList",B.N.dA(q.e)),$async$uB)
 case 2:return A.n(null,r)}})
 return A.o($async$uB,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.ant(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.anu(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a8W),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.anu(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a8W),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.fL(new A.ano(s)),o=new A.anp(s),n=s.r,m=t.N,l=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.v,B.a7U,B.B,A.H(A.a([A.c6(B.o,n,o,B.bn,"In Process",m),A.c6(B.o,n,o,B.bm,"Done",m)],l),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.anq(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],l),B.p,B.f,B.e),r),B.h,5,B.Z,new A.aC(q,B.l))},
 fL(a){var s=this.d,r=A.U(s).i("W<1,cv<q>>")
@@ -46980,7 +46980,7 @@ return A.i(b.d6("String","paintWorkDataList",B.N.dA(q.e)),$async$uI)
 case 2:return A.n(null,r)}})
 return A.o($async$uI,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aoN(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aoO(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a7R),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aoO(this,a),s,s)],q),B.h,!0,s,s,s,r,s,s,B.a7R),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.fL(new A.aoI(s)),o=new A.aoJ(s),n=s.r,m=t.N,l=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.v,B.a7c,B.B,A.H(A.a([A.c6(B.o,n,o,B.bn,"In Process",m),A.c6(B.o,n,o,B.bm,"Done",m)],l),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aoK(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],l),B.p,B.f,B.e),r),B.h,5,B.Z,new A.aC(q,B.l))},
 fL(a){var s=this.d,r=A.U(s).i("W<1,cv<q>>")
@@ -47089,7 +47089,7 @@ return A.i(b.d6("String","sanitaryWorkDataList",B.N.dA(q.e)),$async$uU)
 case 2:return A.n(null,r)}})
 return A.o($async$uU,r)},
 F(a){var s=null,r=A.aR(s,B.T,s,new A.aKA(a),s,s),q=t.p
-return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aKB(this,a),s,s)],q),B.h,!0,0,s,s,r,s,s,B.a8g),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationwork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
+return A.bd(A.bl(A.a([A.aR(s,B.aF,s,new A.aKB(this,a),s,s)],q),B.h,!0,0,s,s,r,s,s,B.a8g),B.h,A.H(A.a([A.bU(A.c7("assets/images/mosqueExcavationWork.png",B.az,170,s,s),s,1/0),A.a7(A.bx(A.H(A.a([this.bO(),B.v],q),B.p,B.f,B.e),B.H,s,B.F),1)],q),B.j,B.f,B.e))},
 bO(){var s=this,r=null,q=A.ah(15),p=s.fL(new A.aKw(s)),o=new A.aKx(s),n=s.r,m=t.N,l=t.p
 return A.cl(new A.a5(B.M,A.H(A.a([p,B.v,B.a7p,B.B,A.H(A.a([A.c6(B.o,n,o,B.bn,"In Process",m),A.c6(B.o,n,o,B.bm,"Done",m)],l),B.j,B.f,B.e),B.P,A.as(A.ci(!1,B.a5,r,r,B.Y,r,r,r,r,new A.aKy(s),r,A.cc(r,r,B.X,r,r,r,r,r,r,r,r,r,B.a3,r,new A.aC(A.ah(15),B.l),r,r,B.ab,r)),r,r)],l),B.p,B.f,B.e),r),B.h,5,B.Z,new A.aC(q,B.l))},
 fL(a){var s=this.d,r=A.U(s).i("W<1,cv<q>>")

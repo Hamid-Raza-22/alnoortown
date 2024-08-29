@@ -23,7 +23,7 @@ const RESOURCES = {"assets/AssetManifest.bin": "7bfffdf1beb7b35e6469e90aee8fe0d6
 "assets/assets/images/maindrain_work.png": "97c8097598b2c98742183417cb92c425",
 "assets/assets/images/manholes.png": "f7efcda7f9acb6f1d03be407552781bd",
 "assets/assets/images/material_shifting.png": "5557f6c700a8a46c1ddae49510336b64",
-"assets/assets/images/mosqueExcavationwork.png": "b0793a3716331bfbf554ca0fd5ec0798",
+"assets/assets/images/mosqueExcavationWork.png": "b0793a3716331bfbf554ca0fd5ec0798",
 "assets/assets/images/new_material-01.png": "2c05565efd4a46fa13e51e8f73a4fd2a",
 "assets/assets/images/new_material.png": "ba061ad96c5a08abc85d19d35289e2a2",
 "assets/assets/images/pipelines.png": "9f842d897a03e9e29e874d3ae95cca88",

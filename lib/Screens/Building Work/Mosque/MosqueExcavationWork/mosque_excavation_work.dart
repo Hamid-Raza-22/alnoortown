@@ -1,4 +1,7 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
+import 'package:al_noor_town/ViewModels/BuidingWorkViewModel/mosque_excavation_view_mode.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
@@ -12,6 +15,7 @@ class MosqueExcavationWork extends StatefulWidget {
 }
 
 class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
+  MosqueExcavationViewModel mosqueExcavationViewModel = Get.put(MosqueExcavationViewModel());
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -29,34 +33,34 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+   // _loadData();
   }
 
-  // Load data specific to excavation work from SharedPreferences
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('excavationWorkDataList'); // Unique key for excavation work
-    if (savedData != null) {
-      setState(() {
-        containerDataList =
-        List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
-  }
-
-  // Save data specific to excavation work to SharedPreferences
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('excavationWorkDataList', json.encode(containerDataList)); // Unique key for excavation work
-  }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
-    return {
-      "selectedBlock": selectedBlock,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // // Load data specific to excavation work from SharedPreferences
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('excavationWorkDataList'); // Unique key for excavation work
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList =
+  //       List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // // Save data specific to excavation work to SharedPreferences
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('excavationWorkDataList', json.encode(containerDataList)); // Unique key for excavation work
+  // }
+  //
+  // Map<String, dynamic> createNewEntry() {
+  //   return {
+  //     "selectedBlock": selectedBlock,
+  //     "status": selectedStatus,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +100,7 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueExcavationwork.png',
+              'assets/images/mosqueExcavationWork.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),
@@ -153,12 +157,18 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
-                    Map<String, dynamic> newEntry =
-                    createNewEntry(selectedBlock, selectedStatus);
+                    await mosqueExcavationViewModel.addMosque(MosqueExcavationWorkModel(
+                      blockNo: selectedBlock,
+                      completionStatus: selectedStatus,
+                     // date:
+                    ));
+                    await mosqueExcavationViewModel.fetchAllMosque();
+                    // Map<String, dynamic> newEntry =
+                    // createNewEntry();
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
+                    // setState(() {
+                    //   containerDataList.add(newEntry);
+                    // });
 
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -167,7 +177,7 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                         ),
                       );
                     }
-                    await _saveData();
+                  //  await _saveData();
 
                     // Call the callback after the async operation
                     showSnackBar('Entry added successfully!');

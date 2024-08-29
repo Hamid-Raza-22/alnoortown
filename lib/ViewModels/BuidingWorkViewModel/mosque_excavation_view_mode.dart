@@ -7,7 +7,7 @@ import '../../Repositories/BuildingWorkRepositories/MosqueRepository/mosque_exav
 
 
 
-class MosqueExcavationViewMode extends GetxController {
+class MosqueExcavationViewModel extends GetxController {
 
   var allMosque = <MosqueExcavationWorkModel>[].obs;
   MosqueExcavationRepository mosqueExcavationRepository = MosqueExcavationRepository();
