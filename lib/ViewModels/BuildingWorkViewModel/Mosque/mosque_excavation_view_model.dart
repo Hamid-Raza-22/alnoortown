@@ -1,8 +1,6 @@
-
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
+import 'package:al_noor_town/Repositories/BuildingWorkRepositories/MosqueRepository/mosque_exavation_repository.dart';
 import 'package:get/get.dart';
-
-import '../../Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
-import '../../Repositories/BuildingWorkRepositories/MosqueRepository/mosque_exavation_repository.dart';
 
 
 
@@ -16,7 +14,7 @@ class MosqueExcavationViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    //fetchAllMosque();
+    fetchAllMosque();
   }
 
   fetchAllMosque() async{

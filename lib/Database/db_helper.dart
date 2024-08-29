@@ -59,7 +59,7 @@ class DBHelper{
     db.execute(
         "CREATE TABLE shifting(id INTEGER PRIMARY KEY,fromBlock TEXT, toBlock TEXT, numOfShift TEXT, date TEXT)");
     db.execute(
-        "CREATE TABLE mosque(id INTEGER PRIMARY KEY,blockNo TEXT, completionStatus TEXT, date TEXT)");
+        "CREATE TABLE mosque(id INTEGER PRIMARY KEY,blockNo TEXT, completionStatus TEXT, date TEXT, time TEXT)");
     db.execute(
         "CREATE TABLE newMaterials(id INTEGER PRIMARY KEY,sand TEXT, soil TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT,otherMaterialValue TEXT, date TEXT)");
     db.execute(

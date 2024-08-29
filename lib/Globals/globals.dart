@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
+
+import 'package:intl/intl.dart';
 String tableNameMachine= 'machine';
 String tableNameTanker='tanker';
 String tableNameExcavation='Excavation';
@@ -64,3 +66,8 @@ const Color customColor = Color(0xFFC69840);
 bool isClockedIn = false;
 late Timer timer;
 int secondsPassed=0;
+String _getFormattedDate() {
+  final now = DateTime.now();
+  final formatter = DateFormat('dd-MMM-yyyy');
+  return formatter.format(now);
+}

@@ -3,6 +3,7 @@ class MosqueExcavationWorkModel{
   dynamic blockNo;
   dynamic completionStatus;
   dynamic date;
+   dynamic time;
 
 
 
@@ -10,7 +11,8 @@ class MosqueExcavationWorkModel{
     this.id,
     this.blockNo,
     this.completionStatus,
-    this.date
+    this.date,
+    this.time
 
 
   });
@@ -21,8 +23,8 @@ class MosqueExcavationWorkModel{
       id: json['id'],
       blockNo: json['blockNo'],
       completionStatus: json['completionStatus'],
-        date:  json['date']
-
+        date:  json['date'],
+time: json['time']
 
     );
   }
@@ -32,7 +34,8 @@ class MosqueExcavationWorkModel{
       'id':id,
       'blockNo':blockNo,
       'completionStatus':completionStatus,
-      'date':date
+      'date':date,
+      'time':time
 
     };
   }

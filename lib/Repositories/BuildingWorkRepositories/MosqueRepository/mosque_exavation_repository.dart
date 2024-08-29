@@ -19,7 +19,7 @@ class MosqueExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMosque,
-        columns: ['id', 'blockNo', 'completionStatus', 'date']
+        columns: ['id', 'blockNo', 'completionStatus', 'date', 'time']
     );
 
     // Print the raw data retrieved from the database
@@ -40,7 +40,7 @@ class MosqueExcavationRepository{
 
     // Print the list
     if (kDebugMode) {
-      print('Parsed MosqueExavationWorkModel objects:');
+      print('Parsed MosqueExcavationWorkModel objects:');
     }
 
 
@@ -48,15 +48,15 @@ class MosqueExcavationRepository{
   }
 
 
-  Future<int>add(MosqueExcavationWorkModel mosqueExavationWorkModel) async{
+  Future<int>add(MosqueExcavationWorkModel mosqueExcavationWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameMosque,mosqueExavationWorkModel.toMap());
+    return await dbClient.insert(tableNameMosque,mosqueExcavationWorkModel.toMap());
   }
 
-  Future<int>update(MosqueExcavationWorkModel mosqueExavationWorkModel) async{
+  Future<int>update(MosqueExcavationWorkModel mosqueExcavationWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameMosque,mosqueExavationWorkModel.toMap(),
-        where: 'id = ?', whereArgs: [mosqueExavationWorkModel.id]);
+    return await dbClient.update(tableNameMosque,mosqueExcavationWorkModel.toMap(),
+        where: 'id = ?', whereArgs: [mosqueExcavationWorkModel.id]);
 
   }
 

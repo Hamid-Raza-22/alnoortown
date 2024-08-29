@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+
+import 'package:get/get.dart';
+import '../../../../ViewModels/BuildingWorkViewModel/Mosque/mosque_excavation_view_model.dart'; // Import GetX package
 
 class MosqueSummaryPage extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
-
-  const MosqueSummaryPage({super.key, required this.containerDataList});
+  const MosqueSummaryPage({super.key});
 
   @override
   State<MosqueSummaryPage> createState() => _MosqueSummaryPageState();
 }
 
 class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
+  // Initialize ViewModel using GetX
+  final MosqueExcavationViewModel mosqueViewModel = Get.put(MosqueExcavationViewModel());
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   // Fetch data when the page is initialized
+  //  // mosqueViewModel.fetchAllMosque();
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,13 +67,21 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
             const SizedBox(height: 8),
             // Data Grid
             Expanded(
-              child: ListView.builder(
-                itemCount: widget.containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = widget.containerDataList[index];
-                  return _buildDataRow(data);
-                },
-              ),
+              // Use Obx to listen for changes in allMosque list
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: mosqueViewModel.allMosque.length,
+                  itemBuilder: (context, index) {
+                    final data = mosqueViewModel.allMosque[index];
+                    return _buildDataRow({
+                      "selectedBlock": data.blockNo,
+                      "status": data.completionStatus,
+                      "date": data.date,
+                      "time": data.time
+                    });
+                  },
+                );
+              }),
             ),
           ],
         ),
@@ -99,8 +117,8 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
           children: [
             Expanded(child: _buildDataCell(data["selectedBlock"] ?? "N/A")),
             Expanded(child: _buildDataCell(data["status"] ?? "N/A")),
-            Expanded(child: _buildDataCell(_formatDate(data["timestamp"]))),
-            Expanded(child: _buildDataCell(_formatTime(data["timestamp"]))),
+            Expanded(child: _buildDataCell(data["date"])),
+            Expanded(child: _buildDataCell(data["time"])),
           ],
         ),
       ),
@@ -119,15 +137,15 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
     );
   }
 
-  String _formatDate(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('d MMM yyyy').format(dateTime);
-  }
-
-  String _formatTime(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('h:mm a').format(dateTime);
-  }
+  // String _formatDate(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('d MMM yyyy').format(dateTime);
+  // }
+  //
+  // String _formatTime(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('h:mm a').format(dateTime);
+  // }
 }

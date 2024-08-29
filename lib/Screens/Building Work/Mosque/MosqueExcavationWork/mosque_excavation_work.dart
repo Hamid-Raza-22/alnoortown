@@ -1,11 +1,9 @@
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
-import 'package:al_noor_town/ViewModels/BuidingWorkViewModel/mosque_excavation_view_mode.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-
-import 'MosqueSummaryPage.dart';
+import 'package:intl/intl.dart';
+import '../../../../ViewModels/BuildingWorkViewModel/Mosque/mosque_excavation_view_model.dart';
+import 'mosque_summary_page.dart';
 
 class MosqueExcavationWork extends StatefulWidget {
   const MosqueExcavationWork({super.key});
@@ -35,32 +33,15 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
     super.initState();
    // _loadData();
   }
-
-  // // Load data specific to excavation work from SharedPreferences
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('excavationWorkDataList'); // Unique key for excavation work
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList =
-  //       List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // // Save data specific to excavation work to SharedPreferences
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('excavationWorkDataList', json.encode(containerDataList)); // Unique key for excavation work
-  // }
-  //
-  // Map<String, dynamic> createNewEntry() {
-  //   return {
-  //     "selectedBlock": selectedBlock,
-  //     "status": selectedStatus,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +63,7 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      MosqueSummaryPage(containerDataList: containerDataList),
+                      const MosqueSummaryPage(),
                 ),
               );
             },
@@ -160,15 +141,10 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                     await mosqueExcavationViewModel.addMosque(MosqueExcavationWorkModel(
                       blockNo: selectedBlock,
                       completionStatus: selectedStatus,
-                     // date:
+                     date: _getFormattedDate(),
+                      time: _getFormattedTime()
                     ));
                     await mosqueExcavationViewModel.fetchAllMosque();
-                    // Map<String, dynamic> newEntry =
-                    // createNewEntry();
-
-                    // setState(() {
-                    //   containerDataList.add(newEntry);
-                    // });
 
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
