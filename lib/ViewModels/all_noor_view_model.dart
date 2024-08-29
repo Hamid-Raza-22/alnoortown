@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:al_noor_town/Models/AttendenceModels/attendance_in_model.dart';
+import 'package:al_noor_town/ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +17,7 @@ class HomeController extends GetxController {
   var isClockedIn = false.obs;
   var formattedDurationString = '00:00:00'.obs;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
+final attendanceInViewModel = Get.put(AttendanceInViewModel());
   @override
   void onInit() {
     super.onInit();
@@ -148,8 +150,13 @@ class HomeController extends GetxController {
       formattedDurationString.value = _formatDuration(newsecondpassed.toString());
     });
   }
+  String _getFormattedtime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('HH:mm:ss a');
+    return formatter.format(now);
+  }
 
-  void toggleClockInOut() {
+  Future<void> toggleClockInOut() async {
     if (isClockedIn.value) {
       _stopTimer();
       Workmanager().cancelAll();
@@ -158,6 +165,13 @@ class HomeController extends GetxController {
       newsecondpassed = 0;
       formattedDurationString.value = '00:00:00';
     } else {
+      await attendanceInViewModel.addAttend(AttendanceInModel(
+        timeIn: _getFormattedtime(),
+        latitude: "71.33",
+        longitude: "32.44",
+        liveAddress: "Prem Nagar",
+      ));
+      await attendanceInViewModel.fetchAllAttend();
       _saveCurrentTime();
       _saveClockStatus(true);
       startTimer();

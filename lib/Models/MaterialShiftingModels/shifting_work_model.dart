@@ -5,18 +5,12 @@ class ShiftingWorkModel{
   dynamic numOfShift;
   dynamic date;
 
-
-
-
   ShiftingWorkModel({
     this.id,
     this.fromBlock,
     this.toBlock,
     this.numOfShift,
     this.date
-
-
-
   });
 
   factory ShiftingWorkModel.fromMap(Map<dynamic,dynamic>json)

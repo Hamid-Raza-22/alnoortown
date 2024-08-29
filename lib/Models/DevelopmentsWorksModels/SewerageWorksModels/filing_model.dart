@@ -6,7 +6,6 @@ class FilingModel{
   dynamic status;
   dynamic date;
 
-
   FilingModel({
     this.id,
     this.blockNo,

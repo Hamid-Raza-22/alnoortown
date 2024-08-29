@@ -5,17 +5,12 @@ class MainDrainExavationModel{
   dynamic completedLength;
   dynamic date;
 
-
-
   MainDrainExavationModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.completedLength,
     this.date
-
-
-
   });
 
   factory MainDrainExavationModel.fromMap(Map<dynamic,dynamic>json)

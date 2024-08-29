@@ -5,18 +5,12 @@ class BrickWorkModel{
   dynamic completedLength;
   dynamic date;
 
-
-
-
   BrickWorkModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.completedLength,
     this.date
-
-
-
   });
 
   factory BrickWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -27,7 +21,6 @@ class BrickWorkModel{
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
         date:  json['date']
-
 
     );
   }

@@ -2,7 +2,6 @@
 
 import 'package:al_noor_town/Database/dbhelper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/asphalt_work_model.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/brick_work_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -32,22 +31,16 @@ class BrickWorkRepository{
       }
     }
 
-    // Convert the raw data into a list of MachineModel objects
+    // Convert the raw data into a list
     List<BrickWorkModel> brickWork = [];
     for (int i = 0; i < maps.length; i++) {
       brickWork.add(BrickWorkModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
+    // Print the list
     if (kDebugMode) {
       print('Parsed BrickWorkModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
-
     return brickWork;
   }
 

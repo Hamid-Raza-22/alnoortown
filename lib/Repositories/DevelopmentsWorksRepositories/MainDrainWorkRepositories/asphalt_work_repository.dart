@@ -32,28 +32,20 @@ class AsphaltWorkRepository{
       }
     }
 
-    // Convert the raw data into a list of MachineModel objects
+    // Convert the raw data into a list
     List<AsphaltWorkModel> asphaltWork = [];
     for (int i = 0; i < maps.length; i++) {
       asphaltWork.add(AsphaltWorkModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
+    // Print the list
     if (kDebugMode) {
       print('Parsed AsphaltWorkModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
+
 
     return asphaltWork;
   }
-
-
-
-
 
   Future<int>add(AsphaltWorkModel asphaltWorkModel) async{
     var dbClient = await dbHelper.db;

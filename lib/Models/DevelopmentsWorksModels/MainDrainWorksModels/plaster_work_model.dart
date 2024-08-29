@@ -5,18 +5,12 @@ class PlasterWorkModel{
   dynamic completedLength;
   dynamic date;
 
-
-
-
   PlasterWorkModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.completedLength,
     this.date
-
-
-
   });
 
   factory PlasterWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -27,8 +21,6 @@ class PlasterWorkModel{
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
         date:  json['date']
-
-
     );
   }
 

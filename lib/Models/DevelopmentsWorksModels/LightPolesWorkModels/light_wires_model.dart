@@ -22,8 +22,6 @@ class LightWiresModel{
       streetNo: json['streetNo'],
       totalLength: json['totalLength'],
         date:  json['date']
-
-
     );
   }
 

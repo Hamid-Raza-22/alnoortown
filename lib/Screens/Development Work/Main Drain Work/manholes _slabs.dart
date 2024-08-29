@@ -1,8 +1,6 @@
 import 'package:al_noor_town/Database/dbhelper.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/manholes_slab_model.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/manholes_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/man_holes_slab_view_model.dart';
-import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/manholes_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -152,7 +150,7 @@ class ManholesSlabsState extends State<ManholesSlabs> {
                       id: manId,
                       blockNo: selectedBlock,
                       streetNo: selectedStreet,
-                      //numTankers: numTankers,
+
                     ));
                     await manHolesSlabViewModel.fetchAllMan();
                   }

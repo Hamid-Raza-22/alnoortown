@@ -5,16 +5,12 @@ class IronWorksModel{
   dynamic completedLength;
   dynamic date;
 
-
-
   IronWorksModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.completedLength,
     this.date
-
-
   });
 
   factory IronWorksModel.fromMap(Map<dynamic,dynamic>json)
@@ -25,7 +21,6 @@ class IronWorksModel{
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
         date:  json['date']
-
 
     );
   }

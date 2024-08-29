@@ -2,7 +2,7 @@
 
 import 'package:al_noor_town/Database/dbhelper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
-import 'package:al_noor_town/Models/BuildingWorkModels/mosque_exavation_work.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_exavation_work.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -32,21 +32,17 @@ class MosqueExavationRepository{
       }
     }
 
-    // Convert the raw data into a list of MachineModel objects
+    // Convert the raw data into a list
     List<MosqueExavationWorkModel> mosqueExavationWork = [];
     for (int i = 0; i < maps.length; i++) {
       mosqueExavationWork.add(MosqueExavationWorkModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
+    // Print the list
     if (kDebugMode) {
       print('Parsed MosqueExavationWorkModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
+
 
     return mosqueExavationWork;
   }

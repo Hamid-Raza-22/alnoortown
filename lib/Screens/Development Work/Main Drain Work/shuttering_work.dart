@@ -155,7 +155,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
 
                         ));
                     await shutteringWorkViewModel.fetchAllShutter();
-                  }  // await dbHelper.showAsphaltData();
+                  }
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

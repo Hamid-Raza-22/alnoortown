@@ -1,9 +1,13 @@
+import 'package:al_noor_town/Database/dbHelper.dart';
+import 'package:al_noor_town/ViewModels/BuidingWorkViewModel/Mosque/ceiling_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'CeilingWorkSummary.dart';
 
 class CeilingWork extends StatefulWidget {
+
   const CeilingWork({super.key});
 
   @override
@@ -11,6 +15,9 @@ class CeilingWork extends StatefulWidget {
 }
 
 class _CeilingWorkState extends State<CeilingWork> {
+  CeilingWorkViewModel ceilingWorkWorkViewModel=Get.put(CeilingWorkViewModel());
+  DBHelper dbHelper = DBHelper();
+  int? ceilingId;
   final List<String> blocks = [
     "Block A",
     "Block B",

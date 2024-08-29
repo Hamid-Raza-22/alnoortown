@@ -6,8 +6,6 @@ class MachineModel{
   dynamic timeIn;
   dynamic timeOut;
   dynamic date;
-
-
   MachineModel({
     this.id,
     this.blockNo,

@@ -32,21 +32,17 @@ class PolesExavationRepository{
       }
     }
 
-    // Convert the raw data into a list of MachineModel objects
+    // Convert the raw data into a list
     List<PolesExavationModel> polesExavation = [];
     for (int i = 0; i < maps.length; i++) {
       polesExavation.add(PolesExavationModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
+    // Print the list
     if (kDebugMode) {
       print('Parsed TankerModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
+
 
     return polesExavation;
   }

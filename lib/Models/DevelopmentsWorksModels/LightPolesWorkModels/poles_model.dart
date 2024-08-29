@@ -5,7 +5,6 @@ class PolesModel{
   dynamic totalLength;
   dynamic date;
 
-
   PolesModel({
     this.id,
     this.blockNo,

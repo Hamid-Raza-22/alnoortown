@@ -157,8 +157,7 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
 
 
                     ));
-                  //  await dbHelper.showAsphaltData();
-                    // nameController.text = "";
+
                     await asphaltWorkViewModel.fetchAllAsphalt();
                   }
 

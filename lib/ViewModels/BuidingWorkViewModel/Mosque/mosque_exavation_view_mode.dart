@@ -1,5 +1,5 @@
-import 'package:al_noor_town/Models/BuildingWorkModels/mosque_exavation_work.dart';
-import 'package:al_noor_town/Repositories/BuidingWorkRepsitories/mosque_exavation_repository.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_exavation_work.dart';
+import 'package:al_noor_town/Repositories/BuildingWorkRepositories/MosqueRepository/mosque_exavation_repository.dart';
 import 'package:get/get.dart';
 
 

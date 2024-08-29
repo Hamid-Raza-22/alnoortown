@@ -32,21 +32,16 @@ class IronWorksRepository{
       }
     }
 
-    // Convert the raw data into a list of MachineModel objects
+    // Convert the raw data into a list
     List<IronWorksModel> ironWorks = [];
     for (int i = 0; i < maps.length; i++) {
       ironWorks.add(IronWorksModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
     if (kDebugMode) {
       print('Parsed IronWorksModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
+    
 
     return ironWorks;
   }

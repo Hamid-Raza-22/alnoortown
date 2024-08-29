@@ -29,26 +29,19 @@ class LightWiresRepository{
       }
     }
 
-    // Convert the raw data into a list of MachineModel objects
+    // Convert the raw data into a list
     List<LightWiresModel> lightWires = [];
     for (int i = 0; i < maps.length; i++) {
       lightWires.add(LightWiresModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
+    // Print the list of
     if (kDebugMode) {
       print('Parsed LightWiresModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
 
     return lightWires;
   }
-
-
 
   Future<int>add(LightWiresModel lightWiresModel) async{
     var dbClient = await dbHelper.db;

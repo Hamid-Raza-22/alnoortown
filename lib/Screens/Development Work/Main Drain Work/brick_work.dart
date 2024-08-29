@@ -154,8 +154,7 @@ class _BrickWorkState extends State<BrickWork> {
                       completedLength: numTankers,
 
                     ));
-                   // await dbHelper.showAsphaltData();
-                    // nameController.text = "";
+
                     await brickWorkViewModel.fetchAllBrick();
                   }
 

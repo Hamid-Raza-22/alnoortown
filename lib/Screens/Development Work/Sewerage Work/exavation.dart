@@ -154,7 +154,7 @@ class ExavationState extends State<Exavation> {
 
                     ));
                     await exavationViewModel.fetchAllExa();
-                  }   // await dbHelper.showAsphaltData();
+                  }
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

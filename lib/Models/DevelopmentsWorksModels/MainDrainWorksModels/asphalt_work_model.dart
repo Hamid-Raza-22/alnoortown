@@ -6,7 +6,6 @@ class AsphaltWorkModel{
   dynamic backFillingStatus;
   dynamic date;
 
-
   AsphaltWorkModel({
     this.id,
     this.blockNo,
