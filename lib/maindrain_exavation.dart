@@ -1,16 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MainDrainExavation extends StatefulWidget {
-  const MainDrainExavation({super.key});
+class MainDrainExcavation extends StatefulWidget {
+  const MainDrainExcavation({super.key});
 
   @override
-  _MainDrainExavationState createState() => _MainDrainExavationState();
+  MainDrainExcavationState createState() => MainDrainExcavationState();
 }
 
-class _MainDrainExavationState extends State<MainDrainExavation> {
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
+class MainDrainExcavationState extends State<MainDrainExcavation> {
+  final List<String> blocks = [
+    "Block A",
+    "Block B",
+    "Block C",
+    "Block D",
+    "Block E",
+    "Block F",
+    "Block G"
+  ];
+  final List<String> streets = [
+    "Street 1",
+    "Street 2",
+    "Street 3",
+    "Street 4",
+    "Street 5",
+    "Street 6",
+    "Street 7"
+  ];
   List<Map<String, dynamic>> containerDataList = [];
 
   @override
@@ -42,7 +58,7 @@ class _MainDrainExavationState extends State<MainDrainExavation> {
                 height: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/exavation.png'),
+                    image: AssetImage('assets/images/Excavation.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -63,8 +79,11 @@ class _MainDrainExavationState extends State<MainDrainExavation> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'Exavation',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                  'Excavation',
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFC69840)),
                 ),
               ),
             ),
@@ -87,7 +106,9 @@ class _MainDrainExavationState extends State<MainDrainExavation> {
                 },
                 backgroundColor: Colors.transparent,
                 elevation: 0, // No shadow
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
+                child: const Icon(Icons.add,
+                    color: Color(0xFFC69840),
+                    size: 36.0), // Increase size of the icon
               ),
             ),
           ],
@@ -113,7 +134,10 @@ class _MainDrainExavationState extends State<MainDrainExavation> {
             const SizedBox(height: 16),
             const Text(
               "Total length Completed",
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFC69840)),
             ),
             const SizedBox(height: 8),
             TextFormField(
@@ -149,13 +173,16 @@ class _MainDrainExavationState extends State<MainDrainExavation> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   textStyle: const TextStyle(fontSize: 14),
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: const Text('Submit',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -169,26 +196,28 @@ class _MainDrainExavationState extends State<MainDrainExavation> {
       children: [
         Expanded(
           child: buildDropdownField(
-              "Block No.", containerData, "selectedBlock", blocks
-          ),
+              "Block No.", containerData, "selectedBlock", blocks),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: buildDropdownField(
-              "Street No.", containerData, "selectedStreet", streets
-          ),
+              "Street No.", containerData, "selectedStreet", streets),
         ),
       ],
     );
   }
 
-  Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
+  Widget buildDropdownField(String title, Map<String, dynamic> containerData,
+      String key, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFC69840)),
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(

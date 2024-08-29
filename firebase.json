@@ -1,0 +1,36 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "townsregistration",
+          "appId": "1:77601046386:android:e1807b8d8245272c94a7eb",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "townsregistration",
+          "configurations": {
+            "android": "1:77601046386:android:e1807b8d8245272c94a7eb",
+            "ios": "1:77601046386:ios:b3ef7d07ce3bc19794a7eb",
+            "macos": "1:77601046386:ios:b3ef7d07ce3bc19794a7eb",
+            "web": "1:77601046386:web:909afa52794e6b0694a7eb",
+            "windows": "1:77601046386:web:7d68b19dd5ecd1ef94a7eb"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "source": ".",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "frameworksBackend": {
+      "region": "asia-east1"
+    }
+  }
+}

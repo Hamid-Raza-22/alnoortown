@@ -93,7 +93,7 @@ class _SanitaryWorkState extends State<SanitaryWork> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueexavationwork.png',
+              'assets/images/mosqueExcavationwork.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),

@@ -8,10 +8,10 @@ class ElectricityWork extends StatefulWidget {
   const ElectricityWork({super.key});
 
   @override
-  _ElectricityWorkState createState() => _ElectricityWorkState();
+  ElectricityWorkState createState() => ElectricityWorkState();
 }
 
-class _ElectricityWorkState extends State<ElectricityWork> {
+class ElectricityWorkState extends State<ElectricityWork> {
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -91,7 +91,7 @@ class _ElectricityWorkState extends State<ElectricityWork> {
       ),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Image.asset(
               'assets/images/Electrician.png',
@@ -158,13 +158,17 @@ class _ElectricityWorkState extends State<ElectricityWork> {
                       containerDataList.add(newEntry);
                     });
 
+                    void showSnackBar(String message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                        ),
+                      );
+                    }
                     await _saveData();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: const Text('Entry added successfully!'),
-                      ),
-                    );
+                    // Call the callback after the async operation
+                    showSnackBar('Entry added successfully!');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'MiniParkCurbstonesSummary.dart';
 
 class MiniParkCurbstonesWork extends StatefulWidget {
   const MiniParkCurbstonesWork({super.key});
 
   @override
-  _MiniParkCurbstonesWorkState createState() => _MiniParkCurbstonesWorkState();
+  MiniParkCurbstonesWorkState createState() => MiniParkCurbstonesWorkState();
 }
 
-class _MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
+class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   String? selectedStatus;
@@ -26,20 +25,23 @@ class _MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
 
   Future<void> _loadData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('CubstonesWorkDataList');
+    String? savedData = prefs.getString('CurbstonesWorkDataList');
     if (savedData != null) {
       setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+        containerDataList =
+            List<Map<String, dynamic>>.from(json.decode(savedData));
       });
     }
   }
 
   Future<void> _saveData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('CubstonesWorkDataList', json.encode(containerDataList));
+    await prefs.setString(
+        'CurbstonesWorkDataList', json.encode(containerDataList));
   }
 
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
+  Map<String, dynamic> createNewEntry(
+      DateTime? startDate, DateTime? endDate, String? status) {
     return {
       "startDate": startDate?.toIso8601String(),
       "endDate": endDate?.toIso8601String(),
@@ -62,22 +64,25 @@ class _MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon: const Icon(Icons.history_edu_outlined,
+                color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      MiniParkCurbstonesSummary(containerDataList: containerDataList),
+                  builder: (context) => MiniParkCurbstonesSummary(
+                      containerDataList: containerDataList),
                 ),
               );
             },
           ),
         ],
         title: const Text(
-          'Cubstones Work',
+          'Curbstones Work',
           style: TextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
@@ -122,17 +127,17 @@ class _MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
             buildDatePickerRow(
               "Start Date:",
               selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              (date) => setState(() => selectedStartDate = date),
             ),
             const SizedBox(height: 4),
             buildDatePickerRow(
               "Expected Completion Date:",
               selectedEndDate,
-                  (date) => setState(() => selectedEndDate = date),
+              (date) => setState(() => selectedEndDate = date),
             ),
             const SizedBox(height: 4),
             const Text(
-              "Cubstones Completion Status:",
+              "Curbstones Completion Status:",
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -179,7 +184,7 @@ class _MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   textStyle: const TextStyle(fontSize: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -196,7 +201,8 @@ class _MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
     );
   }
 
-  Widget buildDatePickerRow(String label, DateTime? selectedDate, ValueChanged<DateTime?> onChanged) {
+  Widget buildDatePickerRow(
+      String label, DateTime? selectedDate, ValueChanged<DateTime?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -244,14 +250,20 @@ class _MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process',  style: TextStyle(fontSize: 14),),
+          title: const Text(
+            'In Process',
+            style: TextStyle(fontSize: 14),
+          ),
           value: 'In Process',
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor: const Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done',  style: TextStyle(fontSize: 14),),
+          title: const Text(
+            'Done',
+            style: TextStyle(fontSize: 14),
+          ),
           value: 'Done',
           groupValue: selectedStatus,
           onChanged: onChanged,
@@ -261,6 +273,3 @@ class _MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
     );
   }
 }
-
-
-

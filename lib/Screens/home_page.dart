@@ -43,7 +43,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   ListTile(
                     contentPadding: const EdgeInsets.symmetric(horizontal: 30),
                     title: Text(
-                      'Clockin Timer',
+                      'ClockIn Timer',
                       style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
                     ),
                     subtitle: Obx(() {

@@ -8,10 +8,10 @@ class FirstFloorWork extends StatefulWidget {
   const FirstFloorWork({super.key});
 
   @override
-  _FirstFloorWorkState createState() => _FirstFloorWorkState();
+  FirstFloorWorkState createState() => FirstFloorWorkState();
 }
 
-class _FirstFloorWorkState extends State<FirstFloorWork> {
+class FirstFloorWorkState extends State<FirstFloorWork> {
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -152,13 +152,17 @@ class _FirstFloorWorkState extends State<FirstFloorWork> {
                       containerDataList.add(newEntry);
                     });
 
-                    await _saveData(); // Save the data with the unique key
+                    void showSnackBar(String message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                        ),
+                      );
+                    }
+                    await _saveData();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
-                      ),
-                    );
+                    // Call the callback after the async operation
+                    showSnackBar('Entry added successfully!');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

@@ -1,14 +1,14 @@
-import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_exavation_work.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
 import 'package:al_noor_town/Repositories/BuildingWorkRepositories/MosqueRepository/mosque_exavation_repository.dart';
 import 'package:get/get.dart';
 
 
 
 
-class MosqueExavationViewMode extends GetxController {
+class MosqueExcavationViewMode extends GetxController {
 
-  var allMosque = <MosqueExavationWorkModel>[].obs;
-  MosqueExavationRepository mosqueExavationRepository = MosqueExavationRepository();
+  var allMosque = <MosqueExcavationWorkModel>[].obs;
+  MosqueExcavationRepository mosqueExcavationRepository = MosqueExcavationRepository();
 
   @override
   void onInit(){
@@ -18,23 +18,23 @@ class MosqueExavationViewMode extends GetxController {
   }
 
   fetchAllMosque() async{
-    var mosques = await mosqueExavationRepository.getMosqueExavation();
+    var mosques = await mosqueExcavationRepository.getMosqueExcavation();
     allMosque.value = mosques;
 
   }
 
-  addMosque(MosqueExavationWorkModel mosqueExavationWorkModel){
-    mosqueExavationRepository.add(mosqueExavationWorkModel);
+  addMosque(MosqueExcavationWorkModel mosqueExcavationWorkModel){
+    mosqueExcavationRepository.add(mosqueExcavationWorkModel);
     //fetchAllMosque();
   }
 
-  updateMosque(MosqueExavationWorkModel mosqueExavationWorkModel){
-    mosqueExavationRepository.update(mosqueExavationWorkModel);
+  updateMosque(MosqueExcavationWorkModel mosqueExcavationWorkModel){
+    mosqueExcavationRepository.update(mosqueExcavationWorkModel);
     fetchAllMosque();
   }
 
   deleteLight(int id){
-    mosqueExavationRepository.delete(id);
+    mosqueExcavationRepository.delete(id);
     fetchAllMosque()();
   }
 

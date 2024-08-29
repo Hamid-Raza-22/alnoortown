@@ -1,6 +1,6 @@
 
 
-import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/filing_model.dart';
 import 'package:flutter/foundation.dart';
@@ -40,7 +40,7 @@ class FillingRepository{
 
     // Print the list of MachineModel objects
     if (kDebugMode) {
-      print('Parsed ExavationModel objects:');
+      print('Parsed ExcavationModel objects:');
     }
     // for (var item in machine) {
     //   if (kDebugMode) {

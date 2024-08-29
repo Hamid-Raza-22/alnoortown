@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Screens/splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,9 +10,14 @@ import 'Screens/home_page.dart';
 import 'Screens/Material Shifting/material_shifting.dart';
 import 'Screens/New Material/new_material.dart';
 import 'ViewModels/all_noor_view_model.dart';
+import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   runApp(
     GetMaterialApp(
@@ -25,10 +31,10 @@ Future<void> main() async {
       GetPage(name: '/newMaterial', page: () => const NewMaterial()),
       GetPage(name: '/buildingWork', page: () => const Building_Navigation_Page()),
     ],
+
   ),
 );
 }
-
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     final prefs = await SharedPreferences.getInstance();

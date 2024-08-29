@@ -4,8 +4,7 @@ import 'package:intl/intl.dart';
 class BoundaryGrillWorkSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-  const BoundaryGrillWorkSummary({Key? key, required this.containerDataList})
-      : super(key: key);
+  const BoundaryGrillWorkSummary({super.key, required this.containerDataList});
 
   @override
   State<BoundaryGrillWorkSummary> createState() => _BoundaryGrillWorkSummaryState();

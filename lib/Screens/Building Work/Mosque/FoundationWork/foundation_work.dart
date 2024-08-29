@@ -7,10 +7,10 @@ class FoundationWork extends StatefulWidget {
   const FoundationWork({super.key});
 
   @override
-  _FoundationWorkState createState() => _FoundationWorkState();
+  FoundationWorkState createState() => FoundationWorkState();
 }
 
-class _FoundationWorkState extends State<FoundationWork> {
+class FoundationWorkState extends State<FoundationWork> {
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -94,10 +94,10 @@ class _FoundationWorkState extends State<FoundationWork> {
       ),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueexavationwork.png',
+              'assets/images/mosqueExcavationwork.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),
@@ -152,13 +152,17 @@ class _FoundationWorkState extends State<FoundationWork> {
                       containerDataList.add(newEntry);
                     });
 
+                    void showSnackBar(String message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                        ),
+                      );
+                    }
                     await _saveData();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
-                      ),
-                    );
+                    // Call the callback after the async operation
+                    showSnackBar('Entry added successfully!');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

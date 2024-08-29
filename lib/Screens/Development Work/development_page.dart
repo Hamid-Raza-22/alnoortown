@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import '../Building Work/Mosque/MosqueExavationWork/mosque_exavation_work.dart';
+import '../Building Work/Mosque/MosqueExcavationWork/mosque_excavation_work.dart';
+import 'Light poles work/light_wires_work.dart';
 import 'Light poles work/poles.dart';
 import 'Light poles work/poles_foundation.dart';
 import 'Main Drain Work/asphaltwork.dart';
 import 'Main Drain Work/brick_work.dart';
 import 'Main Drain Work/iron_work.dart';
-import 'Main Drain Work/main_drain_exavation.dart';
+import 'Main Drain Work/main_drain_excavation.dart';
 import 'Main Drain Work/manholes _slabs.dart';
 import 'Main Drain Work/plaster_work.dart';
 import 'Main Drain Work/shuttering_work.dart';
 import 'Road Maintenance/machines.dart';
 import 'Road Maintenance/water_tanker.dart';
 import 'Sewerage Work/backfilling.dart';
-import 'Sewerage Work/exavation.dart';
+import 'Sewerage Work/excavation.dart';
 import 'Sewerage Work/manholes.dart';
 import 'Sewerage Work/pipe_lying.dart';
 
@@ -212,19 +213,19 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Exavation()),
+                                    builder: (context) => const Excavation()),
                               );
                             },
                             child: Column(
                               children: [
                                 Image.asset(
-                                  'assets/images/exavation.png',
+                                  'assets/images/Excavation.png',
                                   height: 100,
                                   width: 100,
                                 ),
                                 const SizedBox(height: 10),
                                 const Text(
-                                  'Exavation',
+                                  'Excavation',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -370,7 +371,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                const Polesfoundation()),
+                                const PolesFoundation()),
                           );
                         },
                         child: Column(
@@ -382,7 +383,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                             ),
                             const SizedBox(height: 10),
                             const Text(
-                              'Poles Exavation',
+                              'Poles Excavation',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -426,7 +427,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const MosqueExavationWork()),
+                                builder: (context) => const MosqueExcavationWork()),
                           );
                         },
                         child: Column(
@@ -587,7 +588,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/exavation.png',
+                                    'assets/images/Excavation.png',
                                     height: 80,
                                     width: 80,
                                   ),
@@ -614,7 +615,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/exavation.png',
+                                    'assets/images/Excavation.png',
                                     height: 80,
                                     width: 80,
                                   ),
@@ -641,7 +642,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/exavation.png',
+                                    'assets/images/Excavation.png',
                                     height: 80,
                                     width: 80,
                                   ),
@@ -662,19 +663,19 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const MainDrainExavation()),
+                                  MaterialPageRoute(builder: (context) => const MainDrainExcavation()),
                                 );
                               },
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/exavation.png',
+                                    'assets/images/Excavation.png',
                                     height: 80,
                                     width: 80,
                                   ),
                                   const SizedBox(height: 5),
                                   const Text(
-                                    'Main Drain Exavation',
+                                    'Main Drain Excavation',
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,

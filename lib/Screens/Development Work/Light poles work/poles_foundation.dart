@@ -1,19 +1,19 @@
-import 'package:al_noor_town/Database/dbhelper.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_exavation_model.dart';
-import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_exavation_view_model.dart';
+import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_excavation_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_excavation_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class Polesfoundation extends StatefulWidget {
-  const Polesfoundation({super.key});
+class PolesFoundation extends StatefulWidget {
+  const PolesFoundation({super.key});
 
   @override
-  _PolesfoundationState createState() => _PolesfoundationState();
+  PolesFoundationState createState() => PolesFoundationState();
 }
 
-class _PolesfoundationState extends State<Polesfoundation> {
-  PolesExavationViewModel polesExavationViewModel=Get.put(PolesExavationViewModel());
+class PolesFoundationState extends State<PolesFoundation> {
+  PolesExcavationViewModel polesExcavationViewModel=Get.put(PolesExcavationViewModel());
   DBHelper dbHelper = DBHelper();
   int? exId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
@@ -70,7 +70,7 @@ class _PolesfoundationState extends State<Polesfoundation> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'Exavation Work for Poles foundation',
+                  'Excavation Work for Poles foundation',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -146,13 +146,13 @@ class _PolesfoundationState extends State<Polesfoundation> {
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
                   {
-                    await polesExavationViewModel.addPoleExa(PolesExavationModel(
+                    await polesExcavationViewModel.addPoleExa(PolesExcavationModel(
                       id: exId,
                       blockNo: selectedBlock,
                       streetNo: selectedStreet,
                       lengthTotal: numTankers
                     ));
-                    await polesExavationViewModel.fetchAllPoleExa();
+                    await polesExcavationViewModel.fetchAllPoleExa();
                     // await dbHelper.showTankerData();
                     // nameController.text = "";
                   }

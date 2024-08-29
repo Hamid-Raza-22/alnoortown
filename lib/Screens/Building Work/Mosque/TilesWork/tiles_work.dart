@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import 'TilesWorkSummary.dart';
+import 'tiles_work_summary.dart';
 
 class TilesWork extends StatefulWidget {
   const TilesWork({super.key});
 
   @override
-  _TilesWorkState createState() => _TilesWorkState();
+  TilesWorkState createState() => TilesWorkState();
 }
 
-class _TilesWorkState extends State<TilesWork> {
+class TilesWorkState extends State<TilesWork> {
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -158,13 +158,17 @@ class _TilesWorkState extends State<TilesWork> {
                       tilecontainerDataList.add(newEntry);
                     });
 
+                    void showSnackBar(String message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                        ),
+                      );
+                    }
                     await _saveData();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
-                      ),
-                    );
+                    // Call the callback after the async operation
+                    showSnackBar('Entry added successfully!');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

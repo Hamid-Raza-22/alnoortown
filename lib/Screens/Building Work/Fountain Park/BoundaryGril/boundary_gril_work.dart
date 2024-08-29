@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
 import 'BoundaryGrillWorkSummary.dart';
 
-class BoundaryGrilWork extends StatefulWidget {
-  const BoundaryGrilWork({super.key});
+class BoundaryGrillWork extends StatefulWidget {
+  const BoundaryGrillWork({super.key});
 
   @override
-  _BoundaryGrilWorkState createState() => _BoundaryGrilWorkState();
+  BoundaryGrillWorkState createState() => BoundaryGrillWorkState();
 }
 
-class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
+class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   String? selectedStatus;
@@ -85,7 +84,7 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueexavationwork.png',
+              'assets/images/mosqueExcavationwork.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),
@@ -160,13 +159,19 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
                       containerDataList.add(newEntry);
                     });
 
+                    // Define a callback to show the SnackBar
+                    void showSnackBar(String message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                        ),
+                      );
+                    }
+
                     await _saveData();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
-                      ),
-                    );
+                    // Call the callback after the async operation
+                    showSnackBar('Entry added successfully!');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
@@ -177,17 +182,22 @@ class _BoundaryGrilWorkState extends State<BoundaryGrilWork> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                   textStyle: const TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Submit',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: const Text(
+                  'Submit',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFFC69840),
+                  ),
+                ),
               ),
+
+
             ),
           ],
         ),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "77601046386",
+    "project_id": "townsregistration",
+    "storage_bucket": "townsregistration.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77601046386:android:e1807b8d8245272c94a7eb",
+        "android_client_info": {
+          "package_name": "com.metaxperts.al_noor_town"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOuwyx0te-GDb58A7pvseyaELYbZH_HFI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

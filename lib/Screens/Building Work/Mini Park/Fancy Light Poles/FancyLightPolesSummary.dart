@@ -4,8 +4,7 @@ import 'package:intl/intl.dart';
 class FancyLightPolesSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-  const FancyLightPolesSummary({Key? key, required this.containerDataList})
-      : super(key: key);
+  const FancyLightPolesSummary({super.key, required this.containerDataList});
 
   @override
   State<FancyLightPolesSummary> createState() => _FancyLightPolesSummaryState();

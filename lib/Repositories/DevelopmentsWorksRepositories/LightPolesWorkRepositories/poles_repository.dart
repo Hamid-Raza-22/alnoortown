@@ -1,7 +1,8 @@
 
 
-import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_excavation_model.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -31,16 +32,21 @@ class PolesRepository{
       }
     }
 
-    // Convert the raw data into a list
+    // Convert the raw data into a list of MachineModel objects
     List<PolesModel> poles = [];
     for (int i = 0; i < maps.length; i++) {
       poles.add(PolesModel.fromMap(maps[i]));
     }
 
-    // Print the list
+    // Print the list of MachineModel objects
     if (kDebugMode) {
       print('Parsed PolesModel objects:');
     }
+    // for (var item in machine) {
+    //   if (kDebugMode) {
+    //     print(item);
+    //   }
+    // }
 
     return poles;
   }

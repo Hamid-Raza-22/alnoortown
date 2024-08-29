@@ -4,8 +4,7 @@ import 'package:intl/intl.dart';
 class MiniParkCurbstonesSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-  const MiniParkCurbstonesSummary({Key? key, required this.containerDataList})
-      : super(key: key);
+  const MiniParkCurbstonesSummary({super.key, required this.containerDataList});
 
   @override
   State<MiniParkCurbstonesSummary> createState() => _MiniParkCurbstonesSummaryState();
@@ -25,7 +24,7 @@ class _MiniParkCurbstonesSummaryState extends State<MiniParkCurbstonesSummary> {
           },
         ),
         title: const Text(
-          'Cubstones Work Summary',
+          'Curbstones Work Summary',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

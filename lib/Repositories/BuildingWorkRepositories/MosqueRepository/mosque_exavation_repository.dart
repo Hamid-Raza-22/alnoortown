@@ -1,18 +1,18 @@
 
 
-import 'package:al_noor_town/Database/dbhelper.dart';
+import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/Globals.dart';
-import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_exavation_work.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
 import 'package:flutter/foundation.dart';
 
 
 
 
-class MosqueExavationRepository{
+class MosqueExcavationRepository{
 
   DBHelper dbHelper = DBHelper();
 
-  Future<List<MosqueExavationWorkModel>> getMosqueExavation() async {
+  Future<List<MosqueExcavationWorkModel>> getMosqueExcavation() async {
     // Get the database client
     var dbClient = await dbHelper.db;
 
@@ -33,9 +33,9 @@ class MosqueExavationRepository{
     }
 
     // Convert the raw data into a list
-    List<MosqueExavationWorkModel> mosqueExavationWork = [];
+    List<MosqueExcavationWorkModel> mosqueExavationWork = [];
     for (int i = 0; i < maps.length; i++) {
-      mosqueExavationWork.add(MosqueExavationWorkModel.fromMap(maps[i]));
+      mosqueExavationWork.add(MosqueExcavationWorkModel.fromMap(maps[i]));
     }
 
     // Print the list
@@ -48,12 +48,12 @@ class MosqueExavationRepository{
   }
 
 
-  Future<int>add(MosqueExavationWorkModel mosqueExavationWorkModel) async{
+  Future<int>add(MosqueExcavationWorkModel mosqueExavationWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameMosque,mosqueExavationWorkModel.toMap());
   }
 
-  Future<int>update(MosqueExavationWorkModel mosqueExavationWorkModel) async{
+  Future<int>update(MosqueExcavationWorkModel mosqueExavationWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.update(tableNameMosque,mosqueExavationWorkModel.toMap(),
         where: 'id = ?', whereArgs: [mosqueExavationWorkModel.id]);

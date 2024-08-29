@@ -1,4 +1,4 @@
-import 'package:al_noor_town/Database/dbHelper.dart';
+import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/ViewModels/BuidingWorkViewModel/Mosque/ceiling_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,10 +11,10 @@ class CeilingWork extends StatefulWidget {
   const CeilingWork({super.key});
 
   @override
-  _CeilingWorkState createState() => _CeilingWorkState();
+  CeilingWorkState createState() => CeilingWorkState();
 }
 
-class _CeilingWorkState extends State<CeilingWork> {
+class CeilingWorkState extends State<CeilingWork> {
   CeilingWorkViewModel ceilingWorkWorkViewModel=Get.put(CeilingWorkViewModel());
   DBHelper dbHelper = DBHelper();
   int? ceilingId;
@@ -69,14 +69,14 @@ class _CeilingWorkState extends State<CeilingWork> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -97,10 +97,10 @@ class _CeilingWorkState extends State<CeilingWork> {
       ),
       body: Column(
         children: [
-          Container(
+          SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueexavationwork.png',
+              'assets/images/mosqueExcavationwork.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),
@@ -165,17 +165,20 @@ class _CeilingWorkState extends State<CeilingWork> {
                       containerDataList.add(newEntry);
                     });
 
-                    // Save the updated list to SharedPreferences
+                    void showSnackBar(String message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                        ),
+                      );
+                    }
                     await _saveData();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Entry added successfully!'),
-                      ),
-                    );
+                    // Call the callback after the async operation
+                    showSnackBar('Entry added successfully!');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                      const SnackBar(
                         content: Text('Please select a block and status.'),
                       ),
                     );
@@ -204,8 +207,8 @@ class _CeilingWorkState extends State<CeilingWork> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Block No.",
-            style: const TextStyle(
+        const Text("Block No.",
+            style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFC69840))),

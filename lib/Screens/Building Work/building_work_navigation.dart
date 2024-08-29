@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Fountain Park/BoundaryGril/boundary_gril_work.dart';
-import 'Fountain Park/CubstonesWork/road_curbstones_work.dart';
+
+import 'Fountain Park/CurbstonesWork/road_curbstones_work.dart';
 import 'Fountain Park/GazeboWork/gazebo_work.dart';
 import 'Fountain Park/MainEntranceTilesWork/main_entrance_tiles.dart';
 import 'Fountain Park/MainStage/main_stage_work.dart';
@@ -19,7 +20,7 @@ import 'Mosque/DoorsWork/doors_work.dart';
 import 'Mosque/ElectricityWork/electricity_work.dart';
 import 'Mosque/FirstFloorWork/first_floor.dart';
 import 'Mosque/FoundationWork/foundation_work.dart';
-import 'Mosque/MosqueExavationWork/mosque_exavation_work.dart';
+import 'Mosque/MosqueExcavationWork/mosque_excavation_work.dart';
 import 'Mosque/PaintWork/paint_work.dart';
 import 'Mosque/SanitaryWork/sanitory_work.dart';
 import 'Mosque/TilesWork/tiles_work.dart';
@@ -276,10 +277,10 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     ];
 
     List<IconData> miniParksIcons = [
-    Icons.landscape, // Mud Filling Work
-    Icons.grass, // Grass Work
-    Icons.satellite, // Curbstones Work
-    Icons.lightbulb, // Fancy Light
+      Icons.landscape, // Mud Filling Work
+      Icons.grass, // Grass Work
+      Icons.satellite, // Curbstones Work
+      Icons.lightbulb, // Fancy Light
       Icons.lightbulb, // Fancy Light Poles
       Icons.local_florist, // Plantation Work mp
       Icons.account_balance, // Monuments Work
@@ -430,7 +431,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
           case 0:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const MosqueExavationWork()),
+              MaterialPageRoute(builder: (context) => const MosqueExcavationWork()),
             );
             break;
           case 1:
@@ -500,7 +501,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
           case 2:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CubstonesWork()),
+              MaterialPageRoute(builder: (context) => const CurbStonesWork()),
             );
             break;
           case 3:
@@ -525,7 +526,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
           case 6:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const BoundaryGrilWork()),
+              MaterialPageRoute(builder: (context) => const BoundaryGrillWork()),
             );
             break;
           case 7:
@@ -674,5 +675,3 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     }
   }
 }
-
-
