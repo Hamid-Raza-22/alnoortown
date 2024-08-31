@@ -3,12 +3,14 @@ class CanopyColumnPouringModel{
   dynamic blockNo;
   dynamic workStatus;
   dynamic date;
+  dynamic time;
 
   CanopyColumnPouringModel ({
     this.id,
     this.blockNo,
     this.workStatus,
-    this.date
+    this.date,
+    this.time
 
   });
 
@@ -18,7 +20,8 @@ class CanopyColumnPouringModel{
         id: json['id'],
         blockNo: json['blockNo'],
         workStatus: json['workStatus'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
 
     );
   }
@@ -28,7 +31,8 @@ class CanopyColumnPouringModel{
       'id':id,
       'blockNo':blockNo,
       'workStatus':workStatus,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

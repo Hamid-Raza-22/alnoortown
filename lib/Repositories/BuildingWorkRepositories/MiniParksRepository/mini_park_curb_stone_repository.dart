@@ -16,7 +16,7 @@ class MiniParkCurbStoneRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMpCurbStone,
-        columns: ['id', 'startDate', 'expectedCompDate','mpCurbStoneCompStatus']
+        columns: ['id', 'startDate', 'expectedCompDate','mpCurbStoneCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

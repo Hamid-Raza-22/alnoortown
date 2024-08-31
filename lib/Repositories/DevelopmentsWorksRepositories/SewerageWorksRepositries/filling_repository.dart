@@ -19,7 +19,7 @@ class FillingRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFiling,
-        columns: ['id', 'blockNo', 'streetNo', 'status','date']
+        columns: ['id', 'blockNo', 'streetNo', 'status','date','time']
     );
 
     // Print the raw data retrieved from the database

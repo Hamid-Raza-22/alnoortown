@@ -3,12 +3,14 @@ class PaintWorkModel{
   dynamic blockNo;
   dynamic paintWorkStatus;
   dynamic date;
+  dynamic time;
 
   PaintWorkModel({
     this.id,
     this.blockNo,
     this.paintWorkStatus,
-    this.date
+    this.date,
+    this.time
   });
 
   factory PaintWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -17,8 +19,8 @@ class PaintWorkModel{
         id: json['id'],
         blockNo: json['blockNo'],
         paintWorkStatus: json['paintWorkStatus'],
-        date:  json['date']
-
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -27,7 +29,8 @@ class PaintWorkModel{
       'id':id,
       'blockNo':blockNo,
       'paintWorkStatus':paintWorkStatus,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

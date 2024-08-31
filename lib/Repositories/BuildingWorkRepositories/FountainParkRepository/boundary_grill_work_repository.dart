@@ -16,7 +16,7 @@ class BoundaryGrillWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBoundary,
-        columns: ['id', 'startDate', 'expectedCompDate','boundaryWorkCompStatus']
+        columns: ['id', 'startDate', 'expectedCompDate','boundaryWorkCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

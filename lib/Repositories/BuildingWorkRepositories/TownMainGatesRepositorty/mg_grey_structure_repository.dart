@@ -16,7 +16,7 @@ class MgGreyStructureRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGrey,
-        columns:  ['id', 'blockNo', 'workStatus','date']
+        columns:  ['id', 'blockNo', 'workStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

@@ -3,13 +3,13 @@ class DoorsWorkModel{
   dynamic blockNo;
   dynamic doorsWorkStatus;
   dynamic date;
-
+  dynamic time;
   DoorsWorkModel({
     this.id,
     this.blockNo,
     this.doorsWorkStatus,
-    this.date
-
+    this.date,
+    this.time
   });
 
   factory DoorsWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -18,7 +18,8 @@ class DoorsWorkModel{
         id: json['id'],
         blockNo: json['blockNo'],
         doorsWorkStatus: json['doorsWorkStatus'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -27,7 +28,8 @@ class DoorsWorkModel{
       'id':id,
       'blockNo':blockNo,
       'doorsWorkStatus':doorsWorkStatus,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

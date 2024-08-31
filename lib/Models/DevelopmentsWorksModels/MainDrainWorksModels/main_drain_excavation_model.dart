@@ -4,13 +4,15 @@ class MainDrainExcavationModel{
   dynamic streetNo;
   dynamic completedLength;
   dynamic date;
+  dynamic time;
 
   MainDrainExcavationModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.completedLength,
-    this.date
+    this.date,
+    this.time
   });
 
   factory MainDrainExcavationModel.fromMap(Map<dynamic,dynamic>json)
@@ -20,7 +22,8 @@ class MainDrainExcavationModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
 
 
     );
@@ -32,7 +35,8 @@ class MainDrainExcavationModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'completedLength':completedLength,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

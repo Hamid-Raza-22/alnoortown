@@ -1,8 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/RoadsShoulderWorkModel/roads_shoulder_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsShouldersWorkViewModel/roads_shoulder_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-
 import 'RoadsShouldersWorkSummary.dart';
 
 class RoadsShouldersWork extends StatefulWidget {
@@ -13,6 +13,7 @@ class RoadsShouldersWork extends StatefulWidget {
 }
 
 class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
+  RoadsShoulderWorkViewModel roadsShoulderWorkViewModel = Get.put(RoadsShoulderWorkViewModel());
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   TextEditingController roadNoController = TextEditingController();
@@ -25,36 +26,43 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('RoadsShouldersDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('RoadsShouldersWorkDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? roadSide, String? totalLength, String? status) {
-    return {
-      "startDate": startDate?.toIso8601String(),
-      "endDate": endDate?.toIso8601String(),
-      "block": block,
-      "roadNo": roadNo,
-      "roadSide": roadSide,
-      "totalLength": totalLength,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('RoadsShouldersDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('RoadsShouldersWorkDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? roadSide, String? totalLength, String? status) {
+  //   return {
+  //     "startDate": startDate?.toIso8601String(),
+  //     "endDate": endDate?.toIso8601String(),
+  //     "block": block,
+  //     "roadNo": roadNo,
+  //     "roadSide": roadSide,
+  //     "totalLength": totalLength,
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -179,21 +187,19 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                       selectedBlock != null &&
                       selectedRoadSide != null && // Check if Road Side is selected
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
-                      selectedBlock,
-                      roadNoController.text,
-                      selectedRoadSide, // Save Road Side data
-                      totalLengthController.text,
-                      selectedStatus,
-                    );
+                    await roadsShoulderWorkViewModel.addRoadShoulder(RoadsShoulderWorkModel(
+                        startDate: selectedStartDate,
+                        expectedCompDate: selectedEndDate,
+                        blockNo: selectedBlock,
+                        roadNo: roadNoController.text,
+                        roadSide: selectedRoadSide,
+                        totalLength: totalLengthController.text,
+                        roadsShoulderCompStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await roadsShoulderWorkViewModel.fetchAllRoadShoulder();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

@@ -17,7 +17,7 @@ class MachineRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMachine,
-        columns: ['id', 'blockNo', 'streetNo', 'machine', 'timeIn', 'timeOut', 'date']
+        columns: ['id', 'blockNo', 'streetNo', 'machine', 'timeIn', 'timeOut','date','time']
     );
 
     // Print the raw data retrieved from the database

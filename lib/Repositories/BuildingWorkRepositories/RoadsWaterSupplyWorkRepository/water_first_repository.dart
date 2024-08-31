@@ -16,7 +16,7 @@ class WaterFirstRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameWaterFirst,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyCompStatus']
+        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

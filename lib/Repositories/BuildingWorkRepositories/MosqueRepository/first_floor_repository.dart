@@ -16,7 +16,7 @@ class FirstFloorRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFloor,
-        columns: ['id', 'blockNo', 'brickWork','mudFiling','plasterWork','date']
+        columns: ['id', 'blockNo', 'brickWork','mudFiling','plasterWork','date','time']
     );
 
     // Print the raw data retrieved from the database

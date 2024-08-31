@@ -4,13 +4,15 @@ class ManholesSlabModel{
   dynamic streetNo;
   dynamic numOfCompSlab;
   dynamic date;
+  dynamic time;
 
   ManholesSlabModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.numOfCompSlab,
-    this.date
+    this.date,
+    this.time
   });
 
   factory ManholesSlabModel.fromMap(Map<dynamic,dynamic>json)
@@ -20,7 +22,8 @@ class ManholesSlabModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       numOfCompSlab: json['numOfCompSlab'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
 
     );
   }
@@ -31,7 +34,8 @@ class ManholesSlabModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'numOfCompSlab':numOfCompSlab,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

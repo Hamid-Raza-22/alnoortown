@@ -1,11 +1,13 @@
 class SoilCompactionModel{
   int? id;
-  dynamic blockNo;
-  dynamic roadNo;
-  dynamic totalLength;
-  dynamic startDate;
-  dynamic expectedCompDate;
-  dynamic soilCompStatus;
+  String? blockNo;
+  String? roadNo;
+  String?  totalLength;
+  DateTime? startDate;
+  DateTime? expectedCompDate;
+  String?  soilCompStatus;
+  dynamic date;
+  dynamic time;
 
   SoilCompactionModel({
     this.id,
@@ -15,7 +17,8 @@ class SoilCompactionModel{
     this.startDate,
     this.expectedCompDate,
     this.soilCompStatus,
-
+    this.date,
+    this.time
   });
 
   factory SoilCompactionModel.fromMap(Map<dynamic,dynamic>json)
@@ -25,9 +28,11 @@ class SoilCompactionModel{
         blockNo: json['blockNo'],
         roadNo: json['roadNo'],
         totalLength: json['totalLength'],
-        startDate: json['startDate'],
-        expectedCompDate: json['expectedCompDate'],
-        soilCompStatus:json['soilCompStatus']
+        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
+        soilCompStatus:json['soilCompStatus'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -37,9 +42,11 @@ class SoilCompactionModel{
       'blockNo':blockNo,
       'roadNo':roadNo,
       'totalLength':totalLength,
-      'startDate':startDate,
-      'expectedCompDate':expectedCompDate,
+      'startDate': startDate?.toString(),
+      'expectedCompDate': expectedCompDate?.toString(),
       'soilCompStatus':soilCompStatus,
+      'date':date,
+      'time':time,
 
     };
   }

@@ -16,7 +16,7 @@ class PlantationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePlant,
-        columns: ['id', 'startDate', 'expectedCompDate','plantationCompStatus']
+        columns: ['id', 'startDate', 'expectedCompDate','plantationCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

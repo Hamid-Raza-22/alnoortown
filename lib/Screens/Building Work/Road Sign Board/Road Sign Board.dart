@@ -1,4 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/RoadsSignBoardsModel/roads_sign_boards_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsSignBoardsViewModel/roads_sign_boards_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'RoadSignBoardSummary.dart';
@@ -11,8 +15,7 @@ class RoadsSignBoards extends StatefulWidget {
 }
 
 class _RoadsSignBoardsState extends State<RoadsSignBoards> {
-  DateTime? selectedStartDate;
-  DateTime? selectedEndDate;
+  RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
   TextEditingController roadNoController = TextEditingController();
   TextEditingController fromPlotController = TextEditingController();
   TextEditingController toPlotController = TextEditingController();
@@ -24,37 +27,46 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    // _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('RoadSignBoardDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('RoadSignBoardDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? fromPlot, String? toPlot, String? roadSide, String? status) {
-    return {
-      "startDate": startDate?.toIso8601String() ?? '',
-      "endDate": endDate?.toIso8601String() ?? '',
-      "block": block ?? '',
-      "roadNo": roadNo ?? '',
-      "fromPlot": fromPlot ?? '',
-      "toPlot": toPlot ?? '',
-      "roadSide": roadSide ?? '',
-      "status": status ?? '',
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  //
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('RoadSignBoardDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('RoadSignBoardDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? fromPlot, String? toPlot, String? roadSide, String? status) {
+  //   return {
+  //     "startDate": startDate?.toIso8601String() ?? '',
+  //     "endDate": endDate?.toIso8601String() ?? '',
+  //     "block": block ?? '',
+  //     "roadNo": roadNo ?? '',
+  //     "fromPlot": fromPlot ?? '',
+  //     "toPlot": toPlot ?? '',
+  //     "roadSide": roadSide ?? '',
+  //     "status": status ?? '',
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -161,22 +173,18 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
                       toPlotController.text.isNotEmpty &&
                       selectedRoadSide != null &&
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
-                      selectedBlock,
-                      roadNoController.text,
-                      fromPlotController.text,
-                      toPlotController.text,
-                      selectedRoadSide,
-                      selectedStatus,
-                    );
+                    await roadsSignBoardsViewModel.addRoadsSignBoard(RoadsSignBoardsModel(
+                       blockNo: selectedBlock,
+                       roadNo: roadNoController.text,
+                       fromPlotNo:fromPlotController.text,
+                       toPlotNo: toPlotController.text,
+                        roadSide: selectedRoadSide,
+                        compStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await roadsSignBoardsViewModel.fetchAllRoadsSignBoard();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

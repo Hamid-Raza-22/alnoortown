@@ -1,7 +1,9 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/StreetRoadsWaterChannelsModel/street_road_water_channel_model.dart';
 import 'package:al_noor_town/Screens/Building%20Work/Street%20Roads%20Water%20Channels/waterchannelsummary.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/StreetRoadwaterChannelViewModel/street_road_water_channel_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class StreetRoadsWaterChannels extends StatefulWidget {
   const StreetRoadsWaterChannels({super.key});
@@ -11,6 +13,7 @@ class StreetRoadsWaterChannels extends StatefulWidget {
 }
 
 class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
+  StreetRoadWaterChannelViewModel streetRoadWaterChannelViewModel = Get.put(StreetRoadWaterChannelViewModel());
   TextEditingController roadNoController = TextEditingController();
   TextEditingController noOfWaterChannelsController = TextEditingController();
   String? selectedBlock;
@@ -21,34 +24,41 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('WaterChannelsDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('WaterChannelsDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(String? block, String? roadNo, String? roadSide, String? noOfWaterChannels, String? status) {
-    return {
-      "block": block,
-      "roadNo": roadNo,
-      "roadSide": roadSide,
-      "noOfWaterChannels": noOfWaterChannels,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('WaterChannelsDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('WaterChannelsDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(String? block, String? roadNo, String? roadSide, String? noOfWaterChannels, String? status) {
+  //   return {
+  //     "block": block,
+  //     "roadNo": roadNo,
+  //     "roadSide": roadSide,
+  //     "noOfWaterChannels": noOfWaterChannels,
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -159,19 +169,18 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
                       selectedBlock != null &&
                       selectedRoadSide != null && // Check if Road Side is selected
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedBlock,
-                      roadNoController.text,
-                      selectedRoadSide, // Save Road Side data
-                      noOfWaterChannelsController.text,
-                      selectedStatus,
-                    );
+                    await streetRoadWaterChannelViewModel.addStreetRoad(StreetRoadWaterChannelModel(
+                        blockNo: selectedBlock,
+                        roadNo: roadNoController.text,
+                        roadSide: selectedRoadSide,
+                        noOfWaterChannels: noOfWaterChannelsController.text,
+                        waterChCompStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
+                    ));
 
-                    await _saveData();
+                    await streetRoadWaterChannelViewModel.fetchAllStreetRoad();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

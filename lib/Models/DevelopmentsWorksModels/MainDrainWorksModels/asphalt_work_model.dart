@@ -5,6 +5,7 @@ class AsphaltWorkModel{
   dynamic numOfTons;
   dynamic backFillingStatus;
   dynamic date;
+  dynamic time;
 
   AsphaltWorkModel({
     this.id,
@@ -12,7 +13,8 @@ class AsphaltWorkModel{
     this.streetNo,
     this.numOfTons,
     this.backFillingStatus,
-    this.date
+    this.date,
+    this.time
 
   });
 
@@ -24,7 +26,8 @@ class AsphaltWorkModel{
       streetNo: json['streetNo'],
       numOfTons: json['numOfTons'],
       backFillingStatus: json['backFillingStatus'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
 
     );
   }
@@ -35,7 +38,8 @@ class AsphaltWorkModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'backFillingStatus':backFillingStatus,
-      'date':date
+      'date':date,
+      'time':time,
     };
   }
 }

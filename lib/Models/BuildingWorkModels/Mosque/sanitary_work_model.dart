@@ -3,16 +3,14 @@ class SanitaryWorkModel{
   dynamic blockNo;
   dynamic sanitaryWorkStatus;
   dynamic date;
-
-
+  dynamic time;
 
   SanitaryWorkModel({
     this.id,
     this.blockNo,
     this.sanitaryWorkStatus,
-    this.date
-
-
+    this.date,
+    this.time
   });
 
   factory SanitaryWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -21,8 +19,8 @@ class SanitaryWorkModel{
         id: json['id'],
         blockNo: json['blockNo'],
         sanitaryWorkStatus: json['sanitaryWorkStatus'],
-        date:  json['date']
-
+        date:  json['date'],
+        time:  json['time']
 
     );
   }
@@ -32,7 +30,8 @@ class SanitaryWorkModel{
       'id':id,
       'blockNo':blockNo,
       'sanitaryWorkStatus':sanitaryWorkStatus,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

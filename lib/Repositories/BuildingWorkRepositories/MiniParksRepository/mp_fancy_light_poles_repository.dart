@@ -16,7 +16,7 @@ class MpFancyLightPolesRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMpLight,
-        columns: ['id', 'startDate', 'expectedCompDate','mpLCompStatus']
+        columns: ['id', 'startDate', 'expectedCompDate','mpLCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

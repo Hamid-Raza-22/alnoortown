@@ -1,11 +1,12 @@
 class StreetRoadWaterChannelModel{
   int? id;
-  dynamic blockNo;
-  dynamic roadNo;
-  dynamic roadSide;
-  dynamic noOfWaterChannels;
-  dynamic waterChCompStatus;
+  String?  blockNo;
+  String? roadNo;
+  String? roadSide;
+  String? noOfWaterChannels;
+  String? waterChCompStatus;
   dynamic date;
+  dynamic time;
 
   StreetRoadWaterChannelModel({
     this.id,
@@ -15,7 +16,7 @@ class StreetRoadWaterChannelModel{
     this.noOfWaterChannels,
     this.waterChCompStatus,
     this.date,
-
+    this.time
   });
 
   factory StreetRoadWaterChannelModel.fromMap(Map<dynamic,dynamic>json)
@@ -27,7 +28,8 @@ class StreetRoadWaterChannelModel{
       roadSide: json['roadSide'],
       noOfWaterChannels: json['noOfWaterChannels'],
       waterChCompStatus: json['waterChCompStatus'],
-      date: json['date'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -40,8 +42,7 @@ class StreetRoadWaterChannelModel{
       'noOfWaterChannels':noOfWaterChannels,
       'waterChCompStatus':waterChCompStatus,
       'date':date,
-
-
+      'time':time,
 
     };
   }

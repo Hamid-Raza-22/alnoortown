@@ -1,13 +1,14 @@
 class BackFillingWsModel{
   int? id;
-  dynamic blockNo;
-  dynamic roadNo;
-  dynamic roadSide;
-  dynamic totalLength;
-  dynamic startDate;
-  dynamic expectedCompDate;
-  dynamic waterSupplyBackFillingCompStatus;
-
+  String? blockNo;
+  String? roadNo;
+  String? roadSide;
+  String? totalLength;
+  DateTime? startDate;
+  DateTime? expectedCompDate;
+  String? waterSupplyBackFillingCompStatus;
+  dynamic date;
+  dynamic time;
   BackFillingWsModel({
     this.id,
     this.blockNo,
@@ -17,7 +18,8 @@ class BackFillingWsModel{
     this.startDate,
     this.expectedCompDate,
     this.waterSupplyBackFillingCompStatus,
-
+    this.date,
+    this.time
   });
 
   factory BackFillingWsModel.fromMap(Map<dynamic,dynamic>json)
@@ -28,9 +30,11 @@ class BackFillingWsModel{
         roadNo: json['roadNo'],
         roadSide: json['roadSide'],
         totalLength: json['totalLength'],
-        startDate: json['startDate'],
-        expectedCompDate: json['expectedCompDate'],
-        waterSupplyBackFillingCompStatus:json['waterSupplyBackFillingCompStatus']
+        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
+        waterSupplyBackFillingCompStatus:json['waterSupplyBackFillingCompStatus'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -41,9 +45,11 @@ class BackFillingWsModel{
       'roadNo':roadNo,
       'roadSide':roadSide,
       'totalLength':totalLength,
-      'startDate':startDate,
-      'expectedCompDate':expectedCompDate,
+      'startDate': startDate?.toString(),
+      'expectedCompDate': expectedCompDate?.toString(),
       'waterSupplyBackFillingCompStatus':waterSupplyBackFillingCompStatus,
+      'date':date,
+      'time':time,
 
     };
   }

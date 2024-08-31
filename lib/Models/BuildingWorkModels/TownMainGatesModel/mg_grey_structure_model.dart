@@ -3,13 +3,13 @@ class MgGreyStructureModel{
   dynamic blockNo;
   dynamic workStatus;
   dynamic date;
-
+  dynamic time;
   MgGreyStructureModel ({
     this.id,
     this.blockNo,
     this.workStatus,
-    this.date
-
+    this.date,
+    this.time
   });
 
   factory MgGreyStructureModel.fromMap(Map<dynamic,dynamic>json)
@@ -18,8 +18,8 @@ class MgGreyStructureModel{
         id: json['id'],
         blockNo: json['blockNo'],
         workStatus: json['workStatus'],
-        date:  json['date']
-
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -28,8 +28,8 @@ class MgGreyStructureModel{
       'id':id,
       'blockNo':blockNo,
       'workStatus':workStatus,
-      'date':date
-
+      'date':date,
+      'time':time,
     };
   }
 }

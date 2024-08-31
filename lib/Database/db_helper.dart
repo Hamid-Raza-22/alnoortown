@@ -4,9 +4,6 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:io' as io;
 import 'package:sqflite/sqflite.dart';
 
-
-
-
 class DBHelper{
   static Database? _db;
   Future<Database> get db async{
@@ -25,123 +22,125 @@ class DBHelper{
   }
   _onCreate(Database db, int version) {
     db.execute(
-        "CREATE TABLE machine(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, machine TEXT, timeIn TEXT, timeOut TEXT, date TEXT)");
+        "CREATE TABLE machine(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, machine TEXT, date TEXT ,time TEXT,timeIn TEXT, timeOut TEXT)");
     db.execute(
-        "CREATE TABLE tanker(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, tankerNo TEXT, date TEXT)");
+        "CREATE TABLE tanker(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, tankerNo TEXT,date TEXT,time TEXT )");
     db.execute(
-        "CREATE TABLE Excavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT, date TEXT)");
+        "CREATE TABLE Excavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT )");
     db.execute(
-        "CREATE TABLE filing(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, status TEXT, date TEXT)");
+        "CREATE TABLE filing(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, status TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE manholes(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT, date TEXT)");
+        "CREATE TABLE manholes(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE pipeline(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT, date TEXT)");
+        "CREATE TABLE pipeline(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE light(id INTEGER PRIMARY KEY,blockNo TEXT, status TEXT, date TEXT)");
+        "CREATE TABLE light(id INTEGER PRIMARY KEY,blockNo TEXT, status TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE polesExcavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, lengthTotal TEXT, date TEXT)");
+        "CREATE TABLE polesExcavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, lengthTotal TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE poles(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, totalLength TEXT, date TEXT)");
+        "CREATE TABLE poles(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, totalLength TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE asphalt(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfTons TEXT,backFillingStatus TEXT, date TEXT)");
+        "CREATE TABLE asphalt(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfTons TEXT,backFillingStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE brick(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT, date TEXT)");
+        "CREATE TABLE brick(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE iron(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT, date TEXT )");
+        "CREATE TABLE iron(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT ,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE drain(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT, date TEXT)");
+        "CREATE TABLE drain(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE slab(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfCompSlab TEXT,date TEXT)");
+        "CREATE TABLE slab(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfCompSlab TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE plaster(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT)");
+        "CREATE TABLE plaster(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE shuttering(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT)");
+        "CREATE TABLE shuttering(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE shifting(id INTEGER PRIMARY KEY,fromBlock TEXT, toBlock TEXT, numOfShift TEXT, date TEXT)");
+        "CREATE TABLE shifting(id INTEGER PRIMARY KEY,fromBlock TEXT, toBlock TEXT, numOfShift TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE mosque(id INTEGER PRIMARY KEY,blockNo TEXT, completionStatus TEXT, date TEXT, time TEXT)");
+        "CREATE TABLE mosque(id INTEGER PRIMARY KEY,blockNo TEXT, completionStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE newMaterials(id INTEGER PRIMARY KEY,sand TEXT, soil TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT,otherMaterialValue TEXT, date TEXT)");
+        "CREATE TABLE newMaterials(id INTEGER PRIMARY KEY,sand TEXT, soil TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT,otherMaterialValue TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE attendanceIn(id INTEGER PRIMARY KEY,timeIn TEXT, latitude TEXT, longitude TEXT, liveAddress TEXT,date TEXT)");
+        "CREATE TABLE attendanceIn(id INTEGER PRIMARY KEY,timeIn TEXT, latitude TEXT, longitude TEXT, liveAddress TEXT)");
     db.execute(
-        "CREATE TABLE attendanceOut(id INTEGER PRIMARY KEY,timeOut TEXT, latitude TEXT, longitude TEXT, addressOut TEXT,date TEXT)");
+        "CREATE TABLE attendanceOut(id INTEGER PRIMARY KEY,timeOut fTEXT, latitude TEXT, longitude TEXT, addressOut TEXT)");
     db.execute(
-        "CREATE TABLE foundation(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT date TEXT)");
+        "CREATE TABLE foundation(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE floor(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT date TEXT)");
+        "CREATE TABLE floor(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE tiles(id INTEGER PRIMARY KEY,blockNo TEXT, tilesWorkStatus TEXT, date TEXT)");
+        "CREATE TABLE tiles(id INTEGER PRIMARY KEY,blockNo TEXT, tilesWorkStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE sanitary(id INTEGER PRIMARY KEY,blockNo TEXT, sanitaryWorkStatus TEXT, date TEXT)");
+        "CREATE TABLE sanitary(id INTEGER PRIMARY KEY,blockNo TEXT, sanitaryWorkStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE ceiling(id INTEGER PRIMARY KEY,blockNo TEXT, ceilingWorkStatus TEXT, date TEXT)");
+        "CREATE TABLE ceiling(id INTEGER PRIMARY KEY,blockNo TEXT, ceilingWorkStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE paint(id INTEGER PRIMARY KEY,blockNo TEXT, paintWorkStatus TEXT, date TEXT)");
+        "CREATE TABLE paint(id INTEGER PRIMARY KEY,blockNo TEXT, paintWorkStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE electricity(id INTEGER PRIMARY KEY,blockNo TEXT, electricityWorkStatus TEXT, date TEXT)");
+        "CREATE TABLE electricity(id INTEGER PRIMARY KEY,blockNo TEXT, electricityWorkStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE boundary(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, boundaryWorkCompStatus TEXT)");
+        "CREATE TABLE boundary(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, boundaryWorkCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE cubStone(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, cubStonesCompStatus TEXT)");
+        "CREATE TABLE cubStone(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, cubStonesCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE gazebo(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, gazeboWorkCompStatus TEXT)");
+        "CREATE TABLE gazebo(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,gazeboWorkCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE entrance(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mainEntranceTilesWorkCompStatus TEXT)");
+        "CREATE TABLE entrance(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,mainEntranceTilesWorkCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE stage(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mainStageWorkCompStatus TEXT)");
+        "CREATE TABLE stage(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,mainStageWorkCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE mud(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,totalDumpers TEXT, mudFillingCompStatus TEXT)");
+        "CREATE TABLE mud(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, totalDumpers TEXT, mudFillingCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE plant(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, plantationCompStatus TEXT)");
+        "CREATE TABLE plant(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, plantationCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE area(id INTEGER PRIMARY KEY,typeOfWork TEXT,startDate TEXT, expectedCompDate TEXT, sittingAreaCompStatus TEXT)");
+        "CREATE TABLE area(id INTEGER PRIMARY KEY,typeOfWork TEXT,startDate TEXT, expectedCompDate TEXT,sittingAreaCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE walk(id INTEGER PRIMARY KEY,typeOfWork TEXT,startDate TEXT, expectedCompDate TEXT, walkingTracksCompStatus TEXT)");
+        "CREATE TABLE walk(id INTEGER PRIMARY KEY,typeOfWork TEXT,startDate TEXT, expectedCompDate TEXT, walkingTracksCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE mpMud(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,totalDumpers TEXT, mudFillingCompStatus TEXT)");
+        "CREATE TABLE mpMud(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,totalDumpers TEXT, mpMudFillingCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE mpGrass(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, grassWorkCompStatus TEXT)");
+        "CREATE TABLE mpGrass(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,grassWorkCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE mpCurbStone(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpCurbStoneCompStatus TEXT)");
+        "CREATE TABLE mpCurbStone(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpCurbStoneCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE mpLight(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpLCompStatus TEXT)");
+        "CREATE TABLE mpLight(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpLCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE mpPlant(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpPCompStatus TEXT)");
+        "CREATE TABLE mpPlant(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpPCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE door(id INTEGER PRIMARY KEY,blockNo TEXT, doorsWorkStatus TEXT, date TEXT)");
+        "CREATE TABLE door(id INTEGER PRIMARY KEY,blockNo TEXT, doorsWorkStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE subBase(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, baseSubBaseCompStatus TEXT)");
+        "CREATE TABLE subBase(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, baseSubBaseCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE cWaterBound(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, waterBoundCompStatus TEXT)");
+        "CREATE TABLE cWaterBound(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, waterBoundCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE sandCompaction(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, sandCompStatus TEXT)");
+        "CREATE TABLE sandCompaction(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,sandCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE soilCompaction(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, soilCompStatus TEXT)");
+        "CREATE TABLE soilCompaction(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,  soilCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE roadSide(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, roadsEdgingCompStatus TEXT)");
+        "CREATE TABLE roadSide(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, roadsEdgingCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE roadShoulder(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, roadsShoulderCompStatus TEXT)");
+        "CREATE TABLE roadShoulder(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, roadsShoulderCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE waterFirst(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, waterSupplyCompStatus TEXT)");
+        "CREATE TABLE monument(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, monumentsWorkCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE backFillingWs(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, waterSupplyBackFillingCompStatus TEXT)");
+        "CREATE TABLE waterFirst(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,waterSupplyCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE roadSB(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, fromPlotNo TEXT, toPlotNo TEXT, roadSide TEXT, compStatus TEXT)");
+        "CREATE TABLE backFillingWs(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,  waterSupplyBackFillingCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE roadCurbStone(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, compStatus TEXT, date TEXT)");
+        "CREATE TABLE roadSB(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, fromPlotNo TEXT, toPlotNo TEXT, roadSide TEXT, compStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE streetRoadWCh(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT,  noOfWaterChannels TEXT,waterChCompStatus TEXT, date TEXT)");
+        "CREATE TABLE roadCurbStone(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, compStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE canopy(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT, date TEXT)");
+        "CREATE TABLE streetRoadWCh(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT,  noOfWaterChannels TEXT,waterChCompStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE gateFoundation(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT, date TEXT)");
+        "CREATE TABLE canopy(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE gatePilar(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT, date TEXT)");
+        "CREATE TABLE gateFoundation(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE grey(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT, date TEXT)");
+        "CREATE TABLE gatePilar(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE gatePlaster(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT, date TEXT)");
+        "CREATE TABLE grey(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
+    db.execute(
+        "CREATE TABLE gatePlaster(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
 
   }
 

@@ -16,7 +16,7 @@ class MainStageWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameStage,
-        columns: ['id', 'startDate', 'expectedCompDate','mainStageWorkCompStatus']
+        columns: ['id', 'startDate', 'expectedCompDate','mainStageWorkCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

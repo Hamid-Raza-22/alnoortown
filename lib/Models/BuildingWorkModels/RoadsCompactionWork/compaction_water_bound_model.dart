@@ -1,12 +1,13 @@
 class CompactionWaterBoundModel{
   int? id;
-  dynamic blockNo;
-  dynamic roadNo;
-  dynamic totalLength;
-  dynamic startDate;
-  dynamic expectedCompDate;
-  dynamic waterBoundCompStatus;
-
+  String? blockNo;
+  String? roadNo;
+  String? totalLength;
+  DateTime? startDate;
+  DateTime? expectedCompDate;
+  String? waterBoundCompStatus;
+  dynamic date;
+  dynamic time;
 
   CompactionWaterBoundModel({
     this.id,
@@ -16,8 +17,8 @@ class CompactionWaterBoundModel{
     this.startDate,
     this.expectedCompDate,
     this.waterBoundCompStatus,
-
-
+    this.date,
+    this.time
   });
 
   factory CompactionWaterBoundModel.fromMap(Map<dynamic,dynamic>json)
@@ -27,9 +28,11 @@ class CompactionWaterBoundModel{
         blockNo: json['blockNo'],
         roadNo: json['roadNo'],
         totalLength: json['totalLength'],
-        startDate: json['startDate'],
-        expectedCompDate: json['expectedCompDate'],
-        waterBoundCompStatus:json['waterBoundCompStatus']
+        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
+        waterBoundCompStatus:json['waterBoundCompStatus'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -39,10 +42,11 @@ class CompactionWaterBoundModel{
       'blockNo':blockNo,
       'roadNo':roadNo,
       'totalLength':totalLength,
-      'startDate':startDate,
-      'expectedCompDate':expectedCompDate,
+      'startDate': startDate?.toString(),
+      'expectedCompDate': expectedCompDate?.toString(),
       'waterBoundCompStatus':waterBoundCompStatus,
-
+      'date':date,
+      'time':time,
     };
   }
 }

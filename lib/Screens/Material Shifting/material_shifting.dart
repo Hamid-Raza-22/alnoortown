@@ -4,6 +4,7 @@ import 'package:al_noor_town/ViewModels/MaterialShiftingViewModel/material_shift
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class MaterialShiftingPage extends StatefulWidget {
   const MaterialShiftingPage({super.key});
@@ -25,7 +26,15 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
     super.initState();
     containerDataList.add(createInitialContainerData());
   }
-
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
   Map<String, dynamic> createInitialContainerData() {
     return {
       "selectedBlock": null,
@@ -168,8 +177,8 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                       fromBlock: fromBlock,
                       toBlock: toBlock,
                       numOfShift: numOfShift,
-
-
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
                     ));
                     await materialShiftingViewModel.fetchAllShifting();
                     // await dbHelper.showAsphaltData();

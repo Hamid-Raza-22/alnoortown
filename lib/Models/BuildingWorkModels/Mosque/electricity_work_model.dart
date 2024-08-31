@@ -3,16 +3,13 @@ class ElectricityWorkModel{
   dynamic blockNo;
   dynamic electricityWorkStatus;
   dynamic date;
-
-
-
+  dynamic time;
   ElectricityWorkModel({
     this.id,
     this.blockNo,
     this.electricityWorkStatus,
-    this.date
-
-
+    this.date,
+    this.time
   });
 
   factory ElectricityWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -21,8 +18,8 @@ class ElectricityWorkModel{
         id: json['id'],
         blockNo: json['blockNo'],
         electricityWorkStatus: json['electricityWorkStatus'],
-        date:  json['date']
-
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -31,8 +28,8 @@ class ElectricityWorkModel{
       'id':id,
       'blockNo':blockNo,
       'electricityWorkStatus':electricityWorkStatus,
-      'date':date
-
+      'date':date,
+      'time':time,
     };
   }
 }

@@ -1,19 +1,20 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/sitting_area_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/sitting_area_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 import 'package:flutter/services.dart';
-
 import 'SittingAreaSummaryPage.dart'; // Import for custom input formatter
 
 class SittingAreaWork extends StatefulWidget {
   const SittingAreaWork({super.key});
 
   @override
-  _SittingAreaWorkState createState() => _SittingAreaWorkState();
+  SittingAreaWorkState createState() => SittingAreaWorkState();
 }
 
-class _SittingAreaWorkState extends State<SittingAreaWork> {
+class SittingAreaWorkState extends State<SittingAreaWork> {
+  SittingAreaWorkViewModel sittingAreaWorkViewModel = Get.put(SittingAreaWorkViewModel());
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   TextEditingController typeofwork = TextEditingController();
@@ -23,33 +24,40 @@ class _SittingAreaWorkState extends State<SittingAreaWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('sittingAreaWorkDataList'); // Changed key to SittingAreaWork
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('sittingAreaWorkDataList', json.encode(containerDataList)); // Changed key to SittingAreaWork
-  }
-
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? typeofwork, String? status) {
-    return {
-      "startDate": startDate?.toIso8601String(),
-      "endDate": endDate?.toIso8601String(),
-      "typeofwork": typeofwork,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('sittingAreaWorkDataList'); // Changed key to SittingAreaWork
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('sittingAreaWorkDataList', json.encode(containerDataList)); // Changed key to SittingAreaWork
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? typeofwork, String? status) {
+  //   return {
+  //     "startDate": startDate?.toIso8601String(),
+  //     "endDate": endDate?.toIso8601String(),
+  //     "typeofwork": typeofwork,
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -156,18 +164,16 @@ class _SittingAreaWorkState extends State<SittingAreaWork> {
                       selectedEndDate != null &&
                       typeofwork.text.isNotEmpty &&
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
-                      typeofwork.text,
-                      selectedStatus,
-                    );
+                    await sittingAreaWorkViewModel .addSitting(SittingAreaWorkModel(
+                        startDate: selectedStartDate,
+                        expectedCompDate: selectedEndDate,
+                        typeOfWork: typeofwork.text,
+                        sittingAreaCompStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await sittingAreaWorkViewModel.fetchAllSitting();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

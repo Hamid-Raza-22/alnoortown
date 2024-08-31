@@ -19,7 +19,7 @@ class TankerRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameTanker,
-        columns: ['id', 'blockNo', 'streetNo', 'tankerNo']
+        columns: ['id', 'blockNo', 'streetNo', 'tankerNo','date','time']
     );
 
     // Print the raw data retrieved from the database

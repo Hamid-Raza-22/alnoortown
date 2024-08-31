@@ -1,7 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/first_floor_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/first_floor_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'FirstFloorSummaryPage.dart';
 
 class FirstFloorWork extends StatefulWidget {
@@ -12,6 +13,7 @@ class FirstFloorWork extends StatefulWidget {
 }
 
 class FirstFloorWorkState extends State<FirstFloorWork> {
+  FirstFloorViewModel firstFloorViewModel = Get.put(FirstFloorViewModel());
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -31,33 +33,41 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
-  }
 
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('firstFloorWorkData'); // Unique key for First Floor Work
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('firstFloorWorkData', json.encode(containerDataList)); // Unique key for First Floor Work
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? brickStatus, String? mudStatus, String? plasterStatus) {
-    return {
-      "selectedBlock": selectedBlock,
-      "brickWorkStatus": brickStatus,
-      "mudFillingStatus": mudStatus,
-      "plasterWorkStatus": plasterStatus,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('firstFloorWorkData'); // Unique key for First Floor Work
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('firstFloorWorkData', json.encode(containerDataList)); // Unique key for First Floor Work
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? brickStatus, String? mudStatus, String? plasterStatus) {
+  //   return {
+  //     "selectedBlock": selectedBlock,
+  //     "brickWorkStatus": brickStatus,
+  //     "mudFillingStatus": mudStatus,
+  //     "plasterWorkStatus": plasterStatus,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -142,16 +152,15 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && selectedBrickWorkStatus != null && selectedMudFillingStatus != null && selectedPlasterWorkStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                        selectedBlock,
-                        selectedBrickWorkStatus,
-                        selectedMudFillingStatus,
-                        selectedPlasterWorkStatus);
-
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
+                    await firstFloorViewModel.addFirstFloor(FirstFloorModel(
+                      blockNo: selectedBlock,
+                      brickWork: selectedBrickWorkStatus,
+                      mudFiling: selectedMudFillingStatus,
+                      plasterWork: selectedPlasterWorkStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
+                    await firstFloorViewModel.fetchAllFirstFloor();
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -159,7 +168,7 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
                         ),
                       );
                     }
-                    await _saveData();
+
 
                     // Call the callback after the async operation
                     showSnackBar('Entry added successfully!');

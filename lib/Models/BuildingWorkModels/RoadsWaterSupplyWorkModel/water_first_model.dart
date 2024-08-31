@@ -1,13 +1,14 @@
 class WaterFirstModel{
   int? id;
-  dynamic blockNo;
-  dynamic roadNo;
-  dynamic roadSide;
-  dynamic totalLength;
-  dynamic startDate;
-  dynamic expectedCompDate;
-  dynamic waterSupplyCompStatus;
-
+  String? blockNo;
+  String? roadNo;
+  String? roadSide;
+  String? totalLength;
+  DateTime? startDate;
+  DateTime? expectedCompDate;
+  String? waterSupplyCompStatus;
+  dynamic date;
+  dynamic time;
   WaterFirstModel({
     this.id,
     this.blockNo,
@@ -17,7 +18,8 @@ class WaterFirstModel{
     this.startDate,
     this.expectedCompDate,
     this.waterSupplyCompStatus,
-
+    this.date,
+    this.time
   });
 
   factory WaterFirstModel.fromMap(Map<dynamic,dynamic>json)
@@ -28,9 +30,11 @@ class WaterFirstModel{
         roadNo: json['roadNo'],
         roadSide: json['roadSide'],
         totalLength: json['totalLength'],
-        startDate: json['startDate'],
-        expectedCompDate: json['expectedCompDate'],
-        waterSupplyCompStatus:json['waterSupplyCompStatus']
+        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
+        waterSupplyCompStatus:json['waterSupplyCompStatus'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -41,9 +45,11 @@ class WaterFirstModel{
       'roadNo':roadNo,
       'roadSide':roadSide,
       'totalLength':totalLength,
-      'startDate':startDate,
-      'expectedCompDate':expectedCompDate,
+      'startDate': startDate?.toString(),
+      'expectedCompDate': expectedCompDate?.toString(),
       'waterSupplyCompStatus':waterSupplyCompStatus,
+      'date':date,
+      'time':time,
 
     };
   }

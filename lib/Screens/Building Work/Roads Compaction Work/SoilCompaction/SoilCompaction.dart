@@ -1,8 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCompactionWork/soil_compaction_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/soil_compaction_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-
 import 'SoilCompactionSummary.dart';
 
 class SoilCompaction extends StatefulWidget {
@@ -13,6 +13,7 @@ class SoilCompaction extends StatefulWidget {
 }
 
 class _SoilCompactionState extends State<SoilCompaction> {
+  SoilCompactionViewModel soilCompactionViewModel = Get.put(SoilCompactionViewModel());
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   TextEditingController roadNoController = TextEditingController();
@@ -24,35 +25,42 @@ class _SoilCompactionState extends State<SoilCompaction> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('SoilCompactionDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('SoilCompactionDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? totalLength, String? status) {
-    return {
-      "startDate": startDate?.toIso8601String(),
-      "endDate": endDate?.toIso8601String(),
-      "block": block,
-      "roadNo": roadNo,
-      "totalLength": totalLength,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('SoilCompactionDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('SoilCompactionDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? totalLength, String? status) {
+  //   return {
+  //     "startDate": startDate?.toIso8601String(),
+  //     "endDate": endDate?.toIso8601String(),
+  //     "block": block,
+  //     "roadNo": roadNo,
+  //     "totalLength": totalLength,
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -170,20 +178,17 @@ class _SoilCompactionState extends State<SoilCompaction> {
                       totalLengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
-                      selectedBlock,
-                      roadNoController.text,
-                      totalLengthController.text,
-                      selectedStatus,
-                    );
-
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await soilCompactionViewModel.addSoil(SoilCompactionModel(
+                        startDate: selectedStartDate,
+                        expectedCompDate: selectedEndDate,
+                        blockNo: selectedBlock,
+                        roadNo: roadNoController.text,
+                        totalLength: totalLengthController.text,
+                        soilCompStatus:selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
+                    await soilCompactionViewModel.fetchAllSoil();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

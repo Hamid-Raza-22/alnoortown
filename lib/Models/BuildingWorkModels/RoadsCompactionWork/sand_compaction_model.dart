@@ -3,10 +3,11 @@ class SandCompactionModel{
   dynamic blockNo;
   dynamic roadNo;
   dynamic totalLength;
-  dynamic startDate;
-  dynamic expectedCompDate;
+  DateTime? startDate;
+  DateTime? expectedCompDate;
   dynamic sandCompStatus;
-
+  dynamic date;
+  dynamic time;
 
   SandCompactionModel({
     this.id,
@@ -16,8 +17,8 @@ class SandCompactionModel{
     this.startDate,
     this.expectedCompDate,
     this.sandCompStatus,
-
-
+    this.date,
+    this.time
   });
 
   factory SandCompactionModel.fromMap(Map<dynamic,dynamic>json)
@@ -27,9 +28,11 @@ class SandCompactionModel{
         blockNo: json['blockNo'],
         roadNo: json['roadNo'],
         totalLength: json['totalLength'],
-        startDate: json['startDate'],
-        expectedCompDate: json['expectedCompDate'],
-        sandCompStatus:json['sandCompStatus']
+        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
+        sandCompStatus:json['sandCompStatus'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -39,11 +42,11 @@ class SandCompactionModel{
       'blockNo':blockNo,
       'roadNo':roadNo,
       'totalLength':totalLength,
-      'startDate':startDate,
-      'expectedCompDate':expectedCompDate,
+      'startDate': startDate?.toString(),
+      'expectedCompDate': expectedCompDate?.toString(),
       'sandCompStatus':sandCompStatus,
-
-
+      'date':date,
+      'time':time,
     };
   }
 }

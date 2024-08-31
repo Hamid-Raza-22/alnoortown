@@ -1,6 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/sanitary_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/sanitary_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'SanitaryWorkSummary.dart';
 
 class SanitaryWork extends StatefulWidget {
@@ -11,6 +13,7 @@ class SanitaryWork extends StatefulWidget {
 }
 
 class _SanitaryWorkState extends State<SanitaryWork> {
+  SanitaryWorkViewModel sanitaryWorkViewModel = Get.put(SanitaryWorkViewModel());
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -28,33 +31,41 @@ class _SanitaryWorkState extends State<SanitaryWork> {
   @override
   void initState() {
     super.initState();
-    _loadData(); // Load data when the widget initializes
+   // Load data when the widget initializes
   }
-
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
   // Load data using a unique key for this page
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('sanitaryWorkDataList'); // Changed key
-    if (savedData != null) {
-      setState(() {
-        sanitorycontainerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
-  }
-
-  // Save data using a unique key for this page
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('sanitaryWorkDataList', json.encode(sanitorycontainerDataList)); // Changed key
-  }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
-    return {
-      "selectedBlock": selectedBlock,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('sanitaryWorkDataList'); // Changed key
+  //   if (savedData != null) {
+  //     setState(() {
+  //       sanitorycontainerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // // Save data using a unique key for this page
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('sanitaryWorkDataList', json.encode(sanitorycontainerDataList)); // Changed key
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
+  //   return {
+  //     "selectedBlock": selectedBlock,
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -147,17 +158,22 @@ class _SanitaryWorkState extends State<SanitaryWork> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(selectedBlock, selectedStatus);
-
-                    setState(() {
-                      sanitorycontainerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Entry added successfully!')),
-                    );
+                    await sanitaryWorkViewModel.addSanitary(SanitaryWorkModel(
+                      blockNo: selectedBlock,
+                      sanitaryWorkStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
+                    await sanitaryWorkViewModel.fetchAllSanitary();
+                    void showSnackBar(String message) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(message),
+                        ),
+                      );
+                    }
+                    // Call the callback after the async operation
+                    showSnackBar('Entry added successfully!');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Please select a block and status.')),

@@ -5,6 +5,7 @@ class RoadCurbStonesWorkModel{
   dynamic totalLength;
   dynamic compStatus;
   dynamic date;
+  dynamic time;
 
   RoadCurbStonesWorkModel({
     this.id,
@@ -13,6 +14,7 @@ class RoadCurbStonesWorkModel{
     this.totalLength,
     this.compStatus,
     this.date,
+    this.time
 
   });
 
@@ -24,7 +26,8 @@ class RoadCurbStonesWorkModel{
         roadNo: json['roadNo'],
         totalLength: json['totalLength'],
         compStatus: json['compStatus'],
-        date: json['date'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -36,8 +39,7 @@ class RoadCurbStonesWorkModel{
       'totalLength':totalLength,
       'compStatus':compStatus,
       'date':date,
-
-
+      'time':time,
 
     };
   }

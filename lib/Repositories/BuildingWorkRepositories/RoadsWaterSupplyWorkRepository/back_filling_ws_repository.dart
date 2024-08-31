@@ -16,7 +16,7 @@ class BackFillingWsRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBackFillingWs,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyBackFillingCompStatus']
+        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyBackFillingCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

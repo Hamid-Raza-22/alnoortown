@@ -4,13 +4,14 @@ class TankerModel{
   dynamic streetNo;
   dynamic tankerNo;
   dynamic date;
-
+  dynamic time;
   TankerModel ({
     this.id,
     this.blockNo,
     this.streetNo,
     this.tankerNo,
-    this.date
+    this.date,
+    this.time
 
   });
 
@@ -21,8 +22,8 @@ class TankerModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       tankerNo: json['tankerNo'],
-        date:  json['date']
-
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -32,8 +33,8 @@ class TankerModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'tankerNo':tankerNo,
-      'date':date
-
+      'date':date,
+      'time':time,
     };
   }
 }

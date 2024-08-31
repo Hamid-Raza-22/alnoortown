@@ -4,6 +4,7 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksV
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class Pipeline extends StatefulWidget {
   const Pipeline({super.key});
@@ -24,6 +25,15 @@ class _PipelineState extends State<Pipeline> {
   void initState() {
     super.initState();
     containerDataList.add(createInitialContainerData());
+  }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
 
   Map<String, dynamic> createInitialContainerData() {
@@ -151,7 +161,8 @@ class _PipelineState extends State<Pipeline> {
                       blockNo: selectedBlock,
                       streetNo: selectedStreet,
                       length: numTankers,
-
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
                     ));
                     await pipelineViewModel.fetchAllPipe();
                     // await dbHelper.showAsphaltData();

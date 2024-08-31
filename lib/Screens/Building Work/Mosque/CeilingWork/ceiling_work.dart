@@ -1,9 +1,9 @@
-import 'package:al_noor_town/Database/db_helper.dart';
+
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/ceiling_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/ceiling_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:intl/intl.dart';
 import 'CeilingWorkSummary.dart';
 
 class CeilingWork extends StatefulWidget {
@@ -16,8 +16,6 @@ class CeilingWork extends StatefulWidget {
 
 class CeilingWorkState extends State<CeilingWork> {
   CeilingWorkViewModel ceilingWorkWorkViewModel=Get.put(CeilingWorkViewModel());
-  DBHelper dbHelper = DBHelper();
-  int? ceilingId;
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -35,33 +33,16 @@ class CeilingWorkState extends State<CeilingWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('ceilingWorkDataList'); // Unique key for Ceiling Work
-    if (savedData != null) {
-      setState(() {
-        containerDataList =
-        List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('ceilingWorkDataList', json.encode(containerDataList)); // Unique key for Ceiling Work
-  }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
-    return {
-      "selectedBlock": selectedBlock,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -158,13 +139,14 @@ class CeilingWorkState extends State<CeilingWork> {
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
                     // Create a new entry
-                    Map<String, dynamic> newEntry = createNewEntry(selectedBlock, selectedStatus);
-
-                    // Add the new entry to the list
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
+                    await ceilingWorkWorkViewModel.addCeiling(CeilingWorkModel(
+                      blockNo: selectedBlock,
+                      ceilingWorkStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                      // date:
+                    ));
+                    await ceilingWorkWorkViewModel.fetchAllCeiling();
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -172,7 +154,7 @@ class CeilingWorkState extends State<CeilingWork> {
                         ),
                       );
                     }
-                    await _saveData();
+
 
                     // Call the callback after the async operation
                     showSnackBar('Entry added successfully!');

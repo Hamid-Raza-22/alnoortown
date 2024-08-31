@@ -18,7 +18,7 @@ class ShiftingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameShifting,
-        columns: ['id', 'fromBlock', 'toBlock', 'numOfShift','date']
+        columns: ['id', 'fromBlock', 'toBlock', 'numOfShift','date','time']
     );
 
     // Print the raw data retrieved from the database

@@ -1,18 +1,19 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/mud_filling_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/mud_filling_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
-
 import 'MudfillingSummaryPage.dart';
 
 class MudFillingWork extends StatefulWidget {
   const MudFillingWork({super.key});
 
   @override
-  _MudFillingWorkState createState() => _MudFillingWorkState();
+  MudFillingWorkState createState() => MudFillingWorkState();
 }
 
-class _MudFillingWorkState extends State<MudFillingWork> {
+class MudFillingWorkState extends State<MudFillingWork> {
+  MudFillingWorkViewModel mudFillingWorkViewModel = Get.put(MudFillingWorkViewModel());
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   TextEditingController dumpersController = TextEditingController();
@@ -22,33 +23,40 @@ class _MudFillingWorkState extends State<MudFillingWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('excavationWorkDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('excavationWorkDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? dumpers, String? status) {
-    return {
-      "startDate": startDate?.toIso8601String(),
-      "endDate": endDate?.toIso8601String(),
-      "dumpers": dumpers,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('excavationWorkDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('excavationWorkDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? dumpers, String? status) {
+  //   return {
+  //     "startDate": startDate?.toIso8601String(),
+  //     "endDate": endDate?.toIso8601String(),
+  //     "dumpers": dumpers,
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -156,18 +164,15 @@ class _MudFillingWorkState extends State<MudFillingWork> {
                       selectedEndDate != null &&
                       dumpersController.text.isNotEmpty &&
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
-                      dumpersController.text,
-                      selectedStatus,
-                    );
-
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await mudFillingWorkViewModel.addMud(MudFillingWorkModel(
+                        startDate: selectedStartDate,
+                        expectedCompDate: selectedEndDate,
+                        totalDumpers: dumpersController.text,
+                        mudFillingCompStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
+                    await mudFillingWorkViewModel.fetchAllMud();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

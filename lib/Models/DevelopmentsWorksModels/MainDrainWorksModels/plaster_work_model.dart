@@ -4,13 +4,15 @@ class PlasterWorkModel{
   dynamic streetNo;
   dynamic completedLength;
   dynamic date;
+  dynamic time;
 
   PlasterWorkModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.completedLength,
-    this.date
+    this.date,
+    this.time
   });
 
   factory PlasterWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -20,7 +22,8 @@ class PlasterWorkModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -30,7 +33,8 @@ class PlasterWorkModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'completedLength':completedLength,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

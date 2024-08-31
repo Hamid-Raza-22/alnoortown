@@ -4,13 +4,15 @@ class ShiftingWorkModel{
   dynamic toBlock;
   dynamic numOfShift;
   dynamic date;
+  dynamic time;
 
   ShiftingWorkModel({
     this.id,
     this.fromBlock,
     this.toBlock,
     this.numOfShift,
-    this.date
+    this.date,
+    this.time
   });
 
   factory ShiftingWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -20,7 +22,8 @@ class ShiftingWorkModel{
       fromBlock: json['fromBlock'],
       toBlock: json['toBlock'],
       numOfShift: json['numOfShift'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
 
     );
   }
@@ -31,7 +34,8 @@ class ShiftingWorkModel{
       'fromBlock':fromBlock,
       'toBlock':toBlock,
       'numOfShift':numOfShift,
-      'date':date
+      'date':date,
+      'time':time,
     };
   }
 }

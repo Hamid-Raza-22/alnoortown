@@ -1,12 +1,14 @@
 class RoadsShoulderWorkModel{
   int? id;
-  dynamic blockNo;
-  dynamic roadNo;
-  dynamic roadSide;
-  dynamic totalLength;
-  dynamic startDate;
-  dynamic expectedCompDate;
-  dynamic roadsShoulderCompStatus;
+  String? blockNo;
+  String? roadNo;
+  String? roadSide;
+  String? totalLength;
+  DateTime? startDate;
+  DateTime? expectedCompDate;
+  String? roadsShoulderCompStatus;
+  dynamic date;
+  dynamic time;
 
   RoadsShoulderWorkModel({
     this.id,
@@ -17,7 +19,8 @@ class RoadsShoulderWorkModel{
     this.startDate,
     this.expectedCompDate,
     this.roadsShoulderCompStatus,
-
+    this.date,
+    this.time
   });
 
   factory RoadsShoulderWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -28,9 +31,11 @@ class RoadsShoulderWorkModel{
         roadNo: json['roadNo'],
         roadSide: json['roadSide'],
         totalLength: json['totalLength'],
-        startDate: json['startDate'],
-        expectedCompDate: json['expectedCompDate'],
-        roadsShoulderCompStatus:json['roadsShoulderCompStatus']
+        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
+        roadsShoulderCompStatus:json['roadsShoulderCompStatus'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -41,9 +46,11 @@ class RoadsShoulderWorkModel{
       'roadNo':roadNo,
       'roadSide':roadSide,
       'totalLength':totalLength,
-      'startDate':startDate,
-      'expectedCompDate':expectedCompDate,
+      'startDate': startDate?.toString(),
+      'expectedCompDate': expectedCompDate?.toString(),
       'roadsShoulderCompStatus':roadsShoulderCompStatus,
+      'date':date,
+      'time':time,
 
     };
   }

@@ -5,6 +5,7 @@ class FoundationWorkModel{
   dynamic mudFiling;
   dynamic plasterWork;
   dynamic date;
+  dynamic time;
 
   FoundationWorkModel({
     this.id,
@@ -12,7 +13,8 @@ class FoundationWorkModel{
     this.brickWork,
     this.mudFiling,
     this.plasterWork,
-    this.date
+    this.date,
+    this.time
 
   });
 
@@ -24,7 +26,8 @@ class FoundationWorkModel{
         brickWork: json['brickWork'],
         mudFiling: json['mudFiling'],
         plasterWork: json['plasterWork'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -35,7 +38,9 @@ class FoundationWorkModel{
       'brickWork':brickWork,
       'mudFiling':mudFiling,
       'plasterWork':plasterWork,
-      'date':date
+      'date':date,
+      'time':time,
+
 
     };
   }

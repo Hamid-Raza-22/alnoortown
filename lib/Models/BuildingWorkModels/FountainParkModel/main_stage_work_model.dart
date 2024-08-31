@@ -1,15 +1,18 @@
 class MainStageWorkModel{
   int? id;
-  dynamic startDate;
-  dynamic expectedCompDate;
-  dynamic mainStageWorkCompStatus;
-
+  DateTime? startDate;
+  DateTime? expectedCompDate;
+  String? mainStageWorkCompStatus;
+  dynamic date;
+  dynamic time;
 
   MainStageWorkModel({
     this.id,
     this.startDate,
     this.expectedCompDate,
     this.mainStageWorkCompStatus,
+    this.date,
+    this.time
 
   });
 
@@ -17,19 +20,22 @@ class MainStageWorkModel{
   {
     return MainStageWorkModel(
         id: json['id'],
-        startDate: json['startDate'],
-        expectedCompDate: json['expectedCompDate'],
-        mainStageWorkCompStatus:json['mainStageWorkCompStatus']
+        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
+        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
+        mainStageWorkCompStatus:json['mainStageWorkCompStatus'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'startDate':startDate,
-      'expectedCompDate':expectedCompDate,
+      'startDate': startDate?.toString(),
+      'expectedCompDate': expectedCompDate?.toString(),
       'mainStageWorkCompStatus':mainStageWorkCompStatus,
-
+      'date':date,
+      'time':time,
 
     };
   }

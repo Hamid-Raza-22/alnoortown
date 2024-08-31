@@ -16,7 +16,7 @@ class PipelineRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePipeline,
-        columns: ['id', 'blockNo', 'streetNo', 'length','date']
+        columns: ['id', 'blockNo', 'streetNo', 'length','date','time']
     );
 
     // Print the raw data retrieved from the database

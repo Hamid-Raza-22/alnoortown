@@ -4,6 +4,7 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkV
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AsphaltWork extends StatefulWidget {
   const AsphaltWork({super.key});
@@ -33,6 +34,15 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
       "numTankers": '',
       "status": null,
     };
+  }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
 
   @override
@@ -153,9 +163,9 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
                       blockNo: selectedBlock,
                       streetNo: selectedStreet,
                       numOfTons: numTankers,
-                      backFillingStatus: status
-
-
+                      backFillingStatus: status,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
                     ));
 
                     await asphaltWorkViewModel.fetchAllAsphalt();

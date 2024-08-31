@@ -1,6 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/main_gate_pillar_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/main_gate_pillar_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'MainGatePillarsBrickSummary.dart';
 
 class MainGatePillarsBrickWork extends StatefulWidget {
@@ -11,6 +13,7 @@ class MainGatePillarsBrickWork extends StatefulWidget {
 }
 
 class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
+  MainGatePillarWorkViewModel mainGatePillarWorkViewModel=Get.put(MainGatePillarWorkViewModel());
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -28,31 +31,38 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('MainGatePillarsBrickDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('MainGatePillarsBrickDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? workStatus) {
-    return {
-      "selectedBlock": selectedBlock,
-      "workStatus": workStatus,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('MainGatePillarsBrickDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('MainGatePillarsBrickDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? workStatus) {
+  //   return {
+  //     "selectedBlock": selectedBlock,
+  //     "workStatus": workStatus,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -135,13 +145,15 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && workStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(selectedBlock, workStatus);
+                    await mainGatePillarWorkViewModel.addMainPillar(MainGatePillarWorkModel(
+                      blockNo: selectedBlock,
+                      workStatus: workStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                      // date:
+                    ));
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await mainGatePillarWorkViewModel.fetchAllMainPillar();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

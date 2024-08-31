@@ -1,12 +1,13 @@
 class RoadsSignBoardsModel{
   int? id;
-  dynamic blockNo;
-  dynamic roadNo;
-  dynamic fromPlotNo;
-  dynamic toPlotNo;
-  dynamic roadSide;
-  dynamic compStatus;
-
+  String? blockNo;
+  String? roadNo;
+  String? fromPlotNo;
+  String? toPlotNo;
+  String? roadSide;
+  String? compStatus;
+  dynamic date;
+  dynamic time;
   RoadsSignBoardsModel({
     this.id,
     this.blockNo,
@@ -15,7 +16,8 @@ class RoadsSignBoardsModel{
     this.toPlotNo,
     this.roadSide,
     this.compStatus,
-
+    this.date,
+    this.time
   });
 
   factory RoadsSignBoardsModel.fromMap(Map<dynamic,dynamic>json)
@@ -27,7 +29,9 @@ class RoadsSignBoardsModel{
         fromPlotNo: json['fromPlotNo'],
         toPlotNo: json['toPlotNo'],
         roadSide: json['roadSide'],
-        compStatus:json['compStatus']
+        compStatus:json['compStatus'],
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -40,8 +44,8 @@ class RoadsSignBoardsModel{
       'toPlotNo':toPlotNo,
       'roadSide':roadSide,
       'compStatus':compStatus,
-
-
+      'date':date,
+      'time':time,
     };
   }
 }

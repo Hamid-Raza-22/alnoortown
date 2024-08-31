@@ -1,7 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/boundary_grill_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/boundary_grill_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 import 'BoundaryGrillWorkSummary.dart';
 
 class BoundaryGrillWork extends StatefulWidget {
@@ -12,6 +13,7 @@ class BoundaryGrillWork extends StatefulWidget {
 }
 
 class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
+  BoundaryGrillWorkViewModel boundaryGrillWorkViewModel = Get.put(BoundaryGrillWorkViewModel());
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   String? selectedStatus;
@@ -20,32 +22,43 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    // _loadData();
+  }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
 
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('BoundaryGrillWorkDataList'); // Updated key
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
-  }
 
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('BoundaryGrillWorkDataList', json.encode(containerDataList)); // Updated key
-  }
 
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
-    return {
-      "startDate": startDate?.toIso8601String(),
-      "endDate": endDate?.toIso8601String(),
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('BoundaryGrillWorkDataList'); // Updated key
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('BoundaryGrillWorkDataList', json.encode(containerDataList)); // Updated key
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
+  //   return {
+  //     "startDate": startDate?.toIso8601String(),
+  //     "endDate": endDate?.toIso8601String(),
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -149,16 +162,14 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
                   if (selectedStartDate != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
-                      selectedStatus,
-                    );
-
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
+                    await boundaryGrillWorkViewModel.addBoundary(BoundaryGrillWorkModel(
+                      startDate: selectedStartDate,
+                      expectedCompDate: selectedEndDate,
+                      boundaryWorkCompStatus: selectedStatus,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime()
+                    ));
+                    await boundaryGrillWorkViewModel.fetchAllBoundary();
                     // Define a callback to show the SnackBar
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -167,8 +178,6 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
                         ),
                       );
                     }
-
-                    await _saveData();
 
                     // Call the callback after the async operation
                     showSnackBar('Entry added successfully!');

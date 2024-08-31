@@ -1,7 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/monuments_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/monuments_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'MonumentsWorkSummary.dart';
 
@@ -13,6 +14,7 @@ class MonumentsWork extends StatefulWidget {
 }
 
 class _MonumentsWorkState extends State<MonumentsWork> {
+  MonumentsWorkViewModel monumentsWorkViewModel = Get.put(MonumentsWorkViewModel());
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   String? selectedStatus;
@@ -21,32 +23,39 @@ class _MonumentsWorkState extends State<MonumentsWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('MonumentsWorkDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('MonumentsWorkDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
-    return {
-      "startDate": startDate?.toIso8601String(),
-      "endDate": endDate?.toIso8601String(),
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('MonumentsWorkDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('MonumentsWorkDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
+  //   return {
+  //     "startDate": startDate?.toIso8601String(),
+  //     "endDate": endDate?.toIso8601String(),
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -151,17 +160,15 @@ class _MonumentsWorkState extends State<MonumentsWork> {
                   if (selectedStartDate != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
-                      selectedStatus,
-                    );
+                    await monumentsWorkViewModel .addMonument(MonumentsWorkModel(
+                        startDate: selectedStartDate,
+                        expectedCompDate: selectedEndDate,
+                        monumentsWorkCompStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await monumentsWorkViewModel.fetchAllMonument();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

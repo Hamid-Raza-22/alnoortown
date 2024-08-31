@@ -19,7 +19,7 @@ class AsphaltWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameAsphalt,
-        columns: ['id', 'blockNo', 'streetNo', 'numOfTons','backFillingStatus','date']
+        columns: ['id', 'blockNo', 'streetNo', 'numOfTons','backFillingStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

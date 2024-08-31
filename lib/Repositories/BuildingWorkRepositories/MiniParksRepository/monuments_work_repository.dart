@@ -16,7 +16,7 @@ class MonumentsWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMonument,
-        columns: ['id', 'startDate', 'expectedCompDate','monumentsWorkCompStatus']
+        columns: ['id', 'startDate', 'expectedCompDate','monumentsWorkCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

@@ -1,6 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/electricity_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/electricity_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import 'ElectricityWorkSummary.dart';
 
@@ -12,6 +14,7 @@ class ElectricityWork extends StatefulWidget {
 }
 
 class ElectricityWorkState extends State<ElectricityWork> {
+  ElectricityWorkViewModel electricityWorkViewModel = Get.put(ElectricityWorkViewModel());
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -29,33 +32,41 @@ class ElectricityWorkState extends State<ElectricityWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
+    // _loadData();
   }
-
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
   // Load data with a unique key for Electricity Work
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('electricityWorkDataList'); // Unique key
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
-  }
-
-  // Save data with a unique key for Electricity Work
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('electricityWorkDataList', json.encode(containerDataList)); // Unique key
-  }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
-    return {
-      "selectedBlock": selectedBlock,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('electricityWorkDataList'); // Unique key
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // // Save data with a unique key for Electricity Work
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('electricityWorkDataList', json.encode(containerDataList)); // Unique key
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
+  //   return {
+  //     "selectedBlock": selectedBlock,
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +163,14 @@ class ElectricityWorkState extends State<ElectricityWork> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(selectedBlock, selectedStatus);
-
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
+                    await electricityWorkViewModel.addElectricity(ElectricityWorkModel(
+                      blockNo: selectedBlock,
+                      electricityWorkStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                      // date:
+                    ));
+                    await electricityWorkViewModel.fetchAllElectricity();
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -165,7 +178,7 @@ class ElectricityWorkState extends State<ElectricityWork> {
                         ),
                       );
                     }
-                    await _saveData();
+
 
                     // Call the callback after the async operation
                     showSnackBar('Entry added successfully!');

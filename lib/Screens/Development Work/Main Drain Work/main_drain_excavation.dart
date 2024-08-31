@@ -4,6 +4,7 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkV
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class MainDrainExcavation extends StatefulWidget {
   const MainDrainExcavation({super.key});
@@ -33,7 +34,15 @@ class _MainDrainExcavationState extends State<MainDrainExcavation> {
       "numTankers": '',
     };
   }
-
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -152,7 +161,8 @@ class _MainDrainExcavationState extends State<MainDrainExcavation> {
                           blockNo: selectedBlock,
                           streetNo: selectedStreet,
                           completedLength: numTankers,
-
+                            date: _getFormattedDate(),
+                            time: _getFormattedTime()
                         ));
                     await mainDrainExcavationViewModel.fetchAllDrain();
                   }

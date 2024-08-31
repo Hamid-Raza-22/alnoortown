@@ -5,17 +5,15 @@ class FirstFloorModel{
   dynamic mudFiling;
   dynamic plasterWork;
   dynamic date;
-
-
-
+  dynamic time;
   FirstFloorModel({
     this.id,
     this.blockNo,
     this.brickWork,
     this.mudFiling,
     this.plasterWork,
-    this.date
-
+    this.date,
+    this.time
   });
 
   factory FirstFloorModel.fromMap(Map<dynamic,dynamic>json)
@@ -26,7 +24,8 @@ class FirstFloorModel{
         brickWork: json['brickWork'],
         mudFiling: json['mudFiling'],
         plasterWork: json['plasterWork'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -37,7 +36,8 @@ class FirstFloorModel{
       'brickWork':brickWork,
       'mudFiling':mudFiling,
       'plasterWork':plasterWork,
-      'date':date
+      'date':date,
+      'time':time,
     };
   }
 }

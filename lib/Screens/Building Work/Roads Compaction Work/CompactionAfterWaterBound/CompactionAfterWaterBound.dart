@@ -1,7 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCompactionWork/compaction_water_bound_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/compaction_water_bound_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 import 'WaterBoundSummary.dart';
 
 class CompactionAfterWaterBound extends StatefulWidget {
@@ -12,6 +13,7 @@ class CompactionAfterWaterBound extends StatefulWidget {
 }
 
 class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
+  CompactionWaterBoundViewModel compactionWaterBoundViewModel = Get.put(CompactionWaterBoundViewModel());
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   TextEditingController roadNoController = TextEditingController();
@@ -23,35 +25,42 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('WaterBoundDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('WaterBoundDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? totalLength, String? status) {
-    return {
-      "startDate": startDate?.toIso8601String(),
-      "endDate": endDate?.toIso8601String(),
-      "block": block,
-      "roadNo": roadNo,
-      "totalLength": totalLength,
-      "status": status,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('WaterBoundDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('WaterBoundDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? totalLength, String? status) {
+  //   return {
+  //     "startDate": startDate?.toIso8601String(),
+  //     "endDate": endDate?.toIso8601String(),
+  //     "block": block,
+  //     "roadNo": roadNo,
+  //     "totalLength": totalLength,
+  //     "status": status,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -169,20 +178,18 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
                       totalLengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                      selectedStartDate,
-                      selectedEndDate,
-                      selectedBlock,
-                      roadNoController.text,
-                      totalLengthController.text,
-                      selectedStatus,
-                    );
+                    await compactionWaterBoundViewModel.addWaterBound(CompactionWaterBoundModel(
+                        startDate: selectedStartDate,
+                        expectedCompDate: selectedEndDate,
+                        roadNo: roadNoController.text,
+                        totalLength: totalLengthController.text,
+                        blockNo: selectedBlock,
+                        waterBoundCompStatus: selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                    ));
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await compactionWaterBoundViewModel.fetchAllWaterBound();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

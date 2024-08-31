@@ -16,7 +16,7 @@ class ElectricityWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameElectricity,
-        columns: ['id', 'blockNo', 'electricityWorkStatus','date']
+        columns: ['id', 'blockNo', 'electricityWorkStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

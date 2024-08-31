@@ -5,13 +5,15 @@ class FilingModel{
   dynamic streetNo;
   dynamic status;
   dynamic date;
+  dynamic time;
 
   FilingModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.status,
-    this.date
+    this.date,
+    this.time
 
   });
 
@@ -21,8 +23,8 @@ class FilingModel{
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
-      status: json['status'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
 
     );
   }
@@ -33,7 +35,8 @@ class FilingModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'status':status,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

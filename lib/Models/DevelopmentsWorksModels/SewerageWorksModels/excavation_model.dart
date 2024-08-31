@@ -5,14 +5,15 @@ class ExcavationModel{
   dynamic streetNo;
   dynamic length;
   dynamic date;
+  dynamic time;
 
   ExcavationModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.length,
-    this.date
-
+    this.date,
+    this.time
   });
 
   factory ExcavationModel.fromMap(Map<dynamic,dynamic>json)
@@ -22,7 +23,8 @@ class ExcavationModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       length: json['length'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -32,7 +34,8 @@ class ExcavationModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'length':length,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

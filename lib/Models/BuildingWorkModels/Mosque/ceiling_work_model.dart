@@ -3,13 +3,14 @@ class CeilingWorkModel{
   dynamic blockNo;
   dynamic ceilingWorkStatus;
   dynamic date;
+  dynamic time;
 
   CeilingWorkModel({
     this.id,
     this.blockNo,
     this.ceilingWorkStatus,
-    this.date
-
+    this.date,
+    this.time
   });
 
   factory CeilingWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -18,7 +19,8 @@ class CeilingWorkModel{
         id: json['id'],
         blockNo: json['blockNo'],
         ceilingWorkStatus: json['ceilingWorkStatus'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -27,7 +29,8 @@ class CeilingWorkModel{
       'id':id,
       'blockNo':blockNo,
       'ceilingWorkStatus':ceilingWorkStatus,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

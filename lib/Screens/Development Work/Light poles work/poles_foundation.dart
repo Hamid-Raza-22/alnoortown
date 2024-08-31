@@ -4,6 +4,7 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWork
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class PolesFoundation extends StatefulWidget {
   const PolesFoundation({super.key});
@@ -33,7 +34,15 @@ class PolesFoundationState extends State<PolesFoundation> {
       "numTankers": '',
     };
   }
-
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,7 +159,9 @@ class PolesFoundationState extends State<PolesFoundation> {
                       id: exId,
                       blockNo: selectedBlock,
                       streetNo: selectedStreet,
-                      lengthTotal: numTankers
+                      lengthTotal: numTankers,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
                     ));
                     await polesExcavationViewModel.fetchAllPoleExa();
                     // await dbHelper.showTankerData();

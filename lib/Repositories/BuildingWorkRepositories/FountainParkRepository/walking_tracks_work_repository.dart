@@ -16,7 +16,7 @@ class WalkingTracksWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameWalk,
-        columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','walkingTracksCompStatus']
+        columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','walkingTracksCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

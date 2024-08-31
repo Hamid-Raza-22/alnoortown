@@ -57,6 +57,15 @@ class MachinesState extends State<Machines> {
     final now = DateTime.now();
     return DateFormat('yyyy-MM-dd').format(now);
   }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -300,11 +309,10 @@ class MachinesState extends State<Machines> {
                       machine: selectedMachine,
                       timeIn: clockInTime,
                       timeOut: clockOutTime,
-
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
                     ));
 
-                   // await machineViewModel.deleteMachine(11);
-                   // await dbHelper.showMachineData();
                     await machineViewModel.fetchAllMachine();
                    // nameController.text = "";
                   }

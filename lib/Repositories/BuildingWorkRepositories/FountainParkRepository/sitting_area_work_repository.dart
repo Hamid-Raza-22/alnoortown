@@ -16,7 +16,7 @@ class SittingAreaWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameArea,
-        columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','sittingAreaCompStatus']
+        columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','sittingAreaCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

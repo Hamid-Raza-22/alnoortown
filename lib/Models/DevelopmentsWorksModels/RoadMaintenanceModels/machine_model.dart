@@ -6,6 +6,7 @@ class MachineModel{
   dynamic timeIn;
   dynamic timeOut;
   dynamic date;
+  dynamic time;
   MachineModel({
     this.id,
     this.blockNo,
@@ -13,7 +14,8 @@ class MachineModel{
     this.machine,
     this.timeIn,
     this.timeOut,
-    this.date
+    this.date,
+    this.time
   });
 
   factory MachineModel.fromMap(Map<dynamic,dynamic>json)
@@ -25,7 +27,8 @@ class MachineModel{
       machine: json['machine'],
       timeIn: json['timeIn'],
       timeOut: json['timeOut'],
-      date:  json['date']
+      date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -37,7 +40,8 @@ class MachineModel{
       'machine':machine,
       'timeIn':timeIn,
       'timeOut':timeOut,
-      'date':date
+      'date':date,
+      'time':time,
     };
   }
 }

@@ -18,7 +18,7 @@ class NewMaterialRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameNewMaterials,
-        columns: ['id', 'sand','soil', 'base', 'subBase','waterBound','otherMaterial','otherMaterialValue','date']
+        columns: ['id', 'sand','soil', 'base', 'subBase','waterBound','otherMaterial','otherMaterialValue','date','time']
     );
 
     // Print the raw data retrieved from the database

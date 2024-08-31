@@ -16,7 +16,7 @@ class MainEntranceTilesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameEntrance,
-        columns: ['id', 'startDate', 'expectedCompDate','mainEntranceTilesWorkCompStatus']
+        columns: ['id', 'startDate', 'expectedCompDate','mainEntranceTilesWorkCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

@@ -3,12 +3,14 @@ class TilesWorkModel{
   dynamic blockNo;
   dynamic tilesWorkStatus;
   dynamic date;
+  dynamic time;
 
   TilesWorkModel({
     this.id,
     this.blockNo,
     this.tilesWorkStatus,
-    this.date
+    this.date,
+    this.time
   });
 
   factory TilesWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -17,7 +19,8 @@ class TilesWorkModel{
         id: json['id'],
         blockNo: json['blockNo'],
         tilesWorkStatus: json['tilesWorkStatus'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -26,7 +29,8 @@ class TilesWorkModel{
       'id':id,
       'blockNo':blockNo,
       'tilesWorkStatus':tilesWorkStatus,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

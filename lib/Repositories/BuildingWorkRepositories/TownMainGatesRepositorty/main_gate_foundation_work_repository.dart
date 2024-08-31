@@ -16,7 +16,7 @@ class MainGateFoundationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGateFoundation,
-        columns:  ['id', 'blockNo', 'workStatus','date']
+        columns:  ['id', 'blockNo', 'workStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

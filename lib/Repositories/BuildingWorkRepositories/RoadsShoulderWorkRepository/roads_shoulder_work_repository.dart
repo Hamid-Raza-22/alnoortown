@@ -16,7 +16,7 @@ class RoadsShoulderWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadShoulder,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsShoulderCompStatus']
+        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsShoulderCompStatus','date','time']
     );
 
     // Print the raw data retrieved from the database

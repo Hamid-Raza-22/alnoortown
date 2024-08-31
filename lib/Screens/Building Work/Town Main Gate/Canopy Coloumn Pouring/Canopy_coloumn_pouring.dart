@@ -1,6 +1,8 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/canopy_column_pouring_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/canopy_column_pouring_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'CanopyColoumnSummary.dart';
 
 class CanopyColoumnPouring extends StatefulWidget {
@@ -11,6 +13,7 @@ class CanopyColoumnPouring extends StatefulWidget {
 }
 
 class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
+  CanopyColumnPouringViewModel canopyColumnPouringViewModel=Get.put(CanopyColumnPouringViewModel());
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -28,31 +31,39 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
   @override
   void initState() {
     super.initState();
-    _loadData();
-  }
 
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('CanopiColoumnDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('CanopiColoumnDataList', json.encode(containerDataList));
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? workStatus) {
-    return {
-      "selectedBlock": selectedBlock,
-      "workStatus": workStatus,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('CanopiColoumnDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('CanopiColoumnDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? workStatus) {
+  //   return {
+  //     "selectedBlock": selectedBlock,
+  //     "workStatus": workStatus,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -135,13 +146,14 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && workStatus != null && workStatus!.isNotEmpty) {
-                    Map<String, dynamic> newEntry = createNewEntry(selectedBlock, workStatus);
-
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await canopyColumnPouringViewModel.addCanopy(CanopyColumnPouringModel(
+                      blockNo: selectedBlock,
+                      workStatus:workStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+                      // date:
+                    ));
+                    await canopyColumnPouringViewModel.fetchAllCanopy();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

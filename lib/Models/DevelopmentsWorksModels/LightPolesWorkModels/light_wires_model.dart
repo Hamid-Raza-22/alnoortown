@@ -4,14 +4,14 @@ class LightWiresModel{
   dynamic streetNo;
   dynamic totalLength;
   dynamic date;
-
+  dynamic time;
   LightWiresModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.totalLength,
-    this.date
-
+    this.date,
+    this.time
   });
 
   factory LightWiresModel.fromMap(Map<dynamic,dynamic>json)
@@ -21,7 +21,8 @@ class LightWiresModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       totalLength: json['totalLength'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -31,8 +32,8 @@ class LightWiresModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'totalLength':totalLength,
-      'date':date
-
+      'date':date,
+      'time':time,
     };
   }
 }

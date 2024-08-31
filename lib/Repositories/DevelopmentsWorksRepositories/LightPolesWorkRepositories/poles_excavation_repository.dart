@@ -21,7 +21,7 @@ class PolesExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePolesExcavation,
-        columns: ['id', 'blockNo', 'streetNo', 'lengthTotal','date']
+        columns: ['id', 'blockNo', 'streetNo', 'lengthTotal','date','time']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,7 @@ class PolesExcavationRepository{
 
     // Print the list
     if (kDebugMode) {
-      print('Parsed TankerModel objects:');
+      print('Parsed PolesExcavationModel objects:');
     }
 
 

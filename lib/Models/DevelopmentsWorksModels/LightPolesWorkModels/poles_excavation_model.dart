@@ -4,14 +4,14 @@ class PolesExcavationModel{
   dynamic streetNo;
   dynamic lengthTotal;
   dynamic date;
-
+  dynamic time;
   PolesExcavationModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.lengthTotal,
-    this.date
-
+    this.date,
+    this.time
   });
 
   factory PolesExcavationModel.fromMap(Map<dynamic,dynamic>json)
@@ -21,8 +21,8 @@ class PolesExcavationModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       lengthTotal: json['lengthTotal'],
-        date:  json['date']
-
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -32,8 +32,8 @@ class PolesExcavationModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'lengthTotal':lengthTotal,
-      'date':date
-
+      'date':date,
+      'time':time,
     };
   }
 }

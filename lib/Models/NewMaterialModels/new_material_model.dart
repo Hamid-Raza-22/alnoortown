@@ -8,6 +8,7 @@ class NewMaterialModel{
   dynamic otherMaterial;
   dynamic otherMaterialValue;
   dynamic date;
+  dynamic time;
 
   NewMaterialModel({
     this.id,
@@ -18,7 +19,8 @@ class NewMaterialModel{
     this.waterBound,
     this.otherMaterial,
     this.otherMaterialValue,
-    this.date
+    this.date,
+    this.time
   });
 
   factory NewMaterialModel.fromMap(Map<dynamic,dynamic>json)
@@ -32,8 +34,8 @@ class NewMaterialModel{
       waterBound: json['waterBound'],
       otherMaterial: json['otherMaterial'],
         otherMaterialValue: json['otherMaterialValue'],
-
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
 
     );
   }
@@ -48,7 +50,8 @@ class NewMaterialModel{
       'waterBound':waterBound,
       'otherMaterial':otherMaterial,
       'otherMaterialValue':otherMaterialValue,
-      'date':date
+      'date':date,
+      'time':time,
 
     };
   }

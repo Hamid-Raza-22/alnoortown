@@ -4,13 +4,15 @@ class PipelineModel{
   dynamic streetNo;
   dynamic length;
   dynamic date;
+  dynamic time;
 
   PipelineModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.length,
-    this.date
+    this.date,
+    this.time
   });
 
   factory PipelineModel.fromMap(Map<dynamic,dynamic>json)
@@ -20,7 +22,8 @@ class PipelineModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       length: json['length'],
-        date:  json['date']
+        date:  json['date'],
+        time:  json['time']
     );
   }
 
@@ -30,7 +33,8 @@ class PipelineModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'length':length,
-      'date':date
+      'date':date,
+      'time':time,
     };
   }
 }

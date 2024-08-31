@@ -4,6 +4,7 @@ import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_m
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class NewMaterial extends StatefulWidget {
   const NewMaterial({Key? key}) : super(key: key);
@@ -35,7 +36,15 @@ class _NewMaterialState extends State<NewMaterial> {
       "otherMaterialValue": 0,
     };
   }
-
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,17 +144,15 @@ class _NewMaterialState extends State<NewMaterial> {
                   await newMaterialViewModel.addNewMaterial(
                       NewMaterialModel(
                         sand: sand,
-
+                        soil: soil,
                         subBase: subBase,
                         base: base,
                         waterBound: waterBound,
                         otherMaterial: otherMaterial,
-
+                          date: _getFormattedDate(),
+                          time: _getFormattedTime()
                       ));
-
-
-
-
+                  await newMaterialViewModel.fetchAllNewMaterial();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

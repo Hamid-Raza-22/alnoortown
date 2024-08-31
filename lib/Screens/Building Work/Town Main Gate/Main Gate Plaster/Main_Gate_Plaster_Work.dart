@@ -1,16 +1,19 @@
+import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/mg_plaster_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/mg_plaster_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'MainGatePlasterSummary.dart';
 
 class MainGatePlasterWork extends StatefulWidget {
   const MainGatePlasterWork({super.key});
 
   @override
-  _MainGatePlasterWorkState createState() => _MainGatePlasterWorkState();
+  MainGatePlasterWorkState createState() => MainGatePlasterWorkState();
 }
 
-class _MainGatePlasterWorkState extends State<MainGatePlasterWork> {
+class MainGatePlasterWorkState extends State<MainGatePlasterWork> {
+  MgPlasterWorkViewModel mgPlasterWorkViewModel=Get.put(MgPlasterWorkViewModel());
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -28,31 +31,38 @@ class _MainGatePlasterWorkState extends State<MainGatePlasterWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('MainGatePlasterDataList');
-    if (savedData != null) {
-      setState(() {
-        containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('MainGatePlasterDataList', json.encode(containerDataList));
-  }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? workStatus) {
-    return {
-      "selectedBlock": selectedBlock,
-      "workStatus": workStatus,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('MainGatePlasterDataList');
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('MainGatePlasterDataList', json.encode(containerDataList));
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? workStatus) {
+  //   return {
+  //     "selectedBlock": selectedBlock,
+  //     "workStatus": workStatus,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -135,13 +145,13 @@ class _MainGatePlasterWorkState extends State<MainGatePlasterWork> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && workStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(selectedBlock, workStatus);
+                    await mgPlasterWorkViewModel.addMgPlaster(MgPlasterWorkModel(
+                      blockNo: selectedBlock,
+                      workStatus: workStatus,
+                      // date:
+                    ));
 
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
-                    await _saveData();
+                    await mgPlasterWorkViewModel.fetchAllMgPlaster();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

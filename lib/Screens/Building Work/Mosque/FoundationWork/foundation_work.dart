@@ -1,6 +1,9 @@
-import 'dart:convert';
+
+import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/foundation_work_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/foundation_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'FoundationSummaryPage.dart';
 
 class FoundationWork extends StatefulWidget {
@@ -11,6 +14,7 @@ class FoundationWork extends StatefulWidget {
 }
 
 class FoundationWorkState extends State<FoundationWork> {
+  FoundationWorkViewModel foundationWorkViewModel = Get.put(FoundationWorkViewModel());
   final List<String> blocks = [
     "Block A",
     "Block B",
@@ -30,34 +34,41 @@ class FoundationWorkState extends State<FoundationWork> {
   @override
   void initState() {
     super.initState();
-    _loadData();
   }
-
-  Future<void> _loadData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? savedData = prefs.getString('foundationWorkDataList'); // Unique key for Foundation Work
-    if (savedData != null) {
-      setState(() {
-        containerDataList =
-        List<Map<String, dynamic>>.from(json.decode(savedData));
-      });
-    }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-
-  Future<void> _saveData() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('foundationWorkDataList', json.encode(containerDataList)); // Unique key for Foundation Work
-  }
-
-  Map<String, dynamic> createNewEntry(String? selectedBlock, String? brickStatus, String? mudStatus, String? plasterStatus) {
-    return {
-      "selectedBlock": selectedBlock,
-      "brickWorkStatus": brickStatus,
-      "mudFillingStatus": mudStatus,
-      "plasterWorkStatus": plasterStatus,
-      "timestamp": DateTime.now().toIso8601String(),
-    };
-  }
+  // Future<void> _loadData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? savedData = prefs.getString('foundationWorkDataList'); // Unique key for Foundation Work
+  //   if (savedData != null) {
+  //     setState(() {
+  //       containerDataList =
+  //       List<Map<String, dynamic>>.from(json.decode(savedData));
+  //     });
+  //   }
+  // }
+  //
+  // Future<void> _saveData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   await prefs.setString('foundationWorkDataList', json.encode(containerDataList)); // Unique key for Foundation Work
+  // }
+  //
+  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? brickStatus, String? mudStatus, String? plasterStatus) {
+  //   return {
+  //     "selectedBlock": selectedBlock,
+  //     "brickWorkStatus": brickStatus,
+  //     "mudFillingStatus": mudStatus,
+  //     "plasterWorkStatus": plasterStatus,
+  //     "timestamp": DateTime.now().toIso8601String(),
+  //   };
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -142,16 +153,15 @@ class FoundationWorkState extends State<FoundationWork> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null && selectedBrickWorkStatus != null && selectedMudFillingStatus != null && selectedPlasterWorkStatus != null) {
-                    Map<String, dynamic> newEntry = createNewEntry(
-                        selectedBlock,
-                        selectedBrickWorkStatus,
-                        selectedMudFillingStatus,
-                        selectedPlasterWorkStatus);
-
-                    setState(() {
-                      containerDataList.add(newEntry);
-                    });
-
+                      await foundationWorkViewModel.addFoundation(FoundationWorkModel(
+                        blockNo: selectedBlock,
+                        brickWork: selectedBrickWorkStatus,
+                        mudFiling: selectedMudFillingStatus,
+                        plasterWork: selectedPlasterWorkStatus,
+                          date: _getFormattedDate(),
+                          time: _getFormattedTime()
+                      ));
+                      await foundationWorkViewModel.fetchAllFoundation();
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -159,7 +169,7 @@ class FoundationWorkState extends State<FoundationWork> {
                         ),
                       );
                     }
-                    await _saveData();
+
 
                     // Call the callback after the async operation
                     showSnackBar('Entry added successfully!');
