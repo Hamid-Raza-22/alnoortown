@@ -106,7 +106,7 @@ class DoorsWorkState extends State<DoorsWork> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueExcavationWork.png',
+              'assets/images/door-01.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),

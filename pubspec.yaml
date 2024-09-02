@@ -57,8 +57,6 @@ dependencies:
   country_code_picker: ^3.0.0
   firebase_auth: ^5.1.4
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -121,7 +119,13 @@ flutter:
     - assets/images/sitttingarea.png
     - assets/images/curbstone.png
     - assets/images/plantation.png
-
+    - assets/images/dumper.png
+    - assets/images/shiftingworkimg.png
+    - assets/images/billboard.png
+    - assets/images/edging.png
+    - assets/images/qw-01.png
+    - assets/images/gateeee-01.png
+    - assets/images/door-01.png
 
   # assets:
   #   - images/a_dot_burr.jpeg

@@ -102,7 +102,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueExcavationWork.png',
+              'assets/images/edging.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),

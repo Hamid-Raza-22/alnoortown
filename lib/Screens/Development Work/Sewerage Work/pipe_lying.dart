@@ -6,14 +6,14 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class Pipeline extends StatefulWidget {
-  const Pipeline({super.key});
+class Pipelying extends StatefulWidget {
+  const Pipelying({super.key});
 
   @override
-  _PipelineState createState() => _PipelineState();
+  _PipelyingState createState() => _PipelyingState();
 }
 
-class _PipelineState extends State<Pipeline> {
+class _PipelyingState extends State<Pipelying> {
   PipelineViewModel pipelineViewModel=Get.put(PipelineViewModel());
   DBHelper dbHelper = DBHelper();
   int? pipeId;
@@ -80,7 +80,7 @@ class _PipelineState extends State<Pipeline> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'Pipeline',
+                  'Pipelying',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),

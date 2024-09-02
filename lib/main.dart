@@ -35,6 +35,7 @@ Future<void> main() async {
   ),
 );
 }
+
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     final prefs = await SharedPreferences.getInstance();
@@ -43,8 +44,6 @@ void callbackDispatcher() {
       final startTime = DateTime.parse(prefs.getString('startTime')!);
       final duration = DateTime.now().difference(startTime);
       final formattedDuration = duration.toString().split('.').first.padLeft(8, "0");
-
-      // Update the notification with the current timer value
       HomeController().showRunningTimerNotification(formattedDuration);
     }
     return Future.value(true);

@@ -41,7 +41,6 @@ import 'Town Main Gate/Main Gate Grey Structure/MainGateGreyStructure.dart';
 import 'Town Main Gate/Main Gate Pillars Brick/MainGatePillarsbrick.dart';
 import 'Town Main Gate/Main Gate Plaster/Main_Gate_Plaster_Work.dart';
 
-
 class Building_Navigation_Page extends StatefulWidget {
   const Building_Navigation_Page({super.key});
 
