@@ -1,4 +1,6 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/boundary_grill_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class BoundaryGrillWorkSummary extends StatefulWidget {
@@ -11,6 +13,7 @@ class BoundaryGrillWorkSummary extends StatefulWidget {
 }
 
 class _BoundaryGrillWorkSummaryState extends State<BoundaryGrillWorkSummary> {
+  final BoundaryGrillWorkViewModel boundaryGrillWorkViewModel = Get.put(BoundaryGrillWorkViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(

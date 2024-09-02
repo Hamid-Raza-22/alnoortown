@@ -1,5 +1,7 @@
 
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/paint_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class PaintWorkSummary extends StatefulWidget {
@@ -12,6 +14,7 @@ class PaintWorkSummary extends StatefulWidget {
 }
 
 class _PaintWorkSummaryState extends State<PaintWorkSummary> {
+  final PaintWorkViewModel paintWorkViewModel = Get.put(PaintWorkViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,14 +61,21 @@ class _PaintWorkSummaryState extends State<PaintWorkSummary> {
             const SizedBox(height: 8),
             // Data Grid
             Expanded(
-              child: ListView.builder(
-                itemCount: widget.containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = widget.containerDataList[index];
-                  return _buildDataRow(data);
-                },
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: paintWorkViewModel.allPaint.length,
+                  itemBuilder: (context, index) {
+                    final data = paintWorkViewModel.allPaint[index];
+                    return _buildDataRow({
+                      "selectedBlock": data.blockNo,
+                      "status": data.paintWorkStatus,
+                      "date": data.date,
+                      "time": data.time
+                    });
+                  },
+                );
+              }),
               ),
-            ),
           ],
         ),
       ),

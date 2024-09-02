@@ -13,14 +13,6 @@ class MosqueSummaryPage extends StatefulWidget {
 class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
   // Initialize ViewModel using GetX
   final MosqueExcavationViewModel mosqueViewModel = Get.put(MosqueExcavationViewModel());
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   // Fetch data when the page is initialized
-  //  // mosqueViewModel.fetchAllMosque();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

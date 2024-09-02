@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:al_noor_town/Screens/signup_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'home_page.dart';
