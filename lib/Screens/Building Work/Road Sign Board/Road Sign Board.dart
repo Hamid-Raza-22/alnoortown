@@ -92,9 +92,9 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueExcavationWork.png',
+              'assets/images/qw-01.png',
               fit: BoxFit.cover,
-              height: 170.0,
+              height: 200.0,
             ),
           ),
           Expanded(

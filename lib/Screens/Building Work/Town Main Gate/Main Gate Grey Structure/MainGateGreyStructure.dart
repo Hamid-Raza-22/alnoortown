@@ -87,7 +87,7 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueExcavationWork.png',
+              'assets/images/gateeee-01.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),

@@ -159,6 +159,9 @@ class _MonumentsWorkState extends State<MonumentsWork> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
                     });
 
                     await _saveData();

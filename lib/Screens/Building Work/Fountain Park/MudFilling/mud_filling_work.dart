@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
 import 'MudfillingSummaryPage.dart';
 
 class MudFillingWork extends StatefulWidget {
@@ -165,6 +164,10 @@ class _MudFillingWorkState extends State<MudFillingWork> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
+                      dumpersController.clear();
                     });
 
                     await _saveData();

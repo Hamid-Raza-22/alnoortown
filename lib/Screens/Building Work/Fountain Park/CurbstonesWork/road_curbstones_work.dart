@@ -159,8 +159,11 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
                     });
-                    // Define a callback to show the SnackBar
+
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

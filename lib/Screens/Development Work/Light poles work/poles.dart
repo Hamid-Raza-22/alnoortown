@@ -119,7 +119,7 @@ class _PolesState extends State<Poles> {
             buildBlockStreetRow(containerData),
             const SizedBox(height: 16),
             const Text(
-              "Total length Completed",
+              "No. of Poles",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             const SizedBox(height: 8),

@@ -1,38 +1,30 @@
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/pipeline_model.dart';
-import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/pipeline_view_model.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/tanker_model.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Road%20Maintenance/Water%20Tanker/watertanker_summary.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/tanker_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-class Pipelying extends StatefulWidget {
-  const Pipelying({super.key});
+class WaterTanker extends StatefulWidget {
+  const WaterTanker({super.key});
 
   @override
-  _PipelyingState createState() => _PipelyingState();
+  _WaterTankerState createState() => _WaterTankerState();
 }
 
-class _PipelyingState extends State<Pipelying> {
-  PipelineViewModel pipelineViewModel=Get.put(PipelineViewModel());
+class _WaterTankerState extends State<WaterTanker>  {
+  TankerViewModel tankerViewModel = Get.put(TankerViewModel());
   DBHelper dbHelper = DBHelper();
-  int? pipeId;
+  int? tankerId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
-  List<Map<String, dynamic>> containerDataList = [];
 
-  @override
-  void initState() {
-    super.initState();
-    containerDataList.add(createInitialContainerData());
-  }
-
-  Map<String, dynamic> createInitialContainerData() {
-    return {
-      "selectedBlock": null,
-      "selectedStreet": null,
-      "numTankers": '',
-    };
-  }
+  Map<String, dynamic> containerData = {
+    "selectedBlock": null,
+    "selectedStreet": null,
+    "selectedTankers": null,
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +41,7 @@ class _PipelyingState extends State<Pipelying> {
                 height: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/pipelines.png'),
+                    image: AssetImage('assets/images/waterr-01.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -57,6 +49,17 @@ class _PipelyingState extends State<Pipelying> {
             ],
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.summarize, color: Color(0xFFC69840)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const WaterTankerSummary()),
+                );
+              },
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
@@ -68,47 +71,25 @@ class _PipelyingState extends State<Pipelying> {
             const Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
+                padding: EdgeInsets.only(bottom: 12.0),
                 child: Text(
-                  'Pipelying',
+                  'Water Tanker',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
             ),
-            ...containerDataList.asMap().entries.map((entry) {
-              int index = entry.key;
-              return Column(
-                children: [
-                  buildContainer(index),
-                  const SizedBox(height: 16),
-                ],
-              );
-            }),
+            buildContainer(),
             const SizedBox(height: 16),
-            Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    containerDataList.add(createInitialContainerData());
-                  });
-                },
-                backgroundColor: Colors.transparent,
-                elevation: 0, // No shadow
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget buildContainer(int index) {
-    var containerData = containerDataList[index];
-
+  Widget buildContainer() {
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
-      elevation: 3,
+      elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
@@ -116,21 +97,26 @@ class _PipelyingState extends State<Pipelying> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
+            buildBlockStreetRow(),
             const SizedBox(height: 16),
             const Text(
-              "Total length Completed",
+              "No. of Tankers",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             const SizedBox(height: 8),
-            TextFormField(
-              initialValue: containerData["numTankers"],
+            DropdownButtonFormField<int>(
+              value: containerData["selectedTankers"],
+              items: List.generate(10, (index) => index + 1).map((number) {
+                return DropdownMenuItem(
+                  value: number,
+                  child: Text(number.toString()),
+                );
+              }).toList(),
               onChanged: (value) {
                 setState(() {
-                  containerData["numTankers"] = value;
+                  containerData["selectedTankers"] = value;
                 });
               },
-              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
@@ -144,22 +130,25 @@ class _PipelyingState extends State<Pipelying> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
-                  {
-                    await pipelineViewModel.addPipe(PipelineModel(
-                      id: pipeId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
-                      length: numTankers,
+                  final selectedTankers = containerData["selectedTankers"];
+                  await tankerViewModel.addTanker(TankerModel(
+                    id: tankerId,
+                    blockNo: selectedBlock,
+                    streetNo: selectedStreet,
+                    tankerNo: selectedTankers,
+                  ));
+                  await tankerViewModel.fetchAllTanker();
 
-                    ));
-                    await pipelineViewModel.fetchAllPipe();
-                    // await dbHelper.showAsphaltData();
-                  }
+                  setState(() {
+                    containerData["selectedBlock"] = null;
+                    containerData["selectedStreet"] = null;
+                    containerData["selectedTankers"] = null;
+                  });
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
+                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $selectedTankers',
                       ),
                     ),
                   );
@@ -181,25 +170,21 @@ class _PipelyingState extends State<Pipelying> {
     );
   }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
+  Widget buildBlockStreetRow() {
     return Row(
       children: [
         Expanded(
-          child: buildDropdownField(
-              "Block No.", containerData, "selectedBlock", blocks
-          ),
+          child: buildDropdownField("Block No.", "selectedBlock", blocks),
         ),
         const SizedBox(width: 16),
         Expanded(
-          child: buildDropdownField(
-              "Street No.", containerData, "selectedStreet", streets
-          ),
+          child: buildDropdownField("Street No.", "selectedStreet", streets),
         ),
       ],
     );
   }
 
-  Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
+  Widget buildDropdownField(String title, String key, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

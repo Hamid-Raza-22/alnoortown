@@ -158,6 +158,9 @@ class GrassWorkState extends State<GrassWork> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
                     });
 
                     await _saveData();

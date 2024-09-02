@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 import 'package:flutter/services.dart';
-
 import 'SittingAreaSummaryPage.dart'; // Import for custom input formatter
 
 class SittingAreaWork extends StatefulWidget {
@@ -165,6 +164,10 @@ class _SittingAreaWorkState extends State<SittingAreaWork> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
+                      typeofwork.clear();
                     });
 
                     await _saveData();

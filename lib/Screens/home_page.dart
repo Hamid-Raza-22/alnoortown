@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -121,8 +122,22 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Widget buildCard(BuildContext context, String imagePath, String name, String route) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(route);
+        if (controller.isClockedIn.value) {
+          Get.toNamed(route);
+        } else {
+          Get.snackbar(
+            'Clock In Required',
+            'Please clock in first',
+            snackPosition: SnackPosition.TOP,
+            backgroundColor: const Color(0xFFC69840),
+            colorText: Colors.white,
+            margin: const EdgeInsets.only(top: 570),
+            padding: const EdgeInsets.all(16),
+            borderRadius: 20,
+          );
+        }
       },
+
       child: Container(
         width: 180,
         height: 180,
@@ -174,4 +189,5 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       ),
     );
   }
+
 }

@@ -11,7 +11,7 @@ import 'Main Drain Work/manholes _slabs.dart';
 import 'Main Drain Work/plaster_work.dart';
 import 'Main Drain Work/shuttering_work.dart';
 import 'Road Maintenance/machines.dart';
-import 'Road Maintenance/water_tanker.dart';
+import 'Road Maintenance/Water Tanker/water_tanker.dart';
 import 'Sewerage Work/backfilling.dart';
 import 'Sewerage Work/excavation.dart';
 import 'Sewerage Work/manholes.dart';
@@ -61,11 +61,32 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
     screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Color(0xFFC69840),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Development Work',
+          style: TextStyle(
+            fontFamily: 'Avenir Next',
+            fontSize: 20,
+            color: Color(0xFFC69840),
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const SizedBox(height: 20),
+            const SizedBox(height: 60),
             SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               padding: EdgeInsets.symmetric(
@@ -73,7 +94,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 70),
+                  const SizedBox(height: 10),
                   ListView.builder(
                     primary: false,
                     shrinkWrap: true,
@@ -82,7 +103,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                       return item(index);
                     },
                   ),
-                  const SizedBox(height: 50),
+                  const SizedBox(height: 10),
                 ],
               ),
             ),
@@ -184,7 +205,6 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   backgroundColor: Colors.white,
-                  elevation: 5,
                   contentPadding: const EdgeInsets.all(20),
                 );
               },
@@ -303,7 +323,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Pipeline()),
+                                    builder: (context) => const Pipelying()),
                               );
                             },
                             child: Column(
@@ -344,7 +364,6 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   backgroundColor: Colors.white,
-                  elevation: 5,
                   contentPadding: const EdgeInsets.all(20),
                 );
               },
@@ -466,7 +485,6 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   backgroundColor: Colors.white,
-                  elevation: 5,
                   contentPadding: const EdgeInsets.all(20),
                 );
               },
@@ -705,68 +723,53 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   backgroundColor: Colors.white,
-                  elevation: 5,
+
                   contentPadding: const EdgeInsets.all(20),
                 );
-
-
-
-
-
-
               },
             );
             break;
         }
       },
       child: AnimatedContainer(
-        height: 130,
+        height: 90, // Reduced height to make the cards slimmer
         width: screenWidth,
         curve: Curves.linear,
         duration: Duration(milliseconds: 300 + (index * 200)),
-        transform:
-        Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
+        transform: Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
         margin: const EdgeInsets.only(
-          bottom: 12,
+          bottom: 10, // Reduced bottom margin for less space between cards
         ),
         padding: EdgeInsets.symmetric(
-          horizontal: screenWidth / 20,
+          horizontal: screenWidth / 25, // Reduced horizontal padding
         ),
         decoration: BoxDecoration(
           color: const Color(0xFFF3F4F6),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0.3, 3),
-            ),
-          ],
         ),
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(6.0),
               child: Image.asset(
                 imagePaths[index],
-                height: 58,
-                width: 57,
+                height: 45,
+                width: 45,
               ),
             ),
             Container(
-              width: 0.7,
-              height: 80,
+              width: 0.5,
+              height: 40,
               color: Colors.grey.withOpacity(0.3),
-              margin: const EdgeInsets.symmetric(horizontal: 8),
+              margin: const EdgeInsets.symmetric(horizontal: 6),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 6.0),
                 child: Text(
                   texts[index],
                   style: const TextStyle(
-                    fontSize: 19,
+                    fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFFC69840),
                   ),

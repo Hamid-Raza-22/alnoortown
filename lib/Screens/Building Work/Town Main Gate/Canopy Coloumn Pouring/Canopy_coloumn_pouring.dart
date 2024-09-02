@@ -20,6 +20,7 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
     "Block F",
     "Block G"
   ];
+
   List<Map<String, dynamic>> containerDataList = [];
 
   String? selectedBlock;
@@ -90,7 +91,7 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/mosqueExcavationWork.png',
+              'assets/images/gateeee-01.png',
               fit: BoxFit.cover,
               height: 170.0,
             ),
@@ -139,6 +140,8 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedBlock = null;
+                      workStatus = null;
                     });
 
                     await _saveData();

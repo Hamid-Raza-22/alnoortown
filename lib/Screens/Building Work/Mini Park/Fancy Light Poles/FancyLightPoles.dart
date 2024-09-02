@@ -158,6 +158,9 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
                     });
 
                     await _saveData();

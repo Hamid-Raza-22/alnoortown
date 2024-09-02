@@ -51,7 +51,7 @@ class _NewMaterialState extends State<NewMaterial> {
                 height: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/new_material-01.png'),
+                    image: AssetImage('assets/images/dumper.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -290,9 +290,22 @@ class _NewMaterialState extends State<NewMaterial> {
                   });
                 },
               ),
-              Text(
-                '$value',
-                style: const TextStyle(fontSize: 16, color: Color(0xFFC69840)),
+              Container(
+                width: 35,
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  keyboardType: TextInputType.number,
+                  controller: TextEditingController(text: value.toString()),
+                  onChanged: (newValue) {
+                    setState(() {
+                      containerData[fieldName] = int.tryParse(newValue) ?? value;
+                    });
+                  },
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                  ),
+                  style: const TextStyle(fontSize: 14, color: Color(0xFFC69840)), // Reduced font size
+                ),
               ),
               IconButton(
                 icon: const Icon(Icons.add, color: Color(0xFFC69840)),
@@ -308,4 +321,6 @@ class _NewMaterialState extends State<NewMaterial> {
       ],
     );
   }
+
+
 }

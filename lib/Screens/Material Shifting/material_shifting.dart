@@ -49,7 +49,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                 height: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/trackter-01.png'),
+                    image: AssetImage('assets/images/shiftingworkimg.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),

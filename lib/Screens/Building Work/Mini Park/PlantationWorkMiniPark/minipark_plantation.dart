@@ -159,6 +159,9 @@ class _PlantationWorkmpState extends State<PlantationWorkmp> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
                     });
 
                     await _saveData();

@@ -157,9 +157,13 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+
+                      // Clear form fields
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
                     });
 
-                    // Define a callback to show the SnackBar
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
@@ -167,9 +171,7 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
                         ),
                       );
                     }
-
                     await _saveData();
-
                     // Call the callback after the async operation
                     showSnackBar('Entry added successfully!');
                   } else {

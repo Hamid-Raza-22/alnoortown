@@ -164,6 +164,10 @@ class _MiniParkMudFillingState extends State<MiniParkMudFilling> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
+                      dumpersController.clear();
                     });
 
                     await _saveData();

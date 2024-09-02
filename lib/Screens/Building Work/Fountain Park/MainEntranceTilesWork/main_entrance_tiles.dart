@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
-
 import 'MainEntranceTilesWorkSummary.dart';
 
 class MainEntranceTilesWork extends StatefulWidget {
@@ -158,6 +157,9 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
 
                     setState(() {
                       containerDataList.add(newEntry);
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
                     });
 
                     await _saveData();
