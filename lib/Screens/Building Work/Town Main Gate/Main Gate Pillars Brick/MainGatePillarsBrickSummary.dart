@@ -22,7 +22,7 @@ class MainGatePillarsBrickSummary extends StatelessWidget {
           },
         ),
         title: const Text(
-          'Main Gate Plaster Summary',
+          'Main Gate Pillars Brick Summary',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,

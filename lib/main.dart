@@ -9,8 +9,10 @@ import 'Screens/Development Work/development_page.dart';
 import 'Screens/home_page.dart';
 import 'Screens/Material Shifting/material_shifting.dart';
 import 'Screens/New Material/new_material.dart';
+import 'Screens/mainscreen.dart';
 import 'ViewModels/all_noor_view_model.dart';
 import 'firebase_options.dart';
+
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,21 +21,21 @@ Future<void> main() async {
   );
 
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
+
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => const SplashScreen()),
-        GetPage(name: '/home', page: () => const HomePage()),
+        GetPage(name: '/home', page: () => const MainScreen()), // Use MainScreen for /home
         GetPage(name: '/development', page: () => const DevelopmentPage()),
         GetPage(name: '/materialShifting', page: () => const MaterialShiftingPage()),
-      GetPage(name: '/newMaterial', page: () => const NewMaterial()),
-      GetPage(name: '/buildingWork', page: () => const Building_Navigation_Page()),
-    ],
-
-  ),
-);
+        GetPage(name: '/newMaterial', page: () => const NewMaterial()),
+        GetPage(name: '/buildingWork', page: () => const Building_Navigation_Page()),
+      ],
+    ),
+  );
 }
 
 void callbackDispatcher() {
