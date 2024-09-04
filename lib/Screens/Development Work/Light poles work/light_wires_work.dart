@@ -166,9 +166,6 @@ class LightWiresWorkState extends State<LightWiresWork> {
                         time: _getFormattedTime()
                     ));
                     await lightWiresViewModel.fetchAllLight();
-                    //await tankerViewModel.fetchAllTanker();
-                    // await dbHelper.showTankerData();
-                    // nameController.text = "";
                   }
 
                   ScaffoldMessenger.of(context).showSnackBar(

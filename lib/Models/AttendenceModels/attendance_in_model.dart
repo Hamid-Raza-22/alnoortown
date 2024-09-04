@@ -11,7 +11,7 @@ class AttendanceInModel{
     this.timeIn,
     this.latitude,
     this.longitude,
-    dynamic liveAddress,
+    this. liveAddress,
     this.date
 
   });

@@ -177,8 +177,6 @@ class _WaterTankerState extends State<WaterTanker>  {
                            time: _getFormattedTime()
                         ));
                        await tankerViewModel.fetchAllTanker();
-                       // await dbHelper.showTankerData();
-                        // nameController.text = "";
                       }
 
                       ScaffoldMessenger.of(context).showSnackBar(

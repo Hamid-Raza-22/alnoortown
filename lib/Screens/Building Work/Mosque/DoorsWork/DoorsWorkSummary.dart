@@ -1,4 +1,6 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/door_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DoorsWorkSummary extends StatefulWidget {
@@ -11,6 +13,7 @@ class DoorsWorkSummary extends StatefulWidget {
 }
 
 class _DoorsWorkSummaryState extends State<DoorsWorkSummary> {
+  final DoorWorkViewModel doorWorkViewModel = Get.put(DoorWorkViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,13 +60,20 @@ class _DoorsWorkSummaryState extends State<DoorsWorkSummary> {
             const SizedBox(height: 8),
             // Data Grid
             Expanded(
-              child: ListView.builder(
-                itemCount: widget.containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = widget.containerDataList[index];
-                  return _buildDataRow(data);
-                },
-              ),
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: doorWorkViewModel.allDoor.length,
+                  itemBuilder: (context, index) {
+                    final data = doorWorkViewModel.allDoor[index];
+                    return _buildDataRow({
+                      "selectedBlock": data.blockNo,
+                      "status": data.doorsWorkStatus,
+                      "date": data.date,
+                      "time": data.time
+                    });
+                  },
+                );
+              }),
             ),
           ],
         ),

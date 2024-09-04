@@ -63,7 +63,7 @@ class CeilingWorkState extends State<CeilingWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      CeilingWorkSummary(containerDataList: containerDataList),
+                      CeilingWorkSummary(),
                 ),
               );
             },

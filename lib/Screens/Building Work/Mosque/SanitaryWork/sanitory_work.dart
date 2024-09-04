@@ -87,7 +87,7 @@ class _SanitaryWorkState extends State<SanitaryWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => SanitaryWorkSummary(containerDataList: sanitorycontainerDataList),
+                  builder: (context) => SanitaryWorkSummary(),
                 ),
               );
             },

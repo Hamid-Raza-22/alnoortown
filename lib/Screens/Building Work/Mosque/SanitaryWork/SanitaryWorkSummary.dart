@@ -1,10 +1,13 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/sanitary_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class SanitaryWorkSummary extends StatelessWidget {
-  final List<Map<String, dynamic>> containerDataList;
-
-  const SanitaryWorkSummary({super.key, required this.containerDataList});
+  final SanitaryWorkViewModel sanitaryWorkViewModel = Get.put(SanitaryWorkViewModel());
+  // final List<Map<String, dynamic>> containerDataList;
+  //
+  // const SanitaryWorkSummary({super.key, required this.containerDataList});
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +55,20 @@ class SanitaryWorkSummary extends StatelessWidget {
             const SizedBox(height: 8),
             // Data Grid
             Expanded(
-              child: ListView.builder(
-                itemCount: containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = containerDataList[index];
-                  return _buildDataRow(data);
-                },
-              ),
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: sanitaryWorkViewModel.allSanitary.length,
+                  itemBuilder: (context, index) {
+                    final data = sanitaryWorkViewModel.allSanitary[index];
+                    return _buildDataRow({
+                      "selectedBlock": data.blockNo,
+                      "status": data.sanitaryWorkStatus,
+                      "date": data.date,
+                      "time": data.time
+                    });
+                  },
+                );
+              }),
             ),
           ],
         ),

@@ -164,8 +164,6 @@ class _PolesState extends State<Poles> {
                         time: _getFormattedTime()
                     ));
                     await polesViewModel.fetchAllPole();
-                    // await dbHelper.showTankerData();
-                    // nameController.text = "";
                   }
 
                   ScaffoldMessenger.of(context).showSnackBar(

@@ -60,9 +60,9 @@ class DBHelper{
     db.execute(
         "CREATE TABLE newMaterials(id INTEGER PRIMARY KEY,sand TEXT, soil TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT,otherMaterialValue TEXT,date TEXT,time TEXT)");
     db.execute(
-        "CREATE TABLE attendanceIn(id INTEGER PRIMARY KEY,timeIn TEXT, latitude TEXT, longitude TEXT, liveAddress TEXT)");
+        "CREATE TABLE attendanceIn(id INTEGER PRIMARY KEY,timeIn TEXT, latitude TEXT, longitude TEXT, liveAddress TEXT,date TEXT)");
     db.execute(
-        "CREATE TABLE attendanceOut(id INTEGER PRIMARY KEY,timeOut fTEXT, latitude TEXT, longitude TEXT, addressOut TEXT)");
+        "CREATE TABLE attendanceOut(id INTEGER PRIMARY KEY,timeOut fTEXT, latitude TEXT, longitude TEXT, addressOut TEXT,date TEXT)");
     db.execute(
         "CREATE TABLE foundation(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT,date TEXT,time TEXT)");
     db.execute(

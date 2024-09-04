@@ -164,8 +164,6 @@ class PolesFoundationState extends State<PolesFoundation> {
                         time: _getFormattedTime()
                     ));
                     await polesExcavationViewModel.fetchAllPoleExa();
-                    // await dbHelper.showTankerData();
-                    // nameController.text = "";
                   }
 
                   ScaffoldMessenger.of(context).showSnackBar(

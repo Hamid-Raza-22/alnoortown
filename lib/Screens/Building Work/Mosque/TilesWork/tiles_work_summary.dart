@@ -1,4 +1,6 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/tiles_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class TilesWorkSummary extends StatefulWidget {
@@ -11,6 +13,7 @@ class TilesWorkSummary extends StatefulWidget {
 }
 
 class _TilesWorkSummaryState extends State<TilesWorkSummary> {
+  final TilesWorkViewModel tilesWorkViewModel = Get.put(TilesWorkViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,13 +60,20 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
             const SizedBox(height: 8),
             // Data Grid
             Expanded(
-              child: ListView.builder(
-                itemCount: widget.containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = widget.containerDataList[index];
-                  return _buildDataRow(data);
-                },
-              ),
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: tilesWorkViewModel.allTiles.length,
+                  itemBuilder: (context, index) {
+                    final data = tilesWorkViewModel.allTiles[index];
+                    return _buildDataRow({
+                      "selectedBlock": data.blockNo,
+                      "status": data.tilesWorkStatus,
+                      "date": data.date,
+                      "time": data.time
+                    });
+                  },
+                );
+              }),
             ),
           ],
         ),

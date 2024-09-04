@@ -26,7 +26,7 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
           },
         ),
         title: const Text(
-          'Summaryo',
+          'Summary',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

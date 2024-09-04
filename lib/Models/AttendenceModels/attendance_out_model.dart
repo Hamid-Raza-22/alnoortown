@@ -11,7 +11,7 @@ class AttendanceOutModel{
     this.timeOut,
     this.latitude,
     this.longitude,
-    dynamic addressOut,
+    this.addressOut,
     this.date
   });
 

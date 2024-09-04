@@ -1,4 +1,6 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/electricity_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class ElectricityWorkSummary extends StatefulWidget {
@@ -11,6 +13,7 @@ class ElectricityWorkSummary extends StatefulWidget {
 }
 
 class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
+  final ElectricityWorkViewModel electricityWorkViewModel = Get.put(ElectricityWorkViewModel());
   @override
   Widget build(BuildContext context) {
 
@@ -58,13 +61,20 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
             const SizedBox(height: 8),
             // Data Grid
             Expanded(
-              child: ListView.builder(
-                itemCount: widget.containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = widget.containerDataList[index];
-                  return _buildDataRow(data);
-                },
-              ),
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: electricityWorkViewModel.allElectricity.length,
+                  itemBuilder: (context, index) {
+                    final data = electricityWorkViewModel.allElectricity[index];
+                    return _buildDataRow({
+                      "selectedBlock": data.blockNo,
+                      "status": data.electricityWorkStatus,
+                      "date": data.date,
+                      "time": data.time
+                    });
+                  },
+                );
+              }),
             ),
           ],
         ),

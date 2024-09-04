@@ -1,4 +1,6 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/first_floor_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FirstFloorSummaryPage extends StatefulWidget {
@@ -10,6 +12,7 @@ class FirstFloorSummaryPage extends StatefulWidget {
 }
 
 class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
+  final FirstFloorViewModel firstFloorViewModel = Get.put(FirstFloorViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,13 +43,22 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
             const SizedBox(height: 4),
             // Data Grid
             Expanded(
-              child: ListView.builder(
-                itemCount: widget.containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = widget.containerDataList[index];
-                  return _buildDataRow(data);
-                },
-              ),
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: firstFloorViewModel.allFirstFloor.length,
+                  itemBuilder: (context, index) {
+                    final data = firstFloorViewModel.allFirstFloor[index];
+                    return _buildDataRow({
+                      "selectedBlock": data.blockNo,
+                      "brickWorkStatus": data.brickWork,
+                      "mudFillingStatus": data.mudFiling,
+                      "plasterWorkStatus": data.plasterWork,
+                      "date": data.date,
+                      "time": data.time
+                    });
+                  },
+                );
+              }),
             ),
           ],
         ),

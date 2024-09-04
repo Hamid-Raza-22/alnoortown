@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 
 class PaintWorkSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
-
   const PaintWorkSummary({super.key, required this.containerDataList});
 
   @override

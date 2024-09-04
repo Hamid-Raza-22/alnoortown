@@ -1,10 +1,12 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/ceiling_work_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CeilingWorkSummary extends StatelessWidget {
-  final List<Map<String, dynamic>> containerDataList;
-
-  const CeilingWorkSummary({super.key, required this.containerDataList});
+  final CeilingWorkViewModel ceilingWorkViewModel = Get.put(CeilingWorkViewModel());
+  //final List<Map<String, dynamic>> containerDataList;
+ // const CeilingWorkSummary({super.key, required this.containerDataList});
 
   @override
   Widget build(BuildContext context) {
@@ -52,13 +54,20 @@ class CeilingWorkSummary extends StatelessWidget {
             const SizedBox(height: 8),
             // Data Grid
             Expanded(
-              child: ListView.builder(
-                itemCount: containerDataList.length,
-                itemBuilder: (context, index) {
-                  final data = containerDataList[index];
-                  return _buildDataRow(data);
-                },
-              ),
+              child: Obx(() {
+                return ListView.builder(
+                  itemCount: ceilingWorkViewModel.allCeiling.length,
+                  itemBuilder: (context, index) {
+                    final data = ceilingWorkViewModel.allCeiling[index];
+                    return _buildDataRow({
+                      "selectedBlock": data.blockNo,
+                      "status": data.ceilingWorkStatus,
+                      "date": data.date,
+                      "time": data.time
+                    });
+                  },
+                );
+              }),
             ),
           ],
         ),
