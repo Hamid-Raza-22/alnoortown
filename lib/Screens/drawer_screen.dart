@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
-class DrawerScreen extends StatefulWidget {
-  @override
-  _DrawerScreenState createState() => _DrawerScreenState();
-}
-
-class _DrawerScreenState extends State<DrawerScreen> {
+class DrawerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> rowsData = [
+      {'text': 'Setting', 'icon': Icons.settings},
+      {'text': 'Select Language', 'icon': Icons.error_outline},
+      {'text': 'Profile', 'icon': Icons.person_outline},
+      {'text': 'Favorites', 'icon': Icons.favorite_border},
+      {'text': 'About', 'icon': Icons.info_outline},
+    ];
+
     return Container(
       color: Color(0xFFC69840),
       child: Padding(
@@ -38,33 +41,17 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ],
             ),
             Column(
-              children: <Widget>[
-
-                NewRow(
-                  text: 'Setting',
-                  icon: Icons.settings,
-                ),
-                const SizedBox(height: 20),
-                NewRow(
-                  text: 'Select Language',
-                  icon: Icons.error_outline,
-                ),
-                const SizedBox(height: 20),
-                NewRow(
-                  text: 'Profile',
-                  icon: Icons.person_outline,
-                ),
-                const SizedBox(height: 20),
-                NewRow(
-                  text: 'Favorites',
-                  icon: Icons.favorite_border,
-                ),
-                const SizedBox(height: 20),
-                NewRow(
-                  text: 'About',
-                  icon: Icons.info_outline,
-                ),
-              ],
+              children: rowsData.map((rowData) {
+                return Column(
+                  children: [
+                    NewRow(
+                      text: rowData['text'],
+                      icon: rowData['icon'],
+                    ),
+                    const SizedBox(height: 20),
+                  ],
+                );
+              }).toList(),
             ),
             Row(
               children: <Widget>[
@@ -95,7 +82,6 @@ class NewRow extends StatelessWidget {
     required this.icon,
     required this.text,
   }) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
