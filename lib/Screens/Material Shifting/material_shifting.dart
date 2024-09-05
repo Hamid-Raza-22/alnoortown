@@ -6,6 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
+import 'materialshiftingsummary.dart';
+
 class MaterialShiftingPage extends StatefulWidget {
   const MaterialShiftingPage({super.key});
 
@@ -14,7 +16,7 @@ class MaterialShiftingPage extends StatefulWidget {
 }
 
 class MaterialShiftingPageState extends State<MaterialShiftingPage> {
-  MaterialShiftingViewModel materialShiftingViewModel=Get.put(MaterialShiftingViewModel());
+  MaterialShiftingViewModel materialShiftingViewModel = Get.put(MaterialShiftingViewModel());
   DBHelper dbHelper = DBHelper();
   int? shiftId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
@@ -26,15 +28,19 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
     super.initState();
     containerDataList.add(createInitialContainerData());
   }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
     return formatter.format(now);
-  }  String _getFormattedTime() {
+  }
+
+  String _getFormattedTime() {
     final now = DateTime.now();
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
+
   Map<String, dynamic> createInitialContainerData() {
     return {
       "selectedBlock": null,
@@ -66,6 +72,21 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
             ],
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
+          actions: [
+            IconButton(
+              icon: Icon(Icons.summarize, color: Color(0xFFC69840)),
+              onPressed: () {
+                // Navigate to the summary page
+                Get.to(() => MaterialShiftingSummaryPage());
+              },
+            ),
+          ],
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -113,9 +134,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
 
   Widget buildContainer(int index) {
     var containerData = containerDataList[index];
-    bool isFilled = containerData["selectedBlock"] != null &&
-        containerData["selectedStreet"] != null &&
-        containerData["selectedShifting"] != null;
+    TextEditingController shiftingController = TextEditingController(text: containerData["selectedShifting"].toString());
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -139,24 +158,39 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.remove),
+                      icon: const Icon(Icons.remove, color: Color(0xFFC69840)),
                       onPressed: () {
                         setState(() {
                           if (containerData["selectedShifting"] > 0) {
                             containerData["selectedShifting"]--;
+                            shiftingController.text = containerData["selectedShifting"].toString();
                           }
                         });
                       },
                     ),
-                    Text(
-                      containerData["selectedShifting"].toString(),
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    SizedBox(
+                      width: 60,
+                      child: TextField(
+                        controller: shiftingController,
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            containerData["selectedShifting"] = int.tryParse(value) ?? 0;
+                          });
+                        },
+                      ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.add),
+                      icon: const Icon(Icons.add, color: Color(0xFFC69840)),
                       onPressed: () {
                         setState(() {
                           containerData["selectedShifting"]++;
+                          shiftingController.text = containerData["selectedShifting"].toString();
                         });
                       },
                     ),
@@ -168,26 +202,30 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  final fromBlock = containerData["selectedBlock"];
-                  final toBlock = containerData["selectedStreet"];
-                  final numOfShift = containerData["selectedShifting"];
-                  {
+                  for (var containerData in containerDataList) {
+                    final fromBlock = containerData["selectedBlock"];
+                    final toBlock = containerData["selectedStreet"];
+                    final numOfShift = containerData["selectedShifting"];
+
                     await materialShiftingViewModel.addShift(ShiftingWorkModel(
                       id: shiftId,
                       fromBlock: fromBlock,
                       toBlock: toBlock,
                       numOfShift: numOfShift,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime(),
                     ));
-                    await materialShiftingViewModel.fetchAllShifting();
-                    // await dbHelper.showAsphaltData();
                   }
+                  await materialShiftingViewModel.fetchAllShifting();
+
+                  setState(() {
+                    containerDataList.clear(); // Clear the list after submission
+                    containerDataList.add(createInitialContainerData()); // Add a fresh entry
+                  });
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(
-                        'Selected: $fromBlock, $toBlock, No. of Shifting: $numOfShift',
-                      ),
+                      content: Text('Data submitted and fields cleared.'),
                     ),
                   );
                 },
@@ -207,6 +245,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
       ),
     );
   }
+
 
   Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
     return Row(

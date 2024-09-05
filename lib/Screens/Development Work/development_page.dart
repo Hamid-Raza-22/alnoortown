@@ -9,12 +9,12 @@ import 'Main Drain Work/main_drain_excavation.dart';
 import 'Main Drain Work/manholes _slabs.dart';
 import 'Main Drain Work/plaster_work.dart';
 import 'Main Drain Work/shuttering_work.dart';
-import 'Road Maintenance/machines.dart';
+import 'Road Maintenance/Machines/machines.dart';
 import 'Road Maintenance/Water Tanker/water_tanker.dart';
-import 'Sewerage Work/backfilling.dart';
-import 'Sewerage Work/excavation.dart';
-import 'Sewerage Work/manholes.dart';
-import 'Sewerage Work/pipe_lying.dart';
+import 'Sewerage Work/Backfiling/backfilling.dart';
+import 'Sewerage Work/Excavation/excavation.dart';
+import 'Sewerage Work/Manholes/manholes.dart';
+import 'Sewerage Work/Pipelying/pipe_lying.dart';
 
 
 class DevelopmentPage extends StatefulWidget {

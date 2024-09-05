@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../ViewModels/all_noor_view_model.dart';
+import 'drawer_screen.dart'; // Import your drawer screen
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -11,6 +12,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final HomeController controller = Get.put(HomeController());
+
+  double xOffset = 0;
+  double yOffset = 0;
+  bool isDrawerOpen = false;
 
   @override
   void initState() {
@@ -24,97 +29,143 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  void _toggleDrawer() {
+    setState(() {
+      xOffset = isDrawerOpen ? 0 : 290;
+      yOffset = isDrawerOpen ? 0 : 80;
+      isDrawerOpen = !isDrawerOpen;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                color: Color(0xFFC69840),
-                borderRadius: BorderRadius.only(
-                  bottomRight: Radius.circular(50),
-                ),
-              ),
+      body: Stack(
+        children: [
+          DrawerScreen(),
+          AnimatedContainer(
+            transform: Matrix4.translationValues(xOffset, yOffset, 0)
+              ..scale(isDrawerOpen ? 0.85 : 1.00)
+              ..rotateZ(isDrawerOpen ? -50 : 0),
+            duration: Duration(milliseconds: 300),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: isDrawerOpen ? BorderRadius.circular(40) : BorderRadius.circular(0),
+            ),
+            child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(height: 50),
-                  ListTile(
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 30),
-                    title: Text(
-                      'ClockIn Timer',
-                      style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFC69840),
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(50),
+                      ),
                     ),
-                    subtitle: Obx(() {
-                      return Text(
-                        controller.formattedDurationString.value,
-                        style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white54),
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 50),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              /*Text(
+                                'Clock In Timer :',
+                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                  color: Colors.white,
+                                  fontSize: 14, // Adjusted font size
+                                ),
+                              ),*/
+                              const SizedBox(width: 10), // Space between text and timer
+                              Obx(() {
+                                return Text(
+                                  controller.formattedDurationString.value,
+                                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    color: Colors.white54,
+                                    fontSize: 18, // Adjusted font size
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 30)
+                      ],
+                    ),
+                  ),
+                  Container(
+                    color: const Color(0xFFC69840),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(topLeft: Radius.circular(200)),
+                      ),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 100),
+                          GridView.count(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            children: <Widget>[
+                              buildCard(context, 'assets/images/development_work.png', 'Development Work', '/development'),
+                              buildCard(context, 'assets/images/material_shifting.png', 'Material Shifting', '/materialShifting'),
+                              buildCard(context, 'assets/images/new_material.png', 'New Material', '/newMaterial'),
+                              buildCard(context, 'assets/images/building_work.png', 'Building Work', '/buildingWork'),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 160),
+                  Container(
+                    color: Colors.transparent,
+                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    child: Obx(() {
+                      return ElevatedButton.icon(
+                        onPressed: () async {
+                          controller.toggleClockInOut();
+                        },
+                        icon: Icon(
+                          controller.isClockedIn.value ? Icons.timer_off : Icons.timer,
+                          color: const Color(0xFFC69840),
+                        ),
+                        label: Text(
+                          controller.isClockedIn.value ? 'Clock Out' : 'Clock In',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: const Color(0xFFC69840),
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
                       );
                     }),
                   ),
-                  const SizedBox(height: 30)
                 ],
               ),
             ),
-            Container(
-              color: const Color(0xFFC69840),
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(topLeft: Radius.circular(200)),
-                ),
-                child: Column(
-                  children: [
-                    const SizedBox(height: 100),
-                    GridView.count(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 20,
-                      mainAxisSpacing: 20,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      children: <Widget>[
-                        buildCard(context, 'assets/images/development_work.png', 'Development Work', '/development'),
-                        buildCard(context, 'assets/images/material_shifting.png', 'Material Shifting', '/materialShifting'),
-                        buildCard(context, 'assets/images/new_material.png', 'New Material', '/newMaterial'),
-                        buildCard(context, 'assets/images/building_work.png', 'Building Work', '/buildingWork'),
-                      ],
-                    ),
-                  ],
-                ),
+          ),
+          Positioned(
+            top: 50,
+            left: 20,
+            child: IconButton(
+              icon: Icon(
+                isDrawerOpen ? Icons.arrow_back_ios : Icons.menu,
+                color: Colors.white,
               ),
+              onPressed: _toggleDrawer,
             ),
-            const SizedBox(height:100),
-            Container(
-              color: Colors.transparent,
-              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-              child: Obx(() {
-                return ElevatedButton.icon(
-                  onPressed: () async {
-                    controller.toggleClockInOut();
-                  },
-                  icon: Icon(
-                    controller.isClockedIn.value ? Icons.timer_off : Icons.timer,
-                    color: const Color(0xFFC69840),
-                  ),
-                  label: Text(
-                    controller.isClockedIn.value ? 'Clock Out' : 'Clock In',
-                    style: const TextStyle(fontSize: 14),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: const Color(0xFFC69840),
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                );
-              }),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -122,22 +173,9 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   Widget buildCard(BuildContext context, String imagePath, String name, String route) {
     return GestureDetector(
       onTap: () {
-        if (controller.isClockedIn.value) {
-          Get.toNamed(route);
-        } else {
-          Get.snackbar(
-            'Clock In Required',
-            'Please clock in first',
-            snackPosition: SnackPosition.TOP,
-            backgroundColor: const Color(0xFFC69840),
-            colorText: Colors.white,
-            margin: const EdgeInsets.only(top: 570),
-            padding: const EdgeInsets.all(16),
-            borderRadius: 20,
-          );
-        }
+        // Directly navigate to the route without checking if the user is clocked in
+        Get.toNamed(route);
       },
-
       child: Container(
         width: 180,
         height: 180,
@@ -189,5 +227,4 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       ),
     );
   }
-
 }
