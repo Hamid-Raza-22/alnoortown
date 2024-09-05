@@ -96,7 +96,7 @@ class DoorsWorkState extends State<DoorsWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      DoorsWorkSummary(containerDataList: containerDataList), // Pass the data
+                      DoorsWorkSummary(), // Pass the data
                 ),
               );
             },

@@ -80,7 +80,7 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => BoundaryGrillWorkSummary(containerDataList: containerDataList),
+                  builder: (context) => BoundaryGrillWorkSummary(),
                 ),
               );
             },
@@ -271,7 +271,7 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

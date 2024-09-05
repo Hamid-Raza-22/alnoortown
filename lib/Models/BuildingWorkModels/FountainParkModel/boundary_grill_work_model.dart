@@ -1,7 +1,7 @@
 class BoundaryGrillWorkModel{
   int? id;
-  DateTime? startDate;
-  DateTime? expectedCompDate;
+  dynamic startDate;
+ dynamic expectedCompDate;
   String?  boundaryWorkCompStatus;
   dynamic date;
   dynamic time;
