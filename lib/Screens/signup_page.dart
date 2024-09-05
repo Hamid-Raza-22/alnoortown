@@ -1,11 +1,11 @@
 import 'dart:ui';
 import 'package:al_noor_town/Screens/phone_verification_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
@@ -15,7 +15,7 @@ import '../Globals/globals.dart';
 import 'login_page.dart';
 
 class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+    SignUpPage({super.key});
 
   @override
   SignUpPageState createState() => SignUpPageState();
@@ -66,16 +66,16 @@ class SignUpPageState extends State<SignUpPage> {
           child: Wrap(
             children: <Widget>[
               ListTile(
-                leading: const Icon(Icons.photo_library, color: customColor),
-                title: const Text('Gallery', style: TextStyle(color: customColor)),
+                leading:   Icon(Icons.photo_library, color: customColor),
+                title: Text('gallery'.tr(), style:   TextStyle(color: customColor)),
                 onTap: () {
                   _pickImage(ImageSource.gallery);
                   Navigator.of(context).pop();
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.camera_alt, color: customColor),
-                title: const Text('Camera', style: TextStyle(color: customColor)),
+                leading:   Icon(Icons.camera_alt, color: customColor),
+                title:  Text('camera'.tr(), style:   TextStyle(color: customColor)),
                 onTap: () {
                   _pickImage(ImageSource.camera);
                   Navigator.of(context).pop();
@@ -88,19 +88,19 @@ class SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  @override
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: customColor, // Match the AppBar gradient or set a transparent color
       appBar: AppBar(
-        title: const Row(
+        title:  Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.app_registration, color: Colors.white, size: 28), // Icon/logo
             SizedBox(width: 10), // Spacing between icon and title
             Text(
-              'Sign Up',
+              'sign_up'.tr(),
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w700, // Slightly bolder weight
@@ -112,17 +112,17 @@ class SignUpPageState extends State<SignUpPage> {
         ),
         centerTitle: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
+          icon:   Icon(Icons.arrow_back_ios_new, color: Colors.white),
           onPressed: () {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => const LoginPage()),
+              MaterialPageRoute(builder: (context) =>   LoginPage()),
             );
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.help_outline, color: Colors.white),
+            icon:   Icon(Icons.help_outline, color: Colors.white),
             onPressed: () {
               // Implement your help action here
             },
@@ -135,7 +135,7 @@ class SignUpPageState extends State<SignUpPage> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
-            borderRadius: const BorderRadius.only(
+            borderRadius:   BorderRadius.only(
               bottomLeft: Radius.circular(30),
               bottomRight: Radius.circular(30),
             ),
@@ -143,14 +143,14 @@ class SignUpPageState extends State<SignUpPage> {
         ),
         elevation: 0.0, // Slightly increased elevation for a more prominent shadow
         shadowColor: customColor.withOpacity(0.8), // Darker shadow for better definition
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme:   IconThemeData(color: Colors.white),
         backgroundColor: Colors.transparent, // Transparent background to avoid white showing through
       ),
         body: Stack(
         children: [
           // Background image
           Container(
-            decoration: const BoxDecoration(
+            decoration:   BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/gate_view.png'), // Path to your image
                 fit: BoxFit.cover,
@@ -168,11 +168,11 @@ class SignUpPageState extends State<SignUpPage> {
           Center(
             child: SingleChildScrollView(
               child: LayoutBuilder(
-                builder: (context, constraints) {
+                builder: (context,  raints) {
                   return Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.all(20),
-                    width: constraints.maxWidth > 600 ? 500 : constraints.maxWidth * 0.9,
+                    padding:   EdgeInsets.all(20),
+                    margin:   EdgeInsets.all(20),
+                    width:  raints.maxWidth > 600 ? 500 :  raints.maxWidth * 0.9,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15.0),
@@ -180,7 +180,7 @@ class SignUpPageState extends State<SignUpPage> {
                         BoxShadow(
                           color: Colors.black.withOpacity(0.1),
                           blurRadius: 10,
-                          offset: const Offset(0, 5),
+                          offset:   Offset(0, 5),
                         ),
                       ],
                     ),
@@ -196,61 +196,61 @@ class SignUpPageState extends State<SignUpPage> {
                               backgroundColor: customColor.withOpacity(0.2),
                               backgroundImage: _image != null ? FileImage(_image!) : null,
                               child: _image == null
-                                  ? const Icon(
+                                  ?   Icon(
                                   Icons.camera_alt, color: customColor, size: 50)
                                   : null,
                             ),
                           ),
-                          const SizedBox(height: 30),
+                            SizedBox(height: 30),
                           _buildTextField(
                             controller: _nameController,
-                            label: 'Town Name',
+                            label: 'town_name'.tr(),
                             icon: Icons.location_city,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter the town name';
+                                return 'please_enter_town_name'.tr();
                               }
                               return null;
                             },
                           ),
-                          const SizedBox(height: 20),
+                            SizedBox(height: 20),
                           _buildTextField(
                             controller: _addressController,
-                            label: 'Town Address',
+                            label: 'town_address'.tr(),
                             icon: Icons.map,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter the town address';
+                                return 'please_enter_town_address'.tr();
                               }
                               return null;
                             },
                           ),
-                          const SizedBox(height: 20),
+                            SizedBox(height: 20),
                           _buildTextField(
                             controller: _ownerController,
-                            label: 'Owner Name',
+                            label: 'owner_name'.tr(),
                             icon: Icons.person,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter the owner\'s name';
+                                return 'please_enter_owner_name'.tr();
                               }
                               return null;
                             },
                           ),
-                          const SizedBox(height: 20),
+                            SizedBox(height: 20),
                           IntlPhoneField(
                             decoration: InputDecoration(
-                              labelText: 'Contact Number',
-                              labelStyle: const TextStyle(color: customColor),
+                              labelText: 'contact_number'.tr(),
+                              labelStyle:   TextStyle(color: customColor),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(color: customColor),
+                                borderSide:   BorderSide(color: customColor),
                                 borderRadius: BorderRadius.circular(10.0),
                               ),
                               focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
+                                borderSide:   BorderSide(
                                   color: customColor,
                                   width: 2.0,
                                 ),
@@ -263,55 +263,55 @@ class SignUpPageState extends State<SignUpPage> {
                                   phone.completeNumber;
                             },
                           ),
-                          const SizedBox(height: 20),
+                            SizedBox(height: 20),
                           _buildTextField(
                             controller: _emailController,
-                            label: 'Email',
+                            label: 'email'.tr(),
                             icon: Icons.email,
                             keyboardType: TextInputType.emailAddress,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter the email address';
+                                return 'please_enter_email_address'.tr();
                               }
                               if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(
                                   value)) {
-                                return 'Please enter a valid email';
+                                return 'please_enter_valid_email'.tr();
                               }
                               return null;
                             },
                           ),
-                          const SizedBox(height: 20),
+                            SizedBox(height: 20),
                           _buildTextField(
                             controller: _passwordController,
-                            label: 'Password',
+                            label: 'password'.tr(),
                             icon: Icons.lock,
                             obscureText: !_isPasswordVisible,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return 'Please enter a password';
+                                return 'please_enter_password'.tr();
                               }
                               if (value.length < 6) {
-                                return 'Password must be at least 6 characters long';
+                                return 'password_must_be_6_characters'.tr();
                               }
                               return null;
                             },
                           ),
-                          const SizedBox(height: 20),
+                            SizedBox(height: 20),
                           _buildTextField(
                             controller: _confirmPasswordController,
-                            label: 'Confirm Password',
+                            label: 'confirm_password'.tr(),
                             icon: Icons.lock,
                             obscureText: !_isPasswordVisible,
                             validator: (value) {
                               if (value != _passwordController.text) {
-                                return 'Passwords do not match';
+                                return 'passwords_do_not_match'.tr();
                               }
                               return null;
                             },
                           ),
                           SwitchListTile(
-                            title: const Text(
-                              'Show Passwords',
+                            title:  Text(
+                              'show_passwords'.tr(),
                               style: TextStyle(color: customColor),
                             ),
                             value: _isPasswordVisible,
@@ -322,14 +322,14 @@ class SignUpPageState extends State<SignUpPage> {
                             },
                             activeColor: customColor,
                           ),
-                          const SizedBox(height: 20),
+                            SizedBox(height: 20),
                           _isLoading
                               ? _buildLoadingIndicator()
                               : ElevatedButton(
                             onPressed: _signUp,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: customColor,
-                              padding: const EdgeInsets.symmetric(
+                              padding:   EdgeInsets.symmetric(
                                 vertical: 16.0,
                                 horizontal: 40.0,
                               ),
@@ -338,8 +338,8 @@ class SignUpPageState extends State<SignUpPage> {
                               ),
                               elevation: 5.0,
                             ),
-                            child: const Text(
-                              'Sign Up',
+                            child:  Text(
+                              'sign_up'.tr(),
                               style: TextStyle(fontSize: 18, color: Colors.white),
                             ),
                           ),
@@ -374,20 +374,20 @@ class SignUpPageState extends State<SignUpPage> {
       keyboardType: keyboardType,
       obscureText: obscureText,
       validator: validator,
-      style: const TextStyle(color: Colors.black),
+      style:   TextStyle(color: Colors.black),
       decoration: InputDecoration(
         labelText: label,
-        labelStyle: const TextStyle(color: customColor),
+        labelStyle:   TextStyle(color: customColor),
         prefixIcon: Icon(icon, color: customColor),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: customColor),
+          borderSide:   BorderSide(color: customColor),
           borderRadius: BorderRadius.circular(10.0),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
+          borderSide:   BorderSide(
             color: customColor,
             width: 2.0,
           ),
@@ -398,7 +398,7 @@ class SignUpPageState extends State<SignUpPage> {
   }
 
   Widget _buildLoadingIndicator() {
-    return const Center(
+    return   Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -465,8 +465,8 @@ class SignUpPageState extends State<SignUpPage> {
 
         // Show a message to ask the user to verify their email
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Sign-up successful! Please verify your email.'),
+          SnackBar(
+            content: Text('sign_up_successful'.tr()),
             backgroundColor: Colors.green,
           ),
         );
@@ -476,7 +476,7 @@ class SignUpPageState extends State<SignUpPage> {
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('Failed to sign up: $e'),
+            content: Text('failed_to_sign_up $e'.tr()),
             backgroundColor: Colors.red,
           ),
         );

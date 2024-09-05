@@ -7,7 +7,7 @@ class PhoneVerificationDialog extends StatefulWidget {
   final String phoneNumber;
   final VoidCallback onVerificationCompleted;
 
-  const PhoneVerificationDialog({
+    PhoneVerificationDialog({
     super.key,
     required this.phoneNumber,
     required this.onVerificationCompleted,
@@ -138,7 +138,7 @@ class PhoneVerificationDialogState extends State<PhoneVerificationDialog> {
       SnackBar(
         content: Text(
           message,
-          style: const TextStyle(color: Colors.white),
+          style:   TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.redAccent,
         behavior: SnackBarBehavior.floating,
@@ -149,7 +149,7 @@ class PhoneVerificationDialogState extends State<PhoneVerificationDialog> {
   Widget _buildHeader() {
     return Column(
       children: [
-        const Text(
+          Text(
           'Phone Verification',
           style: TextStyle(
             fontSize: 26.0,
@@ -157,7 +157,7 @@ class PhoneVerificationDialogState extends State<PhoneVerificationDialog> {
           ),
           textAlign: TextAlign.center,
         ),
-        const SizedBox(height: 20),
+          SizedBox(height: 20),
         Text(
           'We’ve sent a verification code to ${widget.phoneNumber}',
           style: TextStyle(
@@ -197,25 +197,25 @@ class PhoneVerificationDialogState extends State<PhoneVerificationDialog> {
               ? null
               : _verifyCode,
           style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            padding:   EdgeInsets.symmetric(vertical: 16.0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.0),
             ),
-            textStyle: const TextStyle(fontSize: 18.0),
+            textStyle:   TextStyle(fontSize: 18.0),
           ),
-          child: const Text('Verify'),
+          child:   Text('Verify'),
         ),
-        const SizedBox(height: 10),
+          SizedBox(height: 10),
         TextButton(
           onPressed: _isLoading ? null : _resendCode,
-          child: const Text('Resend Code'),
+          child:   Text('Resend Code'),
         ),
       ],
     );
   }
 
   Widget _buildLoadingIndicator() {
-    return const Center(
+    return   Center(
       child: CircularProgressIndicator(),
     );
   }
@@ -225,15 +225,15 @@ class PhoneVerificationDialogState extends State<PhoneVerificationDialog> {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               _buildHeader(),
-              const SizedBox(height: 20),
+                SizedBox(height: 20),
               _buildCodeInputField(),
-              const SizedBox(height: 20),
+                SizedBox(height: 20),
               _isLoading ? _buildLoadingIndicator() : _buildActionButton(),
             ],
           ),

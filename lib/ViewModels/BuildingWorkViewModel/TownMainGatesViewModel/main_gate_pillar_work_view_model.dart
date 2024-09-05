@@ -1,6 +1,6 @@
 
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/main_gate_pillar_work_model.dart';
-import 'package:al_noor_town/Repositories/BuildingWorkRepositories/TownMainGatesRepositorty/main_gate_pillar_work_repository.dart';
+import 'package:al_noor_town/Repositories/BuildingWorkRepositories/TownMainGatesRepository/main_gate_pillar_work_repository.dart';
 import 'package:get/get.dart';
 
 class MainGatePillarWorkViewModel extends GetxController {

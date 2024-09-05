@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../Building Work/Mosque/MosqueExcavationWork/mosque_excavation_work.dart';
 import 'Light poles work/poles.dart';
@@ -18,7 +19,7 @@ import 'Sewerage Work/Pipelying/pipe_lying.dart';
 
 
 class DevelopmentPage extends StatefulWidget {
-  const DevelopmentPage({super.key});
+    DevelopmentPage({super.key});
 
   @override
   State<DevelopmentPage> createState() => _DevelopmentPageState();
@@ -30,10 +31,10 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
   bool startAnimation = false;
 
   List<String> texts = [
-    "Road Maintenance",
-    "Sewerage Work",
-    "Light Poles Work",
-    "MainDrain Work",
+    'road_maintenance'.tr(),
+    'sewerage_work'.tr(),
+    'light_poles_work'.tr(),
+    'maindrain_work'.tr(),
   ];
 
   List<String> imagePaths = [
@@ -63,7 +64,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(
+          icon:   Icon(
             Icons.arrow_back,
             color: Color(0xFFC69840),
           ),
@@ -71,8 +72,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
-          'Development Work',
+        title:   Text(
+          'development_work'.tr(),
           style: TextStyle(
             fontFamily: 'Avenir Next',
             fontSize: 20,
@@ -85,15 +86,15 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const SizedBox(height: 60),
+              SizedBox(height: 60),
             SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics:   BouncingScrollPhysics(),
               padding: EdgeInsets.symmetric(
                 horizontal: screenWidth / 20,
               ),
               child: Column(
                 children: [
-                  const SizedBox(height: 10),
+                    SizedBox(height: 10),
                   ListView.builder(
                     primary: false,
                     shrinkWrap: true,
@@ -102,7 +103,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                       return item(index);
                     },
                   ),
-                  const SizedBox(height: 10),
+                    SizedBox(height: 10),
                 ],
               ),
             ),
@@ -121,8 +122,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text(
-                    'Pick Your Machinery',
+                  title:   Text(
+                    'pick_your_machinery'.tr(),
                     style: TextStyle(
                       color: Color(0xFFC69840),
                       fontWeight: FontWeight.bold,
@@ -137,7 +138,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                const Machines()),
+                                  Machines()),
                           );
                         },
                         child: Column(
@@ -147,9 +148,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               height: 100,
                               width: 100,
                             ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Machine',
+                              SizedBox(height: 10),
+                              Text(
+                              'machine'.tr(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -159,13 +160,13 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                        SizedBox(height: 20),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const WaterTanker()),
+                                builder: (context) =>   WaterTanker()),
                           );
                         },
                         child: Column(
@@ -175,9 +176,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               height: 100,
                               width: 100,
                             ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Water Tanker',
+                              SizedBox(height: 10),
+                              Text(
+                              'water_tanker'.tr(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -191,8 +192,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                   ),
                   actions: [
                     TextButton(
-                      child: const Text(
-                        'Close',
+                      child:   Text(
+                        'close'.tr(),
                         style: TextStyle(color: Color(0xFFC69840)),
                       ),
                       onPressed: () {
@@ -204,7 +205,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   backgroundColor: Colors.white,
-                  contentPadding: const EdgeInsets.all(20),
+                  contentPadding:   EdgeInsets.all(20),
                 );
               },
             );
@@ -214,8 +215,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text(
-                    'Select your Work',
+                  title:   Text(
+                    'select_your_work'.tr(),
                     style: TextStyle(
                       color: Color(0xFFC69840),
                       fontWeight: FontWeight.bold,
@@ -232,7 +233,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Excavation()),
+                                    builder: (context) =>   Excavation()),
                               );
                             },
                             child: Column(
@@ -242,9 +243,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                   height: 100,
                                   width: 100,
                                 ),
-                                const SizedBox(height: 10),
-                                const Text(
-                                  'Excavation',
+                                  SizedBox(height: 10),
+                                  Text(
+                                  'excavation'.tr(),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -254,13 +255,13 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               ],
                             ),
                           ),
-                          const SizedBox(width: 40),
+                            SizedBox(width: 40),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Backfiling()),
+                                    builder: (context) =>   Backfiling()),
                               );
                             },
                             child: Column(
@@ -270,9 +271,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                   height: 100,
                                   width: 100,
                                 ),
-                                const SizedBox(height: 10),
-                                const Text(
-                                  'Back Filling',
+                                  SizedBox(height: 10),
+                                  Text(
+                                  'back_filing'.tr(),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -285,7 +286,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
 
                         ],
                       ),
-                      const SizedBox(height: 20), // Adjust height as needed
+                        SizedBox(height: 20), // Adjust height as needed
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -294,7 +295,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Manholes()),
+                                    builder: (context) =>   Manholes()),
                               );
                             },
                             child: Column(
@@ -304,9 +305,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                   height: 100,
                                   width: 100,
                                 ),
-                                const SizedBox(height: 10),
-                                const Text(
-                                  'Manholes',
+                                  SizedBox(height: 10),
+                                  Text(
+                                  'manholes'.tr(),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -316,13 +317,13 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               ],
                             ),
                           ),
-                          const SizedBox(width: 40),
+                            SizedBox(width: 40),
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const Pipelying()),
+                                    builder: (context) =>   Pipelying()),
                               );
                             },
                             child: Column(
@@ -332,9 +333,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                   height: 100,
                                   width: 100,
                                 ),
-                                const SizedBox(height: 10),
-                                const Text(
-                                  'Pipelines',
+                                  SizedBox(height: 10),
+                                  Text(
+                                  'pipe_laying'.tr(),
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -350,8 +351,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                   ),
                   actions: [
                     TextButton(
-                      child: const Text(
-                        'Close',
+                      child:   Text(
+                        'close'.tr(),
                         style: TextStyle(color: Color(0xFFC69840)),
                       ),
                       onPressed: () {
@@ -363,7 +364,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   backgroundColor: Colors.white,
-                  contentPadding: const EdgeInsets.all(20),
+                  contentPadding:   EdgeInsets.all(20),
                 );
               },
             );
@@ -373,8 +374,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text(
-                    'Select Your Work',
+                  title:   Text(
+                    'select_your_work'.tr(),
                     style: TextStyle(
                       color: Color(0xFFC69840),
                       fontWeight: FontWeight.bold,
@@ -389,7 +390,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                const PolesFoundation()),
+                                  PolesFoundation()),
                           );
                         },
                         child: Column(
@@ -399,9 +400,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               height: 100,
                               width: 100,
                             ),
-                            const SizedBox(height: 10),
-                            const Text(
-                              'Poles Excavation',
+                              SizedBox(height: 10),
+                              Text(
+                              'poles_excavation'.tr(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -411,13 +412,13 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 20),
+                        SizedBox(height: 20),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Poles()),
+                                builder: (context) =>   Poles()),
                           );
                         },
                         child: Column(
@@ -427,9 +428,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               height: 100,
                               width: 100,
                             ),
-                            const SizedBox(height: 5),
-                            const Text(
-                              'Poles',
+                              SizedBox(height: 5),
+                              Text(
+                              'poles'.tr(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -439,13 +440,13 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: 5),
+                        SizedBox(height: 5),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const MosqueExcavationWork()),
+                                builder: (context) =>   MosqueExcavationWork()),
                           );
                         },
                         child: Column(
@@ -455,9 +456,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               height: 100,
                               width: 100,
                             ),
-                            const SizedBox(height: 5),
-                            const Text(
-                              'Light Wires',
+                              SizedBox(height: 5),
+                              Text(
+                              'light_wires'.tr(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
@@ -471,8 +472,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                   ),
                   actions: [
                     TextButton(
-                      child: const Text(
-                        'Close',
+                      child:   Text(
+                        'close'.tr(),
                         style: TextStyle(color: Color(0xFFC69840)),
                       ),
                       onPressed: () {
@@ -484,7 +485,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   backgroundColor: Colors.white,
-                  contentPadding: const EdgeInsets.all(20),
+                  contentPadding:   EdgeInsets.all(20),
                 );
               },
             );
@@ -495,8 +496,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
               builder: (BuildContext context) {
 
                 return AlertDialog(
-                  title: const Text(
-                    'Select Your Work',
+                  title:   Text(
+                    'select_your_work'.tr(),
                     style: TextStyle(
                       color: Color(0xFFC69840),
                       fontWeight: FontWeight.bold,
@@ -513,7 +514,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const BrickWork()),
+                                  MaterialPageRoute(builder: (context) =>   BrickWork()),
                                 );
                               },
                               child: Column(
@@ -523,9 +524,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                     height: 80,
                                     width: 80,
                                   ),
-                                  const SizedBox(height: 5),
-                                  const Text(
-                                    'BrickWork',
+                                    SizedBox(height: 5),
+                                    Text(
+                                    'brick_work'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -535,12 +536,12 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 15),
+                              SizedBox(height: 15),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const PlasterWork()),
+                                  MaterialPageRoute(builder: (context) =>   PlasterWork()),
                                 );
                               },
                               child: Column(
@@ -550,9 +551,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                     height: 80,
                                     width: 80,
                                   ),
-                                  const SizedBox(height: 5),
-                                  const Text(
-                                    'Plaster Work',
+                                    SizedBox(height: 5),
+                                    Text(
+                                    'plaster_work'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -562,12 +563,12 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 5),
+                              SizedBox(height: 5),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const ShutteringWork()),
+                                  MaterialPageRoute(builder: (context) =>   ShutteringWork()),
                                 );
                               },
                               child: Column(
@@ -577,9 +578,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                     height: 80,
                                     width: 80,
                                   ),
-                                  const SizedBox(height: 5),
-                                  const Text(
-                                    'Shuttering Work',
+                                    SizedBox(height: 5),
+                                    Text(
+                                    'shuttering_work'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -591,7 +592,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                             ),
                           ],
                         ),
-                        const SizedBox(width: 10), // Reduced space between columns
+                          SizedBox(width: 10), // Reduced space between columns
                         Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -599,7 +600,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const IronWork()),
+                                  MaterialPageRoute(builder: (context) =>   IronWork()),
                                 );
                               },
                               child: Column(
@@ -609,9 +610,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                     height: 80,
                                     width: 80,
                                   ),
-                                  const SizedBox(height: 5),
-                                  const Text(
-                                    'Iron Work',
+                                    SizedBox(height: 5),
+                                    Text(
+                                    'iron_work'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -621,12 +622,12 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 15),
+                              SizedBox(height: 15),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const ManholesSlabs()),
+                                  MaterialPageRoute(builder: (context) =>   ManholesSlabs()),
                                 );
                               },
                               child: Column(
@@ -636,9 +637,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                     height: 80,
                                     width: 80,
                                   ),
-                                  const SizedBox(height: 5),
-                                  const Text(
-                                    'Manholes Slabs',
+                                    SizedBox(height: 5),
+                                    Text(
+                                    'manholes_slabs'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -648,12 +649,12 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 5),
+                              SizedBox(height: 5),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const AsphaltWork()),
+                                  MaterialPageRoute(builder: (context) =>   AsphaltWork()),
                                 );
                               },
                               child: Column(
@@ -663,9 +664,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                     height: 80,
                                     width: 80,
                                   ),
-                                  const SizedBox(height: 5),
-                                  const Text(
-                                    'Asphalt Work',
+                                    SizedBox(height: 5),
+                                    Text(
+                                    'asphalt_work'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -675,12 +676,12 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                 ],
                               ),
                             ),
-                            const SizedBox(height: 5),
+                              SizedBox(height: 5),
                             GestureDetector(
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const MainDrainExcavation()),
+                                  MaterialPageRoute(builder: (context) =>   MainDrainExcavation()),
                                 );
                               },
                               child: Column(
@@ -690,9 +691,9 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                     height: 80,
                                     width: 80,
                                   ),
-                                  const SizedBox(height: 5),
-                                  const Text(
-                                    'Main Drain Excavation',
+                                    SizedBox(height: 5),
+                                    Text(
+                                    'main_drain_excavation'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -709,8 +710,8 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                   ),
                   actions: [
                     TextButton(
-                      child: const Text(
-                        'Close',
+                      child:   Text(
+                        'close'.tr(),
                         style: TextStyle(color: Color(0xFFC69840)),
                       ),
                       onPressed: () {
@@ -723,7 +724,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                   ),
                   backgroundColor: Colors.white,
 
-                  contentPadding: const EdgeInsets.all(20),
+                  contentPadding:   EdgeInsets.all(20),
                 );
               },
             );
@@ -736,20 +737,20 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
         curve: Curves.linear,
         duration: Duration(milliseconds: 300 + (index * 200)),
         transform: Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
-        margin: const EdgeInsets.only(
+        margin:   EdgeInsets.only(
           bottom: 10, // Reduced bottom margin for less space between cards
         ),
         padding: EdgeInsets.symmetric(
           horizontal: screenWidth / 25, // Reduced horizontal padding
         ),
         decoration: BoxDecoration(
-          color: const Color(0xFFF3F4F6),
+          color:   Color(0xFFF3F4F6),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.all(6.0),
+              padding:   EdgeInsets.all(6.0),
               child: Image.asset(
                 imagePaths[index],
                 height: 45,
@@ -760,14 +761,14 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
               width: 0.5,
               height: 40,
               color: Colors.grey.withOpacity(0.3),
-              margin: const EdgeInsets.symmetric(horizontal: 6),
+              margin:   EdgeInsets.symmetric(horizontal: 6),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 6.0),
+                padding:   EdgeInsets.only(left: 6.0),
                 child: Text(
                   texts[index],
-                  style: const TextStyle(
+                  style:   TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFFC69840),

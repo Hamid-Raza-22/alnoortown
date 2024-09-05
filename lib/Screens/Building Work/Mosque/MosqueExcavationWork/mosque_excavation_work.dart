@@ -1,12 +1,13 @@
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 import '../../../../ViewModels/BuildingWorkViewModel/Mosque/mosque_excavation_view_model.dart';
 import 'mosque_summary_page.dart';
 
 class MosqueExcavationWork extends StatefulWidget {
-  const MosqueExcavationWork({super.key});
+    MosqueExcavationWork({super.key});
 
   @override
   MosqueExcavationWorkState createState() => MosqueExcavationWorkState();
@@ -50,26 +51,26 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      const MosqueSummaryPage(),
+                        MosqueSummaryPage(),
                 ),
               );
             },
           ),
         ],
-        title: const Text(
+        title:   const Text(
           'Mosque Excavation Work',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
@@ -88,12 +89,12 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:   const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                  const SizedBox(height: 16),
+                    const SizedBox(height: 16),
                 ],
               ),
             ),
@@ -105,12 +106,12 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   const EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -119,21 +120,21 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                 selectedBlock = value;
               });
             }),
-            const SizedBox(height: 16),
-            const Text(
+              const SizedBox(height: 16),
+              const Text(
               "Excavation Completion Status:",
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              const SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -156,26 +157,26 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                   //  await _saveData();
 
                     // Call the callback after the async operation
-                    showSnackBar('Entry added successfully!');
+                    showSnackBar('entry_added_successfully'.tr());
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                        const SnackBar(
                         content: Text('Please select a block and status.'),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
+                  backgroundColor:   const Color(0xFFF3F4F6),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   const TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Submit',
-                    style: TextStyle(
+                child:   Text('submit'.tr().tr(),
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
@@ -189,12 +190,12 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Block No.",
+          Text('block_no'.tr(),
             style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFC69840))),
-        const SizedBox(height: 8),
+          const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           items: blocks.map((item) {
             return DropdownMenuItem(
@@ -203,7 +204,7 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
             );
           }).toList(),
           onChanged: onChanged,
-          decoration: const InputDecoration(
+          decoration:   const InputDecoration(
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFC69840))),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
@@ -217,18 +218,18 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process'),
-          value: 'In Process',
+          title:   Text('in_process'.tr()),
+          value: 'in_process'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   const Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done'),
-          value: 'Done',
+          title:   Text('done'.tr()),
+          value: "Done",
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   const Color(0xFFC69840),
         ),
       ],
     );

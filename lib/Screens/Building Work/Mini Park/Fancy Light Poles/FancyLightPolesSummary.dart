@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class FancyLightPolesSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-  const FancyLightPolesSummary({super.key, required this.containerDataList});
+    FancyLightPolesSummary({super.key, required this.containerDataList});
 
   @override
   State<FancyLightPolesSummary> createState() => _FancyLightPolesSummaryState();
@@ -18,35 +19,35 @@ class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
-          ' Fancy Light Poles Summary',
+        title:   Text(
+          'Fancy Light Poles Summary',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
             columnSpacing: 16.0,
-            headingRowColor: WidgetStateProperty.all(const Color(0xFFC69840)),
-            border: const TableBorder(
+            headingRowColor: WidgetStateProperty.all(  Color(0xFFC69840)),
+            border:   TableBorder(
               horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
               verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
             ),
-            columns: const [
-              DataColumn(label: Text('Start Date', style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('End Date', style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('Status', style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('Date', style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('Time', style: TextStyle(fontWeight: FontWeight.bold))),
+            columns:   [
+              DataColumn(label: Text('start_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('end_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('status'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('time'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
             ],
             rows: widget.containerDataList.map((entry) {
               DateTime timestamp = DateTime.parse(entry['timestamp']);

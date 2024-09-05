@@ -1,11 +1,16 @@
+import 'dart:convert';
 import 'dart:ui';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:http/http.dart' as http;
 import 'package:al_noor_town/Screens/signup_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+    LoginPage({super.key});
 
   @override
   LoginPageState createState() => LoginPageState();
@@ -22,15 +27,73 @@ class LoginPageState extends State<LoginPage> {
     });
   }
 
-  void _login() async {
+
+  final storage =   FlutterSecureStorage();
+
+  void _loginwithJWT() async {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
 
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const HomePage()),
+    try {
+      final response = await http.post(
+        Uri.parse('https://your-backend-url.com/login'), // Replace with your backend login URL
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': email, 'password': password}),
+      );
+
+      if (response.statusCode == 200) {
+        // Assuming the JWT is in the response body as 'token'
+        final data = jsonDecode(response.body);
+        String token = data['token'];
+
+        // Store the JWT securely
+        await storage.write(key: 'jwt', value: token);
+
+        // Navigate to the HomePage
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) =>   HomePage()),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+           SnackBar(content: Text('Login failed. Please try again.'.tr())),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An error occurred: $e')),
+      );
+    }
+  }
+  void _fetchUserData() async {
+    final String? token = await storage.read(key: 'jwt');
+    final response = await http.get(
+      Uri.parse('https://your-backend-url.com/user-profile'),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
     );
 
+    if (response.statusCode == 200) {
+      // Handle the successful response here
+      // e.g., parse the JSON and update the UI
+    } else {
+      // Handle error here
+    }
+  }
+
+
+  void _login() async {
+   // context.setLocale(Locale('en')); // English set karne ke liye
+    // String email = _emailController.text.trim();
+    // String password = _passwordController.text.trim();
+    //
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) =>   HomePage()),
+    );
+    //
     // try {
     //   UserCredential userCredential = await FirebaseAuth.instance
     //       .signInWithEmailAndPassword(email: email, password: password);
@@ -38,17 +101,17 @@ class LoginPageState extends State<LoginPage> {
     //   // Login successful, navigate to the HomePage
     //   Navigator.pushReplacement(
     //     context,
-    //     MaterialPageRoute(builder: (context) => const HomePage()),
+    //     MaterialPageRoute(builder: (context) =>   HomePage()),
     //   );
     // } on FirebaseAuthException catch (e) {
     //   String errorMessage;
     //
-    //   if (e.code == 'user-not-found') {
-    //     errorMessage = 'No user found for that email.';
+    //   if (e.code == 'user-not-found'.tr()) {
+    //     errorMessage = 'No user found for that email.'.tr();
     //   } else if (e.code == 'wrong-password') {
-    //     errorMessage = 'Wrong password provided for that user.';
+    //     errorMessage = 'Wrong password provided for that user.'.tr();
     //   } else {
-    //     errorMessage = 'Login failed. Please try again later.';
+    //     errorMessage = 'Login failed. Please try again later.'.tr();
     //   }
     //
     //   ScaffoldMessenger.of(context).showSnackBar(
@@ -56,7 +119,7 @@ class LoginPageState extends State<LoginPage> {
     //   );
     // } catch (e) {
     //   ScaffoldMessenger.of(context).showSnackBar(
-    //     SnackBar(content: Text('An unexpected error occurred: $e')),
+    //     SnackBar(content: Text('An unexpected error occurred: $e'.tr())),
     //   );
     // }
   }
@@ -70,7 +133,7 @@ class LoginPageState extends State<LoginPage> {
         children: <Widget>[
           // Background image with blur effect
           Container(
-            decoration: const BoxDecoration(
+            decoration:   BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/gate_view.png'), // Path to your image
                 fit: BoxFit.cover,
@@ -89,8 +152,8 @@ class LoginPageState extends State<LoginPage> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: MediaQuery.of(context).size.width > 600
-                    ? const EdgeInsets.symmetric(horizontal: 50.0)
-                    : const EdgeInsets.all(30.0),
+                    ?   EdgeInsets.symmetric(horizontal: 50.0)
+                    :   EdgeInsets.all(30.0),
                 child: Center(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
@@ -99,24 +162,24 @@ class LoginPageState extends State<LoginPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        const Text(
-                          'Login',
-                          style: TextStyle(
+                        Text(
+                          'login'.tr(),
+                          style:   TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFFC69840),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                          SizedBox(height: 20),
                         FadeInUp(
-                          duration: const Duration(milliseconds: 1800),
+                          duration:   Duration(milliseconds: 1800),
                           child: Container(
-                            padding: const EdgeInsets.all(5),
+                            padding:   EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: const Color(0xFFC69840)),
-                              boxShadow: const [
+                              border: Border.all(color:   Color(0xFFC69840)),
+                              boxShadow:   [
                                 BoxShadow(
                                   color: Color.fromRGBO(143, 148, 251, .2),
                                   blurRadius: 20.0,
@@ -127,8 +190,8 @@ class LoginPageState extends State<LoginPage> {
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  padding: const EdgeInsets.all(8.0),
-                                  decoration: const BoxDecoration(
+                                  padding:   EdgeInsets.all(8.0),
+                                  decoration:   BoxDecoration(
                                     border: Border(
                                       bottom: BorderSide(color: Color(0xFFC69840)),
                                     ),
@@ -137,32 +200,32 @@ class LoginPageState extends State<LoginPage> {
                                     controller: _emailController,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "User ID",
+                                      hintText: "user_id_hint".tr(),
                                       hintStyle: TextStyle(
                                           color: Colors.grey.withOpacity(0.5)),
-                                      labelText: "User ID",
-                                      labelStyle: const TextStyle(color: Color(0xFFC69840)),
+                                      labelText: "user_id".tr(),
+                                      labelStyle:   TextStyle(color: Color(0xFFC69840)),
                                     ),
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.all(8.0),
+                                  padding:   EdgeInsets.all(8.0),
                                   child: TextField(
                                     controller: _passwordController,
                                     obscureText: _obscureText,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "Password",
+                                      hintText: "password".tr(),
                                       hintStyle: TextStyle(
                                           color: Colors.grey.withOpacity(0.5)),
-                                      labelText: "Password",
-                                      labelStyle: const TextStyle(color: Color(0xFFC69840)),
+                                      labelText: "password".tr(),
+                                      labelStyle:   TextStyle(color: Color(0xFFC69840)),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           _obscureText
                                               ? Icons.visibility
                                               : Icons.visibility_off,
-                                          color: const Color(0xFFC69840),
+                                          color:   Color(0xFFC69840),
                                         ),
                                         onPressed: _togglePasswordVisibility,
                                       ),
@@ -173,21 +236,21 @@ class LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 30),
+                          SizedBox(height: 30),
                         FadeInUp(
-                          duration: const Duration(milliseconds: 1900),
+                          duration:   Duration(milliseconds: 1900),
                           child: GestureDetector(
                             onTap: _login,
                             child: Container(
                               height: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color: const Color(0xFFC69840),
+                                color:   Color(0xFFC69840),
                               ),
-                              child: const Center(
+                              child:  Center(
                                 child: Text(
-                                  "Login",
-                                  style: TextStyle(
+                                  "login".tr(),
+                                  style:   TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -195,20 +258,20 @@ class LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
+                          SizedBox(height: 20),
                         FadeInUp(
-                          duration: const Duration(milliseconds: 2000),
+                          duration:   Duration(milliseconds: 2000),
                           child: GestureDetector(
                             onTap: () {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SignUpPage()),
+                                    builder: (context) =>   SignUpPage()),
                               );
                             },
-                            child: const Text(
-                              "Don't have an account? Sign up",
-                              style: TextStyle(
+                            child: Text(
+                              "dont_have_an_account".tr(),
+                              style:   TextStyle(
                                 color: Color(0xFFC69840),
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,

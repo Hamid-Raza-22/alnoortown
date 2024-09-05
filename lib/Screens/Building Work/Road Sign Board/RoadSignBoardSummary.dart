@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class RoadSignBoardSummary extends StatelessWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-  const RoadSignBoardSummary({super.key, required this.containerDataList});
+    RoadSignBoardSummary({super.key, required this.containerDataList});
 
   @override
   Widget build(BuildContext context) {
@@ -12,31 +13,31 @@ class RoadSignBoardSummary extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title:   Text(
           'Road Sign Board Summary',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
       body: containerDataList.isEmpty
-          ? Center(child: Text('No data available', style: TextStyle(fontSize: 18)))
+          ?   Center(child: Text('No data available', style: TextStyle(fontSize: 18)))
           : SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: DataTable(
-          columns: const [
-            DataColumn(label: Text('Block')),
-            DataColumn(label: Text('Road No')),
+          columns:   [
+            DataColumn(label: Text('block_no'.tr())),
+            DataColumn(label: Text('road_no'.tr())),
             DataColumn(label: Text('From Plot')),
             DataColumn(label: Text('To Plot')),
-            DataColumn(label: Text('Road Side')),
-            DataColumn(label: Text('Status')),
-            DataColumn(label: Text('Date')),
-            DataColumn(label: Text('Time')),
+            DataColumn(label: Text('road_side'.tr())),
+            DataColumn(label: Text('status'.tr())),
+            DataColumn(label: Text('date'.tr())),
+            DataColumn(label: Text('time'.tr())),
           ],
           rows: containerDataList.map((entry) {
             final timestamp = entry['timestamp'];
@@ -68,17 +69,17 @@ class RoadSignBoardSummary extends StatelessWidget {
                         ),
                         title: Text(
                           'Details | ${entry['block'] ?? 'N/A'}',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          style:   TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         content: SingleChildScrollView(
                           child: ListBody(
                             children: [
-                              Text('Road No: ${entry['roadNo'] ?? 'N/A'}', style: TextStyle(fontSize: 16)),
-                              Text('From Plot: ${entry['fromPlot'] ?? 'N/A'}', style: TextStyle(fontSize: 16)),
-                              Text('To Plot: ${entry['toPlot'] ?? 'N/A'}', style: TextStyle(fontSize: 16)),
-                              Text('Road Side: ${entry['roadSide'] ?? 'N/A'}', style: TextStyle(fontSize: 16)),
-                              Text('Status: ${entry['status'] ?? 'N/A'}', style: TextStyle(fontSize: 16)),
-                              Text('Timestamp: ${formatTimestamp(entry['timestamp'])}', style: TextStyle(fontSize: 16)),
+                              Text('road_no ${entry['roadNo'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('From Plot: ${entry['fromPlot'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('To Plot:' '${entry['toPlot'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('Road Side: ${entry['roadSide'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('Status: ${entry['status'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('Timestamp: ${formatTimestamp(entry['timestamp'])}', style:   TextStyle(fontSize: 16)),
                             ],
                           ),
                         ),
@@ -86,7 +87,7 @@ class RoadSignBoardSummary extends StatelessWidget {
                           TextButton(
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.white,
-                              backgroundColor: Color(0xFFC69840),
+                              backgroundColor:   Color(0xFFC69840),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
@@ -94,7 +95,7 @@ class RoadSignBoardSummary extends StatelessWidget {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: const Text('Close'),
+                            child:   Text('close'.tr()),
                           ),
                         ],
                       );

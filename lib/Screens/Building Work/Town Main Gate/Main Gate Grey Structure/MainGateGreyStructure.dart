@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/mg_grey_structure_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/mg_grey_structure_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'MainGateGreySummary.dart';
 
 class MainGateGreyStructure extends StatefulWidget {
-  const MainGateGreyStructure({super.key});
+    MainGateGreyStructure({super.key});
 
   @override
   _MainGateGreyStructureState createState() => _MainGateGreyStructureState();
@@ -69,14 +70,14 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -87,8 +88,8 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
             },
           ),
         ],
-        title: const Text(
-          'Main Gate Grey Structure',
+        title:   Text(
+          'main_gate_grey_structure'.tr(),
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
@@ -105,12 +106,12 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -122,12 +123,12 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -136,9 +137,9 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
                 selectedBlock = value;
               });
             }),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             buildWorkStatusField(),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -154,27 +155,27 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
                     await mgGreyStructureViewModel.fetchAllMainGrey();
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
+                        SnackBar(
+                        content: Text('entry_added_successfully'.tr()),
                       ),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                        SnackBar(
                         content: Text('Please fill all the fields.'),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Submit',
+                child:   Text('submit'.tr().tr(),
                     style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
@@ -188,9 +189,9 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Block No.",
+          Text('block_no'.tr(),
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           items: blocks.map((item) {
             return DropdownMenuItem(
@@ -199,7 +200,7 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
             );
           }).toList(),
           onChanged: onChanged,
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC69840))),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -212,9 +213,9 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Work Status",
+          Text('work_status'.tr(),
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         TextField(
           onChanged: (value) {
             setState(() {
@@ -222,7 +223,7 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
             });
           },
           maxLines: 3,
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC69840))),
             contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           ),

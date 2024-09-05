@@ -1,14 +1,15 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mini_park_mud_filling_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mini_park_mud_filling_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import '../../../../Models/BuildingWorkModels/MiniParksModel/mini_park_mud_filling_model.dart';
 import '../../../../ViewModels/BuildingWorkViewModel/MiniParksViewModel/mini_park_mud_filling_view_model.dart';
 import 'MP_Mudfilling_Summary.dart';
 
 class MiniParkMudFilling extends StatefulWidget {
-  const MiniParkMudFilling({super.key});
+    MiniParkMudFilling({super.key});
 
   @override
   MiniParkMudFillingState createState() => MiniParkMudFillingState();
@@ -67,14 +68,14 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -86,8 +87,8 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
             },
           ),
         ],
-        title: const Text(
-          'Mud Filling Work',
+        title:   Text(
+          'mud_filling_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -105,12 +106,12 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -122,43 +123,43 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildDatePickerRow(
-              "Start Date:",
+              'start_date'.tr(),
               selectedStartDate,
                   (date) => setState(() => selectedStartDate = date),
             ),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             buildDatePickerRow(
-              "Expected Completion Date:",
+              'expected_completion_date'.tr(),
               selectedEndDate,
                   (date) => setState(() => selectedEndDate = date),
             ),
-            const SizedBox(height: 16),
-            buildTextFieldRow("Total Dumpers:", dumpersController),
-            const SizedBox(height: 16),
-            const Text(
-              "Mud Filling Completion Status:",
+              SizedBox(height: 16),
+            buildTextFieldRow('total_dumpers'.tr(), dumpersController),
+              SizedBox(height: 16),
+              Text(
+              'mud_filling_completion_status'.tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -179,28 +180,28 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
 
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
+                        SnackBar(
+                        content: Text('entry_added_successfully'.tr()),
                       ),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please fill in all fields.'),
+                        SnackBar(
+                        content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
+                  backgroundColor:   Color(0xFFF3F4F6),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Submit',
+                child:   Text('submit'.tr().tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
@@ -217,12 +218,12 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         GestureDetector(
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -235,16 +236,16 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
           },
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding:   EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFC69840)),
+              border: Border.all(color:   Color(0xFFC69840)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               selectedDate != null
                   ? DateFormat('d MMM yyyy').format(selectedDate)
-                  : 'Select Date',
-              style: const TextStyle(
+                  : 'select_date'.tr(),
+              style:   TextStyle(
                 fontSize: 14,
                 color: Color(0xFFC69840),
               ),
@@ -261,16 +262,16 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         TextField(
           controller: controller,
           keyboardType: TextInputType.number,
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),
@@ -285,18 +286,18 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process'),
-          value: 'In Process',
+          title:   Text('in_process'.tr()),
+          value: 'in_process'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done'),
-          value: 'Done',
+          title:   Text('done'.tr()),
+          value: "Done",
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
       ],
     );

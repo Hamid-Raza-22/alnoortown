@@ -56,6 +56,13 @@ dependencies:
   intl_phone_field: ^3.2.0
   country_code_picker: ^3.0.0
   firebase_auth: ^5.1.4
+  fkafka: ^2.0.1
+  jwt_decoder: ^2.0.1
+  flutter_secure_storage: ^9.2.2
+  http: ^1.2.2
+  easy_localization: ^3.0.7
+  flutter_phoenix: ^1.1.1
+  restart_app: ^1.2.1
 
 dev_dependencies:
   flutter_test:
@@ -84,6 +91,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/langs/ur.json
+    - assets/langs/en.json
+    - assets/langs/ar.json
+    - assets/langs/ru.json
+    - assets/langs/fr.json
+    - assets/langs/zh.json
     - assets/images/
     - assets/images/mosqueExcavationWork.png
     - assets/images/gate_view.png
@@ -100,7 +113,7 @@ flutter:
     - assets/images/machines.png
     - assets/images/water_tanker.png
     - assets/images/truck-01.png
-    - assets/images/machinespage.gif
+    - assets/images/machinesPage.gif
     - assets/images/Excavation.png
     - assets/images/pipelines.png
     - assets/images/manholes.png

@@ -3,11 +3,12 @@ import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/asphalt_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show Get, Inst;
+import 'package:easy_localization/easy_localization.dart';
 import 'package:intl/intl.dart';
 
 class AsphaltWork extends StatefulWidget {
-  const AsphaltWork({super.key});
+    AsphaltWork({super.key});
 
   @override
   _AsphaltWorkState createState() => _AsphaltWorkState();
@@ -49,14 +50,14 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(180.0),
+        preferredSize:   Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           flexibleSpace: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration:   BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/truck-01.png'),
                 fit: BoxFit.fitHeight,
@@ -67,16 +68,16 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Align(
+              Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'Asphalt Work',
+                  'asphalt_work'.tr(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -85,7 +86,7 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
               return Column(
                 children: [
                   buildContainer(entry.key),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               );
             }),
@@ -98,7 +99,7 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
                 },
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
+                child:   Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
               ),
             ),
           ],
@@ -111,22 +112,22 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
     var containerData = containerDataList[index];
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(containerData),
-            const SizedBox(height: 16),
-            const Text(
-              "No of Tons",
+              SizedBox(height: 16),
+              Text(
+              'no_of_tons'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             TextFormField(
               initialValue: containerData["numTankers"],
               onChanged: (value) {
@@ -135,21 +136,21 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
                 });
               },
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration:   InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
-            const SizedBox(height: 16),
-            const Text(
-              "Backfilling Status:",
+              SizedBox(height: 16),
+              Text(
+              'back_filing_status'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             buildStatusRadioButtons(containerData),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -181,14 +182,14 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
+                  shape:   RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child:   Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -200,9 +201,9 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
   Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
     return Row(
       children: [
-        Expanded(child: buildDropdownField("Block No.", containerData, "selectedBlock", blocks)),
-        const SizedBox(width: 16),
-        Expanded(child: buildDropdownField("Street No.", containerData, "selectedStreet", streets)),
+        Expanded(child: buildDropdownField('block_no'.tr(), containerData, "selectedBlock", blocks)),
+          SizedBox(width: 16),
+        Expanded(child: buildDropdownField('street_no'.tr(), containerData, "selectedStreet", streets)),
       ],
     );
   }
@@ -211,8 +212,8 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-        const SizedBox(height: 8),
+        Text(title, style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -226,7 +227,7 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
               containerData[key] = value;
             });
           },
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC69840))),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -239,28 +240,29 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process'),
-          value: 'In Process',
+          title: Text('in_process'.tr()),  // Corrected by adding parentheses
+          value: 'in_process'.tr(),
           groupValue: containerData["status"],
           onChanged: (value) {
             setState(() {
               containerData["status"] = value;
             });
           },
-          activeColor: const Color(0xFFC69840),
+          activeColor: Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done'),
-          value: 'Done',
+          title: Text('done'.tr()),  // This was already correct
+          value: "Done",
           groupValue: containerData["status"],
           onChanged: (value) {
             setState(() {
               containerData["status"] = value;
             });
           },
-          activeColor: const Color(0xFFC69840),
+          activeColor: Color(0xFFC69840),
         ),
       ],
     );
   }
+
 }

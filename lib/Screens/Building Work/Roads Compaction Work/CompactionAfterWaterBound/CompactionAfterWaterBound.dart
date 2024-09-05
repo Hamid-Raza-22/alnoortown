@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCompactionWork/compaction_water_bound_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/compaction_water_bound_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'WaterBoundSummary.dart';
 
 class CompactionAfterWaterBound extends StatefulWidget {
-  const CompactionAfterWaterBound({super.key});
+    CompactionAfterWaterBound({super.key});
 
   @override
   _CompactionAfterWaterBoundState createState() => _CompactionAfterWaterBoundState();
@@ -69,14 +70,14 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -88,7 +89,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
             },
           ),
         ],
-        title: const Text(
+        title:   Text(
           'Compaction After WaterBound',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
@@ -107,12 +108,12 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -124,51 +125,51 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildDropdownRow("Block No:", selectedBlock, ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"], (value) {
+            buildDropdownRow('block_no'.tr(), selectedBlock, ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"], (value) {
               setState(() {
                 selectedBlock = value;
               });
             }),
-            const SizedBox(height: 16),
-            buildTextFieldRow("Road No:", roadNoController),
-            const SizedBox(height: 16),
-            buildTextFieldRow("Total Length:", totalLengthController),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
+            buildTextFieldRow('road_no'.tr(), roadNoController),
+              SizedBox(height: 16),
+            buildTextFieldRow('total_length'.tr(), totalLengthController),
+              SizedBox(height: 16),
             buildDatePickerRow(
-              "Start Date:",
+              'start_date'.tr(),
               selectedStartDate,
                   (date) => setState(() => selectedStartDate = date),
             ),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             buildDatePickerRow(
-              "Expected Completion Date:",
+              'expected_completion_date'.tr(),
               selectedEndDate,
                   (date) => setState(() => selectedEndDate = date),
             ),
-            const SizedBox(height: 16),
-            const Text(
-              "Sand Compaction Completion Status:",
+              SizedBox(height: 16),
+              Text(
+              'sand_compaction_completion_status'.tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -192,28 +193,28 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
                     await compactionWaterBoundViewModel.fetchAllWaterBound();
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
+                        SnackBar(
+                        content: Text('entry_added_successfully'.tr()),
                       ),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please fill in all fields.'),
+                        SnackBar(
+                        content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
+                  backgroundColor:   Color(0xFFF3F4F6),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Submit',
+                child:   Text('submit'.tr().tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
@@ -230,15 +231,15 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: selectedValue,
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -260,12 +261,12 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         GestureDetector(
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -278,7 +279,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
           },
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding:   EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
               border: Border.all(color: const Color(0xFFC69840)),
               borderRadius: BorderRadius.circular(8),
@@ -286,8 +287,8 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
             child: Text(
               selectedDate != null
                   ? DateFormat('d MMM yyyy').format(selectedDate)
-                  : 'Select Date',
-              style: const TextStyle(
+                  : 'select_date'.tr(),
+              style:   TextStyle(
                 fontSize: 14,
                 color: Color(0xFFC69840),
               ),
@@ -304,15 +305,15 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style:   TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFC69840)),
           ),
-          const SizedBox(height: 8),
+            SizedBox(height: 8),
           TextField(
             controller: controller,
-            decoration: const InputDecoration(
+            decoration:   InputDecoration(
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.symmetric(horizontal: 8),
             ),
@@ -325,14 +326,14 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Progress'),
-          value: 'In Progress',
+          title:   Text('in_process'.tr()),
+          value: "In Process",
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),
         RadioListTile<String>(
-          title: const Text('Completed'),
-          value: 'Completed',
+          title:  Text('done'.tr()),
+          value: "Done",
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),

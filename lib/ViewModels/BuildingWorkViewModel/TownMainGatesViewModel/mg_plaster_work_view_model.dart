@@ -1,6 +1,6 @@
 
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/mg_plaster_work_model.dart';
-import 'package:al_noor_town/Repositories/BuildingWorkRepositories/TownMainGatesRepositorty/mg_plaster_work_repository.dart';
+import 'package:al_noor_town/Repositories/BuildingWorkRepositories/TownMainGatesRepository/mg_plaster_work_repository.dart';
 import 'package:get/get.dart';
 
 class MgPlasterWorkViewModel extends GetxController {

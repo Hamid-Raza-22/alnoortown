@@ -1,6 +1,7 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'Fountain Park/BoundaryGril/boundary_gril_work.dart';
-
 import 'Fountain Park/CurbstonesWork/road_curbstones_work.dart';
 import 'Fountain Park/GazeboWork/gazebo_work.dart';
 import 'Fountain Park/MainEntranceTilesWork/main_entrance_tiles.dart';
@@ -40,9 +41,23 @@ import 'Town Main Gate/Main Gate Foundation/MainGateFoundation.dart';
 import 'Town Main Gate/Main Gate Grey Structure/MainGateGreyStructure.dart';
 import 'Town Main Gate/Main Gate Pillars Brick/MainGatePillarsbrick.dart';
 import 'Town Main Gate/Main Gate Plaster/Main_Gate_Plaster_Work.dart';
+//
+// enum WorkType {
+//   mosque,
+//   fountainPark,
+//   translatedMiniParks,
+//   roadsCompactionWork,
+//   roadsEdgingWork,
+//   roadsShouldersWork,
+//   roadsWaterSupplyWork,
+//   roadsSignBoards,
+//   roadsCurbstonesWork,
+//   streetRoadsWaterChannels,
+//   townMainGates,
+// }
 
 class Building_Navigation_Page extends StatefulWidget {
-  const Building_Navigation_Page({super.key});
+    Building_Navigation_Page({super.key});
 
   @override
   State<Building_Navigation_Page> createState() =>
@@ -55,17 +70,18 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
   bool startAnimation = false;
 
   List<String> texts = [
-    "Mosque",
-    "Fountain Park",
-    "Mini Parks",
-    "Roads Compaction Work",
-    "Roads Edging Work",
-    "Roads Shoulders Work",
-    "Roads Water Supply Work",
-    "Roads Sign Boards",
-    "Roads Curbstones Work",
-    "Street Roads Water Channels",
-    "Town Main Gates",
+    //"Mosque",
+    'mosque'.tr(),
+    'fountain_park'.tr(),
+    'mini_parks'.tr(),
+    'roads_compaction_work'.tr(),
+    'roads_edging_work'.tr(),
+    'roads_shoulders_work'.tr(),
+    'roads_water_supply_work'.tr(),
+    'roads_sign_boards'.tr(),
+    'roads_curbstones_work'.tr(),
+    'street_roads_water_channels'.tr(),
+    'town_main_gates'.tr(),
   ];
 
   List<String> imagePaths = [
@@ -103,13 +119,13 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
         backgroundColor: Colors.white,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        title: const Text(
-          "Building Work",
+        title:   Text(
+          'building_work'.tr(),
           style: TextStyle(
             color: Color(0xFFC69840),
             fontWeight: FontWeight.w500,
@@ -126,7 +142,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
             padding: EdgeInsets.zero,
             children: [
               SingleChildScrollView(
-                physics: const BouncingScrollPhysics(),
+                physics:   BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(
                   horizontal: screenWidth / 20,
                 ),
@@ -140,7 +156,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                         return item(index);
                       },
                     ),
-                    const SizedBox(height: 40),
+                      SizedBox(height: 40),
                   ],
                 ),
               ),
@@ -154,12 +170,12 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
   Widget item(int index) {
     return GestureDetector(
       onTap: () {
-        if (texts[index] == "Mosque" ||
-            texts[index] == "Fountain Park" ||
-            texts[index] == "Mini Parks" ||
-            texts[index] == "Roads Compaction Work" ||
-            texts[index] == "Roads Water Supply Work" ||
-            texts[index] == "Town Main Gates") {
+        if (texts[index] == 'mosque'.tr() ||
+            texts[index] == 'fountain_park'.tr() ||
+            texts[index] == 'mini_parks'.tr() ||
+            texts[index] == 'roads_compaction_work'.tr() ||
+            texts[index] == 'roads_water_supply_work'.tr() ||
+            texts[index] == 'town_main_gates'.tr()) {
           showAlertBox(index);
         } else {
           navigateToWorkPage(texts[index]);
@@ -172,20 +188,20 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
         duration: Duration(milliseconds: 300 + (index * 200)),
         transform:
         Matrix4.translationValues(startAnimation ? 0 : screenWidth, 0, 0),
-        margin: const EdgeInsets.only(
+        margin:   EdgeInsets.only(
           bottom: 8,
         ),
         padding: EdgeInsets.symmetric(
           horizontal: screenWidth / 30,
         ),
         decoration: BoxDecoration(
-          color: const Color(0xFFF3F4F6),
+          color:   Color(0xFFF3F4F6),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.all(4.0),
+              padding:   EdgeInsets.all(4.0),
               child: Image.asset(
                 imagePaths[index],
                 height: 35,
@@ -196,14 +212,14 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
               width: 0.7,
               height: 60,
               color: Colors.grey.withOpacity(0.3),
-              margin: const EdgeInsets.symmetric(horizontal: 8),
+              margin:   EdgeInsets.symmetric(horizontal: 8),
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
+                padding:   EdgeInsets.only(left: 8.0),
                 child: Text(
                   texts[index],
-                  style: const TextStyle(
+                  style:   TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: Color(0xFFC69840),
@@ -218,16 +234,16 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
   }
 
   void showAlertBox(int index) {
-    List<String> mosqueNames = [
-      "Excavation Work",
-      "Foundation Work",
-      "First Floor",
-      "Tiles Work",
-      "Sanitary Work",
-      "Ceiling Work",
-      "Paint Work",
-      "Electricity Work",
-      "Doors Work"
+    List<dynamic> mosqueNames = [
+      'excavation_work'.tr(),
+      'foundation_work'.tr(),
+      'first_floor'.tr(),
+      'tiles_work'.tr(),
+      'sanitary_work'.tr(),
+      'ceiling_work'.tr(),
+      'paint_work'.tr(),
+      'electricity_work'.tr(),
+      'doors_work'.tr()
     ];
 
     List<IconData> mosqueIcons = [
@@ -243,15 +259,15 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     ];
 
     List<String> fountainParkNames = [
-      "Mud Filling Work",
-      "Walking Tracks Work",
-      "Cubstones Work",
-      "Sitting Area Work",
-      "Plantation Work",
-      "Main Entrance Tiles Work",
-      "Boundary Grill Work",
-      "Gazebo Work",
-      "Main Stage"
+      'mud_filling_work'.tr(),
+      'walking_tracks_work'.tr(),
+      'curbstones_work'.tr(),
+      'sitting_area_work'.tr(),
+      'plantation_work'.tr(),
+      'main_entrance_tiles_work'.tr(),
+      'boundary_grill_work'.tr(),
+      'gazebo_work'.tr(),
+      'main_stage'.tr()
     ];
 
     List<IconData> fountainParkIcons = [
@@ -267,12 +283,12 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     ];
 
     List<String> miniParksNames = [
-      "Mini Park Mud Filling",
-      "Grass Work",
-      "Mini Park Curbstones Work",
-      "Fancy Light Poles",
-      "Plantation Work mp",
-      "Monuments Work",
+      'mini_park_mud_filling'.tr(),
+      'grass_work'.tr(),
+      'mini_park_curbstones_work'.tr(),
+      'fancy_light_poles'.tr(),
+      'plantation_work_mp'.tr(),
+      'monuments_work'.tr(),
     ];
 
     List<IconData> miniParksIcons = [
@@ -286,10 +302,10 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     ];
 
     List<String> roadsCompactionNames = [
-      "Sand Compaction",
-      "Soil Compaction",
-      "Base & Sub base compaction",
-      "Compaction after Water Bound"
+      'sand_compaction'.tr(),
+      'soil_compaction'.tr(),
+      'base_sub_base_compaction'.tr(),
+      'compaction_after_water_bound'.tr()
     ];
 
     List<IconData> roadsCompactionIcons = [
@@ -310,11 +326,11 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     ];
 
     List<String> townMainGatesNames = [
-      "Main Gate Foundation Work",
-      "Main Gate Pillars Brick Work",
-      "Main Gate Canopy & Column Pouring Work",
-      "Main Gate Grey Structure",
-      "Main Gate Plaster Work"
+      'main_gate_foundation_work'.tr(),
+      'main_gate_pillars_brick_work'.tr(),
+      'main_gate_canopy_column_pouring_work'.tr(),
+      'main_gate_grey_structure'.tr(),
+      'main_gate_plaster_work'.tr()
     ];
 
     List<IconData> townMainGatesIcons = [
@@ -334,42 +350,42 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
             width: double.maxFinite,
             child: ListView.builder(
               shrinkWrap: true,
-              itemCount: (texts[index] == "Mosque")
+              itemCount: (texts[index] == 'mosque'.tr())
                   ? mosqueNames.length
-                  : (texts[index] == "Fountain Park")
+                  : (texts[index] == 'fountain_park'.tr())
                   ? fountainParkNames.length
-                  : (texts[index] == "Mini Parks")
+                  : (texts[index] == 'mini_parks'.tr())
                   ? miniParksNames.length
-                  : (texts[index] == "Roads Compaction Work")
+                  : (texts[index] == 'roads_compaction_work'.tr())
                   ? roadsCompactionNames.length
-                  : (texts[index] == "Roads Water Supply Work")
+                  : (texts[index] == 'roads_water_supply_work'.tr())
                   ? roadsWaterSupplyNames.length
                   : townMainGatesNames.length,
               itemBuilder: (context, subIndex) {
                 return ListTile(
                   leading: Icon(
-                    (texts[index] == "Mosque")
+                    (texts[index] == 'mosque'.tr())
                         ? mosqueIcons[subIndex]
-                        : (texts[index] == "Fountain Park")
+                        : (texts[index] == 'fountain_park'.tr())
                         ? fountainParkIcons[subIndex]
-                        : (texts[index] == "Mini Parks")
+                        : (texts[index] == 'mini_parks'.tr())
                         ? miniParksIcons[subIndex]
-                        : (texts[index] == "Roads Compaction Work")
+                        : (texts[index] == 'roads_compaction_work'.tr())
                         ? roadsCompactionIcons[subIndex]
-                        : (texts[index] == "Roads Water Supply Work")
+                        : (texts[index] == 'roads_water_supply_work'.tr())
                         ? roadsWaterSupplyIcons[subIndex]
                         : townMainGatesIcons[subIndex],
                   ),
                   title: Text(
-                    (texts[index] == "Mosque")
+                    (texts[index] == 'mosque'.tr())
                         ? mosqueNames[subIndex]
-                        : (texts[index] == "Fountain Park")
+                        : (texts[index] == 'fountain_park'.tr())
                         ? fountainParkNames[subIndex]
-                        : (texts[index] == "Mini Parks")
+                        : (texts[index] == 'mini_parks'.tr())
                         ? miniParksNames[subIndex]
-                        : (texts[index] == "Roads Compaction Work")
+                        : (texts[index] == 'roads_compaction_work'.tr())
                         ? roadsCompactionNames[subIndex]
-                        : (texts[index] == "Roads Water Supply Work")
+                        : (texts[index] == 'roads_water_supply_work'.tr())
                         ? roadsWaterSupplyNames[subIndex]
                         : townMainGatesNames[subIndex],
                   ),
@@ -386,291 +402,303 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     );
   }
 
-  void navigateToWorkPage(String workType) {
-    switch (workType) {
-      case "Roads Edging Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RoadsEdgingWork()),
-        );
-        break;
-      case "Roads Shoulders Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RoadsShouldersWork()),
-        );
-        break;
-      case "Roads Sign Boards":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RoadsSignBoards()),
-        );
-        break;
-      case "Roads Curbstones Work":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const RoadsCurbstonesWork()),
-        );
-        break;
-      case "Street Roads Water Channels":
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const StreetRoadsWaterChannels()),
-        );
-        break;
-      default:
-        break;
+
+  void navigateToWorkPage(dynamic workType) {
+    String roadsEdgingWork = 'roads_edging_work'.tr();
+    String roadsShouldersWork = 'roads_shoulders_work'.tr();
+    String roadsSignBoards = 'roads_sign_boards'.tr();
+    String roadsCurbstonesWork = 'roads_curbstones_work'.tr();
+    String streetRoadsWaterChannels = 'street_roads_water_channels'.tr();
+
+    if (workType == roadsEdgingWork) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RoadsEdgingWork()),
+      );
+    } else if (workType == roadsShouldersWork) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RoadsShouldersWork()),
+      );
+    } else if (workType == roadsSignBoards) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RoadsSignBoards()),
+      );
+    } else if (workType == roadsCurbstonesWork) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => RoadsCurbstonesWork()),
+      );
+    } else if (workType == streetRoadsWaterChannels) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => StreetRoadsWaterChannels()),
+      );
+    } else {
+      if (kDebugMode) {
+        print('Unknown workType: $workType');
+      }
     }
   }
 
-  void navigateToSubPage(String workType, int subIndex) {
-    switch (workType) {
-      case "Mosque":
+  void navigateToSubPage(dynamic workType, int subIndex) {
+
+    String translatedMosque = 'mosque'.tr();
+    String fountainPark = 'fountain_park'.tr();
+    String translatedMiniParks = 'mini_parks'.tr();
+    String roadsCompactionWork = 'roads_compaction_work'.tr();
+    String roadsWaterSupplyWork = 'roads_water_supply_work'.tr();
+    String townMainGates = 'town_main_gates'.tr();
+
+    if (workType == translatedMosque) {
+
         switch (subIndex) {
           case 0:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const MosqueExcavationWork()),
+              MaterialPageRoute(builder: (context) =>   MosqueExcavationWork()),
             );
             break;
           case 1:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const FoundationWork()),
+              MaterialPageRoute(builder: (context) =>   FoundationWork()),
             );
             break;
           case 2:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const FirstFloorWork()),
+              MaterialPageRoute(builder: (context) =>   FirstFloorWork()),
             );
             break;
           case 3:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const TilesWork()),
+              MaterialPageRoute(builder: (context) =>   TilesWork()),
             );
             break;
           case 4:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const SanitaryWork()),
+              MaterialPageRoute(builder: (context) =>   SanitaryWork()),
             );
             break;
           case 5:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const CeilingWork()),
+              MaterialPageRoute(builder: (context) =>   CeilingWork()),
             );
             break;
           case 6:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const PaintWork()),
+              MaterialPageRoute(builder: (context) =>   PaintWork()),
             );
             break;
           case 7:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ElectricityWork()),
+              MaterialPageRoute(builder: (context) =>   ElectricityWork()),
             );
             break;
           case 8:
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const DoorsWork()),
+              MaterialPageRoute(builder: (context) =>   DoorsWork()),
             );
             break;
         }
-        break;
-      case "Fountain Park":
-        switch (subIndex) {
-          case 0:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MudFillingWork()),
-            );
-            break;
-          case 1:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const WalkingTracksWork()),
-            );
-            break;
-          case 2:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const CurbStonesWork()),
-            );
-            break;
-          case 3:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SittingAreaWork()),
-            );
-            break;
-          case 4:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const PlantationWork()),
-            );
-            break;
-          case 5:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MainEntranceTilesWork()),
-            );
-            break;
-          case 6:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const BoundaryGrillWork()),
-            );
-            break;
-          case 7:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const GazeboWork()),
-            );
-            break;
-          case 8:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MainStageWork()),
-            );
-            break;
-        }
-        break;
-      case "Mini Parks":
-        switch (subIndex) {
-          case 0:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MiniParkMudFilling()),
-            );
-            break;
-          case 1:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const GrassWork()),
-            );
-            break;
-          case 2:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MiniParkCurbstonesWork()),
-            );
-            break;
-          case 3:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const FancyLightPoles()),
-            );
-            break;
-          case 4:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const PlantationWorkmp()),
-            );
-            break;
-          case 5:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const MonumentsWork()),
-            );
-            break;
-        }
-        break;
-      case "Roads Compaction Work":
-        switch (subIndex) {
-          case 0:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SandCompaction()),
-            );
-            break;
-          case 1:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const SoilCompaction()),
-            );
-            break;
-          case 2:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const BaseSubBase()),
-            );
-            break;
-          case 3:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const CompactionAfterWaterBound()),
-            );
-            break;
-        }
-        break;
-      case "Roads Water Supply Work":
-        switch (subIndex) {
-          case 0:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const RoadsWaterSupplyWork()),
-            );
-            break;
-          case 1:
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const BackfillingWs()),
-            );
-            break;
-        }
-        break;
-      case "Town Main Gates":
-        switch (subIndex) {
-          case 0:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MainGateFoundationWork()),
-            );
-            break;
-          case 1:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MainGatePillarsBrickWork()),
-            );
-            break;
-          case 2:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>  const CanopyColoumnPouring()),
-            );
-            break;
-          case 3:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MainGateGreyStructure()),
-            );
-            break;
-          case 4:
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const MainGatePlasterWork()),
-            );
-            break;
-        }
-        break;
+    }
+      //  break;
+      else if (workType == fountainPark) {
+      switch (subIndex) {
+        case 0:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MudFillingWork()),
+          );
+          break;
+        case 1:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => WalkingTracksWork()),
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CurbStonesWork()),
+          );
+          break;
+        case 3:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SittingAreaWork()),
+          );
+          break;
+        case 4:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PlantationWork()),
+          );
+          break;
+        case 5:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainEntranceTilesWork()),
+          );
+          break;
+        case 6:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => BoundaryGrillWork()),
+          );
+          break;
+        case 7:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GazeboWork()),
+          );
+          break;
+        case 8:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MainStageWork()),
+          );
+          break;
+      }
+    }
+      else if( workType == translatedMiniParks) {
+      switch (subIndex) {
+        case 0:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MiniParkMudFilling()),
+          );
+          break;
+        case 1:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => GrassWork()),
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MiniParkCurbstonesWork()),
+          );
+          break;
+        case 3:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => FancyLightPoles()),
+          );
+          break;
+        case 4:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PlantationWorkmp()),
+          );
+          break;
+        case 5:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MonumentsWork()),
+          );
+          break;
+      }
+    }
+     else if (workType == roadsCompactionWork) {
+      switch (subIndex) {
+        case 0:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SandCompaction()),
+          );
+          break;
+        case 1:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => SoilCompaction()),
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => BaseSubBase()),
+          );
+          break;
+        case 3:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CompactionAfterWaterBound()),
+          );
+          break;
+      }
+    }
+      else if ( workType == roadsWaterSupplyWork) {
+      switch (subIndex) {
+        case 0:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => RoadsWaterSupplyWork()),
+          );
+          break;
+        case 1:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => BackfillingWs()),
+          );
+          break;
+      }
+    }
+      else if(workType == townMainGates) {
+      switch (subIndex) {
+        case 0:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainGateFoundationWork()),
+          );
+          break;
+        case 1:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainGatePillarsBrickWork()),
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CanopyColoumnPouring()),
+          );
+          break;
+        case 3:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainGateGreyStructure()),
+          );
+          break;
+        case 4:
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MainGatePlasterWork()),
+          );
+          break;
+      }
+    
     }
   }
 }

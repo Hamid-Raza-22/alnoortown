@@ -1,9 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CanopyColoumnsummary extends StatelessWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-  const CanopyColoumnsummary({super.key, required this.containerDataList});
+    CanopyColoumnsummary({super.key, required this.containerDataList});
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +16,12 @@ class CanopyColoumnsummary extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title:   Text(
           'Main Gate Plaster Summary',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -43,8 +44,8 @@ class CanopyColoumnsummary extends StatelessWidget {
                 color: Color(0xFFC69840),
                 alignment: Alignment.center,
                 child: Text(
-                  ['Block No.', 'Work Status', 'Date', 'Time'][index],
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                  ['block_no'.tr(), 'work_status'.tr(), 'date'.tr(), 'time'.tr()][index],
+                  style:   TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
                 ),
               );
             } else {
@@ -92,7 +93,7 @@ class CanopyColoumnsummary extends StatelessWidget {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('Close'),
+                              child:   Text('close'.tr()),
                             ),
                           ],
                         );
@@ -100,7 +101,7 @@ class CanopyColoumnsummary extends StatelessWidget {
                     );
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(8.0),
+                    padding:   EdgeInsets.all(8.0),
                     color: index % 4 == 0 ? Colors.white : Color(0xFFEFEFEF),
                     alignment: Alignment.center,
                     child: Row(
@@ -109,7 +110,7 @@ class CanopyColoumnsummary extends StatelessWidget {
                         Expanded(
                           child: Text(
                             data[index % 4],
-                            style: const TextStyle(fontSize: 12.0),
+                            style:   TextStyle(fontSize: 12.0),
                             overflow: TextOverflow.ellipsis, // Handle overflow
                             maxLines: 1, // Limit to one line
                           ),

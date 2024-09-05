@@ -1,13 +1,14 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/light_wires_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/light_wires_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 
 class LightWiresWork extends StatefulWidget {
-  const LightWiresWork({super.key});
+    LightWiresWork({super.key});
 
   @override
   LightWiresWorkState createState() => LightWiresWorkState();
@@ -48,14 +49,14 @@ class LightWiresWorkState extends State<LightWiresWork> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(180.0),
+        preferredSize:   Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
           flexibleSpace: Container(
             width: double.infinity,
             height: double.infinity,
-            decoration: const BoxDecoration(
+            decoration:   BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/lightWire-01.png'),
                 fit: BoxFit.fitHeight,
@@ -66,16 +67,16 @@ class LightWiresWorkState extends State<LightWiresWork> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Align(
+              Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'Light Wires Work',
+                  'light_wires_work'.tr(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -84,7 +85,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
               return Column(
                 children: [
                   buildContainer(entry.key),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               );
             }),
@@ -97,7 +98,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
                 },
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
+                child:   Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
               ),
             ),
           ],
@@ -110,22 +111,22 @@ class LightWiresWorkState extends State<LightWiresWork> {
     var containerData = containerDataList[index];
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(containerData),
-            const SizedBox(height: 16),
-            const Text(
+              SizedBox(height: 16),
+              Text(
               "Total Length",
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             TextFormField(
               initialValue: containerData["numTankers"],
               onChanged: (value) {
@@ -134,21 +135,21 @@ class LightWiresWorkState extends State<LightWiresWork> {
                 });
               },
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration:   InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
-            const SizedBox(height: 16),
-            const Text(
-              "Back Filling Status:",
+              SizedBox(height: 16),
+              Text(
+              'back_filing_status'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             buildStatusRadioButtons(containerData),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -177,14 +178,14 @@ class LightWiresWorkState extends State<LightWiresWork> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
+                  shape:   RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child:   Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -196,9 +197,9 @@ class LightWiresWorkState extends State<LightWiresWork> {
   Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
     return Row(
       children: [
-        Expanded(child: buildDropdownField("Block No.", containerData, "selectedBlock", blocks)),
-        const SizedBox(width: 16),
-        Expanded(child: buildDropdownField("Street No.", containerData, "selectedStreet", streets)),
+        Expanded(child: buildDropdownField('block_no'.tr(), containerData, "selectedBlock", blocks)),
+          SizedBox(width: 16),
+        Expanded(child: buildDropdownField('street_no'.tr(), containerData, "selectedStreet", streets)),
       ],
     );
   }
@@ -207,8 +208,8 @@ class LightWiresWorkState extends State<LightWiresWork> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-        const SizedBox(height: 8),
+        Text(title, style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -222,7 +223,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
               containerData[key] = value;
             });
           },
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC69840))),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -235,26 +236,26 @@ class LightWiresWorkState extends State<LightWiresWork> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process'),
-          value: 'In Process',
+          title:   Text('in_process'.tr()),
+          value: 'in_process'.tr(),
           groupValue: containerData["status"],
           onChanged: (value) {
             setState(() {
               containerData["status"] = value;
             });
           },
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done'),
-          value: 'Done',
+          title:   Text('done'.tr()),
+          value: "Done",
           groupValue: containerData["status"],
           onChanged: (value) {
             setState(() {
               containerData["status"] = value;
             });
           },
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
       ],
     );

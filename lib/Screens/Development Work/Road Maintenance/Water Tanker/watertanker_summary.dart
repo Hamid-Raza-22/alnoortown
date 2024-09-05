@@ -1,10 +1,11 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class WaterTankerSummary extends StatelessWidget {
   final List<Map<String, dynamic>> tankerDataList;
 
-  const WaterTankerSummary({super.key})
-      : tankerDataList = const [
+    WaterTankerSummary({super.key})
+      : tankerDataList =   [
     {"selectedBlock": "Block A", "selectedStreet": "Street 1", "selectedTankers": 3},
     {"selectedBlock": "Block B", "selectedStreet": "Street 2", "selectedTankers": 2},
     {"selectedBlock": "Block C", "selectedStreet": "Street 3", "selectedTankers": 5},
@@ -21,12 +22,12 @@ class WaterTankerSummary extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title:   Text(
           'Water Tanker Summary',
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -36,7 +37,7 @@ class WaterTankerSummary extends StatelessWidget {
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // 3 columns for Block No., Street No., and No. of Tankers
+            crossAxisCount: 3, // 3 columns for 'block_no'.tr()., Street No., and No. of Tankers
             crossAxisSpacing: 1.0,
             mainAxisSpacing: 1.0,
             childAspectRatio: 3.0, // Adjust for better width
@@ -46,11 +47,11 @@ class WaterTankerSummary extends StatelessWidget {
             if (index < 3) {
               // Header Row
               return Container(
-                color: const Color(0xFFC69840),
+                color:   Color(0xFFC69840),
                 alignment: Alignment.center,
                 child: Text(
-                  ['Block No.', 'Street No.', 'No. of Tankers'][index],
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                  ['block_no'.tr(), 'street_no'.tr(), 'no_of_tankers'.tr()][index],
+                  style:   TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
                 ),
               );
             } else {
@@ -77,18 +78,18 @@ class WaterTankerSummary extends StatelessWidget {
                             ),
                             title: Text(
                               'Tanker Details | ${data[0]}',
-                              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                              style:   TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                             ),
                             content: SingleChildScrollView(
                               child: ListBody(
                                 children: [
                                   Text(
                                     'Street No.: ${data[1]}',
-                                    style: const TextStyle(fontSize: 16),
+                                    style:   TextStyle(fontSize: 16),
                                   ),
                                   Text(
                                     'No. of Tankers: ${data[2]}',
-                                    style: const TextStyle(fontSize: 16),
+                                    style:   TextStyle(fontSize: 16),
                                   ),
                                 ],
                               ),
@@ -97,7 +98,7 @@ class WaterTankerSummary extends StatelessWidget {
                               TextButton(
                                 style: TextButton.styleFrom(
                                   foregroundColor: Colors.white,
-                                  backgroundColor: const Color(0xFFC69840),
+                                  backgroundColor:   Color(0xFFC69840),
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                   ),
@@ -105,7 +106,7 @@ class WaterTankerSummary extends StatelessWidget {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                 },
-                                child: const Text('Close'),
+                                child:   Text('close'.tr()),
                               ),
                             ],
                           );
@@ -114,12 +115,12 @@ class WaterTankerSummary extends StatelessWidget {
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    color: column % 2 == 0 ? Colors.white : const Color(0xFFEFEFEF),
+                    padding:   EdgeInsets.all(8.0),
+                    color: column % 2 == 0 ? Colors.white :   Color(0xFFEFEFEF),
                     alignment: Alignment.center,
                     child: Text(
                       data[column],
-                      style: const TextStyle(fontSize: 12.0),
+                      style:   TextStyle(fontSize: 12.0),
                       overflow: TextOverflow.ellipsis, // Handle overflow
                       maxLines: 1, // Limit to one line
                     ),

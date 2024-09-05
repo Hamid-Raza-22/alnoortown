@@ -1,13 +1,14 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/shuttering_work_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/shuttering_work_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 
 class ShutteringWork extends StatefulWidget {
-  const ShutteringWork({super.key});
+    ShutteringWork({super.key});
 
   @override
   ShutteringWorkState createState() => ShutteringWorkState();
@@ -47,7 +48,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(180.0),
+        preferredSize:   Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -56,7 +57,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration:   BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/truck-01.png'),
                     fit: BoxFit.fitHeight,
@@ -69,17 +70,17 @@ class ShutteringWorkState extends State<ShutteringWork> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 1),
-            const Align(
+              SizedBox(height: 1),
+              Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'Shuttering Work',
+                  'shuttering_work'.tr(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -89,11 +90,11 @@ class ShutteringWorkState extends State<ShutteringWork> {
               return Column(
                 children: [
                   buildContainer(index),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               );
             }),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             Center(
               child: FloatingActionButton(
                 onPressed: () {
@@ -103,7 +104,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
                 },
                 backgroundColor: Colors.transparent,
                 elevation: 0, // No shadow
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
+                child:   Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
               ),
             ),
           ],
@@ -116,22 +117,22 @@ class ShutteringWorkState extends State<ShutteringWork> {
     var containerData = containerDataList[index];
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(containerData),
-            const SizedBox(height: 16),
-            const Text(
-              "Total length Completed",
+              SizedBox(height: 16),
+              Text(
+              'total_length_completed'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             TextFormField(
               initialValue: containerData["numTankers"],
               onChanged: (value) {
@@ -140,14 +141,14 @@ class ShutteringWorkState extends State<ShutteringWork> {
                 });
               },
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration:   InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -176,14 +177,14 @@ class ShutteringWorkState extends State<ShutteringWork> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
+                  shape:   RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child:   Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -197,13 +198,13 @@ class ShutteringWorkState extends State<ShutteringWork> {
       children: [
         Expanded(
           child: buildDropdownField(
-              "Block No.", containerData, "selectedBlock", blocks
+              'block_no'.tr(), containerData, "selectedBlock", blocks
           ),
         ),
-        const SizedBox(width: 16),
+          SizedBox(width: 16),
         Expanded(
           child: buildDropdownField(
-              "Street No.", containerData, "selectedStreet", streets
+              'street_no'.tr(), containerData, "selectedStreet", streets
           ),
         ),
       ],
@@ -216,9 +217,9 @@ class ShutteringWorkState extends State<ShutteringWork> {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -232,7 +233,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
               containerData[key] = value;
             });
           },
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),

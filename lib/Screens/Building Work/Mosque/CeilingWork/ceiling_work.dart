@@ -1,14 +1,18 @@
 
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/ceiling_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/ceiling_work_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import 'package:get/get.dart' show Get, Inst;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 import 'CeilingWorkSummary.dart';
 
 class CeilingWork extends StatefulWidget {
 
-  const CeilingWork({super.key});
+    CeilingWork({super.key});
 
   @override
   CeilingWorkState createState() => CeilingWorkState();
@@ -50,14 +54,14 @@ class CeilingWorkState extends State<CeilingWork> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -69,7 +73,7 @@ class CeilingWorkState extends State<CeilingWork> {
             },
           ),
         ],
-        title: const Text(
+        title:   Text(
           'Ceiling Work',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
@@ -88,12 +92,12 @@ class CeilingWorkState extends State<CeilingWork> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -105,12 +109,12 @@ class CeilingWorkState extends State<CeilingWork> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -119,21 +123,21 @@ class CeilingWorkState extends State<CeilingWork> {
                 selectedBlock = value;
               });
             }),
-            const SizedBox(height: 16),
-            const Text(
+              SizedBox(height: 16),
+              Text(
               "Ceiling Work Status:",
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -157,24 +161,24 @@ class CeilingWorkState extends State<CeilingWork> {
 
 
                     // Call the callback after the async operation
-                    showSnackBar('Entry added successfully!');
+                    showSnackBar('entry_added_successfully'.tr());
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                        SnackBar(
                         content: Text('Please select a block and status.'),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Submit',
+                child:   Text('submit'.tr().tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
@@ -189,12 +193,12 @@ class CeilingWorkState extends State<CeilingWork> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Block No.",
+          Text('block_no'.tr(),
             style: TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFC69840))),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           items: blocks.map((item) {
             return DropdownMenuItem(
@@ -203,7 +207,7 @@ class CeilingWorkState extends State<CeilingWork> {
             );
           }).toList(),
           onChanged: onChanged,
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(
                 borderSide: BorderSide(color: Color(0xFFC69840))),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
@@ -217,18 +221,18 @@ class CeilingWorkState extends State<CeilingWork> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process'),
-          value: 'In Process',
+          title:   Text('in_process'.tr()),
+          value: 'in_process'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done'),
-          value: 'Done',
+          title:   Text('done'.tr()),
+          value: "Done",
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
       ],
     );

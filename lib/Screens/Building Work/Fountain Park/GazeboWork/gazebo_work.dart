@@ -1,13 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/gazebo_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/gazebo_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 
 import 'GazeboWorkSummary.dart';
 
 class GazeboWork extends StatefulWidget {
-  const GazeboWork({super.key});
+    GazeboWork({super.key});
 
   @override
   _GazeboWorkState createState() => _GazeboWorkState();
@@ -65,14 +66,14 @@ class _GazeboWorkState extends State<GazeboWork> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -83,7 +84,7 @@ class _GazeboWorkState extends State<GazeboWork> {
             },
           ),
         ],
-        title: const Text(
+        title:   Text(
           'Gazebo Work',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
@@ -102,12 +103,12 @@ class _GazeboWorkState extends State<GazeboWork> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -119,12 +120,12 @@ class _GazeboWorkState extends State<GazeboWork> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 14),
+      margin:   EdgeInsets.only(bottom: 14),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -133,27 +134,27 @@ class _GazeboWorkState extends State<GazeboWork> {
               selectedStartDate,
                   (date) => setState(() => selectedStartDate = date),
             ),
-            const SizedBox(height: 10),
+              SizedBox(height: 10),
             buildDatePickerRow(
-              "Expected Completion Date:",
+              'expected_completion_date'.tr(),
               selectedEndDate,
                   (date) => setState(() => selectedEndDate = date),
             ),
-            const SizedBox(height: 10),
-            const Text(
+              SizedBox(height: 10),
+              Text(
               "Gazebo Work Completion Status:",
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 4),
+              SizedBox(height: 4),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -171,28 +172,28 @@ class _GazeboWorkState extends State<GazeboWork> {
 
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
+                      SnackBar(
+                        content: Text('entry_added_successfully'.tr()),
                       ),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please fill in all fields.'),
+                       SnackBar(
+                        content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
+                  backgroundColor:   Color(0xFFF3F4F6),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Submit',
+                child: Text('submit'.tr().tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
@@ -209,12 +210,12 @@ class _GazeboWorkState extends State<GazeboWork> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         GestureDetector(
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -227,16 +228,16 @@ class _GazeboWorkState extends State<GazeboWork> {
           },
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding:   EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFC69840)),
+              border: Border.all(color:   Color(0xFFC69840)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               selectedDate != null
                   ? DateFormat('d MMM yyyy').format(selectedDate)
-                  : 'Select Date',
-              style: const TextStyle(
+                  : 'select_date'.tr(),
+              style:   TextStyle(
                 fontSize: 14,
                 color: Color(0xFFC69840),
               ),
@@ -251,18 +252,18 @@ class _GazeboWorkState extends State<GazeboWork> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text('In Process'),
-          value: 'In Process',
+          title:  Text('in_process'.tr()),
+          value: 'in_process'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text('Done'),
-          value: 'Done',
+          title:  Text('done'.tr()),
+          value: "Done",
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
       ],
     );

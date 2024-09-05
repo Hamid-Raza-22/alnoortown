@@ -2,12 +2,13 @@ import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/tanker_model.dart';
 import 'package:al_noor_town/Screens/Development%20Work/Road%20Maintenance/Water%20Tanker/watertanker_summary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/tanker_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show Get, Inst;
 
 class WaterTanker extends StatefulWidget {
-  const WaterTanker({super.key});
+    WaterTanker({super.key});
 
   @override
   _WaterTankerState createState() => _WaterTankerState();
@@ -30,7 +31,7 @@ class _WaterTankerState extends State<WaterTanker>  {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(180.0),
+        preferredSize:   Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -39,7 +40,7 @@ class _WaterTankerState extends State<WaterTanker>  {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration:   BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/waterr-01.png'),
                     fit: BoxFit.fitHeight,
@@ -51,11 +52,11 @@ class _WaterTankerState extends State<WaterTanker>  {
           systemOverlayStyle: SystemUiOverlayStyle.dark,
           actions: [
             IconButton(
-              icon: const Icon(Icons.summarize, color: Color(0xFFC69840)),
+              icon:   Icon(Icons.summarize, color: Color(0xFFC69840)),
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const WaterTankerSummary()),
+                  MaterialPageRoute(builder: (context) =>   WaterTankerSummary()),
                 );
               },
             ),
@@ -63,23 +64,23 @@ class _WaterTankerState extends State<WaterTanker>  {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 1),
-            const Align(
+              SizedBox(height: 1),
+              Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 12.0),
                 child: Text(
-                  'Water Tanker',
+                  'water_tanker'.tr(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
             ),
             buildContainer(),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
           ],
         ),
       ),
@@ -88,22 +89,22 @@ class _WaterTankerState extends State<WaterTanker>  {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 1,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(),
-            const SizedBox(height: 16),
-            const Text(
-              "No. of Tankers",
+              SizedBox(height: 16),
+              Text(
+              'no_of_tankers'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+              SizedBox(height: 8),
             DropdownButtonFormField<int>(
               value: containerData["selectedTankers"],
               items: List.generate(10, (index) => index + 1).map((number) {
@@ -117,14 +118,14 @@ class _WaterTankerState extends State<WaterTanker>  {
                   containerData["selectedTankers"] = value;
                 });
               },
-              decoration: const InputDecoration(
+              decoration:   InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -154,14 +155,14 @@ class _WaterTankerState extends State<WaterTanker>  {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
+                  shape:   RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child:   Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -174,11 +175,11 @@ class _WaterTankerState extends State<WaterTanker>  {
     return Row(
       children: [
         Expanded(
-          child: buildDropdownField("Block No.", "selectedBlock", blocks),
+          child: buildDropdownField('block_no'.tr(), "selectedBlock", blocks),
         ),
-        const SizedBox(width: 16),
+          SizedBox(width: 16),
         Expanded(
-          child: buildDropdownField("Street No.", "selectedStreet", streets),
+          child: buildDropdownField('street_no'.tr(), "selectedStreet", streets),
         ),
       ],
     );
@@ -190,9 +191,9 @@ class _WaterTankerState extends State<WaterTanker>  {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -206,7 +207,7 @@ class _WaterTankerState extends State<WaterTanker>  {
               containerData[key] = value;
             });
           },
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),

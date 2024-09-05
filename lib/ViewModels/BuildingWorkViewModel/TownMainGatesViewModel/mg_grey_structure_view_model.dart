@@ -1,6 +1,6 @@
 
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/mg_grey_structure_model.dart';
-import 'package:al_noor_town/Repositories/BuildingWorkRepositories/TownMainGatesRepositorty/mg_grey_structure_repository.dart';
+import 'package:al_noor_town/Repositories/BuildingWorkRepositories/TownMainGatesRepository/mg_grey_structure_repository.dart';
 import 'package:get/get.dart';
 
 class MgGreyStructureViewModel extends GetxController {

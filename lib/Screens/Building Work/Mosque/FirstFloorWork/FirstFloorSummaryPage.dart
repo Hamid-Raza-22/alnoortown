@@ -1,11 +1,12 @@
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/first_floor_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 
 class FirstFloorSummaryPage extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
-  const FirstFloorSummaryPage({super.key, required this.containerDataList});
+    FirstFloorSummaryPage({super.key, required this.containerDataList});
 
   @override
   State<FirstFloorSummaryPage> createState() => _FirstFloorSummaryPageState();
@@ -20,12 +21,12 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title:   Text(
           'First Floor Summary',
           style: TextStyle(
             fontSize: 18,
@@ -36,11 +37,11 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            const SizedBox(height: 4),
+              SizedBox(height: 4),
             // Data Grid
             Expanded(
               child: Obx(() {
@@ -70,7 +71,7 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
     return Center(
       child: Text(
         title,
-        style: const TextStyle(
+        style:   TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 14,
@@ -81,29 +82,29 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 8.0),
+      margin:   EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color: const Color(0xFFC69840), width: 1.0),
+        border: Border.all(color:   Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+        padding:   EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
         child: Column(
           children: [
-            _buildDataCell("Block No", data["selectedBlock"] ?? "N/A"),
-            const Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell("Brick Work", data["brickWorkStatus"] ?? "N/A"),
-            const Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell("Mud Filling", data["mudFillingStatus"] ?? "N/A"),
-            const Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell("Plaster Work", data["plasterWorkStatus"] ?? "N/A"),
-            const Divider(color: Color(0xFFC69840), thickness: 1.0),
+            _buildDataCell('block_no'.tr(), data["selectedBlock"] ?? "N/A"),
+              Divider(color: Color(0xFFC69840), thickness: 1.0),
+            _buildDataCell('brick_work'.tr(), data["brickWorkStatus"] ?? "N/A"),
+              Divider(color: Color(0xFFC69840), thickness: 1.0),
+            _buildDataCell('mud_filling'.tr(), data["mudFillingStatus"] ?? "N/A"),
+              Divider(color: Color(0xFFC69840), thickness: 1.0),
+            _buildDataCell('plaster_work'.tr(), data["plasterWorkStatus"] ?? "N/A"),
+              Divider(color: Color(0xFFC69840), thickness: 1.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: _buildDataCell("Date", _formatDate(data["timestamp"]))),
-                Expanded(child: _buildDataCell("Time", _formatTime(data["timestamp"]))),
+                Expanded(child: _buildDataCell('date'.tr(), _formatDate(data["timestamp"]))),
+                Expanded(child: _buildDataCell('time'.tr(), _formatTime(data["timestamp"]))),
               ],
             ),
           ],
@@ -117,7 +118,7 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
       children: [
         Text(
           "$label: ",
-          style: const TextStyle(
+          style:   TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),

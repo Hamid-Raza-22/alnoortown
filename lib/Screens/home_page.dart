@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import '../ViewModels/all_noor_view_model.dart';
 import 'drawer_screen.dart'; // Import your drawer screen
+import 'dart:ui' as ui;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -17,6 +19,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   double yOffset = 0;
   bool isDrawerOpen = false;
 
+  bool get isRtl => Localizations.localeOf(context).languageCode == 'ur';
+
   @override
   void initState() {
     super.initState();
@@ -31,8 +35,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
 
   void _toggleDrawer() {
     setState(() {
-      xOffset = isDrawerOpen ? 0 : 290;
-      yOffset = isDrawerOpen ? 0 : 80;
+      if (isDrawerOpen) {
+        xOffset = 0;
+        yOffset = 0;
+      } else {
+        xOffset = isRtl ? -290 : 290;
+        yOffset = 80;
+      }
       isDrawerOpen = !isDrawerOpen;
     });
   }
@@ -47,7 +56,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
           AnimatedContainer(
             transform: Matrix4.translationValues(xOffset, yOffset, 0)
               ..scale(isDrawerOpen ? 0.85 : 1.00)
-              ..rotateZ(isDrawerOpen ? -50 : 0),
+              ..rotateZ(isDrawerOpen ? (isRtl ? 50 : -50) : 0),
             duration: Duration(milliseconds: 300),
             decoration: BoxDecoration(
               color: Colors.white,
@@ -71,13 +80,6 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              /*Text(
-                                'Clock In Timer :',
-                                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  color: Colors.white,
-                                  fontSize: 14, // Adjusted font size
-                                ),
-                              ),*/
                               const SizedBox(width: 10), // Space between text and timer
                               Obx(() {
                                 return Text(
@@ -113,10 +115,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             children: <Widget>[
-                              buildCard(context, 'assets/images/development_work.png', 'Development Work', '/development'),
-                              buildCard(context, 'assets/images/material_shifting.png', 'Material Shifting', '/materialShifting'),
-                              buildCard(context, 'assets/images/new_material.png', 'New Material', '/newMaterial'),
-                              buildCard(context, 'assets/images/building_work.png', 'Building Work', '/buildingWork'),
+                              buildCard(context, 'assets/images/development_work.png', 'development_work'.tr(), '/development'),
+                              buildCard(context, 'assets/images/material_shifting.png', 'material_shifting'.tr(), '/materialShifting'),
+                              buildCard(context, 'assets/images/new_material.png', 'new_material'.tr(), '/newMaterial'),
+                              buildCard(context, 'assets/images/building_work.png', 'building_work'.tr(), '/buildingWork'),
                             ],
                           ),
                         ],
@@ -137,7 +139,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           color: const Color(0xFFC69840),
                         ),
                         label: Text(
-                          controller.isClockedIn.value ? 'Clock Out' : 'Clock In',
+                          controller.isClockedIn.value ? 'clock_out'.tr() : 'clock_in'.tr(),
                           style: const TextStyle(fontSize: 14),
                         ),
                         style: ElevatedButton.styleFrom(
@@ -154,15 +156,19 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               ),
             ),
           ),
-          Positioned(
-            top: 50,
-            left: 20,
-            child: IconButton(
-              icon: Icon(
-                isDrawerOpen ? Icons.arrow_back_ios : Icons.menu,
-                color: Colors.white,
+          Directionality(
+            textDirection: isRtl ? ui.TextDirection.rtl : ui.TextDirection.ltr,
+            child: Positioned(
+              top: 50,
+              right: isRtl ? 20 : null,
+              left: !isRtl ? 20 : null,
+              child: IconButton(
+                icon: Icon(
+                  isDrawerOpen ? Icons.arrow_back_ios : Icons.menu,
+                  color: Colors.white,
+                ),
+                onPressed: _toggleDrawer,
               ),
-              onPressed: _toggleDrawer,
             ),
           ),
         ],
@@ -170,61 +176,62 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
+
   Widget buildCard(BuildContext context, String imagePath, String name, String route) {
     return GestureDetector(
-      onTap: () {
-        // Directly navigate to the route without checking if the user is clocked in
-        Get.toNamed(route);
-      },
-      child: Container(
-        width: 180,
-        height: 180,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.3),
-              spreadRadius: 3,
-              blurRadius: 5,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(20),
-          child: Container(
+        onTap: () {
+          // Directly navigate to the route without checking if the user is clocked in
+          Get.toNamed(route);
+        },
+        child: Container(
+            width: 180,
+            height: 180,
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.2),
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: Colors.white.withOpacity(0.2),
-                width: 1.5,
-              ),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Image.asset(
-                    imagePath,
-                    height: 120,
-                    width: 120,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  name,
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: const Color(0xFFC69840),
-                    fontWeight: FontWeight.bold,
-                  ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.3),
+                  spreadRadius: 3,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.2),
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.2),
+                    width: 1.5,
+                  ),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Image.asset(
+                        imagePath,
+                        height: 120,
+                        width: 120,
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      name,
+                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: const Color(0xFFC69840),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-        ),
-      ),
-    );
+       );
   }
 }

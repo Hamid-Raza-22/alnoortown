@@ -1,12 +1,13 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/main_gate_foundation_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/main_gate_foundation_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'MainGateFoundationSummary.dart';
 
 class MainGateFoundationWork extends StatefulWidget {
-  const MainGateFoundationWork({super.key});
+    MainGateFoundationWork({super.key});
 
   @override
   _MainGateFoundationWorkState createState() => _MainGateFoundationWorkState();
@@ -71,14 +72,14 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -89,8 +90,8 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
             },
           ),
         ],
-        title: const Text(
-          ' Main Gate Foundation',
+        title:   Text(
+          'main_gate_foundation'.tr(),
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
@@ -107,12 +108,12 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -124,12 +125,12 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -138,9 +139,9 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
                 selectedBlock = value;
               });
             }),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             buildWorkStatusField(),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -156,27 +157,27 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
                     await mainGateFoundationWorkViewModel.fetchAllMainFoundation();
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
+                        SnackBar(
+                        content: Text('entry_added_successfully'.tr()),
                       ),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
+                        SnackBar(
                         content: Text('Please fill all the fields.'),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: const Text('Submit',
+                child:   Text('submit'.tr().tr(),
                     style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
@@ -190,9 +191,9 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Block No.",
+          Text('block_no'.tr(),
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           items: blocks.map((item) {
             return DropdownMenuItem(
@@ -201,7 +202,7 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
             );
           }).toList(),
           onChanged: onChanged,
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC69840))),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -214,9 +215,9 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text("Work Status",
+          Text('work_status'.tr(),
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         TextField(
           onChanged: (value) {
             setState(() {
@@ -224,7 +225,7 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
             });
           },
           maxLines: 3,
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC69840))),
             contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           ),

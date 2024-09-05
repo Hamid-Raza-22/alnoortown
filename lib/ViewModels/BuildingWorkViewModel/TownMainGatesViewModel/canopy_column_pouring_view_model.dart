@@ -1,6 +1,6 @@
 
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/canopy_column_pouring_model.dart';
-import 'package:al_noor_town/Repositories/BuildingWorkRepositories/TownMainGatesRepositorty/canopy_column_pouring_repository.dart';
+import 'package:al_noor_town/Repositories/BuildingWorkRepositories/TownMainGatesRepository/canopy_column_pouring_repository.dart';
 import 'package:get/get.dart';
 
 class CanopyColumnPouringViewModel extends GetxController {

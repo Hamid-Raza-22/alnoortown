@@ -1,15 +1,16 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Models/MaterialShiftingModels/shifting_work_model.dart';
 import 'package:al_noor_town/ViewModels/MaterialShiftingViewModel/material_shifting_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show Get, GetNavigation, Inst;
 import 'package:intl/intl.dart';
 
 import 'materialshiftingsummary.dart';
 
 class MaterialShiftingPage extends StatefulWidget {
-  const MaterialShiftingPage({super.key});
+    MaterialShiftingPage({super.key});
 
   @override
   MaterialShiftingPageState createState() => MaterialShiftingPageState();
@@ -53,7 +54,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(200.0),
+        preferredSize:   Size.fromHeight(200.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -90,11 +91,11 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Align(
+              Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
@@ -109,11 +110,11 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
               return Column(
                 children: [
                   buildContainer(index),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               );
             }),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             Center(
               child: FloatingActionButton(
                 onPressed: () {
@@ -123,7 +124,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                 },
                 backgroundColor: Colors.transparent,
                 elevation: 0, // No shadow
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
+                child:   Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
               ),
             ),
           ],
@@ -137,28 +138,28 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
     TextEditingController shiftingController = TextEditingController(text: containerData["selectedShifting"].toString());
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(containerData),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "No. of Shifting",
+                  Text(
+                  'no_of_shifting'.tr(),
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
                 Row(
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.remove, color: Color(0xFFC69840)),
+                      icon:   Icon(Icons.remove),
                       onPressed: () {
                         setState(() {
                           if (containerData["selectedShifting"] > 0) {
@@ -198,7 +199,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -230,14 +231,14 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
+                  shape:   RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child:   Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -252,13 +253,13 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
       children: [
         Expanded(
           child: buildDropdownField(
-              "From Block", containerData, "selectedBlock", blocks
+              'from_block'.tr(), containerData, "selectedBlock", blocks
           ),
         ),
-        const SizedBox(width: 16),
+          SizedBox(width: 16),
         Expanded(
           child: buildDropdownField(
-              "To Block", containerData, "selectedStreet", streets
+              'to_block'.tr(), containerData, "selectedStreet", streets
           ),
         ),
       ],
@@ -271,9 +272,9 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -287,7 +288,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
               containerData[key] = value;
             });
           },
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),

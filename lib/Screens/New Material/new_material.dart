@@ -1,13 +1,14 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Models/NewMaterialModels/new_material_model.dart';
 import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 
 class NewMaterial extends StatefulWidget {
-  const NewMaterial({Key? key}) : super(key: key);
+    NewMaterial({Key? key}) : super(key: key);
 
   @override
   _NewMaterialState createState() => _NewMaterialState();
@@ -49,7 +50,7 @@ class _NewMaterialState extends State<NewMaterial> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(180.0),
+        preferredSize:   Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -58,7 +59,7 @@ class _NewMaterialState extends State<NewMaterial> {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration:   BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/dumper.png'),
                     fit: BoxFit.fitHeight,
@@ -71,14 +72,14 @@ class _NewMaterialState extends State<NewMaterial> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding:   EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
-            const Center(
+              SizedBox(height: 20),
+              Center(
               child: Text(
-                'New Material',
+                'new_material'.tr(),
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
               ),
             ),
@@ -87,11 +88,11 @@ class _NewMaterialState extends State<NewMaterial> {
               return Column(
                 children: [
                   buildContainer(index),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               );
             }),
-            const SizedBox(height: 16),
+              SizedBox(height: 16),
             Center(
               child: FloatingActionButton(
                 onPressed: () {
@@ -101,7 +102,7 @@ class _NewMaterialState extends State<NewMaterial> {
                 },
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
+                child:   Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
               ),
             ),
           ],
@@ -114,23 +115,23 @@ class _NewMaterialState extends State<NewMaterial> {
     var containerData = containerDataList[index];
 
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildLabelsAndFields(index, containerData, ["Sand", "Soil"]),
-            const SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData, ["Base", "Sub Base"]),
-            const SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData, ["Water Bound"]),
-            const SizedBox(height: 16),
+            buildLabelsAndFields(index, containerData, ['sand'.tr(), "Soil"]),
+              SizedBox(height: 16),
+            buildLabelsAndFields(index, containerData, ['base'.tr(), "Sub Base"]),
+              SizedBox(height: 16),
+            buildLabelsAndFields(index, containerData, ['water_bound'.tr()]),
+              SizedBox(height: 16),
             buildOtherMaterialField(index, containerData),
-            const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -163,14 +164,14 @@ class _NewMaterialState extends State<NewMaterial> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
+                  shape:   RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child:   Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -196,14 +197,14 @@ class _NewMaterialState extends State<NewMaterial> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+          Text(
           "Other Material",
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFC69840)),
+            border: Border.all(color:   Color(0xFFC69840)),
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: Row(
@@ -216,18 +217,18 @@ class _NewMaterialState extends State<NewMaterial> {
                     });
                   },
                   decoration: InputDecoration(
-                    hintText: 'Other Material',
+                    hintText: 'other_material'.tr(),
                     hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
                     border: InputBorder.none,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    contentPadding:   EdgeInsets.symmetric(horizontal: 8.0),
                   ),
-                  style: const TextStyle(color: Color(0xFFC69840)),
+                  style:   TextStyle(color: Color(0xFFC69840)),
                 ),
               ),
               Row(
                 children: [
                   IconButton(
-                    icon: const Icon(Icons.remove, color: Color(0xFFC69840)),
+                    icon:   Icon(Icons.remove, color: Color(0xFFC69840)),
                     onPressed: () {
                       setState(() {
                         if (containerData["otherMaterialValue"] > 0) {
@@ -238,10 +239,10 @@ class _NewMaterialState extends State<NewMaterial> {
                   ),
                   Text(
                     '${containerData["otherMaterialValue"] ?? 0}',
-                    style: const TextStyle(fontSize: 16, color: Color(0xFFC69840)),
+                    style:   TextStyle(fontSize: 16, color: Color(0xFFC69840)),
                   ),
                   IconButton(
-                    icon: const Icon(Icons.add, color: Color(0xFFC69840)),
+                    icon:   Icon(Icons.add, color: Color(0xFFC69840)),
                     onPressed: () {
                       setState(() {
                         containerData["otherMaterialValue"]++;
@@ -276,19 +277,19 @@ class _NewMaterialState extends State<NewMaterial> {
       children: [
         Text(
           label,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+          SizedBox(height: 8),
         Container(
           decoration: BoxDecoration(
-            border: Border.all(color: const Color(0xFFC69840)),
+            border: Border.all(color:   Color(0xFFC69840)),
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               IconButton(
-                icon: const Icon(Icons.remove, color: Color(0xFFC69840)),
+                icon:   Icon(Icons.remove, color: Color(0xFFC69840)),
                 onPressed: () {
                   setState(() {
                     if (containerData[fieldName] > 0) {
@@ -308,14 +309,14 @@ class _NewMaterialState extends State<NewMaterial> {
                       containerData[fieldName] = int.tryParse(newValue) ?? value;
                     });
                   },
-                  decoration: const InputDecoration(
+                  decoration:   InputDecoration(
                     border: InputBorder.none,
                   ),
-                  style: const TextStyle(fontSize: 14, color: Color(0xFFC69840)), // Reduced font size
+                  style:   TextStyle(fontSize: 14, color: Color(0xFFC69840)), // Reduced font size
                 ),
               ),
               IconButton(
-                icon: const Icon(Icons.add, color: Color(0xFFC69840)),
+                icon:   Icon(Icons.add, color: Color(0xFFC69840)),
                 onPressed: () {
                   setState(() {
                     containerData[fieldName]++;

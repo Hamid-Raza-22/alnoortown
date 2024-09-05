@@ -1,13 +1,14 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/walking_tracks_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/walking_tracks_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'WalkingTracksSummaryPage.dart'; // Import for custom input formatter
 
 class WalkingTracksWork extends StatefulWidget {
-  const WalkingTracksWork({super.key});
+    WalkingTracksWork({super.key});
 
   @override
   _WalkingTracksWorkState createState() => _WalkingTracksWorkState();
@@ -66,14 +67,14 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -85,7 +86,7 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
             },
           ),
         ],
-        title: const Text(
+        title:   Text(
           'Walking Tracks Work',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
@@ -104,12 +105,12 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                  const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -121,43 +122,43 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 14),
+      margin:   EdgeInsets.only(bottom: 14),
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildTextFieldRow("Type Of Work:", typeofwork),
             buildDatePickerRow(
-              "Start Date:",
+              'start_date'.tr(),
               selectedStartDate,
                   (date) => setState(() => selectedStartDate = date),
             ),
-            const SizedBox(height: 4),
+              SizedBox(height: 4),
             buildDatePickerRow(
-              "Expected Completion Date:",
+              'expected_completion_date'.tr(),
               selectedEndDate,
                   (date) => setState(() => selectedEndDate = date),
             ),
 
-            const SizedBox(height: 4),
-            const Text(
+              SizedBox(height: 4),
+              Text(
               "Walking Tracks Completion Status:",
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 4),
+              SizedBox(height: 4),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-            const SizedBox(height: 10),
+              SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -177,28 +178,28 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
                     await walkingTracksWorkViewModel.fetchAllWalking();
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Entry added successfully!'),
+                        SnackBar(
+                        content: Text('entry_added_successfully'.tr()),
                       ),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Please fill in all fields.'),
+                        SnackBar(
+                        content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
+                  backgroundColor:   Color(0xFFF3F4F6),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 12),
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 12),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child: const Text('Submit',
+                child:   Text('submit'.tr().tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
@@ -215,12 +216,12 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style:   TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 4),
+          SizedBox(height: 4),
         GestureDetector(
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -233,16 +234,16 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
           },
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding:   EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFC69840)),
+              border: Border.all(color:   Color(0xFFC69840)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               selectedDate != null
                   ? DateFormat('d MMM yyyy').format(selectedDate)
-                  : 'Select Date',
-              style: const TextStyle(
+                  : 'select_date'.tr(),
+              style:   TextStyle(
                 fontSize: 12,
                 color: Color(0xFFC69840),
               ),
@@ -259,19 +260,19 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style:   TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 4),
+          SizedBox(height: 4),
         TextField(
           controller: controller,
           keyboardType: TextInputType.text,
           inputFormatters: [
             FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z\s]')),
           ],
-          decoration: const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),
@@ -286,24 +287,24 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
     return Column(
       children: [
         RadioListTile<String>(
-          title: const Text(
-            'In Process',
+          title:   Text(
+            'in_process'.tr(),
             style: TextStyle(fontSize: 14),
           ),
-          value: 'In Process',
+          value: 'in_process'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title: const Text(
-            'Done',
+          title:   Text(
+            'done'.tr(),
             style: TextStyle(fontSize: 14),
           ),
-          value: 'Done',
+          value: "Done",
           groupValue: selectedStatus,
           onChanged: onChanged,
-          activeColor: const Color(0xFFC69840),
+          activeColor:   Color(0xFFC69840),
         ),
       ],
     );
