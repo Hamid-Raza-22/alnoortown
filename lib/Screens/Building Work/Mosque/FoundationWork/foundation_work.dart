@@ -99,7 +99,7 @@ class FoundationWorkState extends State<FoundationWork> {
           ),
         ],
         title:   Text(
-          'Mosque Foundation Work',
+          'foundation_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -239,7 +239,7 @@ class FoundationWorkState extends State<FoundationWork> {
             selectedBrickWorkStatus = value;
           });
         }),
-        buildStatusRow('mud_filling'.tr(), selectedMudFillingStatus, (value) {
+        buildStatusRow('mud_filling_work'.tr(), selectedMudFillingStatus, (value) {
           setState(() {
             selectedMudFillingStatus = value;
           });
@@ -260,7 +260,7 @@ class FoundationWorkState extends State<FoundationWork> {
         Text(title, style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
         Row(
           children: [
-            buildRadioButton("'in_process'.tr()", groupValue, onChanged),
+            buildRadioButton('in_process'.tr(), groupValue, onChanged),
             buildRadioButton('done'.tr(), groupValue, onChanged),
           ],
         ),

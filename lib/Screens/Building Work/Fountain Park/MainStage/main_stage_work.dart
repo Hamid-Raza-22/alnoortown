@@ -84,7 +84,7 @@ class _MainStageWorkState extends State<MainStageWork> {
           ),
         ],
         title:   Text(
-          'Main Stage Work',
+          'main_stage'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -141,7 +141,7 @@ class _MainStageWorkState extends State<MainStageWork> {
             ),
               SizedBox(height: 10),
               Text(
-              "Main Stage Work Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -258,7 +258,7 @@ class _MainStageWorkState extends State<MainStageWork> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

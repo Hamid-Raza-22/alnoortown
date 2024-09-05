@@ -97,7 +97,7 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
           ),
         ],
         title:   Text(
-          'First Floor Work',
+          'first_floor'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -237,7 +237,7 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
             selectedBrickWorkStatus = value;
           });
         }),
-        buildStatusRow('mud_filling'.tr(), selectedMudFillingStatus, (value) {
+        buildStatusRow('mud_filling_work'.tr(), selectedMudFillingStatus, (value) {
           setState(() {
             selectedMudFillingStatus = value;
           });

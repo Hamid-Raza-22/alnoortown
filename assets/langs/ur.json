@@ -179,7 +179,36 @@
   "profile": "پروفائل",
   "favorites": "پسندیدہ",
   "about": "کے بارے میں",
-  "log_out": "لاگ آوٹ"
+  "log_out": "لاگ آوٹ",
+
+  "walking_tracks_work_summary": "چلنے کے راستوں کے کام کا خلاصہ",
+  "type_of_work": "کام کی قسم",
+  "sitting_area_work_summary": "بیٹھنے کے علاقے کے کام کا خلاصہ",
+  "plantation_work_summary": "پودے لگانے کے کام کا خلاصہ",
+  "main_entrance_tiles_work_summary": "مرکزی داخلے کے ٹائلز کے کام کا خلاصہ",
+  "main_stage_work_summary": "مرکزی اسٹیج کے کام کا خلاصہ",
+  "grass_work_summary": "گھاس کے کام کا خلاصہ",
+  "monuments_work_summary": "یادگاروں کے کام کا خلاصہ",
+  "road_sign_board_summary": "سڑک کے نشانی بورڈ کا خلاصہ",
+  "left": "بائیں",
+  "right": "دائیں",
+  "roads_edging_summary": "سڑکوں کے کنارے کا خلاصہ",
+  "water_supply_back_filling": "پانی کی فراہمی کے پچھلے بھرنے کا خلاصہ",
+  "roads_water_supply_summary": "سڑکوں کی پانی کی فراہمی کا خلاصہ",
+  "curbstones_work_summary": "کرپ اسٹونز کے کام کا خلاصہ",
+  "main_gate_foundation_summary": "مرکزی گیٹ کی بنیاد کا خلاصہ",
+  "main_gate_grey_structure_summary": "مرکزی گیٹ کے خاکی ڈھانچے کا خلاصہ",
+  "canopy_column_pouring_summary": "چھتری کے ستون ڈالنے کا خلاصہ",
+  "poles_excavation_work": "پولز کی کھدائی کا کام",
+  "no_of_poles_excavation": "پولز کی کھدائی کی تعداد",
+  "no_of_poles": "پولز کی تعداد",
+
+  "sand_compaction_summary": "ریت کی کمپیکشن کا خلاصہ",
+  "soil_compaction_summary": "مٹی کی کمپیکشن کا خلاصہ",
+  "base_sub_base_compaction_summary": "بنیادی اور ذیلی بنیاد کی کمپیکشن کا خلاصہ",
+  "compaction_after_water_bound_summary": "پانی کے بعد کمپیکشن کا خلاصہ"
 }
+
+
 
 

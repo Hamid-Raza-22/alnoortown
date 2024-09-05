@@ -26,7 +26,7 @@ class _MainEntranceTilesWorkSummaryState extends State<MainEntranceTilesWorkSumm
           },
         ),
         title:   Text(
-          'Main Entrance Tiles Work Summary',
+          'main_entrance_tiles_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

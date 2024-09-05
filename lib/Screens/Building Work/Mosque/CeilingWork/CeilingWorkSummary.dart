@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 class CeilingWorkSummary extends StatelessWidget {
   final CeilingWorkViewModel ceilingWorkViewModel = Get.put(CeilingWorkViewModel());
   //final List<Map<String, dynamic>> containerDataList;
- // const CeilingWorkSummary({super.key, required this.containerDataList});
+ // CeilingWorkSummary({super.key, required this.containerDataList});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CeilingWorkSummary extends StatelessWidget {
           },
         ),
         title:   Text(
-          'Ceiling Work Summary',
+          'ceiling_work_summary',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -44,9 +44,9 @@ class CeilingWorkSummary extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Expanded(child: _buildHeaderCell("Block No")),
-                    Expanded(child: _buildHeaderCell("Status")),
-                    Expanded(child: _buildHeaderCell("Date")),
+                    Expanded(child: _buildHeaderCell('block_no'.tr())),
+                    Expanded(child: _buildHeaderCell('status'.tr())),
+                    Expanded(child: _buildHeaderCell('date'.tr())),
                     Expanded(child: _buildHeaderCell("Time")),
                   ],
                 ),

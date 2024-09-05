@@ -85,7 +85,7 @@ class _MonumentsWorkState extends State<MonumentsWork> {
           ),
         ],
         title:   Text(
-          'Monuments Work',
+          'monuments_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -142,7 +142,7 @@ class _MonumentsWorkState extends State<MonumentsWork> {
             ),
               SizedBox(height: 4),
               Text(
-              "Monuments Work Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -260,7 +260,7 @@ class _MonumentsWorkState extends State<MonumentsWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr(),  style: TextStyle(fontSize: 14),),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

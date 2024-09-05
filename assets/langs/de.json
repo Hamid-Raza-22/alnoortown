@@ -179,8 +179,36 @@
   "profile": "Profil",
   "favorites": "Favoriten",
   "about": "Über",
-  "log_out": "Abmelden"
+  "log_out": "Abmelden",
+
+  "walking_tracks_work_summary": "Zusammenfassung der Arbeiten an Gehwegen",
+  "type_of_work": "Arbeitsart",
+  "sitting_area_work_summary": "Zusammenfassung der Arbeiten im Sitzbereich",
+  "plantation_work_summary": "Zusammenfassung der Pflanzarbeiten",
+  "main_entrance_tiles_work_summary": "Zusammenfassung der Fliesenarbeiten am Haupteingang",
+  "main_stage_work_summary": "Zusammenfassung der Arbeiten an der Hauptbühne",
+  "grass_work_summary": "Zusammenfassung der Rasenarbeiten",
+  "monuments_work_summary": "Zusammenfassung der Denkmalsarbeiten",
+  "road_sign_board_summary": "Zusammenfassung der Straßenschildarbeiten",
+  "left": "Links",
+  "right": "Rechts",
+  "roads_edging_summary": "Zusammenfassung der Straßenränder",
+  "water_supply_back_filling": "Zusammenfassung der Wasserversorgung Auffüllung",
+  "roads_water_supply_summary": "Zusammenfassung der Wasserversorgung der Straßen",
+  "curbstones_work_summary": "Zusammenfassung der Bordsteinarbeiten",
+  "main_gate_foundation_summary": "Zusammenfassung der Fundamente des Haupttors",
+  "main_gate_grey_structure_summary": "Zusammenfassung der grauen Struktur des Haupttors",
+  "canopy_column_pouring_summary": "Zusammenfassung der Überdachungssäulen Gießen",
+  "poles_excavation_work": "Arbeiten zur Polgrabung",
+  "no_of_poles_excavation": "Anzahl der Pfahlgrabungen",
+  "no_of_poles": "Anzahl der Pfähle",
+
+  "sand_compaction_summary": "Zusammenfassung der Sandverdichtung",
+  "soil_compaction_summary": "Zusammenfassung der Bodenverdichtung",
+  "base_sub_base_compaction_summary": "Zusammenfassung der Basis- und Unterbasisverdichtung",
+  "compaction_after_water_bound_summary": "Zusammenfassung der Verdichtung nach Wasserbindung"
 }
+
 
 
 

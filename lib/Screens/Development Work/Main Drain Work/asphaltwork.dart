@@ -252,7 +252,7 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
         ),
         RadioListTile<String>(
           title: Text('done'.tr()),  // This was already correct
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: containerData["status"],
           onChanged: (value) {
             setState(() {

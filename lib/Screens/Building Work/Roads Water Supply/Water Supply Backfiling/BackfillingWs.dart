@@ -92,7 +92,7 @@ class _BackfillingWsState extends State<BackfillingWs> {
           ),
         ],
         title:   Text(
-          'Water Supply Back Filing',
+          'water_supply_back_filling'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -144,7 +144,7 @@ class _BackfillingWsState extends State<BackfillingWs> {
               SizedBox(height: 16),
             buildTextFieldRow('road_no'.tr(), roadNoController),
               SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedRoadSide, ["Left", "Right"], (value) { // Dropdown for Road Side
+            buildDropdownRow('road_side'.tr(), selectedRoadSide, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {
                 selectedRoadSide = value;
               });
@@ -165,7 +165,7 @@ class _BackfillingWsState extends State<BackfillingWs> {
             ),
               SizedBox(height: 16),
               Text(
-              "Water Supply Back Filing Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -341,7 +341,7 @@ class _BackfillingWsState extends State<BackfillingWs> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),

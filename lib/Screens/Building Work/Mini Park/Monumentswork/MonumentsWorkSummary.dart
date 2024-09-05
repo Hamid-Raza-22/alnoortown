@@ -26,7 +26,7 @@ class _MonumentsWorkSummaryState extends State<MonumentsWorkSummary> {
           },
         ),
         title:   Text(
-          'Monuments Work Summary',
+          'monuments_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

@@ -26,7 +26,7 @@ class _MainStageWorkSummaryState extends State<MainStageWorkSummary> {
           },
         ),
         title:   Text(
-          'Main Stage Work Summary',
+          'main_stage_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

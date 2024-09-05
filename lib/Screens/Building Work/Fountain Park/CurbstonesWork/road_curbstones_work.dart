@@ -140,7 +140,7 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
             ),
               SizedBox(height: 4),
              Text(
-              'curbstones_completion_status'.tr(),
+              'status'.tr(),
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -263,7 +263,7 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr(),  style: TextStyle(fontSize: 14),),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

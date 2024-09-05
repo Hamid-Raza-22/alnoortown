@@ -90,7 +90,7 @@ class _BaseSubBaseState extends State<BaseSubBase> {
           ),
         ],
         title:   Text(
-          'BaseSubBase Compaction Work',
+          'base_sub_base_compaction'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -335,7 +335,7 @@ class _BaseSubBaseState extends State<BaseSubBase> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),

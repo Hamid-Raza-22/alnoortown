@@ -2,7 +2,7 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/first_floor
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
+
 
 class FirstFloorSummaryPage extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
@@ -27,7 +27,7 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
           },
         ),
         title:   Text(
-          'First Floor Summary',
+          'first_floor_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -96,7 +96,7 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
               Divider(color: Color(0xFFC69840), thickness: 1.0),
             _buildDataCell('brick_work'.tr(), data["brickWorkStatus"] ?? "N/A"),
               Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell('mud_filling'.tr(), data["mudFillingStatus"] ?? "N/A"),
+            _buildDataCell('mud_filling_work'.tr(), data["mudFillingStatus"] ?? "N/A"),
               Divider(color: Color(0xFFC69840), thickness: 1.0),
             _buildDataCell('plaster_work'.tr(), data["plasterWorkStatus"] ?? "N/A"),
               Divider(color: Color(0xFFC69840), thickness: 1.0),
@@ -127,7 +127,7 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
         Expanded(
           child: Text(
             text ?? "N/A",
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 12,
               color: Color(0xFF000000),
             ),

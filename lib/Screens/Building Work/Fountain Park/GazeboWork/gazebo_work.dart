@@ -3,7 +3,6 @@ import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/gazebo_
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/gazebo_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
 
 import 'GazeboWorkSummary.dart';
 
@@ -85,7 +84,7 @@ class _GazeboWorkState extends State<GazeboWork> {
           ),
         ],
         title:   Text(
-          'Gazebo Work',
+          'gazebo_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -130,7 +129,7 @@ class _GazeboWorkState extends State<GazeboWork> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildDatePickerRow(
-              "Start Date:",
+              "start_date".tr(),
               selectedStartDate,
                   (date) => setState(() => selectedStartDate = date),
             ),
@@ -142,7 +141,7 @@ class _GazeboWorkState extends State<GazeboWork> {
             ),
               SizedBox(height: 10),
               Text(
-              "Gazebo Work Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -260,7 +259,7 @@ class _GazeboWorkState extends State<GazeboWork> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

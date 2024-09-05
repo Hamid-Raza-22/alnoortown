@@ -129,7 +129,7 @@ class _PolesState extends State<Poles> {
             buildBlockStreetRow(containerData),
               SizedBox(height: 16),
               Text(
-              "No. of Poles",
+              "no_of_poles".tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
               SizedBox(height: 8),

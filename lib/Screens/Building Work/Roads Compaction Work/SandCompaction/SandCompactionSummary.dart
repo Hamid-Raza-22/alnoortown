@@ -25,7 +25,7 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
           },
         ),
         title:   Text(
-          'Sand Compaction Summary',
+          'sand_compaction_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

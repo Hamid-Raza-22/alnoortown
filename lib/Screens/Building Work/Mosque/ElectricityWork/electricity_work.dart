@@ -95,7 +95,7 @@ class ElectricityWorkState extends State<ElectricityWork> {
           ),
         ],
         title:   Text(
-          'Electricity Work',
+          'electricity_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -147,7 +147,7 @@ class ElectricityWorkState extends State<ElectricityWork> {
             }),
               SizedBox(height: 16),
               Text(
-              "Electricity Work Status:",
+              "electricity_work_status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -250,7 +250,7 @@ class ElectricityWorkState extends State<ElectricityWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

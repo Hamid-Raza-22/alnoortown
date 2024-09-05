@@ -6,7 +6,7 @@ import 'drawer_screen.dart'; // Import your drawer screen
 import 'dart:ui' as ui;
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
               child: Column(
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       color: Color(0xFFC69840),
                       borderRadius: BorderRadius.only(
                         bottomRight: Radius.circular(50),
@@ -74,13 +74,13 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                     ),
                     child: Column(
                       children: [
-                        const SizedBox(height: 50),
+                        SizedBox(height: 50),
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          padding: EdgeInsets.symmetric(horizontal: 30),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
-                              const SizedBox(width: 10), // Space between text and timer
+                              SizedBox(width: 10), // Space between text and timer
                               Obx(() {
                                 return Text(
                                   controller.formattedDurationString.value,
@@ -93,27 +93,27 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 30)
+                        SizedBox(height: 30)
                       ],
                     ),
                   ),
                   Container(
-                    color: const Color(0xFFC69840),
+                    color: Color(0xFFC69840),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-                      decoration: const BoxDecoration(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(topLeft: Radius.circular(200)),
                       ),
                       child: Column(
                         children: [
-                          const SizedBox(height: 100),
+                          SizedBox(height: 100),
                           GridView.count(
                             crossAxisCount: 2,
                             crossAxisSpacing: 20,
                             mainAxisSpacing: 20,
                             shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
+                            physics: NeverScrollableScrollPhysics(),
                             children: <Widget>[
                               buildCard(context, 'assets/images/development_work.png', 'development_work'.tr(), '/development'),
                               buildCard(context, 'assets/images/material_shifting.png', 'material_shifting'.tr(), '/materialShifting'),
@@ -125,10 +125,10 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 160),
+                  SizedBox(height: 160),
                   Container(
                     color: Colors.transparent,
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     child: Obx(() {
                       return ElevatedButton.icon(
                         onPressed: () async {
@@ -136,14 +136,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         },
                         icon: Icon(
                           controller.isClockedIn.value ? Icons.timer_off : Icons.timer,
-                          color: const Color(0xFFC69840),
+                          color: Color(0xFFC69840),
                         ),
                         label: Text(
                           controller.isClockedIn.value ? 'clock_out'.tr() : 'clock_in'.tr(),
-                          style: const TextStyle(fontSize: 14),
+                          style: TextStyle(fontSize: 14),
                         ),
                         style: ElevatedButton.styleFrom(
-                          foregroundColor: const Color(0xFFC69840),
+                          foregroundColor: Color(0xFFC69840),
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -194,7 +194,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   color: Colors.grey.withOpacity(0.3),
                   spreadRadius: 3,
                   blurRadius: 5,
-                  offset: const Offset(0, 3),
+                  offset: Offset(0, 3),
                 ),
               ],
             ),
@@ -219,11 +219,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                         width: 120,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    SizedBox(height: 8),
                     Text(
                       name,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: const Color(0xFFC69840),
+                        color: Color(0xFFC69840),
                         fontWeight: FontWeight.bold,
                       ),
                     ),

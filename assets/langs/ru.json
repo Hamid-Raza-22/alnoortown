@@ -179,8 +179,36 @@
   "profile": "Профиль",
   "favorites": "Избранное",
   "about": "О приложении",
-  "log_out": "Выйти"
+  "log_out": "Выйти",
+
+  "walking_tracks_work_summary": "Резюме работ по пешеходным дорожкам",
+  "type_of_work": "Тип работы",
+  "sitting_area_work_summary": "Резюме работ в зоне отдыха",
+  "plantation_work_summary": "Резюме работ по посадке растений",
+  "main_entrance_tiles_work_summary": "Резюме работ по укладке плитки на главном входе",
+  "main_stage_work_summary": "Резюме работ на главной сцене",
+  "grass_work_summary": "Резюме работ по озеленению",
+  "monuments_work_summary": "Резюме работ по памятникам",
+  "road_sign_board_summary": "Резюме работ по дорожным знакам",
+  "left": "Лево",
+  "right": "Право",
+  "roads_edging_summary": "Резюме работ по обрамлению дорог",
+  "water_supply_back_filling": "Резюме работ по засыпке водоснабжения",
+  "roads_water_supply_summary": "Резюме водоснабжения дорог",
+  "curbstones_work_summary": "Резюме работ по бордюрам",
+  "main_gate_foundation_summary": "Резюме фундамента главных ворот",
+  "main_gate_grey_structure_summary": "Резюме серой структуры главных ворот",
+  "canopy_column_pouring_summary": "Резюме работ по заливке колонн навеса",
+  "poles_excavation_work": "Работы по раскопке столбов",
+  "no_of_poles_excavation": "Количество раскопок столбов",
+  "no_of_poles": "Количество столбов",
+
+  "sand_compaction_summary": "Резюме уплотнения песка",
+  "soil_compaction_summary": "Резюме уплотнения почвы",
+  "base_sub_base_compaction_summary": "Резюме уплотнения основания и подосновы",
+  "compaction_after_water_bound_summary": "Резюме уплотнения после связывания водой"
 }
+
 
 
 

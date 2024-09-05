@@ -1,6 +1,7 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/tanker_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/tanker_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
@@ -9,7 +10,7 @@ import 'package:wave/wave.dart';
 import 'package:wave/config.dart';
 
 class WaterTanker extends StatefulWidget {
-  const WaterTanker({super.key});
+  WaterTanker({super.key});
 
   @override
   _WaterTankerState createState() => _WaterTankerState();
@@ -50,7 +51,7 @@ class _WaterTankerState extends State<WaterTanker>  {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(180.0),
+        preferredSize: Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -59,7 +60,7 @@ class _WaterTankerState extends State<WaterTanker>  {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/truck-01.png'),
                     fit: BoxFit.fitHeight,
@@ -72,12 +73,12 @@ class _WaterTankerState extends State<WaterTanker>  {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 1),
-            const Align(
+            SizedBox(height: 1),
+            Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
@@ -92,11 +93,11 @@ class _WaterTankerState extends State<WaterTanker>  {
               return Column(
                 children: [
                   buildContainer(index),
-                  const SizedBox(height: 16),
+                  SizedBox(height: 16),
                 ],
               );
             }),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             Center(
               child: FloatingActionButton(
                 onPressed: () {
@@ -106,7 +107,7 @@ class _WaterTankerState extends State<WaterTanker>  {
                 },
                 backgroundColor: Colors.transparent,
                 elevation: 0, // No shadow
-                child: const Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
+                child: Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
               ),
             ),
           ],
@@ -124,22 +125,22 @@ class _WaterTankerState extends State<WaterTanker>  {
     return Stack(
       children: [
         Card(
-          margin: const EdgeInsets.only(bottom: 16),
+          margin: EdgeInsets.only(bottom: 16),
           elevation: 3,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           color: Colors.white,
           child: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: EdgeInsets.all(20.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildBlockStreetRow(containerData),
-                const SizedBox(height: 16),
-                const Text(
+                SizedBox(height: 16),
+                Text(
                   "No. of Tankers",
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
-                const SizedBox(height: 8),
+                SizedBox(height: 8),
                 DropdownButtonFormField<int>(
                   value: containerData["selectedTankers"],
                   items: List.generate(10, (index) => index + 1).map((number) {
@@ -153,14 +154,14 @@ class _WaterTankerState extends State<WaterTanker>  {
                       containerData["selectedTankers"] = value;
                     });
                   },
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(color: Color(0xFFC69840)),
                     ),
                     contentPadding: EdgeInsets.symmetric(horizontal: 8),
                   ),
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: 20),
                 Center(
                   child: ElevatedButton(
                     onPressed: () async {
@@ -188,14 +189,14 @@ class _WaterTankerState extends State<WaterTanker>  {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFF3F4F6),
-                      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                      textStyle: const TextStyle(fontSize: 14),
-                      shape: const RoundedRectangleBorder(
+                      backgroundColor: Color(0xFFF3F4F6),
+                      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      textStyle: TextStyle(fontSize: 14),
+                      shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.zero,
                       ),
                     ),
-                    child: const Text('Submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                    child: Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
                   ),
                 ),
               ],
@@ -222,13 +223,13 @@ class _WaterTankerState extends State<WaterTanker>  {
       children: [
         Expanded(
           child: buildDropdownField(
-              "Block No.", containerData, "selectedBlock", blocks
+              'block_no'.tr(), containerData, "selectedBlock", blocks
           ),
         ),
-        const SizedBox(width: 16),
+        SizedBox(width: 16),
         Expanded(
           child: buildDropdownField(
-              "Street No.", containerData, "selectedStreet", streets
+              'street_no'.tr(), containerData, "selectedStreet", streets
           ),
         ),
       ],
@@ -241,9 +242,9 @@ class _WaterTankerState extends State<WaterTanker>  {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -257,7 +258,7 @@ class _WaterTankerState extends State<WaterTanker>  {
               containerData[key] = value;
             });
           },
-          decoration: const InputDecoration(
+          decoration: InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),
@@ -272,7 +273,7 @@ class _WaterTankerState extends State<WaterTanker>  {
 class WaterLoadingWidget extends StatelessWidget {
   final bool isFilled;
 
-  const WaterLoadingWidget({super.key, required this.isFilled});
+  WaterLoadingWidget({super.key, required this.isFilled});
 
   @override
   Widget build(BuildContext context) {
@@ -287,12 +288,12 @@ class WaterLoadingWidget extends StatelessWidget {
           ],
           durations: [35000, 19440, 10800],
           heightPercentages: isFilled ? [0.30, 0.32, 0.34] : [0.0, 0.0, 0.0],
-          blur: const MaskFilter.blur(BlurStyle.solid, 10),
+          blur: MaskFilter.blur(BlurStyle.solid, 10),
           gradientBegin: Alignment.bottomLeft,
           gradientEnd: Alignment.topRight,
         ),
         waveAmplitude: 0,
-        size: const Size(double.infinity, double.infinity),
+        size: Size(double.infinity, double.infinity),
       ),
     );
   }

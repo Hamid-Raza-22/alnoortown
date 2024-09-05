@@ -90,7 +90,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
           ),
         ],
         title:   Text(
-          'Soil Compaction Work',
+          'soil_compaction'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -332,7 +332,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),

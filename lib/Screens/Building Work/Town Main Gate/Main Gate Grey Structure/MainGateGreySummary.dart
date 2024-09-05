@@ -22,7 +22,7 @@ class MainGateGreyStructureSummary extends StatelessWidget {
           },
         ),
         title:   Text(
-          'Main Gate Grey Structure Summary',
+          'main_gate_grey_structure_summary'.tr(),
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,

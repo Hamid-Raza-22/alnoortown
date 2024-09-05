@@ -85,7 +85,7 @@ class _PlantationWorkmpState extends State<PlantationWorkmp> {
           ),
         ],
         title:   Text(
-          'Plantation Work',
+          'plantation_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -142,7 +142,7 @@ class _PlantationWorkmpState extends State<PlantationWorkmp> {
             ),
               SizedBox(height: 4),
               Text(
-              "Plantation Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -260,7 +260,7 @@ class _PlantationWorkmpState extends State<PlantationWorkmp> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr(),  style: TextStyle(fontSize: 14),),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

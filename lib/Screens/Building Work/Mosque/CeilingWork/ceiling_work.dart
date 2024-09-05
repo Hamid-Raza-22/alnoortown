@@ -74,7 +74,7 @@ class CeilingWorkState extends State<CeilingWork> {
           ),
         ],
         title:   Text(
-          'Ceiling Work',
+          'ceiling_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -125,7 +125,7 @@ class CeilingWorkState extends State<CeilingWork> {
             }),
               SizedBox(height: 16),
               Text(
-              "Ceiling Work Status:",
+              "ceiling_work_status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -229,7 +229,7 @@ class CeilingWorkState extends State<CeilingWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

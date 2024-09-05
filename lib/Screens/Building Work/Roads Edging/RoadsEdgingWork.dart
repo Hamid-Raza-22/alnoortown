@@ -92,7 +92,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
           ),
         ],
         title:   Text(
-          'Roads Edging Work',
+          'roads_edging_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -144,7 +144,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
               SizedBox(height: 16),
             buildTextFieldRow('road_no'.tr(), roadNoController),
               SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedRoadSide, ["Left", "Right"], (value) { // Dropdown for Road Side
+            buildDropdownRow('road_side'.tr(), selectedRoadSide, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {
                 selectedRoadSide = value;
               });
@@ -342,7 +342,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),

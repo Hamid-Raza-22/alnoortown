@@ -86,7 +86,7 @@ class GrassWorkState extends State<GrassWork> {
           ),
         ],
         title:   Text(
-          'Grass Work',
+          'grass_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -143,7 +143,7 @@ class GrassWorkState extends State<GrassWork> {
             ),
               SizedBox(height: 4),
               Text(
-              "Grass Work Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -260,7 +260,7 @@ class GrassWorkState extends State<GrassWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr(),  style: TextStyle(fontSize: 14),),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

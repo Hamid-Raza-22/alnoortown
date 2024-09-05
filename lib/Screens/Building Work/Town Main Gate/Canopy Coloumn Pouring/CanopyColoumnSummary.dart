@@ -22,7 +22,7 @@ class CanopyColoumnsummary extends StatelessWidget {
           },
         ),
         title:   Text(
-          'Main Gate Plaster Summary',
+          'canopy_column_pouring_summary'.tr(),
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,

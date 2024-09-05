@@ -123,7 +123,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
             buildBlockStreetRow(containerData),
               SizedBox(height: 16),
               Text(
-              "Total Length",
+              "total_length".tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
               SizedBox(height: 8),
@@ -248,7 +248,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: containerData["status"],
           onChanged: (value) {
             setState(() {

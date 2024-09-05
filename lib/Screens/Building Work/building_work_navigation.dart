@@ -316,8 +316,8 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     ];
 
     List<String> roadsWaterSupplyNames = [
-      "watersfirst",
-      "backfillingWs",
+      'roads_water_supply_work'.tr(),
+      'water_supply_back_filling'.tr(),
     ];
 
     List<IconData> roadsWaterSupplyIcons = [

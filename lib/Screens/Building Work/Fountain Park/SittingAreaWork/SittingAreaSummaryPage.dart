@@ -21,7 +21,7 @@ class SittingAreaSummaryPage extends StatelessWidget {
           },
         ),
         title:   Text(
-          'Sitting Area Work Summary',
+          'sitting_area_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -37,7 +37,7 @@ class SittingAreaSummaryPage extends StatelessWidget {
                 child: DataTable(
                   columns:   [
                     DataColumn(
-                        label: Text('Type of Work',
+                        label: Text('type_of_work'.tr(),
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -49,7 +49,7 @@ class SittingAreaSummaryPage extends StatelessWidget {
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFFC69840)))),
                     DataColumn(
-                        label: Text('Completion Date',
+                        label: Text('end_date'.tr(),
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,

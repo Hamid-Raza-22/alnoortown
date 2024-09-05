@@ -3,7 +3,7 @@ import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/mud_fil
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/mud_filling_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
+
 import 'MudfillingSummaryPage.dart';
 
 class MudFillingWork extends StatefulWidget {
@@ -290,7 +290,7 @@ class MudFillingWorkState extends State<MudFillingWork> {
         ),
         RadioListTile<String>(
           title: Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

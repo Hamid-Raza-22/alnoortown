@@ -26,7 +26,7 @@ class _WaterBoundSummaryState extends State<WaterBoundSummary> {
           },
         ),
         title:   Text(
-          'Compaction After WaterBound Summary',
+          'compaction_after_water_bound_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

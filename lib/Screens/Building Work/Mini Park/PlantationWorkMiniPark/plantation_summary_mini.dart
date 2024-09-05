@@ -26,7 +26,7 @@ class _Plantation_Mini_SummaryState extends State<Plantation_Mini_Summary> {
           },
         ),
         title:   Text(
-          'Plantation Work Summary',
+          'plantation_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

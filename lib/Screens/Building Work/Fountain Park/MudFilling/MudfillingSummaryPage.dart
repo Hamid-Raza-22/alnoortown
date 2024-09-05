@@ -25,7 +25,7 @@ class _MudfillingSummaryPageState extends State<MudfillingSummaryPage> {
           },
         ),
         title:   Text(
-          'Mud Filling Work Summary',
+          'mud_filling_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

@@ -87,7 +87,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
           ),
         ],
         title:   Text(
-          'Sitting Area Work',
+          'sitting_area_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -131,7 +131,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildTextFieldRow("Type Of Work:", typeofwork),
+            buildTextFieldRow('type_of_work'.tr(), typeofwork),
             buildDatePickerRow(
               'start_date'.tr(),
               selectedStartDate,
@@ -145,7 +145,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
             ),
               SizedBox(height: 10),
               Text(
-              "Sitting Area Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -294,7 +294,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

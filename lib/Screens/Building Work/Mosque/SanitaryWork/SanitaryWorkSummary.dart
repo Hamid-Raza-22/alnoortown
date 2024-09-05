@@ -8,7 +8,7 @@ class SanitaryWorkSummary extends StatelessWidget {
   final SanitaryWorkViewModel sanitaryWorkViewModel = Get.put(SanitaryWorkViewModel());
   // final List<Map<String, dynamic>> containerDataList;
   //
-  // const SanitaryWorkSummary({super.key, required this.containerDataList});
+  // SanitaryWorkSummary({super.key, required this.containerDataList});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class SanitaryWorkSummary extends StatelessWidget {
           },
         ),
         title:   Text(
-          'Sanitary Work Summary',
+          'sanitary_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

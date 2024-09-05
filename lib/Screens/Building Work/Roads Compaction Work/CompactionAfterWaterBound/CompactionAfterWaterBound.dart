@@ -90,7 +90,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
           ),
         ],
         title:   Text(
-          'Compaction After WaterBound',
+          'compaction_after_water_bound'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -281,7 +281,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
             width: double.infinity,
             padding:   EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xFFC69840)),
+              border: Border.all(color: Color(0xFFC69840)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
@@ -333,7 +333,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),

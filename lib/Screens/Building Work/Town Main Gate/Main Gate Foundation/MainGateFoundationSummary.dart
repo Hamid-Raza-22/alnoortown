@@ -22,7 +22,7 @@ class MainGateFoundationSummary extends StatelessWidget {
           },
         ),
         title:   Text(
-          'Main Gate Plaster Summary',
+          'main_gate_foundation_summary'.tr(),
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
@@ -69,7 +69,7 @@ class MainGateFoundationSummary extends StatelessWidget {
                             borderRadius: BorderRadius.circular(15),
                           ),
                           title: Text(
-                            'Work Status | ${data[0]}',
+                            '${'work_status'.tr()} | ${data[0]}',
                             style:   TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                           ),
                           content: SingleChildScrollView(

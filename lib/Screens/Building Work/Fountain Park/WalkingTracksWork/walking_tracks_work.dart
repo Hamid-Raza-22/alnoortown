@@ -87,7 +87,7 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
           ),
         ],
         title:   Text(
-          'Walking Tracks Work',
+          'walking_tracks_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -131,7 +131,7 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildTextFieldRow("Type Of Work:", typeofwork),
+            buildTextFieldRow("type_of_work".tr(), typeofwork),
             buildDatePickerRow(
               'start_date'.tr(),
               selectedStartDate,
@@ -146,7 +146,7 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
 
               SizedBox(height: 4),
               Text(
-              "Walking Tracks Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -301,7 +301,7 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
             'done'.tr(),
             style: TextStyle(fontSize: 14),
           ),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

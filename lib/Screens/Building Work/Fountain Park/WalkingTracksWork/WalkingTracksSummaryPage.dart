@@ -25,7 +25,7 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
           },
         ),
         title:   Text(
-          'Walking Tracks Work Summary',
+          'walking_tracks_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -41,7 +41,7 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
                 child: DataTable(
                   columns:   [
                     DataColumn(
-                        label: Text('Type of Work',
+                        label: Text("type_of_work".tr(),
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -53,7 +53,7 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
                                 fontWeight: FontWeight.bold,
                                 color: Color(0xFFC69840)))),
                     DataColumn(
-                        label: Text('Completion Date',
+                        label: Text('end_date'.tr(),
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,

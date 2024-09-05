@@ -146,7 +146,7 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
               SizedBox(height: 16),
             buildPlotNumberRow(),
               SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedRoadSide, ["Left", "Right"], (value) {
+            buildDropdownRow('road_side'.tr(), selectedRoadSide, ['left'.tr(), 'right'.tr()], (value) {
               setState(() {
                 selectedRoadSide = value;
               });
@@ -307,7 +307,7 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),

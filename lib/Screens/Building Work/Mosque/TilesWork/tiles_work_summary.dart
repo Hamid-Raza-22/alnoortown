@@ -28,7 +28,7 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
           },
         ),
         title:   Text(
-          'Tiles Work Summary',
+          'tiles_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

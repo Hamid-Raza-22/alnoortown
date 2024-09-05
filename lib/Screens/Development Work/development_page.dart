@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/light_wires_work.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../Building Work/Mosque/MosqueExcavationWork/mosque_excavation_work.dart';
@@ -694,7 +695,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                   ),
                                     SizedBox(height: 5),
                                     Text(
-                                    'Main drain'.tr(),
+                                    'main_drain_excavation'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,

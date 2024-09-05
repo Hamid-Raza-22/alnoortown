@@ -23,7 +23,7 @@ class CurbstonesWorkSummary extends StatelessWidget {
           },
         ),
         title:   Text(
-          'Curbstones Work Summary',
+          'curbstones_work_summary'.tr(),
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,

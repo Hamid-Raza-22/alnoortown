@@ -147,7 +147,7 @@ class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
             ),
               SizedBox(height: 4),
               Text(
-              "Curbstones Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.bold,
@@ -272,7 +272,7 @@ class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
             'done'.tr(),
             style: TextStyle(fontSize: 14),
           ),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

@@ -28,7 +28,7 @@ class _PaintWorkSummaryState extends State<PaintWorkSummary> {
           },
         ),
         title:   Text(
-          'Paint Work Summary',
+          'paint_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

@@ -179,8 +179,36 @@
   "profile": "الملف الشخصي",
   "favorites": "المفضلة",
   "about": "حول",
-  "log_out": "تسجيل الخروج"
+  "log_out": "تسجيل الخروج",
+
+  "walking_tracks_work_summary": "ملخص عمل مسارات المشي",
+  "type_of_work": "نوع العمل",
+  "sitting_area_work_summary": "ملخص عمل منطقة الجلوس",
+  "plantation_work_summary": "ملخص عمل الزراعة",
+  "main_entrance_tiles_work_summary": "ملخص عمل بلاط المدخل الرئيسي",
+  "main_stage_work_summary": "ملخص عمل المرحلة الرئيسية",
+  "grass_work_summary": "ملخص عمل العشب",
+  "monuments_work_summary": "ملخص عمل النصب التذكارية",
+  "road_sign_board_summary": "ملخص عمل لوحات إشارات الطريق",
+  "left": "يسار",
+  "right": "يمين",
+  "roads_edging_summary": "ملخص عمل حواف الطرق",
+  "water_supply_back_filling": "ملخص عمل ملء المياه الخلفي",
+  "roads_water_supply_summary": "ملخص إمدادات المياه للطرق",
+  "curbstones_work_summary": "ملخص عمل حواجز الأرصفة",
+  "main_gate_foundation_summary": "ملخص أساس البوابة الرئيسية",
+  "main_gate_grey_structure_summary": "ملخص هيكل البوابة الرئيسية الرمادية",
+  "canopy_column_pouring_summary": "ملخص صب أعمدة السقف",
+  "poles_excavation_work": "عمل حفر الأعمدة",
+  "no_of_poles_excavation": "عدد حفر الأعمدة",
+  "no_of_poles": "عدد الأعمدة",
+  "sand_compaction_summary": "ملخص ضغط الرمال",
+  "soil_compaction_summary": "ملخص ضغط التربة",
+  "base_sub_base_compaction_summary": "ملخص ضغط الأساس والقاعدة الفرعية",
+  "compaction_after_water_bound_summary": "ملخص الضغط بعد الارتباط بالماء"
 }
+
+
 
 
 

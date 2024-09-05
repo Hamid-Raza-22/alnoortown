@@ -25,7 +25,7 @@ class _BaseSubBaseCompactionSummaryState extends State<BaseSubBaseCompactionSumm
           },
         ),
         title:   Text(
-          'BaseSubBase Compaction Summary',
+          'base_sub_base_compaction_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

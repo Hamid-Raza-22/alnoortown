@@ -18,7 +18,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
           ),
           title: Text(
             'select_language'.tr(),
-            style: const TextStyle(
+            style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
@@ -28,13 +28,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
             child: ListView(
               shrinkWrap: true,
               children: [
-                _buildLanguageTile('Urdu', 'اردو', const Locale('ur')),
-                _buildLanguageTile('French', 'Français', const Locale('fr')),
-                _buildLanguageTile('Russian', 'Русский', const Locale('ru')),
-                _buildLanguageTile('Chinese', '中文', const Locale('zh')),
-                _buildLanguageTile('Arabic', 'العربية', const Locale('ar')),
-                _buildLanguageTile('English', 'English', const Locale('en')),
-                _buildLanguageTile('German', 'Deutsch', const Locale('de')),
+                _buildLanguageTile('Urdu', 'اردو', Locale('ur')),
+                _buildLanguageTile('French', 'Français', Locale('fr')),
+                _buildLanguageTile('Russian', 'Русский', Locale('ru')),
+                _buildLanguageTile('Chinese', '中文', Locale('zh')),
+                _buildLanguageTile('Arabic', 'العربية', Locale('ar')),
+                _buildLanguageTile('English', 'English', Locale('en')),
+                _buildLanguageTile('German', 'Deutsch', Locale('de')),
               ],
             ),
           ),
@@ -49,9 +49,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
         children: [
           Text(
             languageName,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          const SizedBox(width: 10),
+          SizedBox(width: 10),
           Text(
             "($nativeName)",
             style: TextStyle(color: Colors.grey[600]),
@@ -84,9 +84,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
     ];
 
     return Container(
-      color: const Color(0xFFC69840),
+      color: Color(0xFFC69840),
       child: Padding(
-        padding: const EdgeInsets.only(top: 50, left: 40, bottom: 70),
+        padding: EdgeInsets.only(top: 50, left: 40, bottom: 70),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -95,16 +95,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 CircleAvatar(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: const Image(
+                    child: Image(
                       fit: BoxFit.cover,
                       image: AssetImage('assets/images/splashscreen.png'),
                     ),
                   ),
                 ),
-                const SizedBox(height: 120, width: 10),
+                SizedBox(height: 120, width: 10),
                 Text(
                   'menu'.tr(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
@@ -121,7 +121,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       icon: rowData['icon'],
                       onTap: rowData['onTap'],
                     ),
-                    const SizedBox(height: 20),
+                    SizedBox(height: 20),
                   ],
                 );
               }).toList(),
@@ -132,7 +132,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                   Icons.logout,
                   color: Colors.white.withOpacity(0.5),
                 ),
-                const SizedBox(width: 10),
+                SizedBox(width: 10),
                 Text(
                   'log_out'.tr(),
                   style: TextStyle(color: Colors.white.withOpacity(0.5)),
@@ -152,7 +152,7 @@ class NewRow extends StatelessWidget {
   final String text;
   final VoidCallback? onTap;
 
-  const NewRow({
+  NewRow({
     Key? key,
     required this.icon,
     required this.text,
@@ -169,10 +169,10 @@ class NewRow extends StatelessWidget {
             icon,
             color: Colors.white,
           ),
-          const SizedBox(width: 20),
+          SizedBox(width: 20),
           Text(
             text,
-            style: const TextStyle(color: Colors.white),
+            style: TextStyle(color: Colors.white),
           ),
         ],
       ),

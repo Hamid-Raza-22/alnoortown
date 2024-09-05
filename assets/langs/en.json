@@ -101,7 +101,7 @@
   "mini_parks": "Mini Parks",
   "roads_compaction_work": "Roads Compaction Work",
   "roads_edging_work": "Roads Edging Work",
-  "roads_shoulders_work": "Roads Shoulders Work",
+
   "roads_water_supply_work": "Roads Water Supply Work",
   "roads_sign_boards": "Roads Sign Boards",
   "roads_curbstones_work": "Roads Curbstones Work",
@@ -133,7 +133,7 @@
   "sand_compaction": "Sand Compaction",
   "soil_compaction": "Soil Compaction",
   "base_sub_base_compaction": "Base & Sub base compaction",
-  "compaction_after_water_bound": "Compaction after Water Bound",
+
   "pipe_laying":"Pipe Laying",
   "excavation_completion_status": "Excavation Completion Status",
   "date": "Date",
@@ -157,8 +157,14 @@
   "profile": "Profile",
   "favorites": "Favorites",
   "about": "About",
-  "log_out": "Log out"
+  "log_out": "Log out",
+
+  "sand_compaction_summary": "Sand Compaction Summary",
+  "soil_compaction_summary": "Soil Compaction Summary",
+  "base_sub_base_compaction_summary": "Base & Sub-base Compaction Summary",
+  "compaction_after_water_bound_summary": "Compaction After Water Bound Summary"
 }
+
 
 
 

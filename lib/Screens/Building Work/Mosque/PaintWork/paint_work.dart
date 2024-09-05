@@ -95,7 +95,7 @@ class PaintWorkState extends State<PaintWork>{
           ),
         ],
         title:   Text(
-          'Paint Work',
+          'paint_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -146,7 +146,7 @@ class PaintWorkState extends State<PaintWork>{
             }),
               SizedBox(height: 16),
               Text(
-              "Paint Work Status:",
+              "paint_work".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -247,7 +247,7 @@ class PaintWorkState extends State<PaintWork>{
         ),
         RadioListTile<String>(
           title:   Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

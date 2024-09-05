@@ -29,7 +29,7 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
           },
         ),
         title:   Text(
-          'Doors Work Summary',
+          'doors_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

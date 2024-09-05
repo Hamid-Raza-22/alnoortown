@@ -103,7 +103,7 @@ class DoorsWorkState extends State<DoorsWork> {
           ),
         ],
         title:   Text(
-          'Doors Work',
+          'doors_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -154,7 +154,7 @@ class DoorsWorkState extends State<DoorsWork> {
             }),
               SizedBox(height: 16),
               Text(
-              "Doors Work Status:",
+              "doors_work_status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -258,7 +258,7 @@ class DoorsWorkState extends State<DoorsWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

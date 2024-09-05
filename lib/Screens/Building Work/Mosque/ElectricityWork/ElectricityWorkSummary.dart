@@ -29,7 +29,7 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
           },
         ),
         title:   Text(
-          'Electricity Work Summary',
+          'electricity_work_summary',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,

@@ -3,7 +3,6 @@ import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/main_en
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/main_entrance_tiles_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
 
 import 'MainEntranceTilesWorkSummary.dart';
 
@@ -35,29 +34,6 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('MainEntranceTilesWorkDataList'); // Updated key
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('MainEntranceTilesWorkDataList', json.encode(containerDataList)); // Updated key
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
-  //   return {
-  //     "startDate": startDate?.toIso8601String(),
-  //     "endDate": endDate?.toIso8601String(),
-  //     "status": status,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +61,7 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
           ),
         ],
         title:   Text(
-          'Main Entrance Tiles Work',
+          'main_entrance_tiles_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -142,7 +118,7 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
             ),
               SizedBox(height: 10),
               Text(
-              "Main Entrance Tiles Work Completion Status:",
+              "status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -259,7 +235,7 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

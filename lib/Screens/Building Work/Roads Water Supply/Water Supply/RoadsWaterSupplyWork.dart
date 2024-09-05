@@ -145,7 +145,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
               SizedBox(height: 16),
             buildTextFieldRow('road_no'.tr(), roadNoController),
               SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedRoadSide, ["Left", "Right"], (value) { // Dropdown for Road Side
+            buildDropdownRow('road_side'.tr(), selectedRoadSide, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {
                 selectedRoadSide = value;
               });
@@ -342,7 +342,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
         ),
         RadioListTile<String>(
           title:  Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
         ),

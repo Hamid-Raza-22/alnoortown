@@ -26,7 +26,7 @@ class _GrassWorkSummaryState extends State<GrassWorkSummary> {
           },
         ),
         title:   Text(
-          'Grass Work Summary',
+          'gras_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

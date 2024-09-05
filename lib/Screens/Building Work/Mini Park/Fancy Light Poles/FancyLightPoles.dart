@@ -84,7 +84,7 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
           ),
         ],
         title:   Text(
-          ' Fancy Light Poles',
+          'fancy_light_poles'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -259,7 +259,7 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr(),  style: TextStyle(fontSize: 14),),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

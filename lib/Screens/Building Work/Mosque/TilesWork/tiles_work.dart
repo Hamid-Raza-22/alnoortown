@@ -93,7 +93,7 @@ class TilesWorkState extends State<TilesWork> {
           ),
         ],
         title:   Text(
-          'Tiles Work',
+          'tiles_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -144,7 +144,7 @@ class TilesWorkState extends State<TilesWork> {
             }),
               SizedBox(height: 16),
               Text(
-              "Tiles Work Status:",
+                'status'.tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -246,7 +246,7 @@ class TilesWorkState extends State<TilesWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

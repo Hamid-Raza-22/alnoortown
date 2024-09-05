@@ -175,8 +175,35 @@
   "profile": "个人资料",
   "favorites": "收藏",
   "about": "关于",
-  "log_out": "退出登录"
+  "log_out": "退出登录",
+
+  "walking_tracks_work_summary": "步道工作总结",
+  "type_of_work": "工作类型",
+  "sitting_area_work_summary": "休息区工作总结",
+  "plantation_work_summary": "植被工作总结",
+  "main_entrance_tiles_work_summary": "主入口瓷砖工作总结",
+  "main_stage_work_summary": "主舞台工作总结",
+  "grass_work_summary": "草坪工作总结",
+  "monuments_work_summary": "纪念碑工作总结",
+  "road_sign_board_summary": "道路标志板工作总结",
+  "left": "左",
+  "right": "右",
+  "roads_edging_summary": "道路边缘工作总结",
+  "water_supply_back_filling": "供水回填总结",
+  "roads_water_supply_summary": "道路供水总结",
+  "curbstones_work_summary": "路缘石工作总结",
+  "main_gate_foundation_summary": "主门基础总结",
+  "main_gate_grey_structure_summary": "主门灰色结构总结",
+  "canopy_column_pouring_summary": "顶篷柱浇筑总结",
+  "poles_excavation_work": "杆基开挖工作",
+  "no_of_poles_excavation": "开挖杆的数量",
+  "no_of_poles": "杆的数量",
+  "sand_compaction_summary": "砂压实总结",
+  "soil_compaction_summary": "土壤压实总结",
+  "base_sub_base_compaction_summary": "基础及次级基础压实总结",
+  "compaction_after_water_bound_summary": "水结后压实总结"
 }
+
 
 
 

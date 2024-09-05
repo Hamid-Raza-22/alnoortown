@@ -62,7 +62,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/shiftingworkimg.png'),
                     fit: BoxFit.fitHeight,
@@ -174,7 +174,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                         controller: shiftingController,
                         keyboardType: TextInputType.number,
                         textAlign: TextAlign.center,
-                        decoration: const InputDecoration(
+                        decoration: InputDecoration(
                           border: OutlineInputBorder(),
                           contentPadding: EdgeInsets.symmetric(horizontal: 8),
                         ),
@@ -186,7 +186,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(Icons.add, color: Color(0xFFC69840)),
+                      icon: Icon(Icons.add, color: Color(0xFFC69840)),
                       onPressed: () {
                         setState(() {
                           containerData["selectedShifting"]++;

@@ -95,7 +95,7 @@ class _SanitaryWorkState extends State<SanitaryWork> {
           ),
         ],
         title:   Text(
-          'Sanitary Work',
+          'sanitary_work'.tr(),
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
@@ -145,7 +145,7 @@ class _SanitaryWorkState extends State<SanitaryWork> {
             }),
               SizedBox(height: 16),
               Text(
-              "Sanitary Work Status:",
+                'sanitary_work'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
               SizedBox(height: 8),
@@ -228,7 +228,7 @@ class _SanitaryWorkState extends State<SanitaryWork> {
         ),
         RadioListTile<String>(
           title:   Text('done'.tr()),
-          value: "Done",
+          value: 'done'.tr(),
           groupValue: selectedStatus,
           onChanged: onChanged,
           activeColor:   Color(0xFFC69840),

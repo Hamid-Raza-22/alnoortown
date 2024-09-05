@@ -14,11 +14,11 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Material Shifting Summary'),
-        backgroundColor: const Color(0xFFC69840),
+        title: Text('Material Shifting Summary'),
+        backgroundColor: Color(0xFFC69840),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, // 3 columns for headers + data
@@ -31,11 +31,11 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
             if (index < 3) {
               // Header Row
               return Container(
-                color: const Color(0xFFC69840),
+                color: Color(0xFFC69840),
                 alignment: Alignment.center,
                 child: Text(
                   ['From Block', 'To Block', 'Shifts'][index],
-                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
               );
             } else {
@@ -51,12 +51,12 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
                 ];
 
                 return Container(
-                  padding: const EdgeInsets.all(8.0),
-                  color: columnIndex % 2 == 0 ? Colors.white : const Color(0xFFEFEFEF),
+                  padding: EdgeInsets.all(8.0),
+                  color: columnIndex % 2 == 0 ? Colors.white : Color(0xFFEFEFEF),
                   alignment: Alignment.center,
                   child: Text(
                     data[columnIndex],
-                    style: const TextStyle(fontSize: 14.0),
+                    style: TextStyle(fontSize: 14.0),
                     overflow: TextOverflow.ellipsis, // Handle overflow
                     maxLines: 1, // Limit to one line
                   ),

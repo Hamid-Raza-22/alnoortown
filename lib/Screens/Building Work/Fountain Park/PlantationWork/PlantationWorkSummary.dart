@@ -26,7 +26,7 @@ class _PlantationWorkSummaryState extends State<PlantationWorkSummary> {
           },
         ),
         title:   Text(
-          'Plantation Work Summary',
+          'plantation_work_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
@@ -38,7 +38,7 @@ class _PlantationWorkSummaryState extends State<PlantationWorkSummary> {
           scrollDirection: Axis.horizontal,
           child: DataTable(
             columnSpacing: 16.0,
-            headingRowColor: MaterialStateProperty.all(  Color(0xFFC69840)),
+            headingRowColor: WidgetStateProperty.all(  Color(0xFFC69840)),
             border:   TableBorder(
               horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
               verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),

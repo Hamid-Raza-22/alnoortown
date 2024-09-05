@@ -1,6 +1,8 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class MachinesSummary extends StatelessWidget {
+
   final List<Map<String, dynamic>> machineDataList = [
     {"blockNo": "Block A", "streetNo": "Street 1", "machine": "Excavator", "date": "01 Sep 2024", "time": "10:00 AM"},
     {"blockNo": "Block B", "streetNo": "Street 2", "machine": "Bulldozer", "date": "01 Sep 2024", "time": "11:00 AM"},
@@ -25,8 +27,8 @@ class MachinesSummary extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
-          'Machines Summary',
+        title: Text(
+          'machines_summary'.tr(),
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,

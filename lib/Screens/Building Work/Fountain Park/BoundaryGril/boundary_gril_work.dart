@@ -4,7 +4,7 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewMo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
-import 'BoundaryGrillWorkSummary.dart';
+import 'boundary_grill_work_summary.dart';
 
 class BoundaryGrillWork extends StatefulWidget {
     BoundaryGrillWork({super.key});
@@ -87,7 +87,7 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
           ),
         ],
         title:   Text(
-          'Boundary Grill Work',
+          'boundary_grill_work'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

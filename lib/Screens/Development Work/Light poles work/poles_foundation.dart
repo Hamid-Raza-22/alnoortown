@@ -80,7 +80,7 @@ class PolesFoundationState extends State<PolesFoundation> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'Poles Excavation Work ',
+                  'poles_excavation_work'.tr(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -129,7 +129,7 @@ class PolesFoundationState extends State<PolesFoundation> {
             buildBlockStreetRow(containerData),
               SizedBox(height: 16),
               Text(
-              "No. of Poles Excavation",
+              "no_of_poles_excavation".tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
               SizedBox(height: 8),

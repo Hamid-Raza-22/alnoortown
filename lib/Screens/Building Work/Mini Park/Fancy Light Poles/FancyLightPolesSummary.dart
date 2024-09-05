@@ -25,7 +25,7 @@ class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
           },
         ),
         title:   Text(
-          'Fancy Light Poles Summary',
+          'fancy_light_poles_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

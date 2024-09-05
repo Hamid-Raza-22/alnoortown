@@ -179,8 +179,37 @@
   "profile": "Profil",
   "favorites": "Favoris",
   "about": "À propos",
-  "log_out": "Déconnexion"
+  "log_out": "Déconnexion",
+
+  "walking_tracks_work_summary": "Résumé des travaux des pistes piétonnes",
+  "type_of_work": "Type de travail",
+  "sitting_area_work_summary": "Résumé des travaux de la zone assise",
+  "plantation_work_summary": "Résumé des travaux de plantation",
+  "main_entrance_tiles_work_summary": "Résumé des travaux de carrelage de l'entrée principale",
+  "main_stage_work_summary": "Résumé des travaux de la scène principale",
+  "grass_work_summary": "Résumé des travaux d'herbe",
+  "monuments_work_summary": "Résumé des travaux des monuments",
+  "road_sign_board_summary": "Résumé des panneaux de signalisation",
+  "left": "Gauche",
+  "right": "Droite",
+  "roads_edging_summary": "Résumé des bordures de route",
+  "water_supply_back_filling": "Résumé du remplissage arrière de l'approvisionnement en eau",
+  "roads_water_supply_summary": "Résumé de l'approvisionnement en eau des routes",
+  "curbstones_work_summary": "Résumé des travaux des bordures",
+  "main_gate_foundation_summary": "Résumé des fondations du portail principal",
+  "main_gate_grey_structure_summary": "Résumé de la structure grise du portail principal",
+  "canopy_column_pouring_summary": "Résumé du coulage des colonnes du toit",
+  "poles_excavation_work": "Travaux d'excavation des poteaux",
+  "no_of_poles_excavation": "Nombre d'excavations de poteaux",
+  "no_of_poles": "Nombre de poteaux",
+
+  "sand_compaction_summary": "Résumé du compactage du sable",
+  "soil_compaction_summary": "Résumé du compactage du sol",
+  "base_sub_base_compaction_summary": "Résumé du compactage de la base et sous-base",
+  "compaction_after_water_bound_summary": "Résumé du compactage après liaison à l'eau"
 }
+
+
 
 
 

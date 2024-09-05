@@ -26,7 +26,7 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
           },
         ),
         title:   Text(
-          'Roads Edging Summary',
+          'roads_edging_summary'.tr(),
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),

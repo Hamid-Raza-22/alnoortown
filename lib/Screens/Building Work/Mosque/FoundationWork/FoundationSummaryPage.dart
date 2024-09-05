@@ -28,7 +28,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
           },
         ),
         title:   Text(
-          'Foundation Work Summary',
+          'foundation_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
               Divider(color: Color(0xFFC69840), thickness: 1.0),
             _buildDataCell('brick_work'.tr(), data["brickWorkStatus"] ?? "N/A"),
               Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell('mud_filling'.tr(), data["mudFillingStatus"] ?? "N/A"),
+            _buildDataCell('mud_filling_work'.tr(), data["mudFillingStatus"] ?? "N/A"),
               Divider(color: Color(0xFFC69840), thickness: 1.0),
             _buildDataCell('plaster_work'.tr(), data["plasterWorkStatus"] ?? "N/A"),
               Divider(color: Color(0xFFC69840), thickness: 1.0),

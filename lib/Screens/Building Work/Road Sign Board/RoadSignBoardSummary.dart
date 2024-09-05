@@ -19,7 +19,7 @@ class RoadSignBoardSummary extends StatelessWidget {
           },
         ),
         title:   Text(
-          'Road Sign Board Summary',
+          'road_sign_board_summary'.tr(),
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
@@ -32,8 +32,8 @@ class RoadSignBoardSummary extends StatelessWidget {
           columns:   [
             DataColumn(label: Text('block_no'.tr())),
             DataColumn(label: Text('road_no'.tr())),
-            DataColumn(label: Text('From Plot')),
-            DataColumn(label: Text('To Plot')),
+            DataColumn(label: Text('from_plot'.tr())),
+            DataColumn(label: Text('to_plot'.tr())),
             DataColumn(label: Text('road_side'.tr())),
             DataColumn(label: Text('status'.tr())),
             DataColumn(label: Text('date'.tr())),
