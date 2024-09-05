@@ -687,7 +687,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/Excavation.png',
+                                    'assets/images/maindrain-01.png',
                                     height: 80,
                                     width: 80,
                                   ),
