@@ -206,8 +206,6 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
                   ),
                 ),
               ),
-
-
             ),
           ],
         ),
