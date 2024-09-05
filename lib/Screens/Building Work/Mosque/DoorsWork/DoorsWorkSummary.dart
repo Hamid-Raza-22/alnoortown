@@ -6,15 +6,15 @@ import 'package:intl/intl.dart';
 import '../../../../ViewModels/BuildingWorkViewModel/Mosque/door_work_view_model.dart';
 
 class DoorsWorkSummary extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
 
-    DoorsWorkSummary({super.key, required this.containerDataList});
+
+    DoorsWorkSummary({super.key});
 
   @override
-  State<DoorsWorkSummary> createState() => _DoorsWorkSummaryState();
+  State<DoorsWorkSummary> createState() => DoorsWorkSummaryState();
 }
 
-class _DoorsWorkSummaryState extends State<DoorsWorkSummary> {
+class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
   final DoorWorkViewModel doorWorkViewModel = Get.put(DoorWorkViewModel());
   @override
   Widget build(BuildContext context) {
