@@ -18,7 +18,7 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
         backgroundColor: const Color(0xFFC69840),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0), // Adjust padding for better spacing
+        padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, // 3 columns for headers + data

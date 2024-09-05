@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, GetNavigation, Inst;
 import 'package:intl/intl.dart';
-
 import 'materialshiftingsummary.dart';
 
 class MaterialShiftingPage extends StatefulWidget {
