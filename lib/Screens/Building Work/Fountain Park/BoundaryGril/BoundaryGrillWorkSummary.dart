@@ -12,13 +12,13 @@ class BoundaryGrillWorkSummary extends StatefulWidget {
 }
 
 class _BoundaryGrillWorkSummaryState extends State<BoundaryGrillWorkSummary> {
-  final BoundaryGrillWorkViewModel boundaryGrillWorkViewModel = Get.put(BoundaryGrillWorkViewModel());
+   BoundaryGrillWorkViewModel boundaryGrillWorkViewModel = Get.put(BoundaryGrillWorkViewModel());
 
-  @override
-  void initState() {
-    super.initState();
-    boundaryGrillWorkViewModel.fetchAllBoundary(); // Fetch data on init
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //  // boundaryGrillWorkViewModel.fetchAllBoundary(); // Fetch data on init
+  // }
 
   @override
   Widget build(BuildContext context) {
