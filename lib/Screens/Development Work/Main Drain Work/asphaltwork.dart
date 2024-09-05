@@ -59,7 +59,7 @@ class _AsphaltWorkState extends State<AsphaltWork>  {
             height: double.infinity,
             decoration:   BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/truck-01.png'),
+                image: AssetImage('assets/images/rock-01.png'),
                 fit: BoxFit.fitHeight,
               ),
             ),

@@ -60,7 +60,7 @@ class _BrickWorkState extends State<BrickWork> {
                 height: double.infinity,
                 decoration:   BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/truck-01.png'),
+                    image: AssetImage('assets/images/curbstone.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),

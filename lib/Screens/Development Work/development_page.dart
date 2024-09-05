@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../Building Work/Mosque/MosqueExcavationWork/mosque_excavation_work.dart';
+import 'Light poles work/light_wires_work.dart';
 import 'Light poles work/poles.dart';
 import 'Light poles work/poles_foundation.dart';
 import 'Main Drain Work/asphaltwork.dart';
@@ -446,7 +447,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>   MosqueExcavationWork()),
+                                builder: (context) =>   LightWiresWork()),
                           );
                         },
                         child: Column(
@@ -520,7 +521,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/pol-01.png',
+                                    'assets/images/curbstone.png',
                                     height: 80,
                                     width: 80,
                                   ),
@@ -547,7 +548,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/polesssssss-01.png',
+                                    'assets/images/plasterrr-01.png',
                                     height: 80,
                                     width: 80,
                                   ),
@@ -574,7 +575,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/lightwire-01.png',
+                                    'assets/images/shuttringwork-01.png',
                                     height: 80,
                                     width: 80,
                                   ),
@@ -633,7 +634,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/Excavation.png',
+                                    'assets/images/slabsss-01.png',
                                     height: 80,
                                     width: 80,
                                   ),
@@ -660,7 +661,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                               child: Column(
                                 children: [
                                   Image.asset(
-                                    'assets/images/Excavation.png',
+                                    'assets/images/rock-01.png',
                                     height: 80,
                                     width: 80,
                                   ),
@@ -693,7 +694,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                   ),
                                     SizedBox(height: 5),
                                     Text(
-                                    'main_drain_excavation'.tr(),
+                                    'Main drain'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,

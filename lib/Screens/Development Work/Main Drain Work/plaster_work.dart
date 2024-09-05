@@ -59,7 +59,7 @@ class PlasterWorkState extends State<PlasterWork> {
                 height: double.infinity,
                 decoration:   BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/truck-01.png'),
+                    image: AssetImage('assets/images/plasterrr-01.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),

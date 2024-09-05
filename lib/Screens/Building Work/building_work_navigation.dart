@@ -85,9 +85,9 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
   ];
 
   List<String> imagePaths = [
-    "assets/images/road_maintenance.png",
-    "assets/images/sewerage_work.png",
-    "assets/images/light_poles_work.png",
+    "assets/images/mosquee-01.png",
+    "assets/images/waterfountain-01.png",
+    "assets/images/garden-01.png",
     "assets/images/maindrain_work.png",
     "assets/images/road_maintenance.png",
     "assets/images/sewerage_work.png",

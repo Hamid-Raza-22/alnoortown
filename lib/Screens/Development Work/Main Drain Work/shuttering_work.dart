@@ -59,7 +59,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
                 height: double.infinity,
                 decoration:   BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/truck-01.png'),
+                    image: AssetImage('assets/images/shuttringwork-01.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),

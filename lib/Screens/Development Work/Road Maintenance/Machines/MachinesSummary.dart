@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 class MachinesSummary extends StatelessWidget {
-
   final List<Map<String, dynamic>> machineDataList = [
-    {"blockNo": "Block A", "streetNo": "Street 1", "machine": "Excavator", "dateTime": "01 Sep 2024 | 10:00 AM"},
-    {"blockNo": "Block B", "streetNo": "Street 2", "machine": "Bulldozer", "dateTime": "01 Sep 2024 | 11:00 AM"},
-    {"blockNo": "Block C", "streetNo": "Street 3", "machine": "Crane", "dateTime": "01 Sep 2024 | 12:00 PM"},
-    {"blockNo": "Block D", "streetNo": "Street 4", "machine": "Loader", "dateTime": "01 Sep 2024 | 01:00 PM"},
+    {"blockNo": "Block A", "streetNo": "Street 1", "machine": "Excavator", "date": "01 Sep 2024", "time": "10:00 AM"},
+    {"blockNo": "Block B", "streetNo": "Street 2", "machine": "Bulldozer", "date": "01 Sep 2024", "time": "11:00 AM"},
+    {"blockNo": "Block C", "streetNo": "Street 3", "machine": "Crane", "date": "01 Sep 2024", "time": "12:00 PM"},
+    {"blockNo": "Block D", "streetNo": "Street 4", "machine": "Loader", "date": "01 Sep 2024", "time": "01:00 PM"},
   ];
 
-   MachinesSummary({super.key});
+  MachinesSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,63 +37,70 @@ class MachinesSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            crossAxisSpacing: 1.0,
-            mainAxisSpacing: 1.0,
-            childAspectRatio: 2.0,
-          ),
-          itemCount: machineDataList.length * 4 + 4,
-          itemBuilder: (context, index) {
-            if (index < 4) {
-              // Header Row
-              return Container(
-                color: const Color(0xFFC69840),
-                alignment: Alignment.center,
-                child: Text(
-                  ['Block No.', 'Street No.', 'Machine', 'Date & Time'][index],
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              );
-            } else {
-              final entryIndex = (index - 4) ~/ 4;
-              final column = (index - 4) % 4;
-
-              if (entryIndex < machineDataList.length) {
-                final entry = machineDataList[entryIndex];
-                final data = [
-                  entry['blockNo'] ?? 'N/A',
-                  entry['streetNo'] ?? 'N/A',
-                  entry['machine'] ?? 'N/A',
-                  entry['dateTime'] ?? 'N/A',
-                ];
-
-                return GestureDetector(
-                  onTap: () {
-                    // Add more detailed info or actions if necessary
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    color: column % 2 == 0 ? Colors.white : const Color(0xFFEFEFEF),
-                    alignment: Alignment.center,
-                    child: Text(
-                      data[column],
-                      style: const TextStyle(fontSize: 12.0),
-                      overflow: TextOverflow.ellipsis, // Handle overflow
-                      maxLines: 1, // Limit to one line
-                    ),
-                  ),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Column(
+            children: [
+              // Header row
+              Row(
+                children: [
+                  buildHeaderCell('Block No.'),
+                  buildHeaderCell('Street No.'),
+                  buildHeaderCell('Machine'),
+                  buildHeaderCell('Date'),
+                  buildHeaderCell('Time'),
+                ],
+              ),
+              const SizedBox(height: 10),
+              // Data rows
+              ...machineDataList.map((entry) {
+                return Row(
+                  children: [
+                    buildDataCell(entry['blockNo'] ?? 'N/A'),
+                    buildDataCell(entry['streetNo'] ?? 'N/A'),
+                    buildDataCell(entry['machine'] ?? 'N/A'),
+                    buildDataCell(entry['date'] ?? 'N/A'),
+                    buildDataCell(entry['time'] ?? 'N/A'),
+                  ],
                 );
-              }
-              return Container();
-            }
-          },
+              }).toList(),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  // Helper to build header cells
+  Widget buildHeaderCell(String text) {
+    return Container(
+      width: 120, // Adjust as needed
+      padding: const EdgeInsets.all(8.0),
+      color: const Color(0xFFC69840),
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+      ),
+    );
+  }
+
+  // Helper to build data cells
+  Widget buildDataCell(String text) {
+    return Container(
+      width: 120,
+      padding: const EdgeInsets.all(8.0),
+      color: Colors.white,
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 12.0),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
       ),
     );
   }

@@ -58,7 +58,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
             height: double.infinity,
             decoration:   BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/lightWire-01.png'),
+                image: AssetImage('assets/images/lightwire-01.png'),
                 fit: BoxFit.fitHeight,
               ),
             ),
