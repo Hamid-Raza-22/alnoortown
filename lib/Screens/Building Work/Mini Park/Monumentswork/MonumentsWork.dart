@@ -78,7 +78,7 @@ class _MonumentsWorkState extends State<MonumentsWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      MonumentsWorkSummary(containerDataList: containerDataList),
+                      MonumentsWorkSummary(),
                 ),
               );
             },

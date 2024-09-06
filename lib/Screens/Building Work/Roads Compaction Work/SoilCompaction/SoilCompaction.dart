@@ -83,7 +83,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      SoilCompactionSummary(containerDataList: containerDataList),
+                      SoilCompactionSummary(),
                 ),
               );
             },

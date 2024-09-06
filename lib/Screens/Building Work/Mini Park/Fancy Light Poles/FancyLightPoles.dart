@@ -77,7 +77,7 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      FancyLightPolesSummary(containerDataList: containerDataList),
+                      FancyLightPolesSummary(),
                 ),
               );
             },

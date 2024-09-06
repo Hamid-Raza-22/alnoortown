@@ -86,7 +86,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      RoadsWaterSupplySummary(containerDataList: containerDataList),
+                      RoadsWaterSupplySummary(),
                 ),
               );
             },

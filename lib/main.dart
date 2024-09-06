@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Screens/home_page.dart';
 import 'package:al_noor_town/Screens/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,11 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'Screens/Building Work/building_work_navigation.dart';
 import 'Screens/Development Work/development_page.dart';
-import 'Screens/home_page.dart';
 import 'Screens/Material Shifting/material_shifting.dart';
 import 'Screens/New Material/new_material.dart';
 import 'Screens/login_page.dart';
-import 'Screens/mainscreen.dart';
 import 'ViewModels/all_noor_view_model.dart';
 import 'firebase_options.dart';
 

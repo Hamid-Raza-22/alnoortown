@@ -83,7 +83,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      WaterBoundSummary(containerDataList: containerDataList),
+                      WaterBoundSummary(),
                 ),
               );
             },

@@ -54,7 +54,7 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainEntranceTilesWorkSummary(containerDataList: containerDataList),
+                  builder: (context) => MainEntranceTilesWorkSummary(),
                 ),
               );
             },

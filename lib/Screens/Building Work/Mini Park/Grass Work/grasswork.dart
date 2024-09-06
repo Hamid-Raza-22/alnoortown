@@ -79,7 +79,7 @@ class GrassWorkState extends State<GrassWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      GrassWorkSummary(containerDataList: containerDataList),
+                      GrassWorkSummary(),
                 ),
               );
             },

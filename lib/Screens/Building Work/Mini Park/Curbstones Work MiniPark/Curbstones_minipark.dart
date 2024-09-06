@@ -80,8 +80,7 @@ class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MiniParkCurbstonesSummary(
-                      containerDataList: containerDataList),
+                  builder: (context) => MiniParkCurbstonesSummary(),
                 ),
               );
             },

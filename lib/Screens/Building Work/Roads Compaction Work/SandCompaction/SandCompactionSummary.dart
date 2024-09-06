@@ -1,17 +1,18 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/sand_compaction_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' show  Get, Inst, Obx;
 import 'package:intl/intl.dart';
 
 class SandCompactionSummary extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
 
-    SandCompactionSummary({super.key, required this.containerDataList});
-
+    SandCompactionSummary({super.key,});
   @override
   State<SandCompactionSummary> createState() => _SandCompactionSummaryState();
 }
-
 class _SandCompactionSummaryState extends State<SandCompactionSummary> {
+  SandCompactionViewModel sandCompactionViewModel = Get.put(SandCompactionViewModel());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,8 +33,14 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(12.0),
-        child: SingleChildScrollView(
+          padding: EdgeInsets.all(16.0),
+          child: Obx(() {
+        // Use Obx to rebuild when the data changes
+        if (sandCompactionViewModel.allSand.isEmpty) {
+          return Center(
+              child: CircularProgressIndicator()); // Show loading indicator
+        }
+        return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: DataTable(
             columnSpacing: 12.0,
@@ -50,25 +57,26 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
               DataColumn(label: Text('date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('time'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
             ],
-            rows: widget.containerDataList.map((entry) {
-              DateTime? startDate = entry['startDate'] != null ? DateTime.parse(entry['startDate']) : null;
-              DateTime? endDate = entry['endDate'] != null ? DateTime.parse(entry['endDate']) : null;
-              String dumpers = entry['dumpers'] ?? 'N/A';
-              String status = entry['status'] ?? 'N/A';
-              DateTime? timestamp = entry['timestamp'] != null ? DateTime.parse(entry['timestamp']) : null;
-
+            rows: sandCompactionViewModel.allSand.map((entry) {
+              String startDate = entry.startDate != null
+                  ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                  : ''; // Show empty string if null
+              String expectedCompDate = entry.expectedCompDate != null
+                  ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                  : '';
               return DataRow(cells: [
-                DataCell(Text(startDate != null ? DateFormat('d MMM yyyy').format(startDate) : 'N/A')),
-                DataCell(Text(endDate != null ? DateFormat('d MMM yyyy').format(endDate) : 'N/A')),
-                DataCell(Text(dumpers)),
-                DataCell(Text(status)),
-                DataCell(Text(timestamp != null ? DateFormat('d MMM yyyy').format(timestamp) : 'N/A')),
-                DataCell(Text(timestamp != null ? DateFormat('h:mm a').format(timestamp) : 'N/A')),
+                DataCell(Text(startDate)),
+                DataCell(Text(expectedCompDate)),
+                DataCell(Text(entry.totalLength)),
+                DataCell(Text(entry.sandCompStatus)),
+                DataCell(Text(entry.date)),
+                DataCell(Text(entry.time)),
               ]);
             }).toList(),
           ),
-        ),
+        );
+        }
       ),
-    );
+    ));
   }
 }

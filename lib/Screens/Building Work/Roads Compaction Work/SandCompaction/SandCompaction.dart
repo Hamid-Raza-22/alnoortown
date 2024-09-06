@@ -83,7 +83,7 @@ class _SandCompactionState extends State<SandCompaction> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      SandCompactionSummary(containerDataList: containerDataList),
+                      SandCompactionSummary(),
                 ),
               );
             },

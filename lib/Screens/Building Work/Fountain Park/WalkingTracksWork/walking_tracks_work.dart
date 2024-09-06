@@ -80,7 +80,7 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      WalkingTracksSummaryPage(containerDataList: containerDataList),
+                      WalkingTracksSummaryPage(),
                 ),
               );
             },

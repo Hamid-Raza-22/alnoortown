@@ -78,7 +78,7 @@ class _PlantationWorkmpState extends State<PlantationWorkmp> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      Plantation_Mini_Summary(containerDataList: containerDataList),
+                      Plantation_Mini_Summary(),
                 ),
               );
             },

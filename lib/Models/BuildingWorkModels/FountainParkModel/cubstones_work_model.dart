@@ -1,7 +1,7 @@
 class CubStonesWorkModel{
   int? id;
-  DateTime? startDate;
-  DateTime? expectedCompDate;
+  dynamic startDate;
+  dynamic? expectedCompDate;
   String?  cubStonesCompStatus;
   dynamic date;
   dynamic time;

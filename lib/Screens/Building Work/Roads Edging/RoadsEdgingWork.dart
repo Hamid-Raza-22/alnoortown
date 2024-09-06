@@ -85,7 +85,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      RoadsEdgingSummary(containerDataList: containerDataList),
+                      RoadsEdgingSummary(),
                 ),
               );
             },

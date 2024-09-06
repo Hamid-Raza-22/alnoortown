@@ -77,7 +77,7 @@ class _PlantationWorkState extends State<PlantationWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      PlantationWorkSummary(containerDataList: containerDataList),
+                      PlantationWorkSummary(),
                 ),
               );
             },

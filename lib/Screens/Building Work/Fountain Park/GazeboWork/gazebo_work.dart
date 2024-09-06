@@ -77,7 +77,7 @@ class _GazeboWorkState extends State<GazeboWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => GazeboWorkSummary(containerDataList: containerDataList),
+                  builder: (context) => GazeboWorkSummary(),
                 ),
               );
             },

@@ -1,6 +1,9 @@
 
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/main_stage_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get_core/get_core.dart';
+import 'package:get/get_instance/get_instance.dart';
 import 'package:intl/intl.dart';
 
 class MainStageWorkSummary extends StatefulWidget {
@@ -13,6 +16,7 @@ class MainStageWorkSummary extends StatefulWidget {
 }
 
 class _MainStageWorkSummaryState extends State<MainStageWorkSummary> {
+  final MainStageWorkViewModel mainStageWorkViewModel = Get.put(MainStageWorkViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,18 +54,21 @@ class _MainStageWorkSummaryState extends State<MainStageWorkSummary> {
               DataColumn(label: Text('date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('time'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
             ],
-            rows: widget.containerDataList.map((entry) {
-              DateTime timestamp = DateTime.parse(entry['timestamp']);
+            rows: mainStageWorkViewModel.allStage.map((entry) {
+              // Format the DateTime objects to a readable string format
+              String startDate = entry.startDate != null
+                  ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                  : ''; // Show empty string if null
+
+              String expectedCompDate = entry.expectedCompDate != null
+                  ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                  : ''; // Show empty string if null
               return DataRow(cells: [
-                DataCell(Text(entry['startDate'] != null
-                    ? DateFormat('d MMM yyyy').format(DateTime.parse(entry['startDate']))
-                    : '')),
-                DataCell(Text(entry['endDate'] != null
-                    ? DateFormat('d MMM yyyy').format(DateTime.parse(entry['endDate']))
-                    : '')),
-                DataCell(Text(entry['status'] ?? '')),
-                DataCell(Text(DateFormat('d MMM yyyy').format(timestamp))), // Date
-                DataCell(Text(DateFormat('h:mm a').format(timestamp))), // Time
+                DataCell(Text(startDate)), // Formatted start date
+                DataCell(Text(expectedCompDate)), // Formatted expected completion date
+                DataCell(Text(entry.mainStageWorkCompStatus ?? '')), // Null check for status
+                DataCell(Text(entry.date ?? '')), // Display date as-is (assuming it's already formatted)
+                DataCell(Text(entry.time ?? '')), // Display time as-is (assuming it's already formatted)
               ]);
             }).toList(),
           ),

@@ -76,7 +76,7 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      CubstonesWorkSummary(containerDataList: containerDataList),
+                      CubstonesWorkSummary(),
                 ),
               );
             },

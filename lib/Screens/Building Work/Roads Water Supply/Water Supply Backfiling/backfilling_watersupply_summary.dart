@@ -1,18 +1,19 @@
 
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/back_filling_ws_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-class BackfilingWaterSupplySummary extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
+import 'package:get/get.dart' show  Get, Inst, Obx;
 
-    BackfilingWaterSupplySummary({super.key, required this.containerDataList});
+class BackFillingWaterSupplySummary extends StatefulWidget {
+    const BackFillingWaterSupplySummary({super.key});
 
   @override
-  State<BackfilingWaterSupplySummary> createState() => _BackfilingWaterSupplySummaryState();
+  State<BackFillingWaterSupplySummary> createState() => _BackFillingWaterSupplySummaryState();
 }
 
-class _BackfilingWaterSupplySummaryState extends State<BackfilingWaterSupplySummary> {
+class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySummary> {
+  BackFillingWsViewModel backFillingWsViewModel = Get.put(BackFillingWsViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,55 +21,64 @@ class _BackfilingWaterSupplySummaryState extends State<BackfilingWaterSupplySumm
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title:   Text(
           'roads_water_supply_summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(12.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: DataTable(
+        padding:   const EdgeInsets.all(12.0),
+          child: Obx(() {
+        // Use Obx to rebuild when the data changes
+        if (backFillingWsViewModel.allWsBackFilling.isEmpty) {
+            return const Center(child: CircularProgressIndicator()); // Show loading indicator
+    }
+
+             return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                 child: DataTable(
             columnSpacing: 12.0,
-            headingRowColor: MaterialStateProperty.all(  Color(0xFFC69840)),
-            border:   TableBorder(
+            headingRowColor: WidgetStateProperty.all(  const Color(0xFFC69840)),
+            border:  const TableBorder(
               horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
               verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
             ),
             columns:   [
-              DataColumn(label: Text('start_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('end_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('total_dumpers'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('status'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('time'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('start_date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('end_date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('total_dumpers'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('status'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('time'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
             ],
-            rows: widget.containerDataList.map((entry) {
-              DateTime? startDate = entry['startDate'] != null ? DateTime.parse(entry['startDate']) : null;
-              DateTime? endDate = entry['endDate'] != null ? DateTime.parse(entry['endDate']) : null;
-              String dumpers = entry['dumpers'] ?? 'N/A';
-              String status = entry['status'] ?? 'N/A';
-              DateTime? timestamp = entry['timestamp'] != null ? DateTime.parse(entry['timestamp']) : null;
+            rows: backFillingWsViewModel.allWsBackFilling.map((entry) {
+              // Format the DateTime objects to a readable string format
+              String startDate = entry.startDate != null
+                  ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                  : ''; // Show empty string if null
 
+              String expectedCompDate = entry.expectedCompDate != null
+                  ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                  : '';
               return DataRow(cells: [
-                DataCell(Text(startDate != null ? DateFormat('d MMM yyyy').format(startDate) : 'N/A')),
-                DataCell(Text(endDate != null ? DateFormat('d MMM yyyy').format(endDate) : 'N/A')),
-                DataCell(Text(dumpers)),
-                DataCell(Text(status)),
-                DataCell(Text(timestamp != null ? DateFormat('d MMM yyyy').format(timestamp) : 'N/A')),
-                DataCell(Text(timestamp != null ? DateFormat('h:mm a').format(timestamp) : 'N/A')),
+                DataCell(Text(startDate )),
+                DataCell(Text(expectedCompDate )),
+                DataCell(Text(entry.totalLength!)),
+                DataCell(Text(entry.waterSupplyBackFillingCompStatus!)),
+                DataCell(Text(entry.date !)),
+                DataCell(Text(entry.time !)),
               ]);
             }).toList(),
           ),
-        ),
+    );
+          }),
       ),
     );
   }

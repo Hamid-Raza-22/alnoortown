@@ -79,7 +79,7 @@ class MudFillingWorkState extends State<MudFillingWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      MudfillingSummaryPage(containerDataList: containerDataList),
+                      MudfillingSummaryPage(),
                 ),
               );
             },

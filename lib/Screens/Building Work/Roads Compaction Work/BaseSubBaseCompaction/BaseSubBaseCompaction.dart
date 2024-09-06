@@ -83,7 +83,7 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      BaseSubBaseCompactionSummary(containerDataList: containerDataList),
+                      BaseSubBaseCompactionSummary(),
                 ),
               );
             },
