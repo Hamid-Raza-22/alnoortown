@@ -4,20 +4,19 @@ import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_m
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart' show Get, Inst;
-import 'package:intl/intl.dart';
+import 'package:get/get.dart' show Get, GetNavigation, Inst;
+import 'new_material_summary.dart';
 
 class NewMaterial extends StatefulWidget {
-    NewMaterial({Key? key}) : super(key: key);
+  NewMaterial({super.key});
 
   @override
   _NewMaterialState createState() => _NewMaterialState();
 }
 
 class _NewMaterialState extends State<NewMaterial> {
-  NewMaterialViewModel newMaterialViewModel=Get.put(NewMaterialViewModel());
+  NewMaterialViewModel newMaterialViewModel = Get.put(NewMaterialViewModel());
   DBHelper dbHelper = DBHelper();
-  int? brickId;
   List<Map<String, dynamic>> containerDataList = [];
 
   @override
@@ -37,20 +36,24 @@ class _NewMaterialState extends State<NewMaterial> {
       "otherMaterialValue": 0,
     };
   }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
     return formatter.format(now);
-  }  String _getFormattedTime() {
+  }
+
+  String _getFormattedTime() {
     final now = DateTime.now();
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize:   Size.fromHeight(180.0),
+        preferredSize: const Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -59,7 +62,7 @@ class _NewMaterialState extends State<NewMaterial> {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration:   BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
                     image: AssetImage('assets/images/dumper.png'),
                     fit: BoxFit.fitHeight,
@@ -69,18 +72,26 @@ class _NewMaterialState extends State<NewMaterial> {
             ],
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.summarize, color: Color(0xFFC69840)),
+              onPressed: () {
+                Get.to(NewMaterialSummary());
+              },
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
-        padding:   EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-              SizedBox(height: 20),
-              Center(
+            const SizedBox(height: 20),
+            Center(
               child: Text(
                 'new_material'.tr(),
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
               ),
             ),
             ...containerDataList.asMap().entries.map((entry) {
@@ -88,23 +99,11 @@ class _NewMaterialState extends State<NewMaterial> {
               return Column(
                 children: [
                   buildContainer(index),
-                    SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ],
               );
             }),
-              SizedBox(height: 16),
-            Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    containerDataList.add(createInitialContainerData());
-                  });
-                },
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                child:   Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
-              ),
-            ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -115,23 +114,23 @@ class _NewMaterialState extends State<NewMaterial> {
     var containerData = containerDataList[index];
 
     return Card(
-      margin:   EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding:   EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildLabelsAndFields(index, containerData, ['sand'.tr(), "Soil"]),
-              SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData, ['base'.tr(), "Sub Base"]),
-              SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData, ['water_bound'.tr()]),
-              SizedBox(height: 16),
-            buildOtherMaterialField(index, containerData),
-              SizedBox(height: 20),
+            buildLabelsAndFields(index, containerData, ['Sand', 'Soil']),
+            const SizedBox(height: 16),
+            buildLabelsAndFields(index, containerData, ['Base', 'Sub Base']),
+            const SizedBox(height: 16),
+            buildOtherMaterialRow(index, containerData),
+            const SizedBox(height: 16),
+            buildLabelsAndFields(index, containerData, ['Water Bound']),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -141,37 +140,41 @@ class _NewMaterialState extends State<NewMaterial> {
                   final subBase = containerData["subBase"];
                   final waterBound = containerData["waterBound"];
                   final otherMaterial = containerData["otherMaterial"];
-                  final otherMaterialValue = containerData["otherMaterialValue"];
                   await newMaterialViewModel.addNewMaterial(
-                      NewMaterialModel(
-                        sand: sand,
-                        soil: soil,
-                        subBase: subBase,
-                        base: base,
-                        waterBound: waterBound,
-                        otherMaterial: otherMaterial,
-                          date: _getFormattedDate(),
-                          time: _getFormattedTime()
-                      ));
+                    NewMaterialModel(
+                      sand: sand,
+                      soil: soil,
+                      subBase: subBase,
+                      base: base,
+                      waterBound: waterBound,
+                      otherMaterial: otherMaterial,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime(),
+                    ),
+                  );
+
                   await newMaterialViewModel.fetchAllNewMaterial();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(
-                        'Data Submitted for index $index: $containerData',
-                      ),
+                      content: Text('Data Submitted: $containerData'),
                     ),
                   );
+
+                  setState(() {
+                    containerDataList[index] = createInitialContainerData();
+                    containerDataList = [createInitialContainerData()];
+                  });
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:   Color(0xFFF3F4F6),
-                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle:   TextStyle(fontSize: 14),
-                  shape:   RoundedRectangleBorder(
+                  backgroundColor: const Color(0xFFF3F4F6),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: const TextStyle(fontSize: 14),
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child:   Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: Text('submit'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -182,74 +185,103 @@ class _NewMaterialState extends State<NewMaterial> {
 
   Widget buildLabelsAndFields(int index, Map<String, dynamic> containerData, List<String> labels) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: labels.map((label) {
         String fieldName = getFieldName(label);
-        int value = containerData[fieldName] ?? 0;
         return Expanded(
-          child: buildStepperField(label, containerData, fieldName, value),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: buildEditableTextField(label, containerData, fieldName),
+          ),
         );
       }).toList(),
     );
   }
 
-  Widget buildOtherMaterialField(int index, Map<String, dynamic> containerData) {
+  Widget buildEditableTextField(String label, Map<String, dynamic> containerData, String fieldName) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-          Text(
-          "Other Material",
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+        Text(
+          label,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-          SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color:   Color(0xFFC69840)),
-            borderRadius: BorderRadius.circular(4.0),
+        TextField(
+          keyboardType: TextInputType.number,
+          onChanged: (value) {
+            setState(() {
+              containerData[fieldName] = int.tryParse(value) ?? 0;
+            });
+          },
+          decoration: InputDecoration(
+            hintText: 'Enter value',
+            hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFFC69840)),
+            ),
           ),
-          child: Row(
+          style: const TextStyle(color: Color(0xFFC69840)),
+        ),
+      ],
+    );
+  }
+
+  Widget buildOtherMaterialRow(int index, Map<String, dynamic> containerData) {
+    return Row(
+      children: [
+        Expanded(
+          flex: 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Expanded(
-                child: TextField(
-                  onChanged: (value) {
-                    setState(() {
-                      containerData["otherMaterial"] = value;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'other_material'.tr(),
-                    hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
-                    border: InputBorder.none,
-                    contentPadding:   EdgeInsets.symmetric(horizontal: 8.0),
-                  ),
-                  style:   TextStyle(color: Color(0xFFC69840)),
-                ),
+              const Text(
+                "Other Material",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
               ),
-              Row(
-                children: [
-                  IconButton(
-                    icon:   Icon(Icons.remove, color: Color(0xFFC69840)),
-                    onPressed: () {
-                      setState(() {
-                        if (containerData["otherMaterialValue"] > 0) {
-                          containerData["otherMaterialValue"]--;
-                        }
-                      });
-                    },
+              const SizedBox(height: 8),
+              TextField(
+                onChanged: (value) {
+                  setState(() {
+                    containerData["otherMaterial"] = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Enter other material',
+                  hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFFC69840)),
                   ),
-                  Text(
-                    '${containerData["otherMaterialValue"] ?? 0}',
-                    style:   TextStyle(fontSize: 16, color: Color(0xFFC69840)),
+                ),
+                style: const TextStyle(color: Color(0xFFC69840)),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Quantity",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+              ),
+              const SizedBox(height: 8),
+              TextField(
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  setState(() {
+                    containerData["otherMaterialValue"] = int.tryParse(value) ?? 0;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Qty',
+                  hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
+                  border: const OutlineInputBorder(
+                    borderSide: BorderSide(color: Color(0xFFC69840)),
                   ),
-                  IconButton(
-                    icon:   Icon(Icons.add, color: Color(0xFFC69840)),
-                    onPressed: () {
-                      setState(() {
-                        containerData["otherMaterialValue"]++;
-                      });
-                    },
-                  ),
-                ],
+                ),
+                style: const TextStyle(color: Color(0xFFC69840)),
               ),
             ],
           ),
@@ -260,75 +292,18 @@ class _NewMaterialState extends State<NewMaterial> {
 
   String getFieldName(String label) {
     switch (label) {
-      case "Sub Base":
-        return "subBase";
-      case "Water Bound":
-        return "waterBound";
-      case "Other Material":
-        return "otherMaterial";
+      case 'Sand':
+        return 'sand';
+      case 'Soil':
+        return 'soil';
+      case 'Base':
+        return 'base';
+      case 'Sub Base':
+        return 'subBase';
+      case 'Water Bound':
+        return 'waterBound';
       default:
-        return label.toLowerCase();
+        return '';
     }
   }
-
-  Widget buildStepperField(String label, Map<String, dynamic> containerData, String fieldName, int value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
-        ),
-          SizedBox(height: 8),
-        Container(
-          decoration: BoxDecoration(
-            border: Border.all(color:   Color(0xFFC69840)),
-            borderRadius: BorderRadius.circular(4.0),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                icon:   Icon(Icons.remove, color: Color(0xFFC69840)),
-                onPressed: () {
-                  setState(() {
-                    if (containerData[fieldName] > 0) {
-                      containerData[fieldName]--;
-                    }
-                  });
-                },
-              ),
-              Container(
-                width: 35,
-                child: TextField(
-                  textAlign: TextAlign.center,
-                  keyboardType: TextInputType.number,
-                  controller: TextEditingController(text: value.toString()),
-                  onChanged: (newValue) {
-                    setState(() {
-                      containerData[fieldName] = int.tryParse(newValue) ?? value;
-                    });
-                  },
-                  decoration:   InputDecoration(
-                    border: InputBorder.none,
-                  ),
-                  style:   TextStyle(fontSize: 14, color: Color(0xFFC69840)), // Reduced font size
-                ),
-              ),
-              IconButton(
-                icon:   Icon(Icons.add, color: Color(0xFFC69840)),
-                onPressed: () {
-                  setState(() {
-                    containerData[fieldName]++;
-                  });
-                },
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-
 }

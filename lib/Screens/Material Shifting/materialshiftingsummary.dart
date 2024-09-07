@@ -14,13 +14,27 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Material Shifting Summary'),
-        backgroundColor: Color(0xFFC69840),
+        backgroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text(
+          'Material Shifting',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFC69840),
+          ),
+        ),
+        centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3, // 3 columns for headers + data
             crossAxisSpacing: 8.0,
             mainAxisSpacing: 8.0,
@@ -31,11 +45,11 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
             if (index < 3) {
               // Header Row
               return Container(
-                color: Color(0xFFC69840),
+                color: const Color(0xFFC69840),
                 alignment: Alignment.center,
                 child: Text(
                   ['From Block', 'To Block', 'Shifts'][index],
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
+                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14.0),
                 ),
               );
             } else {
@@ -51,12 +65,12 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
                 ];
 
                 return Container(
-                  padding: EdgeInsets.all(8.0),
-                  color: columnIndex % 2 == 0 ? Colors.white : Color(0xFFEFEFEF),
+                  padding: const EdgeInsets.all(8.0),
+                  color: columnIndex % 2 == 0 ? Colors.white : const Color(0xFFEFEFEF),
                   alignment: Alignment.center,
                   child: Text(
                     data[columnIndex],
-                    style: TextStyle(fontSize: 14.0),
+                    style: const TextStyle(fontSize: 14.0),
                     overflow: TextOverflow.ellipsis, // Handle overflow
                     maxLines: 1, // Limit to one line
                   ),
