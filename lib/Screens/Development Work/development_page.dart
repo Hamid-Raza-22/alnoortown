@@ -496,7 +496,6 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-
                 return AlertDialog(
                   title:   Text(
                     'select_your_work'.tr(),
@@ -695,7 +694,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                                   ),
                                     SizedBox(height: 5),
                                     Text(
-                                    'main_drain_excavation'.tr(),
+                                    'drain_excavation'.tr(),
                                     style: TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
