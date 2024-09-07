@@ -84,7 +84,7 @@ class MainGatePlasterWorkState extends State<MainGatePlasterWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainGatePlasterSummary(containerDataList: containerDataList),
+                  builder: (context) => MainGatePlasterSummary(),
                 ),
               );
             },

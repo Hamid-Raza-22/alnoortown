@@ -84,7 +84,7 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainGateFoundationSummary(containerDataList: containerDataList),
+                  builder: (context) => MainGateFoundationSummary(),
                 ),
               );
             },

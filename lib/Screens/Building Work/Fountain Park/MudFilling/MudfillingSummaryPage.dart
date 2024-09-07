@@ -9,7 +9,6 @@ import 'package:get/get.dart' show  Get, Inst, Obx;
 class MudfillingSummaryPage extends StatefulWidget {
 
     MudfillingSummaryPage({super.key});
-
   @override
   State<MudfillingSummaryPage> createState() => _MudfillingSummaryPageState();
 }
@@ -72,7 +71,8 @@ class _MudfillingSummaryPageState extends State<MudfillingSummaryPage> {
     return DataRow(cells: [
     DataCell(Text(startDate)), // Formatted start date
     DataCell(Text(expectedCompDate)), // Formatted expected completion date
-    DataCell(Text(entry.mudFillingCompStatus ?? '')), // Null check for status
+    DataCell(Text(entry.mudFillingCompStatus ?? '')),
+      DataCell(Text(entry.totalDumpers ?? '')),// Null check for status
     DataCell(Text(entry.date ?? '')), // Display date as-is (assuming it's already formatted)
     DataCell(Text(entry.time ?? '')), // Display time as-is (assuming it's already formatted)
     ]);

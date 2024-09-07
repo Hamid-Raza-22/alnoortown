@@ -50,9 +50,11 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
               verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
             ),
             columns:   [
+              DataColumn(label: Text('block_no'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('road_no'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('total_length'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('start_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('end_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('total_dumpers'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('status'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('time'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
@@ -67,6 +69,8 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
               return DataRow(cells: [
                 DataCell(Text(startDate)),
                 DataCell(Text(expectedCompDate)),
+                DataCell(Text(entry.blockNo)),
+                DataCell(Text(entry.roadNo)),
                 DataCell(Text(entry.totalLength)),
                 DataCell(Text(entry.sandCompStatus)),
                 DataCell(Text(entry.date)),

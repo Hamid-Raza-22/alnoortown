@@ -1,16 +1,17 @@
 
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/main_gate_pillar_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class MainGatePillarsBrickSummary extends StatelessWidget {
-  final List<Map<String, dynamic>> containerDataList;
-
-    MainGatePillarsBrickSummary({super.key, required this.containerDataList});
+  MainGatePillarWorkViewModel mainGatePillarWorkViewModel = Get.put(MainGatePillarWorkViewModel());
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
+    mainGatePillarWorkViewModel.fetchAllMainPillar();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -30,14 +31,19 @@ class MainGatePillarsBrickSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: GridView.builder(
+    child: Obx(() {
+    if (mainGatePillarWorkViewModel.allMainPillar.isEmpty) {
+    return Center(child: Text('No data available'));
+    }
+
+    return GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 4,
             crossAxisSpacing: 1.0,
             mainAxisSpacing: 1.0,
             childAspectRatio: 2.0, // Adjusted for better width
           ),
-          itemCount: containerDataList.length * 4 + 4, // Additional 4 for headings
+    itemCount: mainGatePillarWorkViewModel.allMainPillar.length * 4 + 4,  // Update this to 6 columns
           itemBuilder: (context, index) {
             if (index < 4) {
               // Header Row
@@ -51,14 +57,13 @@ class MainGatePillarsBrickSummary extends StatelessWidget {
               );
             } else {
               final entryIndex = (index - 4) ~/ 4;
-              if (entryIndex < containerDataList.length) {
-                final entry = containerDataList[entryIndex];
-                final dateTime = DateTime.parse(entry['timestamp']);
-                final data = [
-                  entry['selectedBlock'] ?? 'N/A',
-                  entry['workStatus'] ?? 'N/A',
-                  '${dateTime.day}/${dateTime.month}/${dateTime.year}',
-                  '${dateTime.hour}:${dateTime.minute}',
+    if (entryIndex < mainGatePillarWorkViewModel.allMainPillar.length) {
+    final entry = mainGatePillarWorkViewModel.allMainPillar[entryIndex];
+    final data = [
+    entry.blockNo ?? 'N/A',
+    entry.workStatus ?? 'N/A',
+    entry.date ?? 'N/A',
+    entry.time ?? 'N/A'
                 ];
                 return GestureDetector(
                   onTap: () {
@@ -124,8 +129,9 @@ class MainGatePillarsBrickSummary extends StatelessWidget {
               return Container(); // Empty container for extra items
             }
           },
-        ),
-      ),
+        );
+      }),
+    ),
     );
   }
 }

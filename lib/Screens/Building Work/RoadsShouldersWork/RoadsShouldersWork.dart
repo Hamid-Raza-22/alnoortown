@@ -85,7 +85,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      RoadsShouldersSummary(containerDataList: containerDataList),
+                      RoadsShouldersSummary(),
                 ),
               );
             },

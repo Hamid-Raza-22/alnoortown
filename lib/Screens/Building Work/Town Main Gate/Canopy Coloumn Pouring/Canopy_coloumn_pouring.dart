@@ -85,7 +85,7 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CanopyColoumnsummary(containerDataList: containerDataList),
+                  builder: (context) => CanopyColoumnsummary(),
                 ),
               );
             },

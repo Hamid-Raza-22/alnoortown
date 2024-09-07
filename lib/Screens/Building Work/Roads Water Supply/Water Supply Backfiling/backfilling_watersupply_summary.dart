@@ -51,9 +51,12 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
               verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
             ),
             columns:   [
+              DataColumn(label: Text('block_no'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('road_no'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('road_side'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+              DataColumn(label: Text('total_length'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('start_date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('end_date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
-              DataColumn(label: Text('total_dumpers'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('status'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
               DataColumn(label: Text('time'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
@@ -70,6 +73,9 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
               return DataRow(cells: [
                 DataCell(Text(startDate )),
                 DataCell(Text(expectedCompDate )),
+                DataCell(Text(entry.blockNo!)),
+                DataCell(Text(entry.roadNo!)),
+                DataCell(Text(entry.roadSide!)),
                 DataCell(Text(entry.totalLength!)),
                 DataCell(Text(entry.waterSupplyBackFillingCompStatus!)),
                 DataCell(Text(entry.date !)),

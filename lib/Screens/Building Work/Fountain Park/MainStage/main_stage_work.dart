@@ -77,7 +77,7 @@ class _MainStageWorkState extends State<MainStageWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainStageWorkSummary(containerDataList: containerDataList),
+                  builder: (context) => MainStageWorkSummary(),
                 ),
               );
             },

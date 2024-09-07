@@ -81,7 +81,7 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      WaterChannelsSummary(containerDataList: containerDataList),
+                      WaterChannelsSummary(),
                 ),
               );
             },

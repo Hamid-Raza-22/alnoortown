@@ -84,7 +84,7 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainGatePillarsBrickSummary(containerDataList: containerDataList),
+                  builder: (context) => MainGatePillarsBrickSummary(),
                 ),
               );
             },

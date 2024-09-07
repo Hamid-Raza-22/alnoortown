@@ -82,7 +82,7 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => MainGateGreyStructureSummary(containerDataList: containerDataList),
+                  builder: (context) => MainGateGreyStructureSummary(),
                 ),
               );
             },
