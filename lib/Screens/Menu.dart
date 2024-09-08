@@ -2,39 +2,49 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
-class DrawerScreen extends StatefulWidget {
+class Menu extends StatefulWidget {
   @override
-  _DrawerScreenState createState() => _DrawerScreenState();
+  _MenuState createState() => _MenuState();
 }
 
-class _DrawerScreenState extends State<DrawerScreen> {
+class _MenuState extends State<Menu> {
   void _showLanguageDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return Dialog(
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(20),
           ),
-          title: Text(
-            'select_language'.tr(),
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
-          ),
-          content: SizedBox(
-            width: double.maxFinite,
-            child: ListView(
-              shrinkWrap: true,
+          backgroundColor: Colors.white,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                _buildLanguageTile('Urdu', 'اردو', Locale('ur')),
-                _buildLanguageTile('French', 'Français', Locale('fr')),
-                _buildLanguageTile('Russian', 'Русский', Locale('ru')),
-                _buildLanguageTile('Chinese', '中文', Locale('zh')),
-                _buildLanguageTile('Arabic', 'العربية', Locale('ar')),
-                _buildLanguageTile('English', 'English', Locale('en')),
-                _buildLanguageTile('German', 'Deutsch', Locale('de')),
+                Text(
+                  'select_language'.tr(),
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                    color: Color(0xFFC69840), // Gold color
+                  ),
+                ),
+                SizedBox(height: 20),
+                Divider(
+                  color: Color(0xFFC69840), // Gold color
+                  thickness: 2,
+                ),
+                SizedBox(height: 20),
+                ...[
+                  _buildLanguageTile('Urdu', 'اردو', Locale('ur')),
+                  _buildLanguageTile('French', 'Français', Locale('fr')),
+                  _buildLanguageTile('Russian', 'Русский', Locale('ru')),
+                  _buildLanguageTile('Chinese', '中文', Locale('zh')),
+                  _buildLanguageTile('Arabic', 'العربية', Locale('ar')),
+                  _buildLanguageTile('English', 'English', Locale('en')),
+                  _buildLanguageTile('German', 'Deutsch', Locale('de')),
+                ],
               ],
             ),
           ),
@@ -45,29 +55,33 @@ class _DrawerScreenState extends State<DrawerScreen> {
 
   ListTile _buildLanguageTile(String languageName, String nativeName, Locale locale) {
     return ListTile(
+      contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
       title: Row(
         children: [
-          Text(
-            languageName,
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Expanded(
+            child: Text(
+              languageName,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
           ),
-          SizedBox(width: 10),
           Text(
             "($nativeName)",
-            style: TextStyle(color: Colors.grey[600]),
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 16,
+            ),
           ),
         ],
       ),
-        onTap: () async {
-          await context.setLocale(locale);
-          print('Locale set to: ${context.locale}');
-          print('Translation for "menu": ${'menu'.tr()}');// Debug print
-          Phoenix.rebirth(context);
-        }
-
+      onTap: () async {
+        await context.setLocale(locale);
+        Phoenix.rebirth(context);
+      },
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +159,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
     );
   }
 }
-
 
 class NewRow extends StatelessWidget {
   final IconData icon;

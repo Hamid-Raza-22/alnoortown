@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import '../ViewModels/all_noor_view_model.dart';
-import 'drawer_screen.dart'; // Import your drawer screen
+import 'Menu.dart'; // Import your drawer screen
 import 'dart:ui' as ui;
 
 class HomePage extends StatefulWidget {
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          DrawerScreen(),
+          Menu(),
           AnimatedContainer(
             transform: Matrix4.translationValues(xOffset, yOffset, 0)
               ..scale(isDrawerOpen ? 0.85 : 1.00)
