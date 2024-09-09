@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 class CeilingWorkSummary extends StatelessWidget {
   final CeilingWorkViewModel ceilingWorkViewModel = Get.put(CeilingWorkViewModel());
   //final List<Map<String, dynamic>> containerDataList;
- // CeilingWorkSummary({super.key, required this.containerDataList});
+  CeilingWorkSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -104,8 +104,8 @@ class CeilingWorkSummary extends StatelessWidget {
           children: [
             Expanded(child: _buildDataCell(data["selectedBlock"] ?? "N/A")),
             Expanded(child: _buildDataCell(data["status"] ?? "N/A")),
-            Expanded(child: _buildDataCell(_formatDate(data["timestamp"]))),
-            Expanded(child: _buildDataCell(_formatTime(data["timestamp"]))),
+            Expanded(child: _buildDataCell((data["timestamp"]))),
+            Expanded(child: _buildDataCell((data["timestamp"]))),
           ],
         ),
       ),
@@ -124,15 +124,15 @@ class CeilingWorkSummary extends StatelessWidget {
     );
   }
 
-  String _formatDate(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('d MMM yyyy').format(dateTime);
-  }
-
-  String _formatTime(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('h:mm a').format(dateTime);
-  }
+  // String _formatDate(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('d MMM yyyy').format(dateTime);
+  // }
+  //
+  // String _formatTime(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('h:mm a').format(dateTime);
+  // }
 }
