@@ -52,7 +52,6 @@ class NewMaterialModel{
       'otherMaterialValue':otherMaterialValue,
       'date':date,
       'time':time,
-
     };
   }
 }

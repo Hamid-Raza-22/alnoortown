@@ -86,7 +86,7 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => RoadSignBoardSummary(containerDataList: containerDataList),
+                  builder: (context) => RoadSignBoardSummary(),
                 ),
               );
             },

@@ -63,9 +63,12 @@ dependencies:
   easy_localization: ^3.0.7
   flutter_phoenix: ^1.1.1
   restart_app: ^1.2.1
+  mockito: ^5.4.4
 
 dev_dependencies:
   flutter_test:
+    sdk: flutter
+  integration_test:
     sdk: flutter
 
   # The "flutter_lints" package below contains a set of recommended lints to

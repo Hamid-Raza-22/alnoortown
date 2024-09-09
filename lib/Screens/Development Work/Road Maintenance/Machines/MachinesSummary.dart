@@ -5,12 +5,7 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class MachinesSummary extends StatelessWidget {
   final MachineViewModel machineViewModel = Get.put(MachineViewModel());
-  final List<Map<String, dynamic>> machineDataList = [
-    {"blockNo": "Block A", "streetNo": "Street 1", "machine": "Excavator", "date": "01 Sep 2024", "time": "10:00 AM"},
-    {"blockNo": "Block B", "streetNo": "Street 2", "machine": "Bulldozer", "date": "01 Sep 2024", "time": "11:00 AM"},
-    {"blockNo": "Block C", "streetNo": "Street 3", "machine": "Crane", "date": "01 Sep 2024", "time": "12:00 PM"},
-    {"blockNo": "Block D", "streetNo": "Street 4", "machine": "Loader", "date": "01 Sep 2024", "time": "01:00 PM"},
-  ];
+
 
   MachinesSummary({super.key});
 
@@ -41,47 +36,51 @@ class MachinesSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-    child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (machineViewModel.allMachine.isEmpty) {
-    return Center(child: CircularProgressIndicator()); // Show loading indicator
-    }
+        child: Obx(() {
+          // Use Obx to rebuild when the data changes
+          if (machineViewModel.allMachine.isEmpty) {
+            return Center(
+                child: CircularProgressIndicator()); // Show loading indicator
+          }
 
-    return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Column(
-    children: [
-    // Header row
-    Row(
-    children: [
-    buildHeaderCell('Block No.'),
-    buildHeaderCell('Street No.'),
-    buildHeaderCell('Machine'),
-    buildHeaderCell('Date'),
-    buildHeaderCell('Time'),
-    ],
-    ),
-    const SizedBox(height: 10),
-    // Data rows
-    ...machineDataList.map((entry) {
-    return Row(
-    children: [
-    buildDataCell(entry['blockNo'] ?? 'N/A'),
-    buildDataCell(entry['streetNo'] ?? 'N/A'),
-    buildDataCell(entry['machine'] ?? 'N/A'),
-    buildDataCell(entry['date'] ?? 'N/A'),
-    buildDataCell(entry['time'] ?? 'N/A'),
-    ],
-    );
-    }).toList(),
-    ],
-    ),
-    );
-    }),
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
+              children: [
+                // Header row
+                Row(
+                  children: [
+                    buildHeaderCell('Block No.'),
+                    buildHeaderCell('Street No.'),
+                    buildHeaderCell('Machine'),
+                    buildHeaderCell('Date'),
+                    buildHeaderCell('Time In'),
+                    buildHeaderCell('Time Out'),
+                    buildHeaderCell('TIme'),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                // Data rows
+                ...machineViewModel.allMachine.map((entry) {
+                  return Row(
+                    children: [
+                      buildDataCell(entry.blockNo?? 'N/A'),
+                      buildDataCell(entry.streetNo?? 'N/A'),
+                      buildDataCell(entry.machine ?? 'N/A'),
+                      buildDataCell(entry.date ?? 'N/A'),
+                      buildDataCell(entry.timeIn ?? 'N/A'),
+                      buildDataCell(entry.timeOut ?? 'N/A'),
+                      buildDataCell(entry.time ?? 'N/A'),
+                    ],
+                  );
+                }).toList(),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
-
   // Helper to build header cells
   Widget buildHeaderCell(String text) {
     return Container(

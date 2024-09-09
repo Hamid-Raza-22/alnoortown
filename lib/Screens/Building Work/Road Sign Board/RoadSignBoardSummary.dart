@@ -1,10 +1,12 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsSignBoardsViewModel/roads_sign_boards_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' show Get,Inst ,Obx;
+
 
 class RoadSignBoardSummary extends StatelessWidget {
-  final List<Map<String, dynamic>> containerDataList;
-
-    RoadSignBoardSummary({super.key, required this.containerDataList});
+RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
+    RoadSignBoardSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class RoadSignBoardSummary extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: containerDataList.isEmpty
+      body: roadsSignBoardsViewModel.allRoadsSignBoard.isEmpty
           ?   Center(child: Text('No data available', style: TextStyle(fontSize: 18)))
           : SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -40,24 +42,24 @@ class RoadSignBoardSummary extends StatelessWidget {
             DataColumn(label: Text('date'.tr())),
             DataColumn(label: Text('time'.tr())),
           ],
-          rows: containerDataList.map((entry) {
-            final timestamp = entry['timestamp'];
-            final dateTime = timestamp != null && timestamp.isNotEmpty
-                ? DateTime.parse(timestamp)
-                : null;
-            final date = dateTime != null ? '${dateTime.day}/${dateTime.month}/${dateTime.year}' : 'N/A';
-            final time = dateTime != null ? '${dateTime.hour}:${dateTime.minute}' : 'N/A';
+          rows: roadsSignBoardsViewModel.allRoadsSignBoard.map((entry) {
+            // final timestamp = entry.time;
+            // final dateTime = timestamp != null && timestamp.isNotEmpty
+            //     ? DateTime.parse(timestamp)
+            //     : null;
+            // final date = dateTime != null ? '${dateTime.day}/${dateTime.month}/${dateTime.year}' : 'N/A';
+            // final time = dateTime != null ? '${dateTime.hour}:${dateTime.minute}' : 'N/A';
 
             return DataRow(
               cells: [
-                DataCell(Text('${entry['block'] ?? 'N/A'}')),
-                DataCell(Text('${entry['roadNo'] ?? 'N/A'}')),
-                DataCell(Text('${entry['fromPlot'] ?? 'N/A'}')),
-                DataCell(Text('${entry['toPlot'] ?? 'N/A'}')),
-                DataCell(Text('${entry['roadSide'] ?? 'N/A'}')),
-                DataCell(Text('${entry['status'] ?? 'N/A'}')),
-                DataCell(Text(date)),
-                DataCell(Text(time)),
+                DataCell(Text(entry.blockNo ?? 'N/A')),
+                DataCell(Text(entry.roadNo?? 'N/A')),
+                DataCell(Text(entry.fromPlotNo?? 'N/A')),
+                DataCell(Text(entry.toPlotNo?? 'N/A')),
+                DataCell(Text(entry.roadSide ?? 'N/A')),
+                DataCell(Text(entry.compStatus ?? 'N/A')),
+                DataCell(Text(entry.date ?? 'N/A')),
+                DataCell(Text(entry.time ?? 'N/A')),
               ],
               onSelectChanged: (selected) {
                 if (selected ?? false) {
@@ -69,18 +71,19 @@ class RoadSignBoardSummary extends StatelessWidget {
                           borderRadius: BorderRadius.circular(15),
                         ),
                         title: Text(
-                          'Details | ${entry['block'] ?? 'N/A'}',
+                          'Details | ${entry.blockNo?? 'N/A'}',
                           style:   TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         content: SingleChildScrollView(
                           child: ListBody(
                             children: [
-                              Text('road_no ${entry['roadNo'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('From Plot: ${entry['fromPlot'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('To Plot:' '${entry['toPlot'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('Road Side: ${entry['roadSide'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('Status: ${entry['status'] ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('Timestamp: ${formatTimestamp(entry['timestamp'])}', style:   TextStyle(fontSize: 16)),
+                              Text('road_no ${entry.roadNo?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('From Plot: ${entry.fromPlotNo ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('To Plot:' '${entry.toPlotNo?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('Road Side: ${entry.roadSide?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('Status: ${entry.compStatus ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('Date: ${entry.date}', style:   TextStyle(fontSize: 16)),
+                              Text('Time: ${entry.time}', style:   TextStyle(fontSize: 16)),
                             ],
                           ),
                         ),
@@ -111,11 +114,11 @@ class RoadSignBoardSummary extends StatelessWidget {
     );
   }
 
-  String formatTimestamp(String? timestamp) {
-    if (timestamp == null || timestamp.isEmpty) {
-      return 'N/A';
-    }
-    final dateTime = DateTime.parse(timestamp);
-    return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute}';
-  }
+  // String formatTimestamp(String? timestamp) {
+  //   if (timestamp == null || timestamp.isEmpty) {
+  //     return 'N/A';
+  //   }
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute}';
+  // }
 }

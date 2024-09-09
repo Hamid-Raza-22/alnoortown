@@ -6,26 +6,6 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 class NewMaterialSummary extends StatelessWidget {
   NewMaterialViewModel newMaterialViewModel = Get.put(NewMaterialViewModel());
 
-  final List<Map<String, dynamic>> summaryDataList = [
-    {
-      "sand": 5,
-      "soil": 10,
-      "base": 7,
-      "subBase": 3,
-      "waterBound": 8,
-      "otherMaterial": "Gravel",
-      "Quantity": 20,
-    },
-    {
-      "sand": 6,
-      "soil": 12,
-      "base": 8,
-      "subBase": 4,
-      "waterBound": 9,
-      "otherMaterial": "Sandstone",
-      "Quantity": 15,
-    },
-  ];
 
   NewMaterialSummary({super.key});
 
@@ -71,6 +51,8 @@ class NewMaterialSummary extends StatelessWidget {
             // Header row
             Row(
               children: [
+                buildHeaderCell('Date'),
+                buildHeaderCell('Time'),
                 buildHeaderCell('Sand'),
                 buildHeaderCell('Soil'),
                 buildHeaderCell('Base'),
@@ -82,16 +64,18 @@ class NewMaterialSummary extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             // Data rows
-            ...summaryDataList.map((entry) {
+            ...newMaterialViewModel.allNew.map((entry) {
               return Row(
                 children: [
-                  buildDataCell(entry['sand']?.toString() ?? 'N/A'),
-                  buildDataCell(entry['soil']?.toString() ?? 'N/A'),
-                  buildDataCell(entry['base']?.toString() ?? 'N/A'),
-                  buildDataCell(entry['subBase']?.toString() ?? 'N/A'),
-                  buildDataCell(entry['waterBound']?.toString() ?? 'N/A'),
-                  buildDataCell(entry['otherMaterial'] ?? 'N/A'),
-                  buildDataCell(entry['Quantity']?.toString() ?? 'N/A'),
+                  buildDataCell(entry.date?.toString() ?? 'N/A'),
+                  buildDataCell(entry.time?.toString() ?? 'N/A'),
+                  buildDataCell(entry.sand?.toString() ?? 'N/A'),
+                  buildDataCell(entry.soil?.toString() ?? 'N/A'),
+                  buildDataCell(entry.base?.toString() ?? 'N/A'),
+                  buildDataCell(entry.subBase?.toString() ?? 'N/A'),
+                  buildDataCell(entry.waterBound?.toString() ?? 'N/A'),
+                  buildDataCell(entry.otherMaterial?.toString() ?? 'N/A'),
+                  buildDataCell(entry.otherMaterialValue?.toString() ?? 'N/A'),
                 ],
               );
             }).toList(),

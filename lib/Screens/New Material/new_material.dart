@@ -140,6 +140,7 @@ class _NewMaterialState extends State<NewMaterial> {
                   final subBase = containerData["subBase"];
                   final waterBound = containerData["waterBound"];
                   final otherMaterial = containerData["otherMaterial"];
+                  final otherMaterialValue = containerData["otherMaterialValue"];
                   await newMaterialViewModel.addNewMaterial(
                     NewMaterialModel(
                       sand: sand,
@@ -148,6 +149,7 @@ class _NewMaterialState extends State<NewMaterial> {
                       base: base,
                       waterBound: waterBound,
                       otherMaterial: otherMaterial,
+                      otherMaterialValue:otherMaterialValue ,
                       date: _getFormattedDate(),
                       time: _getFormattedTime(),
                     ),
