@@ -6,8 +6,8 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 
 class PaintWorkSummary extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
-    PaintWorkSummary({super.key, required this.containerDataList});
+
+    PaintWorkSummary({super.key});
 
   @override
   State<PaintWorkSummary> createState() => _PaintWorkSummaryState();

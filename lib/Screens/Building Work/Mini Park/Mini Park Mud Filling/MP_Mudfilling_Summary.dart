@@ -70,9 +70,9 @@ class _MPMudFillingSummaryState extends State<MPMudFillingSummary> {
         : ''; // Show empty string if null
     return DataRow(cells: [
     DataCell(Text(startDate)), // Formatted start date
-    DataCell(Text(expectedCompDate)), // Formatted expected completion date
+    DataCell(Text(expectedCompDate)),
+      DataCell(Text(entry.totalDumpers ?? '')),// Formatted expected completion date
     DataCell(Text(entry.mpMudFillingCompStatus ?? '')),
-      DataCell(Text(entry.totalDumpers ?? '')),// Null check for status
     DataCell(Text(entry.date ?? '')), // Display date as-is (assuming it's already formatted)
     DataCell(Text(entry.time ?? '')), // Display time as-is (assuming it's already formatted)
     ]);

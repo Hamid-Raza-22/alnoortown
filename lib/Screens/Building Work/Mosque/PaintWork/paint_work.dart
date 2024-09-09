@@ -26,7 +26,6 @@ class PaintWorkState extends State<PaintWork>{
     "Block F",
     "Block G"
   ];
-  List<Map<String, dynamic>> containerDataList = [];
 
   String? selectedBlock;
   String? selectedStatus;
@@ -88,7 +87,7 @@ class PaintWorkState extends State<PaintWork>{
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PaintWorkSummary(containerDataList: containerDataList),
+                  builder: (context) => PaintWorkSummary(),
                 ),
               );
             },
