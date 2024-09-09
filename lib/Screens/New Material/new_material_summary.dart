@@ -5,8 +5,6 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class NewMaterialSummary extends StatelessWidget {
   NewMaterialViewModel newMaterialViewModel = Get.put(NewMaterialViewModel());
-
-
   NewMaterialSummary({super.key});
 
   @override
@@ -26,7 +24,7 @@ class NewMaterialSummary extends StatelessWidget {
           },
         ),
         title: Text(
-          'New Material Summary'.tr(),
+          'new_material_summary'.tr(),
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -51,15 +49,15 @@ class NewMaterialSummary extends StatelessWidget {
             // Header row
             Row(
               children: [
-                buildHeaderCell('Date'),
-                buildHeaderCell('Time'),
-                buildHeaderCell('Sand'),
-                buildHeaderCell('Soil'),
-                buildHeaderCell('Base'),
-                buildHeaderCell('Sub Base'),
-                buildHeaderCell('Water Bound'),
-                buildHeaderCell('Other Material'),
-                buildHeaderCell('Other Quantity'),
+                buildHeaderCell('date'.tr()),
+                buildHeaderCell('time'.tr()),
+                buildHeaderCell('sand'.tr()),
+                buildHeaderCell('soil'.tr()),
+                buildHeaderCell('base'.tr()),
+                buildHeaderCell('sub_base'.tr()),
+                buildHeaderCell('water_bound'.tr()),
+                buildHeaderCell('other_material'.tr()),
+                buildHeaderCell('other_quantity'.tr()),
               ],
             ),
             const SizedBox(height: 10),

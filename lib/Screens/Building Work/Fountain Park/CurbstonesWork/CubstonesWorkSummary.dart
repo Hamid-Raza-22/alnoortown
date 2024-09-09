@@ -6,13 +6,13 @@ import 'package:get/get_instance/get_instance.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart' show  Get, Inst, Obx;
 
-class CubstonesWorkSummary extends StatefulWidget {
-    CubstonesWorkSummary({super.key, });
+class CurbstonesWorkSummary extends StatefulWidget {
+    CurbstonesWorkSummary({super.key, });
   @override
-  State<CubstonesWorkSummary> createState() => CubstonesWorkSummaryState();
+  State<CurbstonesWorkSummary> createState() => CubstonesWorkSummaryState();
 }
 
-class CubstonesWorkSummaryState extends State<CubstonesWorkSummary> {
+class CubstonesWorkSummaryState extends State<CurbstonesWorkSummary> {
  CubStonesWorkViewModel cubStonesWorkViewModel = Get.put(CubStonesWorkViewModel());
 
   @override
