@@ -71,12 +71,12 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
                   ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
                   : '';
               return DataRow(cells: [
-                DataCell(Text(startDate )),
-                DataCell(Text(expectedCompDate )),
                 DataCell(Text(entry.blockNo!)),
                 DataCell(Text(entry.roadNo!)),
                 DataCell(Text(entry.roadSide!)),
                 DataCell(Text(entry.totalLength!)),
+                DataCell(Text(startDate )),
+                DataCell(Text(expectedCompDate )),
                 DataCell(Text(entry.waterSupplyBackFillingCompStatus!)),
                 DataCell(Text(entry.date !)),
                 DataCell(Text(entry.time !)),

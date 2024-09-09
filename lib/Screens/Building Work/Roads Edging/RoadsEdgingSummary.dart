@@ -73,13 +73,13 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
     ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
         : ''; // Show empty string if null
     return DataRow(cells: [
-    DataCell(Text(startDate)), // Formatted start date
-    DataCell(Text(expectedCompDate)), // Formatted expected 'end_date'.tr()
-    DataCell(Text(entry.roadsEdgingCompStatus ?? '')),
+    DataCell(Text(startDate)),
       DataCell(Text(entry.blockNo ?? '')),
       DataCell(Text(entry.roadNo ?? '')),
       DataCell(Text(entry.roadSide ?? '')),
-      DataCell(Text(entry.totalLength ?? '')),// Null check for status
+      DataCell(Text(entry.totalLength ?? '')),
+    DataCell(Text(expectedCompDate)), // Formatted expected 'end_date'.tr()
+    DataCell(Text(entry.roadsEdgingCompStatus ?? '')),
     DataCell(Text(entry.date ?? '')), // Display date as-is (assuming it's already formatted)
     DataCell(Text(entry.time ?? '')), // Display time as-is (assuming it's already formatted)
     ]);

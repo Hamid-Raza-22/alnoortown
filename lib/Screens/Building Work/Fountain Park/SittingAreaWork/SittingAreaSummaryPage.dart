@@ -1,12 +1,12 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/sitting_area_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class SittingAreaSummaryPage extends StatelessWidget {
-  final List<Map<String, dynamic>> containerDataList;
-
-    SittingAreaSummaryPage({Key? key, required this.containerDataList})
-      : super(key: key);
+  SittingAreaWorkViewModel sittingAreaWorkViewModel = Get.put(SittingAreaWorkViewModel());
+  SittingAreaSummaryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,71 +29,82 @@ class SittingAreaSummaryPage extends StatelessWidget {
       ),
       body: Padding(
         padding:   EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: DataTable(
-                  columns:   [
-                    DataColumn(
-                        label: Text('type_of_work'.tr(),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840)))),
-                    DataColumn(
-                        label: Text('start_date'.tr(),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840)))),
-                    DataColumn(
-                        label: Text('end_date'.tr(),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840)))),
-                    DataColumn(
-                        label: Text('status'.tr(),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840)))),
-                    DataColumn(
-                        label: Text('date'.tr(),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840)))),
-                    DataColumn(
-                        label: Text('time'.tr(),
-                            style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840)))),
-                  ],
-                  rows: containerDataList.map((entry) {
-                    DateTime timestamp = DateTime.parse(entry['timestamp']);
-                    return DataRow(cells: [
-                      DataCell(Text(entry['typeofwork'] ?? '')),
-                      DataCell(Text(entry['startDate'] != null
-                          ? DateFormat('d MMM yyyy').format(DateTime.parse(entry['startDate']))
-                          : '')),
-                      DataCell(Text(entry['endDate'] != null
-                          ? DateFormat('d MMM yyyy').format(DateTime.parse(entry['endDate']))
-                          : '')),
-                      DataCell(Text(entry['status'] ?? '')),
-                      DataCell(Text(DateFormat('d MMM yyyy').format(timestamp))), // Date
-                      DataCell(Text(DateFormat('h:mm a').format(timestamp))), // Time
-                    ]);
-                  }).toList(),
-                ),
+          child: Obx(() {
+            // Use Obx to rebuild when the data changes
+            if (sittingAreaWorkViewModel.allSitting.isEmpty) {
+              return Center(
+                  child: CircularProgressIndicator()); // Show loading indicator
+            }
+
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                columns: [
+                  DataColumn(
+                      label: Text('type_of_work'.tr(),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFC69840)))),
+                  DataColumn(
+                      label: Text('start_date'.tr(),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFC69840)))),
+                  DataColumn(
+                      label: Text('end_date'.tr(),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFC69840)))),
+                  DataColumn(
+                      label: Text('status'.tr(),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFC69840)))),
+                  DataColumn(
+                      label: Text('date'.tr(),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFC69840)))),
+                  DataColumn(
+                      label: Text('time'.tr(),
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFFC69840)))),
+                ],
+                rows: sittingAreaWorkViewModel.allSitting.map((entry) {
+                  // Format the DateTime objects to a readable string format
+                  String startDate = entry.startDate != null
+                      ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                      : ''; // Show empty string if null
+
+                  String expectedCompDate = entry.expectedCompDate != null
+                      ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                      : ''; // Show empty string if null
+                  return DataRow(cells: [
+                    // Formatted start date
+
+                    DataCell(Text(entry.typeOfWork ?? '')),
+                    DataCell(Text(startDate)),
+                    DataCell(Text(expectedCompDate)),
+                    DataCell(Text(entry.sittingAreaCompStatus ?? '')),
+                    // Null check for status
+                    DataCell(Text(entry.date ?? '')),
+                    // Display date as-is (assuming it's already formatted)
+                    DataCell(Text(entry.time ?? '')),
+                    // Display time as-is (assuming it's already formatted)
+                  ]);
+                }).toList(),
               ),
-            ),
-          ],
+            );
+          }),
         ),
-      ),
-    );
+      );
+
   }
 }

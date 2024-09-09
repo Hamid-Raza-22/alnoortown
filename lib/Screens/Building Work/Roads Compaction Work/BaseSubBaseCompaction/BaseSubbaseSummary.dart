@@ -71,14 +71,21 @@ class _BaseSubBaseCompactionSummaryState extends State<BaseSubBaseCompactionSumm
     ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
         : ''; // Show empty string if null
     return DataRow(cells: [
-    DataCell(Text(startDate)), // Formatted start date
-    DataCell(Text(expectedCompDate)),
+     // Formatted start date
+
       DataCell(Text(entry.blockNo ?? '')), // Null check for status
       DataCell(Text(entry.roadNo ?? '')), // Null check for status
-      DataCell(Text(entry.totalLength ?? '')), // Null check for status
+      DataCell(Text(entry.totalLength ?? '')),
+      DataCell(Text(startDate)),
+      DataCell(Text(expectedCompDate)),// Null check for status
       DataCell(Text(entry.baseSubBaseCompStatus ?? '')), // Null check for status
     DataCell(Text(entry.date ?? '')), // Display date as-is (assuming it's already formatted)
     DataCell(Text(entry.time ?? '')), // Display time as-is (assuming it's already formatted)
+
+
+
+
+
     ]);
     }).toList(),
 

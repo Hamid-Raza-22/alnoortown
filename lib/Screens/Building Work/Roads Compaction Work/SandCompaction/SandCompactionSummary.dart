@@ -67,11 +67,11 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                   ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
                   : '';
               return DataRow(cells: [
-                DataCell(Text(startDate)),
-                DataCell(Text(expectedCompDate)),
                 DataCell(Text(entry.blockNo)),
                 DataCell(Text(entry.roadNo)),
                 DataCell(Text(entry.totalLength)),
+                DataCell(Text(startDate)),
+                DataCell(Text(expectedCompDate)),
                 DataCell(Text(entry.sandCompStatus)),
                 DataCell(Text(entry.date)),
                 DataCell(Text(entry.time)),
@@ -81,6 +81,7 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
         );
         }
       ),
-    ));
+    )
+    );
   }
 }

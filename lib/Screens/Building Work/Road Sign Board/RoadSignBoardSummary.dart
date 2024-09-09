@@ -28,7 +28,8 @@ class RoadSignBoardSummary extends StatelessWidget {
           ?   Center(child: Text('No data available', style: TextStyle(fontSize: 18)))
           : SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: DataTable(
+        child:
+        DataTable(
           columns:   [
             DataColumn(label: Text('block_no'.tr())),
             DataColumn(label: Text('road_no'.tr())),

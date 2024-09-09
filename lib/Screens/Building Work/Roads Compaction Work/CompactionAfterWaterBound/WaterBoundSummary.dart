@@ -73,14 +73,19 @@ class _WaterBoundSummaryState extends State<WaterBoundSummary> {
     ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
         : ''; // Show empty string if null
     return DataRow(cells: [
-    DataCell(Text(startDate)), // Formatted start date
-    DataCell(Text(expectedCompDate)),
+    // Formatted start date
+
       DataCell(Text(entry.blockNo ?? '')), // Null check for status
       DataCell(Text(entry.roadNo ?? '')),
       DataCell(Text(entry.totalLength ?? '')),
+      DataCell(Text(startDate)),
+      DataCell(Text(expectedCompDate)),
       DataCell(Text(entry.waterBoundCompStatus ?? '')), // Null check for status
     DataCell(Text(entry.date ?? '')), // Display date as-is (assuming it's already formatted)
     DataCell(Text(entry.time ?? '')), // Display time as-is (assuming it's already formatted)
+
+
+
     ]);
     }).toList(),
     ),

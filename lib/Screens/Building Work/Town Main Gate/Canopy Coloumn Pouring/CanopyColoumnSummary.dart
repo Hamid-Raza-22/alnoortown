@@ -127,9 +127,9 @@ class CanopyColoumnsummary extends StatelessWidget {
     }
     return Container(); // Empty container for extra items
     }
-    },
-    );
-    }),
+       },
+        );
+      }),
       ),
     );
   }

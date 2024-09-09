@@ -1,7 +1,11 @@
+import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class NewMaterialSummary extends StatelessWidget {
+  NewMaterialViewModel newMaterialViewModel = Get.put(NewMaterialViewModel());
+
   final List<Map<String, dynamic>> summaryDataList = [
     {
       "sand": 5,
@@ -29,6 +33,7 @@ class NewMaterialSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
+    newMaterialViewModel.fetchAllNewMaterial();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -52,42 +57,51 @@ class NewMaterialSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(
-            children: [
-              // Header row
-              Row(
+    child: Obx(() {
+      // Use Obx to rebuild when the data changes
+      if (newMaterialViewModel.allNew.isEmpty) {
+        return Center(
+            child: CircularProgressIndicator()); // Show loading indicator
+      }
+
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            // Header row
+            Row(
+              children: [
+                buildHeaderCell('Sand'),
+                buildHeaderCell('Soil'),
+                buildHeaderCell('Base'),
+                buildHeaderCell('Sub Base'),
+                buildHeaderCell('Water Bound'),
+                buildHeaderCell('Other Material'),
+                buildHeaderCell('Other Quantity'),
+              ],
+            ),
+            const SizedBox(height: 10),
+            // Data rows
+            ...summaryDataList.map((entry) {
+              return Row(
                 children: [
-                  buildHeaderCell('Sand'),
-                  buildHeaderCell('Soil'),
-                  buildHeaderCell('Base'),
-                  buildHeaderCell('Sub Base'),
-                  buildHeaderCell('Water Bound'),
-                  buildHeaderCell('Other Material'),
-                  buildHeaderCell('Other Quantity'),
+                  buildDataCell(entry['sand']?.toString() ?? 'N/A'),
+                  buildDataCell(entry['soil']?.toString() ?? 'N/A'),
+                  buildDataCell(entry['base']?.toString() ?? 'N/A'),
+                  buildDataCell(entry['subBase']?.toString() ?? 'N/A'),
+                  buildDataCell(entry['waterBound']?.toString() ?? 'N/A'),
+                  buildDataCell(entry['otherMaterial'] ?? 'N/A'),
+                  buildDataCell(entry['Quantity']?.toString() ?? 'N/A'),
                 ],
-              ),
-              const SizedBox(height: 10),
-              // Data rows
-              ...summaryDataList.map((entry) {
-                return Row(
-                  children: [
-                    buildDataCell(entry['sand']?.toString() ?? 'N/A'),
-                    buildDataCell(entry['soil']?.toString() ?? 'N/A'),
-                    buildDataCell(entry['base']?.toString() ?? 'N/A'),
-                    buildDataCell(entry['subBase']?.toString() ?? 'N/A'),
-                    buildDataCell(entry['waterBound']?.toString() ?? 'N/A'),
-                    buildDataCell(entry['otherMaterial'] ?? 'N/A'),
-                    buildDataCell(entry['Quantity']?.toString() ?? 'N/A'),
-                  ],
-                );
-              }).toList(),
-            ],
-          ),
+              );
+            }).toList(),
+          ],
         ),
-      ),
+      );
+    }),
+        ),
     );
+
   }
 
   Widget buildHeaderCell(String text) {

@@ -1,8 +1,10 @@
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class MachinesSummary extends StatelessWidget {
-
+  final MachineViewModel machineViewModel = Get.put(MachineViewModel());
   final List<Map<String, dynamic>> machineDataList = [
     {"blockNo": "Block A", "streetNo": "Street 1", "machine": "Excavator", "date": "01 Sep 2024", "time": "10:00 AM"},
     {"blockNo": "Block B", "streetNo": "Street 2", "machine": "Bulldozer", "date": "01 Sep 2024", "time": "11:00 AM"},
@@ -16,7 +18,7 @@ class MachinesSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-
+    machineViewModel.fetchAllMachine();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -39,36 +41,43 @@ class MachinesSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(
-            children: [
-              // Header row
-              Row(
-                children: [
-                  buildHeaderCell('Block No.'),
-                  buildHeaderCell('Street No.'),
-                  buildHeaderCell('Machine'),
-                  buildHeaderCell('Date'),
-                  buildHeaderCell('Time'),
-                ],
-              ),
-              const SizedBox(height: 10),
-              // Data rows
-              ...machineDataList.map((entry) {
-                return Row(
-                  children: [
-                    buildDataCell(entry['blockNo'] ?? 'N/A'),
-                    buildDataCell(entry['streetNo'] ?? 'N/A'),
-                    buildDataCell(entry['machine'] ?? 'N/A'),
-                    buildDataCell(entry['date'] ?? 'N/A'),
-                    buildDataCell(entry['time'] ?? 'N/A'),
-                  ],
-                );
-              }).toList(),
-            ],
-          ),
-        ),
+    child: Obx(() {
+    // Use Obx to rebuild when the data changes
+    if (machineViewModel.allMachine.isEmpty) {
+    return Center(child: CircularProgressIndicator()); // Show loading indicator
+    }
+
+    return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Column(
+    children: [
+    // Header row
+    Row(
+    children: [
+    buildHeaderCell('Block No.'),
+    buildHeaderCell('Street No.'),
+    buildHeaderCell('Machine'),
+    buildHeaderCell('Date'),
+    buildHeaderCell('Time'),
+    ],
+    ),
+    const SizedBox(height: 10),
+    // Data rows
+    ...machineDataList.map((entry) {
+    return Row(
+    children: [
+    buildDataCell(entry['blockNo'] ?? 'N/A'),
+    buildDataCell(entry['streetNo'] ?? 'N/A'),
+    buildDataCell(entry['machine'] ?? 'N/A'),
+    buildDataCell(entry['date'] ?? 'N/A'),
+    buildDataCell(entry['time'] ?? 'N/A'),
+    ],
+    );
+    }).toList(),
+    ],
+    ),
+    );
+    }),
       ),
     );
   }

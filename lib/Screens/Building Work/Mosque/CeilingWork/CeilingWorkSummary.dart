@@ -22,7 +22,7 @@ class CeilingWorkSummary extends StatelessWidget {
           },
         ),
         title:   Text(
-          'ceiling_work_summary',
+          'ceiling_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -47,7 +47,7 @@ class CeilingWorkSummary extends StatelessWidget {
                     Expanded(child: _buildHeaderCell('block_no'.tr())),
                     Expanded(child: _buildHeaderCell('status'.tr())),
                     Expanded(child: _buildHeaderCell('date'.tr())),
-                    Expanded(child: _buildHeaderCell("Time")),
+                    Expanded(child: _buildHeaderCell("time".tr())),
                   ],
                 ),
               ),

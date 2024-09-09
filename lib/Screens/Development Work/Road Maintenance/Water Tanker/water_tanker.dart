@@ -26,7 +26,15 @@ class _WaterTankerState extends State<WaterTanker>  {
     "selectedStreet": null,
     "selectedTankers": null,
   };
-
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,6 +145,8 @@ class _WaterTankerState extends State<WaterTanker>  {
                     blockNo: selectedBlock,
                     streetNo: selectedStreet,
                     tankerNo: selectedTankers,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime()
                   ));
                   await tankerViewModel.fetchAllTanker();
 
@@ -144,6 +154,7 @@ class _WaterTankerState extends State<WaterTanker>  {
                     containerData["selectedBlock"] = null;
                     containerData["selectedStreet"] = null;
                     containerData["selectedTankers"] = null;
+
                   });
 
                   ScaffoldMessenger.of(context).showSnackBar(

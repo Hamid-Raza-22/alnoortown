@@ -149,7 +149,9 @@ class MainGatePlasterWorkState extends State<MainGatePlasterWork> {
                     await mgPlasterWorkViewModel.addMgPlaster(MgPlasterWorkModel(
                       blockNo: selectedBlock,
                       workStatus: workStatus,
-                      // date:
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+
                     ));
 
                     await mgPlasterWorkViewModel.fetchAllMgPlaster();

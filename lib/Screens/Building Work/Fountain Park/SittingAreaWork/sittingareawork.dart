@@ -80,7 +80,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      SittingAreaSummaryPage(containerDataList: containerDataList),
+                      SittingAreaSummaryPage(),
                 ),
               );
             },

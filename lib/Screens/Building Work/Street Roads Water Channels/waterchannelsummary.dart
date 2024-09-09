@@ -38,26 +38,26 @@ class WaterChannelsSummary extends StatelessWidget {
 
     return GridView.builder(
     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-    crossAxisCount: 7,
+    crossAxisCount: 4,
     crossAxisSpacing: 1.0,
     mainAxisSpacing: 1.0,
     childAspectRatio: 2.0, // Adjusted for better width
     ),
-    itemCount: streetRoadWaterChannelViewModel.allStreetRoad.length * 7 + 7, // Update this to 6 columns
+    itemCount: streetRoadWaterChannelViewModel.allStreetRoad.length * 4 + 4, // Update this to 6 columns
 // Additional 4 for headings
     itemBuilder: (context, index) {
-    if (index < 7) {
+    if (index < 4) {
     // Header Row
     return Container(
     color: Color(0xFFC69840),
     alignment: Alignment.center,
     child: Text(
-    ['block_no'.tr(), 'work_status'.tr(), 'date'.tr(), 'time'.tr()][index],
+    ['block_no'.tr(),'road_no'.tr(),'road_side'.tr(),'no_of_water_channels'.tr(), 'work_status'.tr(), 'date'.tr(), 'time'.tr()][index],
     style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
     ),
     );
     } else {
-    final entryIndex = (index - 7) ~/ 7;
+    final entryIndex = (index - 4) ~/ 4;
     if (entryIndex < streetRoadWaterChannelViewModel.allStreetRoad.length) {
     final entry = streetRoadWaterChannelViewModel.allStreetRoad[entryIndex];
     final data = [

@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart' show  Get, Inst, Obx;
 
 class WalkingTracksSummaryPage extends StatefulWidget {
-    WalkingTracksSummaryPage({super.key});
+  WalkingTracksSummaryPage({super.key});
   @override
   State<WalkingTracksSummaryPage> createState() => _WalkingTracksSummaryPageState();
 }
@@ -93,10 +93,11 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
                       ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
                       : ''; // Show empty string if null
                   return DataRow(cells: [
-                    DataCell(Text(startDate)),
                     // Formatted start date
+
+                    DataCell(Text(entry.typeOfWork ?? '')),
+                    DataCell(Text(startDate)),
                     DataCell(Text(expectedCompDate)),
-                    // Formatted expected completion date
                     DataCell(Text(entry.walkingTracksCompStatus ?? '')),
                     // Null check for status
                     DataCell(Text(entry.date ?? '')),
