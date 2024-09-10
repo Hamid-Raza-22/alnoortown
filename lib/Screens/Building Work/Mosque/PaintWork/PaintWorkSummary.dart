@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 
 class PaintWorkSummary extends StatefulWidget {
 
-    PaintWorkSummary({super.key});
+    PaintWorkSummary({super.key,});
 
   @override
   State<PaintWorkSummary> createState() => _PaintWorkSummaryState();

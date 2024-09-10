@@ -1,10 +1,12 @@
+import 'package:al_noor_town/Screens/Building%20Work/Fountain%20Park/CurbstonesWork/CubstonesWorkSummary.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/cubstones_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/cubStones_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
-import 'CubStonesWorkSummary.dart';
+
+
+
 class CurbStonesWork extends StatefulWidget {
     CurbStonesWork({super.key});
 
@@ -32,29 +34,7 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('CubStonesWorkDataList');
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('CubStonesWorkDataList', json.encode(containerDataList));
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? status) {
-  //   return {
-  //     "startDate": startDate?.toIso8601String(),
-  //     "endDate": endDate?.toIso8601String(),
-  //     "status": status,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +55,7 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      CubstonesWorkSummary(),
+                  builder: (context) => CurbstonesWorkSummary(),
                 ),
               );
             },
@@ -196,7 +175,7 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
-                child:  Text('submit'.tr().tr(),
+                child:  Text('submit'.tr(),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),

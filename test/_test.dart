@@ -745,7 +745,7 @@ void main() {
         supportedLocales: [Locale('en')],
         path: 'assets/translations',
         fallbackLocale: Locale('en'),
-        child: GetMaterialApp(home: PaintWorkSummary(containerDataList: [],)),
+        child: GetMaterialApp(home: PaintWorkSummary()),
       ),
     );
     expect(find.text('Work'), findsOneWidget);
