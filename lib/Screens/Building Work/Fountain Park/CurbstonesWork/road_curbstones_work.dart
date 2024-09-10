@@ -1,9 +1,10 @@
-import 'package:al_noor_town/Screens/Building%20Work/Fountain%20Park/CurbstonesWork/CubstonesWorkSummary.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/cubstones_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/cubStones_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
+
+import '../../RoadsCurbstonesWork/curbstoneSummary.dart';
 
 
 
@@ -55,7 +56,8 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CurbstonesWorkSummary(),
+                  builder: (context) =>
+                      CurbstonesWorkSummary(),
                 ),
               );
             },

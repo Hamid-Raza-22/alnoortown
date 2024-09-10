@@ -1,10 +1,10 @@
-import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/light_wires_work.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/Light%20Wires%20Work/light_wires_work.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../Building Work/Mosque/MosqueExcavationWork/mosque_excavation_work.dart';
-import 'Light poles work/light_wires_work.dart';
-import 'Light poles work/poles.dart';
-import 'Light poles work/poles_foundation.dart';
+import 'Light poles work/Light Wires Work/light_wires_work.dart';
+import 'Light poles work/Poles/poles.dart';
+import 'Light poles work/Poles Excavation/poles_foundation.dart';
 import 'Main Drain Work/asphaltwork.dart';
 import 'Main Drain Work/brick_work.dart';
 import 'Main Drain Work/iron_work.dart';

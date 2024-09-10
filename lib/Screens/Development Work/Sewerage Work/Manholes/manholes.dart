@@ -4,8 +4,10 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksV
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import 'manholes_summary.dart';
 
 class Manholes extends StatefulWidget {
   Manholes({super.key});
@@ -15,17 +17,17 @@ class Manholes extends StatefulWidget {
 }
 
 class _ManholesState extends State<Manholes> {
-  ManholesViewModel manholesViewModel=Get.put(ManholesViewModel());
+  ManholesViewModel manholesViewModel = Get.put(ManholesViewModel());
   DBHelper dbHelper = DBHelper();
   int? holeId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
-  List<Map<String, dynamic>> containerDataList = [];
+  Map<String, dynamic> containerData = {};
 
   @override
   void initState() {
     super.initState();
-    containerDataList.add(createInitialContainerData());
+    containerData = createInitialContainerData();
   }
 
   Map<String, dynamic> createInitialContainerData() {
@@ -35,15 +37,25 @@ class _ManholesState extends State<Manholes> {
       "numTankers": '',
     };
   }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
     return formatter.format(now);
-  }  String _getFormattedTime() {
+  }
+
+  String _getFormattedTime() {
     final now = DateTime.now();
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
+
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +79,25 @@ class _ManholesState extends State<Manholes> {
             ],
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.summarize, color: Color(0xFFC69840)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ManholesSummary(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
@@ -80,31 +111,47 @@ class _ManholesState extends State<Manholes> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'manholes'.tr(),
+                  'manholes',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
             ),
-            ...containerDataList.asMap().entries.map((entry) {
-              int index = entry.key;
-              return Column(
-                children: [
-                  buildContainer(index),
-                  SizedBox(height: 16),
-                ],
-              );
-            }),
+            buildContainer(),
             SizedBox(height: 16),
             Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    containerDataList.add(createInitialContainerData());
-                  });
+              child: ElevatedButton(
+                onPressed: () async {
+                  final selectedBlock = containerData["selectedBlock"];
+                  final selectedStreet = containerData["selectedStreet"];
+                  final numTankers = containerData["numTankers"];
+                  await manholesViewModel.addWorker(ManholesModel(
+                      id: holeId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      length: numTankers,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime()
+                  ));
+                  await manholesViewModel.fetchAllWorker();
+                  // await dbHelper.showAsphaltData();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
+                      ),
+                    ),
+                  );
+                  _clearFields(); // Clear fields after submission
                 },
-                backgroundColor: Colors.transparent,
-                elevation: 0, // No shadow
-                child: Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFF3F4F6),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: TextStyle(fontSize: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
+                child: Text('submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -113,9 +160,7 @@ class _ManholesState extends State<Manholes> {
     );
   }
 
-  Widget buildContainer(int index) {
-    var containerData = containerDataList[index];
-
+  Widget buildContainer() {
     return Card(
       margin: EdgeInsets.only(bottom: 16),
       elevation: 3,
@@ -126,10 +171,10 @@ class _ManholesState extends State<Manholes> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
+            buildBlockStreetRow(),
             SizedBox(height: 16),
             Text(
-              'total_length_completed'.tr(),
+              'No. of Manholes',
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             SizedBox(height: 8),
@@ -148,62 +193,24 @@ class _ManholesState extends State<Manholes> {
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
-            SizedBox(height: 20),
-            Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  final selectedBlock = containerData["selectedBlock"];
-                  final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
-                  {
-                    await manholesViewModel.addWorker(ManholesModel(
-                      id: holeId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
-                      length: numTankers,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime()
-                    ));
-                    await manholesViewModel.fetchAllWorker();
-                    // await dbHelper.showAsphaltData();
-                  }
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
-                      ),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFF3F4F6),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                ),
-                child: Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
+  Widget buildBlockStreetRow() {
     return Row(
       children: [
         Expanded(
           child: buildDropdownField(
-              'block_no'.tr(), containerData, "selectedBlock", blocks
+              'block_no', containerData, "selectedBlock", blocks
           ),
         ),
         SizedBox(width: 16),
         Expanded(
           child: buildDropdownField(
-              'street_no'.tr(), containerData, "selectedStreet", streets
+              'street_no', containerData, "selectedStreet", streets
           ),
         ),
       ],

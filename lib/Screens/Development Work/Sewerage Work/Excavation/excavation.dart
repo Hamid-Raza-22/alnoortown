@@ -4,8 +4,10 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksV
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+
+import 'excavation_summary.dart';
 
 class Excavation extends StatefulWidget {
   Excavation({super.key});
@@ -15,7 +17,7 @@ class Excavation extends StatefulWidget {
 }
 
 class ExcavationState extends State<Excavation> {
-  ExcavationViewModel excavationViewModel=Get.put(ExcavationViewModel());
+  ExcavationViewModel excavationViewModel = Get.put(ExcavationViewModel());
   DBHelper dbHelper = DBHelper();
   int? exaId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
@@ -35,15 +37,25 @@ class ExcavationState extends State<Excavation> {
       "numTankers": '',
     };
   }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
     return formatter.format(now);
-  }  String _getFormattedTime() {
+  }
+
+  String _getFormattedTime() {
     final now = DateTime.now();
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
+
+  void _clearFields() {
+    setState(() {
+      containerDataList = [createInitialContainerData()];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +79,25 @@ class ExcavationState extends State<Excavation> {
             ],
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.summarize, color: Color(0xFFC69840)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ExcavationSummary(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
@@ -80,7 +111,7 @@ class ExcavationState extends State<Excavation> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'excavation'.tr(),
+                  'excavation',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -94,19 +125,6 @@ class ExcavationState extends State<Excavation> {
                 ],
               );
             }),
-            SizedBox(height: 16),
-            Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    containerDataList.add(createInitialContainerData());
-                  });
-                },
-                backgroundColor: Colors.transparent,
-                elevation: 0, // No shadow
-                child: Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
-              ),
-            ),
           ],
         ),
       ),
@@ -128,8 +146,8 @@ class ExcavationState extends State<Excavation> {
           children: [
             buildBlockStreetRow(containerData),
             SizedBox(height: 16),
-           Text(
-              'total_length_completed'.tr(),
+            Text(
+              'total_length_completed',
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             SizedBox(height: 8),
@@ -155,17 +173,15 @@ class ExcavationState extends State<Excavation> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
-                  {
-                    await excavationViewModel.addExa(ExcavationModel(
-                      id: exaId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
-                      length: numTankers,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime()
-                    ));
-                    await excavationViewModel.fetchAllExa();
-                  }
+                  await excavationViewModel.addExa(ExcavationModel(
+                    id: exaId,
+                    blockNo: selectedBlock,
+                    streetNo: selectedStreet,
+                    length: numTankers,
+                    date: _getFormattedDate(),
+                    time: _getFormattedTime(),
+                  ));
+                  await excavationViewModel.fetchAllExa();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -174,6 +190,9 @@ class ExcavationState extends State<Excavation> {
                       ),
                     ),
                   );
+
+                  // Clear fields after submission
+                  _clearFields();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),
@@ -183,7 +202,7 @@ class ExcavationState extends State<Excavation> {
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: Text('submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -196,15 +215,11 @@ class ExcavationState extends State<Excavation> {
     return Row(
       children: [
         Expanded(
-          child: buildDropdownField(
-              'block_no'.tr(), containerData, "selectedBlock", blocks
-          ),
+          child: buildDropdownField('block_no', containerData, "selectedBlock", blocks),
         ),
         SizedBox(width: 16),
         Expanded(
-          child: buildDropdownField(
-              'street_no'.tr(), containerData, "selectedStreet", streets
-          ),
+          child: buildDropdownField('street_no', containerData, "selectedStreet", streets),
         ),
       ],
     );
