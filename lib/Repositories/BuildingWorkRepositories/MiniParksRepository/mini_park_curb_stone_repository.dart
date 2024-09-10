@@ -15,7 +15,7 @@ class MiniParkCurbStoneRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameMpCurbStone,
+        tableNameCurbStonesWorkMiniPark,
         columns: ['id', 'startDate', 'expectedCompDate','mpCurbStoneCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MiniParkCurbStoneRepository{
 
   Future<int>add(MiniParkCurbStoneModel miniParkCurbStoneModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameMpCurbStone,miniParkCurbStoneModel.toMap());
+    return await dbClient.insert(tableNameCurbStonesWorkMiniPark,miniParkCurbStoneModel.toMap());
   }
 
   Future<int>update(MiniParkCurbStoneModel miniParkCurbStoneModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameMpCurbStone,miniParkCurbStoneModel.toMap(),
+    return await dbClient.update(tableNameCurbStonesWorkMiniPark,miniParkCurbStoneModel.toMap(),
         where: 'id = ?', whereArgs: [miniParkCurbStoneModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameMpCurbStone,
+    return await dbClient.delete(tableNameCurbStonesWorkMiniPark,
         where: 'id = ?', whereArgs: [id]);
   }
 }

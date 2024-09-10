@@ -1,9 +1,13 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../../Globals/globals.dart';
+
+
+
+
 
 
 
@@ -18,7 +22,7 @@ class MosqueExcavationRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameMosque,
+        tableNameMosqueExcavationWork,
         columns: ['id', 'blockNo', 'completionStatus', 'date', 'time']
     );
 
@@ -50,19 +54,19 @@ class MosqueExcavationRepository{
 
   Future<int>add(MosqueExcavationWorkModel mosqueExcavationWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameMosque,mosqueExcavationWorkModel.toMap());
+    return await dbClient.insert(tableNameMosqueExcavationWork,mosqueExcavationWorkModel.toMap());
   }
 
   Future<int>update(MosqueExcavationWorkModel mosqueExcavationWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameMosque,mosqueExcavationWorkModel.toMap(),
+    return await dbClient.update(tableNameMosqueExcavationWork,mosqueExcavationWorkModel.toMap(),
         where: 'id = ?', whereArgs: [mosqueExcavationWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameMosque,
+    return await dbClient.delete(tableNameMosqueExcavationWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

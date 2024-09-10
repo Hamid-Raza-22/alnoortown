@@ -1,7 +1,8 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/pipeline_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,7 +16,7 @@ class PipelineRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNamePipeline,
+        tableNamePipeLaying,
         columns: ['id', 'blockNo', 'streetNo', 'length','date','time']
     );
 
@@ -53,19 +54,19 @@ class PipelineRepository{
 
   Future<int>add(PipelineModel pipelineModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNamePipeline,pipelineModel.toMap());
+    return await dbClient.insert(tableNamePipeLaying,pipelineModel.toMap());
   }
 
   Future<int>update(PipelineModel pipelineModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNamePipeline,pipelineModel.toMap(),
+    return await dbClient.update(tableNamePipeLaying,pipelineModel.toMap(),
         where: 'id = ?', whereArgs: [pipelineModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNamePipeline,
+    return await dbClient.delete(tableNamePipeLaying,
         where: 'id = ?', whereArgs: [id]);
   }
 }

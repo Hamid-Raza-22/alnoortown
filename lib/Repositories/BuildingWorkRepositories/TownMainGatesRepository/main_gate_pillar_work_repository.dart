@@ -15,7 +15,7 @@ class MainGatePillarWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameGatePilar,
+        tableNamePillarsBrickWorkMainGate,
         columns:  ['id', 'blockNo', 'workStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MainGatePillarWorkRepository{
 
   Future<int>add(MainGatePillarWorkModel mainGatePillarWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameGatePilar,mainGatePillarWorkModel.toMap());
+    return await dbClient.insert(tableNamePillarsBrickWorkMainGate,mainGatePillarWorkModel.toMap());
   }
 
   Future<int>update(MainGatePillarWorkModel mainGatePillarWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameGatePilar,mainGatePillarWorkModel.toMap(),
+    return await dbClient.update(tableNamePillarsBrickWorkMainGate,mainGatePillarWorkModel.toMap(),
         where: 'id = ?', whereArgs: [mainGatePillarWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameGatePilar,
+    return await dbClient.delete(tableNamePillarsBrickWorkMainGate,
         where: 'id = ?', whereArgs: [id]);
   }
 }

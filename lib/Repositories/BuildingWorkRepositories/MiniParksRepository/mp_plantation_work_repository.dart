@@ -15,7 +15,7 @@ class MpPlantationWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameMpPlant,
+        tableNamePlantationWorkMiniPark,
         columns: ['id', 'startDate', 'expectedCompDate','mpPCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MpPlantationWorkRepository{
 
   Future<int>add(MpPlantationWorkModel mpPlantationWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameMpPlant,mpPlantationWorkModel.toMap());
+    return await dbClient.insert(tableNamePlantationWorkMiniPark,mpPlantationWorkModel.toMap());
   }
 
   Future<int>update(MpPlantationWorkModel mpPlantationWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameMpPlant,mpPlantationWorkModel.toMap(),
+    return await dbClient.update(tableNamePlantationWorkMiniPark,mpPlantationWorkModel.toMap(),
         where: 'id = ?', whereArgs: [mpPlantationWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameMpPlant,
+    return await dbClient.delete(tableNamePlantationWorkMiniPark,
         where: 'id = ?', whereArgs: [id]);
   }
 }

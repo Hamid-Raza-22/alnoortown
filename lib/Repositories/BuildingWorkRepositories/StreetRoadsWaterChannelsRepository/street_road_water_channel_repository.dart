@@ -15,7 +15,7 @@ class StreetRoadWaterChannelRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameStreetRoadWCh,
+        tableNameStreetRoadWaterChannels,
         columns: ['id', 'blockNo', 'roadNo','roadSide','noOfWaterChannels','waterChCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class StreetRoadWaterChannelRepository{
 
   Future<int>add(StreetRoadWaterChannelModel streetRoadWaterChannelModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameStreetRoadWCh,streetRoadWaterChannelModel.toMap());
+    return await dbClient.insert(tableNameStreetRoadWaterChannels,streetRoadWaterChannelModel.toMap());
   }
 
   Future<int>update(StreetRoadWaterChannelModel streetRoadWaterChannelModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameStreetRoadWCh,streetRoadWaterChannelModel.toMap(),
+    return await dbClient.update(tableNameStreetRoadWaterChannels,streetRoadWaterChannelModel.toMap(),
         where: 'id = ?', whereArgs: [streetRoadWaterChannelModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameStreetRoadWCh,
+    return await dbClient.delete(tableNameStreetRoadWaterChannels,
         where: 'id = ?', whereArgs: [id]);
   }
 }

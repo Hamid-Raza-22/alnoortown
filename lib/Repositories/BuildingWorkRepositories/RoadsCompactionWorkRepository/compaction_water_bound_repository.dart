@@ -15,7 +15,7 @@ class CompactionWaterBoundRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameCWaterBound,
+        tableNameCompactionAfterWaterBound,
         columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','waterBoundCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class CompactionWaterBoundRepository{
 
   Future<int>add(CompactionWaterBoundModel compactionWaterBoundModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameCWaterBound,compactionWaterBoundModel.toMap());
+    return await dbClient.insert(tableNameCompactionAfterWaterBound,compactionWaterBoundModel.toMap());
   }
 
   Future<int>update(CompactionWaterBoundModel compactionWaterBoundModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameCWaterBound,compactionWaterBoundModel.toMap(),
+    return await dbClient.update(tableNameCompactionAfterWaterBound,compactionWaterBoundModel.toMap(),
         where: 'id = ?', whereArgs: [compactionWaterBoundModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameCWaterBound,
+    return await dbClient.delete(tableNameCompactionAfterWaterBound,
         where: 'id = ?', whereArgs: [id]);
   }
 }

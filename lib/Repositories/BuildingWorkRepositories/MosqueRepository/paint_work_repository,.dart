@@ -15,7 +15,7 @@ class PaintWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNamePaint,
+        tableNamePaintWorkMosque,
         columns: ['id', 'blockNo', 'paintWorkStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class PaintWorkRepository{
 
   Future<int>add(PaintWorkModel paintWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNamePaint,paintWorkModel.toMap());
+    return await dbClient.insert(tableNamePaintWorkMosque,paintWorkModel.toMap());
   }
 
   Future<int>update(PaintWorkModel paintWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNamePaint,paintWorkModel.toMap(),
+    return await dbClient.update(tableNamePaintWorkMosque,paintWorkModel.toMap(),
         where: 'id = ?', whereArgs: [paintWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNamePaint,
+    return await dbClient.delete(tableNamePaintWorkMosque,
         where: 'id = ?', whereArgs: [id]);
   }
 }

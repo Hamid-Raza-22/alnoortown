@@ -15,7 +15,7 @@ class MainEntranceTilesWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameEntrance,
+        tableNameMainEntranceTilesWork,
         columns: ['id', 'startDate', 'expectedCompDate','mainEntranceTilesWorkCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MainEntranceTilesWorkRepository{
 
   Future<int>add(MainEntranceTilesWorkModel mainEntranceTilesWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameEntrance,mainEntranceTilesWorkModel.toMap());
+    return await dbClient.insert(tableNameMainEntranceTilesWork,mainEntranceTilesWorkModel.toMap());
   }
 
   Future<int>update(MainEntranceTilesWorkModel mainEntranceTilesWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameEntrance,mainEntranceTilesWorkModel.toMap(),
+    return await dbClient.update(tableNameMainEntranceTilesWork,mainEntranceTilesWorkModel.toMap(),
         where: 'id = ?', whereArgs: [mainEntranceTilesWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameEntrance,
+    return await dbClient.delete(tableNameMainEntranceTilesWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

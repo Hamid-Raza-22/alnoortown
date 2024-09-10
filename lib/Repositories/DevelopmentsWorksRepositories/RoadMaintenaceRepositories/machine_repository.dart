@@ -1,7 +1,7 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/machine_model.dart';
 import 'package:flutter/foundation.dart';
 

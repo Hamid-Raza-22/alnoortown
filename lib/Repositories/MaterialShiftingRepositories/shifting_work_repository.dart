@@ -1,5 +1,6 @@
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/MaterialShiftingModels/shifting_work_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -13,7 +14,7 @@ class ShiftingWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameShifting,
+        tableNameShiftingWork,
         columns: ['id', 'fromBlock', 'toBlock', 'numOfShift','date','time']
     );
 
@@ -50,19 +51,19 @@ class ShiftingWorkRepository{
 
   Future<int>add(ShiftingWorkModel shiftingWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameShifting,shiftingWorkModel.toMap());
+    return await dbClient.insert(tableNameShiftingWork,shiftingWorkModel.toMap());
   }
 
   Future<int>update(ShiftingWorkModel shiftingWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameShifting,shiftingWorkModel.toMap(),
+    return await dbClient.update(tableNameShiftingWork,shiftingWorkModel.toMap(),
         where: 'id = ?', whereArgs: [shiftingWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameShifting,
+    return await dbClient.delete(tableNameShiftingWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

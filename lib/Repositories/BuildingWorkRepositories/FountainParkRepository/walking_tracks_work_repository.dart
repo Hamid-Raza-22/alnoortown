@@ -15,7 +15,7 @@ class WalkingTracksWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameWalk,
+        tableNameWalkingTracksWork,
         columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','walkingTracksCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class WalkingTracksWorkRepository{
 
   Future<int>add(WalkingTracksWorkModel walkingTracksWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameWalk,walkingTracksWorkModel.toMap());
+    return await dbClient.insert(tableNameWalkingTracksWork,walkingTracksWorkModel.toMap());
   }
 
   Future<int>update(WalkingTracksWorkModel walkingTracksWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameWalk,walkingTracksWorkModel.toMap(),
+    return await dbClient.update(tableNameWalkingTracksWork,walkingTracksWorkModel.toMap(),
         where: 'id = ?', whereArgs: [walkingTracksWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameWalk,
+    return await dbClient.delete(tableNameWalkingTracksWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

@@ -1,7 +1,8 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/light_wires_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,7 +16,7 @@ class LightWiresRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameLight,
+        tableNameLightWires,
         columns: ['id', 'blockNo', 'status','date','time']
     );
 
@@ -45,19 +46,19 @@ class LightWiresRepository{
 
   Future<int>add(LightWiresModel lightWiresModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameLight,lightWiresModel.toMap());
+    return await dbClient.insert(tableNameLightWires,lightWiresModel.toMap());
   }
 
   Future<int>update(LightWiresModel lightWiresModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameLight,lightWiresModel.toMap(),
+    return await dbClient.update(tableNameLightWires,lightWiresModel.toMap(),
         where: 'id = ?', whereArgs: [lightWiresModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameLight,
+    return await dbClient.delete(tableNameLightWires,
         where: 'id = ?', whereArgs: [id]);
   }
 }

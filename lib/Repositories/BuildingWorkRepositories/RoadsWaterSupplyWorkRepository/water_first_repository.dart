@@ -15,7 +15,7 @@ class WaterFirstRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameWaterFirst,
+        tableNameRoadsWaterSupplyWork,
         columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class WaterFirstRepository{
 
   Future<int>add(WaterFirstModel waterFirstModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameWaterFirst,waterFirstModel.toMap());
+    return await dbClient.insert(tableNameRoadsWaterSupplyWork,waterFirstModel.toMap());
   }
 
   Future<int>update(WaterFirstModel waterFirstModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameWaterFirst,waterFirstModel.toMap(),
+    return await dbClient.update(tableNameRoadsWaterSupplyWork,waterFirstModel.toMap(),
         where: 'id = ?', whereArgs: [waterFirstModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameWaterFirst,
+    return await dbClient.delete(tableNameRoadsWaterSupplyWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

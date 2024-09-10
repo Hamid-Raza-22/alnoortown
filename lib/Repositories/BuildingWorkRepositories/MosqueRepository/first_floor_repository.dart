@@ -15,7 +15,7 @@ class FirstFloorRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameFloor,
+        tableNameFirstFloorMosque,
         columns: ['id', 'blockNo', 'brickWork','mudFiling','plasterWork','date','time']
     );
 
@@ -45,19 +45,19 @@ class FirstFloorRepository{
 
   Future<int>add(FirstFloorModel firstFloorModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameFloor,firstFloorModel.toMap());
+    return await dbClient.insert(tableNameFirstFloorMosque,firstFloorModel.toMap());
   }
 
   Future<int>update(FirstFloorModel firstFloorModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameFloor,firstFloorModel.toMap(),
+    return await dbClient.update(tableNameFirstFloorMosque,firstFloorModel.toMap(),
         where: 'id = ?', whereArgs: [firstFloorModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameFloor,
+    return await dbClient.delete(tableNameFirstFloorMosque,
         where: 'id = ?', whereArgs: [id]);
   }
 }

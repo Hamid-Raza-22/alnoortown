@@ -15,7 +15,7 @@ class TilesWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameTiles,
+        tableNameTilesWorkMosque,
         columns: ['id', 'blockNo', 'tilesWorkStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class TilesWorkRepository{
 
   Future<int>add(TilesWorkModel tilesWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameTiles,tilesWorkModel.toMap());
+    return await dbClient.insert(tableNameTilesWorkMosque,tilesWorkModel.toMap());
   }
 
   Future<int>update(TilesWorkModel tilesWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameTiles,tilesWorkModel.toMap(),
+    return await dbClient.update(tableNameTilesWorkMosque,tilesWorkModel.toMap(),
         where: 'id = ?', whereArgs: [tilesWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameTiles,
+    return await dbClient.delete(tableNameTilesWorkMosque,
         where: 'id = ?', whereArgs: [id]);
   }
 }

@@ -15,7 +15,7 @@ class MainGateFoundationWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameGateFoundation,
+        tableNameFoundationWorkMainGate,
         columns:  ['id', 'blockNo', 'workStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MainGateFoundationWorkRepository{
 
   Future<int>add(MainGateFoundationWorkModel mainGateFoundationWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameGateFoundation,mainGateFoundationWorkModel.toMap());
+    return await dbClient.insert(tableNameFoundationWorkMainGate,mainGateFoundationWorkModel.toMap());
   }
 
   Future<int>update(MainGateFoundationWorkModel mainGateFoundationWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameGateFoundation,mainGateFoundationWorkModel.toMap(),
+    return await dbClient.update(tableNameFoundationWorkMainGate,mainGateFoundationWorkModel.toMap(),
         where: 'id = ?', whereArgs: [mainGateFoundationWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameGateFoundation,
+    return await dbClient.delete(tableNameFoundationWorkMainGate,
         where: 'id = ?', whereArgs: [id]);
   }
 }

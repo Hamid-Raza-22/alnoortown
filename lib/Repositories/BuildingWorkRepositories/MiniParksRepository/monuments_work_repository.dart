@@ -15,7 +15,7 @@ class MonumentsWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameMonument,
+        tableNameMonumentsWork,
         columns: ['id', 'startDate', 'expectedCompDate','monumentsWorkCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MonumentsWorkRepository{
 
   Future<int>add(MonumentsWorkModel monumentsWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameMonument,monumentsWorkModel.toMap());
+    return await dbClient.insert(tableNameMonumentsWork,monumentsWorkModel.toMap());
   }
 
   Future<int>update(MonumentsWorkModel monumentsWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameMonument,monumentsWorkModel.toMap(),
+    return await dbClient.update(tableNameMonumentsWork,monumentsWorkModel.toMap(),
         where: 'id = ?', whereArgs: [monumentsWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameMonument,
+    return await dbClient.delete(tableNameMonumentsWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

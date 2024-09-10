@@ -1,7 +1,8 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/tanker_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -18,7 +19,7 @@ class TankerRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameTanker,
+        tableNameWaterTanker,
         columns: ['id', 'blockNo', 'streetNo', 'tankerNo','date','time']
     );
 
@@ -56,19 +57,19 @@ class TankerRepository{
 
   Future<int>add(TankerModel tankerModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameTanker,tankerModel.toMap());
+    return await dbClient.insert(tableNameWaterTanker,tankerModel.toMap());
   }
 
   Future<int>update(TankerModel tankerModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameTanker,tankerModel.toMap(),
+    return await dbClient.update(tableNameWaterTanker,tankerModel.toMap(),
         where: 'id = ?', whereArgs: [tankerModel.id]);
 
   }
 
   Future<int>delete(int? id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameTanker,
+    return await dbClient.delete(tableNameWaterTanker,
         where: 'id = ?', whereArgs: [id]);
   }
 }

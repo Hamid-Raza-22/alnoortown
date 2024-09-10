@@ -15,7 +15,7 @@ class RoadsSignBoardsRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameRoadSB,
+        tableNameRoadsSignBoards,
         columns: ['id', 'blockNo', 'roadNo','fromPlotNo','toPlotNo','roadSide','compStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class RoadsSignBoardsRepository{
 
   Future<int>add(RoadsSignBoardsModel roadsSignBoardsModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameRoadSB,roadsSignBoardsModel.toMap());
+    return await dbClient.insert(tableNameRoadsSignBoards,roadsSignBoardsModel.toMap());
   }
 
   Future<int>update(RoadsSignBoardsModel roadsSignBoardsModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameRoadSB,roadsSignBoardsModel.toMap(),
+    return await dbClient.update(tableNameRoadsSignBoards,roadsSignBoardsModel.toMap(),
         where: 'id = ?', whereArgs: [roadsSignBoardsModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameRoadSB,
+    return await dbClient.delete(tableNameRoadsSignBoards,
         where: 'id = ?', whereArgs: [id]);
   }
 }

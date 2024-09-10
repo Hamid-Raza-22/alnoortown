@@ -15,7 +15,7 @@ class BackFillingWsRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameBackFillingWs,
+        tableNameWaterSupplyBackFilling,
         columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyBackFillingCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class BackFillingWsRepository{
 
   Future<int>add(BackFillingWsModel backFillingWsModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameBackFillingWs,backFillingWsModel.toMap());
+    return await dbClient.insert(tableNameWaterSupplyBackFilling,backFillingWsModel.toMap());
   }
 
   Future<int>update(BackFillingWsModel backFillingWsModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameBackFillingWs,backFillingWsModel.toMap(),
+    return await dbClient.update(tableNameWaterSupplyBackFilling,backFillingWsModel.toMap(),
         where: 'id = ?', whereArgs: [backFillingWsModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameBackFillingWs,
+    return await dbClient.delete(tableNameWaterSupplyBackFilling,
         where: 'id = ?', whereArgs: [id]);
   }
 }

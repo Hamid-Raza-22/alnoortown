@@ -1,7 +1,8 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/shuttering_work_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -17,7 +18,7 @@ class ShutteringWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameShuttering,
+        tableNameShutteringWork,
         columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time']
     );
 
@@ -52,19 +53,19 @@ class ShutteringWorkRepository{
 
   Future<int>add(ShutteringWorkModel shutteringWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameShuttering,shutteringWorkModel.toMap());
+    return await dbClient.insert(tableNameShutteringWork,shutteringWorkModel.toMap());
   }
 
   Future<int>update(ShutteringWorkModel shutteringWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameShuttering,shutteringWorkModel.toMap(),
+    return await dbClient.update(tableNameShutteringWork,shutteringWorkModel.toMap(),
         where: 'id = ?', whereArgs: [shutteringWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameShuttering,
+    return await dbClient.delete(tableNameShutteringWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

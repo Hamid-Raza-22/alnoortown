@@ -15,7 +15,7 @@ class GazeboWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameGazebo,
+        tableNameGazeboWork,
         columns: ['id', 'startDate', 'expectedCompDate','gazeboWorkCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class GazeboWorkRepository{
 
   Future<int>add(GazeboWorkModel gazeboWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameGazebo,gazeboWorkModel.toMap());
+    return await dbClient.insert(tableNameGazeboWork,gazeboWorkModel.toMap());
   }
 
   Future<int>update(GazeboWorkModel gazeboWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameGazebo,gazeboWorkModel.toMap(),
+    return await dbClient.update(tableNameGazeboWork,gazeboWorkModel.toMap(),
         where: 'id = ?', whereArgs: [gazeboWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameGazebo,
+    return await dbClient.delete(tableNameGazeboWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

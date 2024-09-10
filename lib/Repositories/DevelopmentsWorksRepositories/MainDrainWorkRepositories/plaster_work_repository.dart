@@ -1,7 +1,8 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/plaster_work_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -17,7 +18,7 @@ class PlasterWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNamePlaster,
+        tableNamePlasterWork,
         columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time']
     );
 
@@ -54,19 +55,19 @@ class PlasterWorkRepository{
 
   Future<int>add(PlasterWorkModel plasterWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNamePlaster,plasterWorkModel.toMap());
+    return await dbClient.insert(tableNamePlasterWork,plasterWorkModel.toMap());
   }
 
   Future<int>update(PlasterWorkModel plasterWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNamePlaster,plasterWorkModel.toMap(),
+    return await dbClient.update(tableNamePlasterWork,plasterWorkModel.toMap(),
         where: 'id = ?', whereArgs: [plasterWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNamePlaster,
+    return await dbClient.delete(tableNamePlasterWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

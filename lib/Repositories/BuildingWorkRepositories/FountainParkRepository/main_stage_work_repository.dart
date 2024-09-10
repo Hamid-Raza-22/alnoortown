@@ -15,7 +15,7 @@ class MainStageWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameStage,
+        tableNameMainStage,
         columns: ['id', 'startDate', 'expectedCompDate','mainStageWorkCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MainStageWorkRepository{
 
   Future<int>add(MainStageWorkModel mainStageWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameStage,mainStageWorkModel.toMap());
+    return await dbClient.insert(tableNameMainStage,mainStageWorkModel.toMap());
   }
 
   Future<int>update(MainStageWorkModel mainStageWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameStage,mainStageWorkModel.toMap(),
+    return await dbClient.update(tableNameMainStage,mainStageWorkModel.toMap(),
         where: 'id = ?', whereArgs: [mainStageWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameStage,
+    return await dbClient.delete(tableNameMainStage,
         where: 'id = ?', whereArgs: [id]);
   }
 }

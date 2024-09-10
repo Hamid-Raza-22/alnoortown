@@ -1,7 +1,8 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/brick_work_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -17,7 +18,7 @@ class BrickWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameBrick,
+        tableNameBrickWork,
         columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time']
     );
 
@@ -47,19 +48,19 @@ class BrickWorkRepository{
 
   Future<int>add(BrickWorkModel brickWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameBrick,brickWorkModel.toMap());
+    return await dbClient.insert(tableNameBrickWork,brickWorkModel.toMap());
   }
 
   Future<int>update(BrickWorkModel brickWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameBrick,brickWorkModel.toMap(),
+    return await dbClient.update(tableNameBrickWork,brickWorkModel.toMap(),
         where: 'id = ?', whereArgs: [brickWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameBrick,
+    return await dbClient.delete(tableNameBrickWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

@@ -15,7 +15,7 @@ class SittingAreaWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameArea,
+        tableNameSittingAreaWork,
         columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','sittingAreaCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class SittingAreaWorkRepository{
 
   Future<int>add(SittingAreaWorkModel sittingAreaWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameArea,sittingAreaWorkModel.toMap());
+    return await dbClient.insert(tableNameSittingAreaWork,sittingAreaWorkModel.toMap());
   }
 
   Future<int>update(SittingAreaWorkModel sittingAreaWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameArea,sittingAreaWorkModel.toMap(),
+    return await dbClient.update(tableNameSittingAreaWork,sittingAreaWorkModel.toMap(),
         where: 'id = ?', whereArgs: [sittingAreaWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameArea,
+    return await dbClient.delete(tableNameSittingAreaWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

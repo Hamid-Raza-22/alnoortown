@@ -15,7 +15,7 @@ class CanopyColumnPouringRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameCanopy,
+        tableNameMainGateCanopyColumnPouringWork,
         columns: ['id', 'blockNo', 'workStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class CanopyColumnPouringRepository{
 
   Future<int>add(CanopyColumnPouringModel canopyColumnPouringModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameCanopy,canopyColumnPouringModel.toMap());
+    return await dbClient.insert(tableNameMainGateCanopyColumnPouringWork,canopyColumnPouringModel.toMap());
   }
 
   Future<int>update(CanopyColumnPouringModel canopyColumnPouringModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameCanopy,canopyColumnPouringModel.toMap(),
+    return await dbClient.update(tableNameMainGateCanopyColumnPouringWork,canopyColumnPouringModel.toMap(),
         where: 'id = ?', whereArgs: [canopyColumnPouringModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameCanopy,
+    return await dbClient.delete(tableNameMainGateCanopyColumnPouringWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

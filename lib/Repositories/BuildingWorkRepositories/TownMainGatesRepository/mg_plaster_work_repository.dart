@@ -15,7 +15,7 @@ class MgPlasterWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameGatePlaster,
+        tableNamePlasterWorkMainGate,
         columns:  ['id', 'blockNo', 'workStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MgPlasterWorkRepository{
 
   Future<int>add(MgPlasterWorkModel mgPlasterWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameGatePlaster,mgPlasterWorkModel.toMap());
+    return await dbClient.insert(tableNamePlasterWorkMainGate,mgPlasterWorkModel.toMap());
   }
 
   Future<int>update(MgPlasterWorkModel mgPlasterWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameGatePlaster,mgPlasterWorkModel.toMap(),
+    return await dbClient.update(tableNamePlasterWorkMainGate,mgPlasterWorkModel.toMap(),
         where: 'id = ?', whereArgs: [mgPlasterWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameGatePlaster,
+    return await dbClient.delete(tableNamePlasterWorkMainGate,
         where: 'id = ?', whereArgs: [id]);
   }
 }

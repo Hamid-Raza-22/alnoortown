@@ -1,7 +1,8 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/manholes_slab_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -17,7 +18,7 @@ class ManholesSlabRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameSlab,
+        tableNameManHolesSlabs,
         columns: ['id', 'blockNo', 'streetNo', 'numOfCompSlab','date','time']
     );
 
@@ -55,19 +56,19 @@ class ManholesSlabRepository{
 
   Future<int>add(ManholesSlabModel manHolesSlabModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameSlab,manHolesSlabModel.toMap());
+    return await dbClient.insert(tableNameManHolesSlabs,manHolesSlabModel.toMap());
   }
 
   Future<int>update(ManholesSlabModel manHolesSlabModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameSlab,manHolesSlabModel.toMap(),
+    return await dbClient.update(tableNameManHolesSlabs,manHolesSlabModel.toMap(),
         where: 'id = ?', whereArgs: [manHolesSlabModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameSlab,
+    return await dbClient.delete(tableNameManHolesSlabs,
         where: 'id = ?', whereArgs: [id]);
   }
 }

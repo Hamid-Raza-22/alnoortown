@@ -15,7 +15,7 @@ class DoorWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameDoor,
+        tableNameDoorsWorkMosque,
         columns: ['id', 'blockNo', 'doorsWorkStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class DoorWorkRepository{
 
   Future<int>add(DoorsWorkModel doorsWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameDoor,doorsWorkModel.toMap());
+    return await dbClient.insert(tableNameDoorsWorkMosque,doorsWorkModel.toMap());
   }
 
   Future<int>update(DoorsWorkModel doorsWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameDoor,doorsWorkModel.toMap(),
+    return await dbClient.update(tableNameDoorsWorkMosque,doorsWorkModel.toMap(),
         where: 'id = ?', whereArgs: [doorsWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameDoor,
+    return await dbClient.delete(tableNameDoorsWorkMosque,
         where: 'id = ?', whereArgs: [id]);
   }
 }

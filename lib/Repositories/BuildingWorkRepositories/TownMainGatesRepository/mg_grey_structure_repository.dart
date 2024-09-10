@@ -15,7 +15,7 @@ class MgGreyStructureRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameGrey,
+        tableNameGreyStructureMainGate,
         columns:  ['id', 'blockNo', 'workStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MgGreyStructureRepository{
 
   Future<int>add(MgGreyStructureModel mgGreyStructureModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameGrey,mgGreyStructureModel.toMap());
+    return await dbClient.insert(tableNameGreyStructureMainGate,mgGreyStructureModel.toMap());
   }
 
   Future<int>update(MgGreyStructureModel mgGreyStructureModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameGrey,mgGreyStructureModel.toMap(),
+    return await dbClient.update(tableNameGreyStructureMainGate,mgGreyStructureModel.toMap(),
         where: 'id = ?', whereArgs: [mgGreyStructureModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameGrey,
+    return await dbClient.delete(tableNameGreyStructureMainGate,
         where: 'id = ?', whereArgs: [id]);
   }
 }

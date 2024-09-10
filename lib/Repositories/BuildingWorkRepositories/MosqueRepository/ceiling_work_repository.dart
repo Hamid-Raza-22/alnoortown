@@ -15,7 +15,7 @@ class CeilingWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameCeiling,
+        tableNameCeilingWorkMosque,
         columns: ['id', 'blockNo', 'ceilingWorkStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class CeilingWorkRepository{
 
   Future<int>add(CeilingWorkModel ceilingWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameCeiling,ceilingWorkModel.toMap());
+    return await dbClient.insert(tableNameCeilingWorkMosque,ceilingWorkModel.toMap());
   }
 
   Future<int>update(CeilingWorkModel ceilingWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameCeiling,ceilingWorkModel.toMap(),
+    return await dbClient.update(tableNameCeilingWorkMosque,ceilingWorkModel.toMap(),
         where: 'id = ?', whereArgs: [ceilingWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameCeiling,
+    return await dbClient.delete(tableNameCeilingWorkMosque,
         where: 'id = ?', whereArgs: [id]);
   }
 }

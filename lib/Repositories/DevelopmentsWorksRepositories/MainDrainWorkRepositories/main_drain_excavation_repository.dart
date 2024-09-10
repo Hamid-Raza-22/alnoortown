@@ -1,5 +1,6 @@
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/main_drain_excavation_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -13,7 +14,7 @@ class MainDrainExcavationRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameDrain,
+        tableNameDrainExcavation,
         columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time']
     );
 
@@ -51,19 +52,19 @@ class MainDrainExcavationRepository{
 
   Future<int>add(MainDrainExcavationModel mainDrainExcavationModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameDrain,mainDrainExcavationModel.toMap());
+    return await dbClient.insert(tableNameDrainExcavation,mainDrainExcavationModel.toMap());
   }
 
   Future<int>update(MainDrainExcavationModel mainDrainExcavationModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameDrain,mainDrainExcavationModel.toMap(),
+    return await dbClient.update(tableNameDrainExcavation,mainDrainExcavationModel.toMap(),
         where: 'id = ?', whereArgs: [mainDrainExcavationModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameDrain,
+    return await dbClient.delete(tableNameDrainExcavation,
         where: 'id = ?', whereArgs: [id]);
   }
 }

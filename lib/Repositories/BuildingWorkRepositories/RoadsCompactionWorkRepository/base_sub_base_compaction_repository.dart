@@ -15,7 +15,7 @@ class BaseSubBaseCompactionRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameSubBase,
+        tableNameBaseSubBaseCompaction,
         columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','baseSubBaseCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class BaseSubBaseCompactionRepository{
 
   Future<int>add(BaseSubBaseCompactionModel baseSubBaseCompactionModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameSubBase,baseSubBaseCompactionModel.toMap());
+    return await dbClient.insert(tableNameBaseSubBaseCompaction,baseSubBaseCompactionModel.toMap());
   }
 
   Future<int>update(BaseSubBaseCompactionModel baseSubBaseCompactionModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameSubBase,baseSubBaseCompactionModel.toMap(),
+    return await dbClient.update(tableNameBaseSubBaseCompaction,baseSubBaseCompactionModel.toMap(),
         where: 'id = ?', whereArgs: [baseSubBaseCompactionModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameSubBase,
+    return await dbClient.delete(tableNameBaseSubBaseCompaction,
         where: 'id = ?', whereArgs: [id]);
   }
 }

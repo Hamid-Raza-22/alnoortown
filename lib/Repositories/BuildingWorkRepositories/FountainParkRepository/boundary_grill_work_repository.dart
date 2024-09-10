@@ -15,7 +15,7 @@ class BoundaryGrillWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameBoundary,
+        tableNameBoundaryGrillWork,
         columns: ['id', 'startDate', 'expectedCompDate','boundaryWorkCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class BoundaryGrillWorkRepository{
 
   Future<int>add(BoundaryGrillWorkModel boundaryGrillWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameBoundary,boundaryGrillWorkModel.toMap());
+    return await dbClient.insert(tableNameBoundaryGrillWork,boundaryGrillWorkModel.toMap());
   }
 
   Future<int>update(BoundaryGrillWorkModel boundaryGrillWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameBoundary,boundaryGrillWorkModel.toMap(),
+    return await dbClient.update(tableNameBoundaryGrillWork,boundaryGrillWorkModel.toMap(),
         where: 'id = ?', whereArgs: [boundaryGrillWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameBoundary,
+    return await dbClient.delete(tableNameBoundaryGrillWork,
         where: 'id = ?', whereArgs: [id]);
   }
 }

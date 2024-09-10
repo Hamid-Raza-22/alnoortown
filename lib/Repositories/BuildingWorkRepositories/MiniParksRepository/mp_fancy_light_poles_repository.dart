@@ -15,7 +15,7 @@ class MpFancyLightPolesRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameMpLight,
+        tableNameFancyLightPolesMiniPark,
         columns: ['id', 'startDate', 'expectedCompDate','mpLCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class MpFancyLightPolesRepository{
 
   Future<int>add(MpFancyLightPolesModel mpFancyLightPolesModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameMpLight,mpFancyLightPolesModel.toMap());
+    return await dbClient.insert(tableNameFancyLightPolesMiniPark,mpFancyLightPolesModel.toMap());
   }
 
   Future<int>update(MpFancyLightPolesModel mpFancyLightPolesModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameMpLight,mpFancyLightPolesModel.toMap(),
+    return await dbClient.update(tableNameFancyLightPolesMiniPark,mpFancyLightPolesModel.toMap(),
         where: 'id = ?', whereArgs: [mpFancyLightPolesModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameMpLight,
+    return await dbClient.delete(tableNameFancyLightPolesMiniPark,
         where: 'id = ?', whereArgs: [id]);
   }
 }

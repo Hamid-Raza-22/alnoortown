@@ -15,7 +15,7 @@ class RoadsEdgingWorkRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameRoadSide,
+        tableNameRoadsEdging,
         columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsEdgingCompStatus','date','time']
     );
 
@@ -45,19 +45,19 @@ class RoadsEdgingWorkRepository{
 
   Future<int>add(RoadsEdgingWorkModel roadsEdgingWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameRoadSide,roadsEdgingWorkModel.toMap());
+    return await dbClient.insert(tableNameRoadsEdging,roadsEdgingWorkModel.toMap());
   }
 
   Future<int>update(RoadsEdgingWorkModel roadsEdgingWorkModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameRoadSide,roadsEdgingWorkModel.toMap(),
+    return await dbClient.update(tableNameRoadsEdging,roadsEdgingWorkModel.toMap(),
         where: 'id = ?', whereArgs: [roadsEdgingWorkModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameRoadSide,
+    return await dbClient.delete(tableNameRoadsEdging,
         where: 'id = ?', whereArgs: [id]);
   }
 }

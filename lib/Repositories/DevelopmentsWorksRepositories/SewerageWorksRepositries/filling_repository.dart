@@ -1,7 +1,8 @@
 
 
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Globals/Globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/filing_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -18,7 +19,7 @@ class FillingRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameFiling,
+        tableNameBackFiling,
         columns: ['id', 'blockNo', 'streetNo', 'status','date','time']
     );
 
@@ -54,19 +55,19 @@ class FillingRepository{
 
   Future<int>add(FilingModel filingModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameFiling,filingModel.toMap());
+    return await dbClient.insert(tableNameBackFiling,filingModel.toMap());
   }
 
   Future<int>update(FilingModel filingModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameFiling,filingModel.toMap(),
+    return await dbClient.update(tableNameBackFiling,filingModel.toMap(),
         where: 'id = ?', whereArgs: [filingModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameFiling,
+    return await dbClient.delete(tableNameBackFiling,
         where: 'id = ?', whereArgs: [id]);
   }
 }
