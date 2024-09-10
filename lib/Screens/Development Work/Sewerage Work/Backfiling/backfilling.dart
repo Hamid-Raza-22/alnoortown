@@ -4,8 +4,10 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksV
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
+import 'package:get/get.dart' show Get, GetNavigation, Inst;
 import 'package:intl/intl.dart';
+
+import 'backfiling_summary.dart';
 
 class Backfiling extends StatefulWidget {
   Backfiling({super.key});
@@ -15,35 +17,30 @@ class Backfiling extends StatefulWidget {
 }
 
 class _BackfilingState extends State<Backfiling> {
-    FillingViewModel fillingViewModel=Get.put(FillingViewModel());
+  FillingViewModel fillingViewModel = Get.put(FillingViewModel());
   DBHelper dbHelper = DBHelper();
   int? fillingId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
-  List<Map<String, dynamic>> containerDataList = [];
 
-  @override
-  void initState() {
-    super.initState();
-    containerDataList.add(createInitialContainerData());
+  Map<String, dynamic> containerData = {
+    "selectedBlock": null,
+    "selectedStreet": null,
+    "status": "",
+  };
+
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
   }
 
-  Map<String, dynamic> createInitialContainerData() {
-    return {
-      "selectedBlock": null,
-      "selectedStreet": null,
-      "status": "",
-    };
+  String _getFormattedTime() {
+    final now = DateTime.now();
+    final formatter = DateFormat('h:mm a');
+    return formatter.format(now);
   }
-    String _getFormattedDate() {
-      final now = DateTime.now();
-      final formatter = DateFormat('d MMM yyyy');
-      return formatter.format(now);
-    }  String _getFormattedTime() {
-      final now = DateTime.now();
-      final formatter = DateFormat('h:mm a');
-      return formatter.format(now);
-    }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +56,7 @@ class _BackfilingState extends State<Backfiling> {
                 height: double.infinity,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/backfiling.png'),
+                    image: AssetImage('assets/images/curbstone.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -67,6 +64,26 @@ class _BackfilingState extends State<Backfiling> {
             ],
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)), // Gold color for back icon
+            onPressed: () {
+              Navigator.pop(context); // Go back to the previous screen
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.summarize, color: Color(0xFFC69840)), // Gold color for summarize icon
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => BackfillingSummary(
+                    ),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
@@ -85,37 +102,15 @@ class _BackfilingState extends State<Backfiling> {
                 ),
               ),
             ),
-            ...containerDataList.asMap().entries.map((entry) {
-              int index = entry.key;
-              return Column(
-                children: [
-                  buildContainer(index),
-                  SizedBox(height: 16),
-                ],
-              );
-            }),
+            buildContainer(),
             SizedBox(height: 16),
-            Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    containerDataList.add(createInitialContainerData());
-                  });
-                },
-                backgroundColor: Colors.transparent,
-                elevation: 0, // No shadow
-                child: Icon(Icons.add, color: Color(0xFFC69840), size: 36.0), // Increase size of the icon
-              ),
-            ),
           ],
         ),
       ),
     );
   }
 
-  Widget buildContainer(int index) {
-    var containerData = containerDataList[index];
-
+  Widget buildContainer() {
     return Card(
       margin: EdgeInsets.only(bottom: 16),
       elevation: 3,
@@ -126,7 +121,7 @@ class _BackfilingState extends State<Backfiling> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
+            buildBlockStreetRow(),
             SizedBox(height: 16),
             Text(
               "status".tr(),
@@ -170,22 +165,30 @@ class _BackfilingState extends State<Backfiling> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final status = containerData["status"];
-                  {
-                    await fillingViewModel.addFill(FilingModel(
-                      id: fillingId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
-                      status: status,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime()
-                    ));
-                    await fillingViewModel.fetchAllFill();
-                  }   // await dbHelper.showAsphaltData();
+
+                  // Submit data
+                  await fillingViewModel.addFill(FilingModel(
+                    id: fillingId,
+                    blockNo: selectedBlock,
+                    streetNo: selectedStreet,
+                    status: status,
+                    date: _getFormattedDate(),
+                    time: _getFormattedTime(),
+                  ));
+                  await fillingViewModel.fetchAllFill();
+
+                  // Clear fields after submission
+                  setState(() {
+                    containerData = {
+                      "selectedBlock": null,
+                      "selectedStreet": null,
+                      "status": "",
+                    };
+                  });
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, Backfiling Status: $status',
-                      ),
+                      content: Text('Selected: $selectedBlock, $selectedStreet, Backfiling Status: $status'),
                     ),
                   );
                 },
@@ -206,25 +209,21 @@ class _BackfilingState extends State<Backfiling> {
     );
   }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
+  Widget buildBlockStreetRow() {
     return Row(
       children: [
         Expanded(
-          child: buildDropdownField(
-            'block_no'.tr(), containerData, "selectedBlock", blocks,
-          ),
+          child: buildDropdownField('block_no'.tr(), "selectedBlock", blocks),
         ),
         SizedBox(width: 16),
         Expanded(
-          child: buildDropdownField(
-            'street_no'.tr(), containerData, "selectedStreet", streets,
-          ),
+          child: buildDropdownField('street_no'.tr(), "selectedStreet", streets),
         ),
       ],
     );
   }
 
-  Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
+  Widget buildDropdownField(String title, String key, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
