@@ -7,25 +7,27 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 
+import 'light_wires_work_summary.dart';
+
 class LightWiresWork extends StatefulWidget {
-    LightWiresWork({super.key});
+  LightWiresWork({super.key});
 
   @override
   LightWiresWorkState createState() => LightWiresWorkState();
 }
 
 class LightWiresWorkState extends State<LightWiresWork> {
-  LightWiresViewModel lightWiresViewModel=Get.put(LightWiresViewModel());
+  LightWiresViewModel lightWiresViewModel = Get.put(LightWiresViewModel());
   DBHelper dbHelper = DBHelper();
   int? wireId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
-  List<Map<String, dynamic>> containerDataList = [];
+  Map<String, dynamic> containerData = {};
 
   @override
   void initState() {
     super.initState();
-    containerDataList.add(createInitialContainerData());
+    containerData = createInitialContainerData();
   }
 
   Map<String, dynamic> createInitialContainerData() {
@@ -36,42 +38,69 @@ class LightWiresWorkState extends State<LightWiresWork> {
       "status": null,
     };
   }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
     return formatter.format(now);
-  }  String _getFormattedTime() {
+  }
+
+  String _getFormattedTime() {
     final now = DateTime.now();
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize:   Size.fromHeight(180.0),
+        preferredSize: Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          flexibleSpace: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration:   BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/images/lightwire-01.png'),
-                fit: BoxFit.fitHeight,
+          flexibleSpace: Stack(
+            children: [
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/lightwire-01.png'),
+                    fit: BoxFit.fitHeight,
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.summarize, color: Color(0xFFC69840)),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LightWorkSummary(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
       ),
       body: SingleChildScrollView(
-        padding:   EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-              Align(
+            Align(
               alignment: Alignment.center,
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
@@ -81,52 +110,31 @@ class LightWiresWorkState extends State<LightWiresWork> {
                 ),
               ),
             ),
-            ...containerDataList.asMap().entries.map((entry) {
-              return Column(
-                children: [
-                  buildContainer(entry.key),
-                    SizedBox(height: 16),
-                ],
-              );
-            }),
-            Center(
-              child: FloatingActionButton(
-                onPressed: () {
-                  setState(() {
-                    containerDataList.add(createInitialContainerData());
-                  });
-                },
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                child:   Icon(Icons.add, color: Color(0xFFC69840), size: 36.0),
-              ),
-            ),
+            buildContainer(),
           ],
         ),
       ),
     );
   }
 
-  Widget buildContainer(int index) {
-    var containerData = containerDataList[index];
-
+  Widget buildContainer() {
     return Card(
-      margin:   EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding:   EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
-              SizedBox(height: 16),
-              Text(
+            buildBlockStreetRow(),
+            SizedBox(height: 16),
+            Text(
               "total_length".tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-              SizedBox(height: 8),
+            SizedBox(height: 8),
             TextFormField(
               initialValue: containerData["numTankers"],
               onChanged: (value) {
@@ -135,21 +143,21 @@ class LightWiresWorkState extends State<LightWiresWork> {
                 });
               },
               keyboardType: TextInputType.number,
-              decoration:   InputDecoration(
+              decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
-              SizedBox(height: 16),
-              Text(
-              'back_filing_status'.tr(),
+            SizedBox(height: 16),
+            Text(
+              'Light Wire Work Status'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-              SizedBox(height: 8),
-            buildStatusRadioButtons(containerData),
-              SizedBox(height: 20),
+            SizedBox(height: 8),
+            buildStatusRadioButtons(),
+            SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -157,35 +165,38 @@ class LightWiresWorkState extends State<LightWiresWork> {
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
                   final status = containerData["status"];
-                  {
-                    await lightWiresViewModel.addLight(LightWiresModel(
-                      id: wireId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
-                      totalLength: numTankers,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime()
-                    ));
-                    await lightWiresViewModel.fetchAllLight();
-                  }
+                  await lightWiresViewModel.addLight(LightWiresModel(
+                    id: wireId,
+                    blockNo: selectedBlock,
+                    streetNo: selectedStreet,
+                    totalLength: numTankers,
+                    date: _getFormattedDate(),
+                    time: _getFormattedTime(),
+                  ));
+                  await lightWiresViewModel.fetchAllLight();
+
+                  // Clear fields after submission
+                  setState(() {
+                    containerData = createInitialContainerData();
+                  });
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, Total Length: $numTankers, Back Filling Status: $status',
+                        'Selected: $selectedBlock, $selectedStreet, Total Length: $numTankers, Status: $status',
                       ),
                     ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:   Color(0xFFF3F4F6),
-                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle:   TextStyle(fontSize: 14),
-                  shape:   RoundedRectangleBorder(
+                  backgroundColor: Color(0xFFF3F4F6),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: TextStyle(fontSize: 14),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child:   Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -194,22 +205,29 @@ class LightWiresWorkState extends State<LightWiresWork> {
     );
   }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
+  Widget buildBlockStreetRow() {
     return Row(
       children: [
-        Expanded(child: buildDropdownField('block_no'.tr(), containerData, "selectedBlock", blocks)),
-          SizedBox(width: 16),
-        Expanded(child: buildDropdownField('street_no'.tr(), containerData, "selectedStreet", streets)),
+        Expanded(
+          child: buildDropdownField('block_no'.tr(), "selectedBlock", blocks),
+        ),
+        SizedBox(width: 16),
+        Expanded(
+          child: buildDropdownField('street_no'.tr(), "selectedStreet", streets),
+        ),
       ],
     );
   }
 
-  Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
+  Widget buildDropdownField(String title, String key, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title, style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-          SizedBox(height: 8),
+        Text(
+          title,
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+        ),
+        SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -223,8 +241,10 @@ class LightWiresWorkState extends State<LightWiresWork> {
               containerData[key] = value;
             });
           },
-          decoration:   InputDecoration(
-            border: OutlineInputBorder(borderSide: BorderSide(color: Color(0xFFC69840))),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderSide: BorderSide(color: Color(0xFFC69840)),
+            ),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
         ),
@@ -232,11 +252,11 @@ class LightWiresWorkState extends State<LightWiresWork> {
     );
   }
 
-  Widget buildStatusRadioButtons(Map<String, dynamic> containerData) {
+  Widget buildStatusRadioButtons() {
     return Column(
       children: [
         RadioListTile<String>(
-          title:   Text('in_process'.tr()),
+          title: Text('in_process'.tr()),
           value: 'in_process'.tr(),
           groupValue: containerData["status"],
           onChanged: (value) {
@@ -244,10 +264,10 @@ class LightWiresWorkState extends State<LightWiresWork> {
               containerData["status"] = value;
             });
           },
-          activeColor:   Color(0xFFC69840),
+          activeColor: Color(0xFFC69840),
         ),
         RadioListTile<String>(
-          title:   Text('done'.tr()),
+          title: Text('done'.tr()),
           value: 'done'.tr(),
           groupValue: containerData["status"],
           onChanged: (value) {
@@ -255,7 +275,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
               containerData["status"] = value;
             });
           },
-          activeColor:   Color(0xFFC69840),
+          activeColor: Color(0xFFC69840),
         ),
       ],
     );
