@@ -2,7 +2,6 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/electricity
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
 
 class ElectricityWorkSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
@@ -111,8 +110,8 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
           children: [
             Expanded(child: _buildDataCell(data["selectedBlock"] ?? "N/A")),
             Expanded(child: _buildDataCell(data["status"] ?? "N/A")),
-            Expanded(child: _buildDataCell(_formatDate(data["timestamp"]))),
-            Expanded(child: _buildDataCell(_formatTime(data["timestamp"]))),
+            Expanded(child: _buildDataCell(data["date"])),
+            Expanded(child: _buildDataCell(data["time"])),
           ],
         ),
       ),
@@ -131,15 +130,15 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
     );
   }
 
-  String _formatDate(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('d MMM yyyy').format(dateTime);
-  }
-
-  String _formatTime(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('h:mm a').format(dateTime);
-  }
+  // String _formatDate(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('d MMM yyyy').format(dateTime);
+  // }
+  //
+  // String _formatTime(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('h:mm a').format(dateTime);
+  // }
 }

@@ -6,8 +6,6 @@ import 'package:intl/intl.dart';
 import '../../../../ViewModels/BuildingWorkViewModel/Mosque/door_work_view_model.dart';
 
 class DoorsWorkSummary extends StatefulWidget {
-
-
     DoorsWorkSummary({super.key});
 
   @override
@@ -16,6 +14,7 @@ class DoorsWorkSummary extends StatefulWidget {
 
 class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
   final DoorWorkViewModel doorWorkViewModel = Get.put(DoorWorkViewModel());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +22,12 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title:   Text(
+        title: Text(
           'doors_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
@@ -39,15 +38,15 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             // Table Header
             Container(
-              color:   Color(0xFFC69840),
+              color: Color(0xFFC69840),
               child: Padding(
-                padding:   EdgeInsets.symmetric(vertical: 12.0),
+                padding: EdgeInsets.symmetric(vertical: 12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -59,7 +58,7 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
                 ),
               ),
             ),
-              SizedBox(height: 8),
+            SizedBox(height: 8),
             // Data Grid
             Expanded(
               child: Obx(() {
@@ -87,7 +86,7 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
     return Center(
       child: Text(
         title,
-        style:   TextStyle(
+        style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16,
@@ -98,21 +97,21 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin:   EdgeInsets.only(bottom: 8.0),
+      margin: EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color:   Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding:   EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Expanded(child: _buildDataCell(data["selectedBlock"] ?? "N/A")),
             Expanded(child: _buildDataCell(data["status"] ?? "N/A")),
-            Expanded(child: _buildDataCell(_formatDate(data["timestamp"]))),
-            Expanded(child: _buildDataCell(_formatTime(data["timestamp"]))),
+            Expanded(child: _buildDataCell(data["date"])),
+            Expanded(child: _buildDataCell(data["time"])),
           ],
         ),
       ),
@@ -123,7 +122,7 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
     return Center(
       child: Text(
         text ?? "N/A",
-        style:   TextStyle(
+        style: TextStyle(
           fontSize: 14,
           color: Color(0xFFC69840),
         ),
@@ -131,15 +130,15 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
     );
   }
 
-  String _formatDate(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('d MMM yyyy').format(dateTime);
-  }
-
-  String _formatTime(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('h:mm a').format(dateTime);
-  }
+//   String _formatDate(String? timestamp) {
+//     if (timestamp == null) return "N/A";
+//     final dateTime = DateTime.parse(timestamp);
+//     return DateFormat('d MMM yyyy').format(dateTime);
+//   }
+//
+//   String _formatTime(String? timestamp) {
+//     if (timestamp == null) return "N/A";
+//     final dateTime = DateTime.parse(timestamp);
+//     return DateFormat('h:mm a').format(dateTime);
+//   }
 }

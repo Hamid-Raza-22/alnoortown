@@ -104,8 +104,8 @@ class CeilingWorkSummary extends StatelessWidget {
           children: [
             Expanded(child: _buildDataCell(data["selectedBlock"] ?? "N/A")),
             Expanded(child: _buildDataCell(data["status"] ?? "N/A")),
-            Expanded(child: _buildDataCell((data["timestamp"]))),
-            Expanded(child: _buildDataCell((data["timestamp"]))),
+            Expanded(child: _buildDataCell(data["date"])),
+            Expanded(child: _buildDataCell(data["time"])),
           ],
         ),
       ),

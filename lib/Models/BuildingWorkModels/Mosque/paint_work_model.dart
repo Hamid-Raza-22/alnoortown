@@ -1,7 +1,7 @@
 class PaintWorkModel{
   int? id;
-  dynamic blockNo;
-  dynamic paintWorkStatus;
+  dynamic  blockNo;
+  dynamic  paintWorkStatus;
   dynamic date;
   dynamic time;
 
@@ -30,7 +30,7 @@ class PaintWorkModel{
       'blockNo':blockNo,
       'paintWorkStatus':paintWorkStatus,
       'date':date,
-      'time':time,
+      'time':time
 
     };
   }

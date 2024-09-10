@@ -3,11 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/paint_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
+
 
 class PaintWorkSummary extends StatefulWidget {
-
-    PaintWorkSummary({super.key,});
+    PaintWorkSummary({super.key});
 
   @override
   State<PaintWorkSummary> createState() => _PaintWorkSummaryState();
@@ -108,10 +107,10 @@ class _PaintWorkSummaryState extends State<PaintWorkSummary> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(child: _buildCell(data["selectedBlock"])),
-            Expanded(child: _buildCell(data["status"])),
-            Expanded(child: _buildCell(DateFormat('dd/MM/yyyy').format(DateTime.parse(data["timestamp"])))),
-            Expanded(child: _buildCell(DateFormat('HH:mm').format(DateTime.parse(data["timestamp"])))),
+            Expanded(child: _buildCell(data["selectedBlock"]?? "N/A")),
+            Expanded(child: _buildCell(data["status"]?? "N/A")),
+            Expanded(child: _buildCell(data["date"])),
+            Expanded(child: _buildCell(data["time"])),
           ],
         ),
       ),

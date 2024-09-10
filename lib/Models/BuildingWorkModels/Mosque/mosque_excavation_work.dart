@@ -3,9 +3,7 @@ class MosqueExcavationWorkModel{
   dynamic blockNo;
   dynamic completionStatus;
   dynamic date;
-   dynamic time;
-
-
+  dynamic time;
 
   MosqueExcavationWorkModel({
     this.id,
@@ -13,8 +11,6 @@ class MosqueExcavationWorkModel{
     this.completionStatus,
     this.date,
     this.time
-
-
   });
 
   factory MosqueExcavationWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -24,7 +20,7 @@ class MosqueExcavationWorkModel{
       blockNo: json['blockNo'],
       completionStatus: json['completionStatus'],
         date:  json['date'],
-time: json['time']
+        time: json['time']
 
     );
   }

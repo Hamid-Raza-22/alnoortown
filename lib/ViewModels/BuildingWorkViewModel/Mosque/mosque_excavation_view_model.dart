@@ -2,9 +2,6 @@ import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_
 import 'package:al_noor_town/Repositories/BuildingWorkRepositories/MosqueRepository/mosque_exavation_repository.dart';
 import 'package:get/get.dart';
 
-
-
-
 class MosqueExcavationViewModel extends GetxController {
 
   var allMosque = <MosqueExcavationWorkModel>[].obs;
@@ -14,7 +11,7 @@ class MosqueExcavationViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
-    fetchAllMosque();
+    // fetchAllMosque();
   }
 
   fetchAllMosque() async{
@@ -35,7 +32,7 @@ class MosqueExcavationViewModel extends GetxController {
 
   deleteLight(int id){
     mosqueExcavationRepository.delete(id);
-    fetchAllMosque()();
+    fetchAllMosque();
   }
 
 }

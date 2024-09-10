@@ -110,8 +110,8 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
           children: [
             Expanded(child: _buildDataCell(data["selectedBlock"] ?? "N/A")),
             Expanded(child: _buildDataCell(data["status"] ?? "N/A")),
-            Expanded(child: _buildDataCell(_formatDate(data["timestamp"]))),
-            Expanded(child: _buildDataCell(_formatTime(data["timestamp"]))),
+            Expanded(child: _buildDataCell(data["date"])),
+            Expanded(child: _buildDataCell(data["time"])),
           ],
         ),
       ),
@@ -130,15 +130,15 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
     );
   }
 
-  String _formatDate(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('d MMM yyyy').format(dateTime);
-  }
-
-  String _formatTime(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('h:mm a').format(dateTime);
-  }
+  // String _formatDate(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('d MMM yyyy').format(dateTime);
+  // }
+  //
+  // String _formatTime(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('h:mm a').format(dateTime);
+  // }
 }
