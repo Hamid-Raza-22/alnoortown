@@ -123,13 +123,13 @@ class _NewMaterialState extends State<NewMaterial> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildLabelsAndFields(index, containerData, ['Sand', 'Soil']),
+            buildLabelsAndFields(index, containerData, ['sand'.tr(), 'soil'.tr()]),
             const SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData, ['Base', 'Sub Base']),
+            buildLabelsAndFields(index, containerData, ['base'.tr(), 'sub_base'.tr()]),
             const SizedBox(height: 16),
             buildOtherMaterialRow(index, containerData),
             const SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData, ['Water Bound']),
+            buildLabelsAndFields(index, containerData, ['water_bound'.tr()]),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
@@ -216,7 +216,7 @@ class _NewMaterialState extends State<NewMaterial> {
             });
           },
           decoration: InputDecoration(
-            hintText: 'Enter value',
+            hintText: 'total_dumpers'.tr(),
             hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
             border: const OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
@@ -236,8 +236,8 @@ class _NewMaterialState extends State<NewMaterial> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Other Material",
+               Text(
+                "other_material".tr(),
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
               ),
               const SizedBox(height: 8),
@@ -248,7 +248,7 @@ class _NewMaterialState extends State<NewMaterial> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Enter other material',
+                  hintText: "total_dumpers".tr(),
                   hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFC69840)),
@@ -264,8 +264,8 @@ class _NewMaterialState extends State<NewMaterial> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Quantity",
+               Text(
+                "total_dumpers".tr(),
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
               ),
               const SizedBox(height: 8),
@@ -277,7 +277,7 @@ class _NewMaterialState extends State<NewMaterial> {
                   });
                 },
                 decoration: InputDecoration(
-                  hintText: 'Qty',
+                  hintText: "total_dumpers".tr(),
                   hintStyle: TextStyle(color: Colors.grey.withOpacity(0.4)),
                   border: const OutlineInputBorder(
                     borderSide: BorderSide(color: Color(0xFFC69840)),

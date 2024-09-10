@@ -20,129 +20,75 @@ class DBHelper{
     var db = openDatabase(path,version: 1,onCreate: _onCreate);
     return db;
   }
-  _onCreate(Database db, int version) {
-    db.execute(
-        "CREATE TABLE machine(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, machine TEXT, date TEXT ,time TEXT,timeIn TEXT, timeOut TEXT)");
-    db.execute(
-        "CREATE TABLE tanker(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, tankerNo TEXT,date TEXT,time TEXT )");
-    db.execute(
-        "CREATE TABLE Excavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT )");
-    db.execute(
-        "CREATE TABLE filing(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, status TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE manholes(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE pipeline(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE light(id INTEGER PRIMARY KEY,blockNo TEXT, status TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE polesExcavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, lengthTotal TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE poles(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, totalLength TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE asphalt(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfTons TEXT,backFillingStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE brick(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE iron(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT ,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE drain(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE slab(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfCompSlab TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE plaster(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE shuttering(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE shifting(id INTEGER PRIMARY KEY,fromBlock TEXT, toBlock TEXT, numOfShift TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE mosque(id INTEGER PRIMARY KEY,blockNo TEXT, completionStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE newMaterials(id INTEGER PRIMARY KEY,sand TEXT, soil TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT,otherMaterialValue TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE attendanceIn(id INTEGER PRIMARY KEY,timeIn TEXT, latitude TEXT, longitude TEXT, liveAddress TEXT,date TEXT)");
-    db.execute(
-        "CREATE TABLE attendanceOut(id INTEGER PRIMARY KEY,timeOut fTEXT, latitude TEXT, longitude TEXT, addressOut TEXT,date TEXT)");
-    db.execute(
-        "CREATE TABLE foundation(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE floor(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE tiles(id INTEGER PRIMARY KEY,blockNo TEXT, tilesWorkStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE sanitary(id INTEGER PRIMARY KEY,blockNo TEXT, sanitaryWorkStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE ceiling(id INTEGER PRIMARY KEY,blockNo TEXT, ceilingWorkStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE paint(id INTEGER PRIMARY KEY,blockNo TEXT, paintWorkStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE electricity(id INTEGER PRIMARY KEY,blockNo TEXT, electricityWorkStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE boundary(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, boundaryWorkCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE cubStone(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, cubStonesCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE gazebo(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,gazeboWorkCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE entrance(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,mainEntranceTilesWorkCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE stage(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,mainStageWorkCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE mud(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, totalDumpers TEXT, mudFillingCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE plant(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, plantationCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE area(id INTEGER PRIMARY KEY,typeOfWork TEXT,startDate TEXT, expectedCompDate TEXT,sittingAreaCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE walk(id INTEGER PRIMARY KEY,typeOfWork TEXT,startDate TEXT, expectedCompDate TEXT, walkingTracksCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE mpMud(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,totalDumpers TEXT, mpMudFillingCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE mpGrass(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,grassWorkCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE mpCurbStone(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpCurbStoneCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE mpLight(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpLCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE mpPlant(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpPCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE door(id INTEGER PRIMARY KEY,blockNo TEXT, doorsWorkStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE subBase(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, baseSubBaseCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE cWaterBound(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, waterBoundCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE sandCompaction(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,sandCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE soilCompaction(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,  soilCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE roadSide(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, roadsEdgingCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE roadShoulder(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, roadsShoulderCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE monument(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, monumentsWorkCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE waterFirst(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,waterSupplyCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE backFillingWs(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,  waterSupplyBackFillingCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE roadSB(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, fromPlotNo TEXT, toPlotNo TEXT, roadSide TEXT, compStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE roadCurbStone(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, compStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE streetRoadWCh(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT,  noOfWaterChannels TEXT,waterChCompStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE canopy(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE gateFoundation(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE gatePilar(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE grey(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
-    db.execute(
-        "CREATE TABLE gatePlaster(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)");
+  _onCreate(Database db, int version) async {
+    // List of all table creation queries
+    List<String> tableQueries = [
+      "CREATE TABLE IF NOT EXISTS machine(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, machine TEXT, date TEXT ,time TEXT,timeIn TEXT, timeOut TEXT)",
+      "CREATE TABLE IF NOT EXISTS tanker(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, tankerNo TEXT,date TEXT,time TEXT )",
+      "CREATE TABLE IF NOT EXISTS Excavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT )",
+      "CREATE TABLE IF NOT EXISTS filing(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, status TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS manholes(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS pipeline(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, length TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS light(id INTEGER PRIMARY KEY,blockNo TEXT, status TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS polesExcavation(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, lengthTotal TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS poles(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, totalLength TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS asphalt(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfTons TEXT,backFillingStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS brick(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS iron(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT ,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS drain(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS slab(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, numOfCompSlab TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS plaster(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS shuttering(id INTEGER PRIMARY KEY,blockNo TEXT, streetNo TEXT, completedLength TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS shifting(id INTEGER PRIMARY KEY,fromBlock TEXT, toBlock TEXT, numOfShift TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS mosque(id INTEGER PRIMARY KEY,blockNo TEXT, completionStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS newMaterials(id INTEGER PRIMARY KEY,sand TEXT, soil TEXT, base TEXT, subBase TEXT,waterBound TEXT,otherMaterial TEXT,otherMaterialValue TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS attendanceIn(id INTEGER PRIMARY KEY,timeIn TEXT, latitude TEXT, longitude TEXT, liveAddress TEXT,date TEXT)",
+      "CREATE TABLE IF NOT EXISTS attendanceOut(id INTEGER PRIMARY KEY,timeOut TEXT, latitude TEXT, longitude TEXT, addressOut TEXT,date TEXT)",
+      "CREATE TABLE IF NOT EXISTS foundation(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS floor(id INTEGER PRIMARY KEY,blockNo TEXT, brickWork TEXT,mudFiling TEXT,plasterWork TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS tiles(id INTEGER PRIMARY KEY,blockNo TEXT, tilesWorkStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS sanitary(id INTEGER PRIMARY KEY,blockNo TEXT, sanitaryWorkStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS ceiling(id INTEGER PRIMARY KEY,blockNo TEXT, ceilingWorkStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS paint(id INTEGER PRIMARY KEY,blockNo TEXT, paintWorkStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS electricity(id INTEGER PRIMARY KEY,blockNo TEXT, electricityWorkStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS boundary(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, boundaryWorkCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS cubStone(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, cubStonesCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS gazebo(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,gazeboWorkCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS entrance(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,mainEntranceTilesWorkCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS stage(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,mainStageWorkCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS mud(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, totalDumpers TEXT, mudFillingCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS plant(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, plantationCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS area(id INTEGER PRIMARY KEY,typeOfWork TEXT,startDate TEXT, expectedCompDate TEXT,sittingAreaCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS walk(id INTEGER PRIMARY KEY,typeOfWork TEXT,startDate TEXT, expectedCompDate TEXT, walkingTracksCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS mpMud(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,totalDumpers TEXT, mpMudFillingCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS mpGrass(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT,grassWorkCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS mpCurbStone(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpCurbStoneCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS mpLight(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpLCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS mpPlant(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, mpPCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS door(id INTEGER PRIMARY KEY,blockNo TEXT, doorsWorkStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS subBase(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, baseSubBaseCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS cWaterBound(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, waterBoundCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS sandCompaction(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,sandCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS soilCompaction(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,  soilCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS roadSide(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, roadsEdgingCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS roadShoulder(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT, roadsShoulderCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS monument(id INTEGER PRIMARY KEY,startDate TEXT, expectedCompDate TEXT, monumentsWorkCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS waterFirst(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,waterSupplyCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS backFillingWs(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT, totalLength TEXT, startDate TEXT, expectedCompDate TEXT,  waterSupplyBackFillingCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS roadSB(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, fromPlotNo TEXT, toPlotNo TEXT, roadSide TEXT, compStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS roadCurbStone(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, totalLength TEXT, compStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS streetRoadWCh(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, roadSide TEXT,  noOfWaterChannels TEXT,waterChCompStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS canopy(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS gateFoundation(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS gatePilar(id INTEGER PRIMARY KEY,blockNo TEXT, workStatus TEXT,date TEXT,time TEXT)",
+      "CREATE TABLE IF NOT EXISTS grey(id INTEGER PRIMARY KEY,blockNo TEXT, roadNo TEXT, fromPlotNo TEXT, toPlotNo TEXT,compStatus TEXT,date TEXT,time TEXT)"
+    ];
 
+    for (var query in tableQueries) {
+      await db.execute(query);
+    }
   }
+
 
 }
 
