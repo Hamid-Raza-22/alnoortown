@@ -39,9 +39,8 @@ class MachinesSummary extends StatelessWidget {
         child: Obx(() {
           // Use Obx to rebuild when the data changes
           if (machineViewModel.allMachine.isEmpty) {
-            return Center(
-                child: CircularProgressIndicator()); // Show loading indicator
-          }
+            return  Center(child: Text('No data available'));
+            }
 
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
