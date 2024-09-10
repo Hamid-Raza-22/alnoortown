@@ -78,16 +78,16 @@ import 'package:al_noor_town/Screens/Building%20Work/Town%20Main%20Gate/Main%20G
 import 'package:al_noor_town/Screens/Building%20Work/Town%20Main%20Gate/Main%20Gate%20Plaster/MainGatePlasterSummary.dart';
 import 'package:al_noor_town/Screens/Building%20Work/Town%20Main%20Gate/Main%20Gate%20Plaster/Main_Gate_Plaster_Work.dart';
 import 'package:al_noor_town/Screens/Building%20Work/building_work_navigation.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/light_wires_work.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/poles.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/poles_foundation.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/asphaltwork.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/brick_work.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/iron_work.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/main_drain_excavation.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/manholes%20_slabs.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/plaster_work.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/shuttering_work.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/Light%20Wires%20Work/light_wires_work.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/Poles%20Excavation/poles_foundation.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/Poles/poles.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/AsphaltWork/asphaltwork.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/BrickWork/brick_work.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/Drain%20Excavation/drain_excavation.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/Iron%20Work/iron_work.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/Manholes%20Slabs/manholes%20_slabs.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/PlasterWork/plaster_work.dart';
+import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/Shuttering%20Work/shuttering_work.dart';
 import 'package:al_noor_town/Screens/Development%20Work/Road%20Maintenance/Machines/MachinesSummary.dart';
 import 'package:al_noor_town/Screens/Development%20Work/Road%20Maintenance/Machines/machines.dart';
 import 'package:al_noor_town/Screens/Development%20Work/Road%20Maintenance/Water%20Tanker/water_tanker.dart';
@@ -230,7 +230,7 @@ void main() {
     {'widget': AsphaltWork(), 'expectedText': 'Work'},
     {'widget': BrickWork(), 'expectedText': 'Work'},
     {'widget': IronWork(), 'expectedText': 'Work'},
-    {'widget': MainDrainExcavation(), 'expectedText': 'Work'},
+    {'widget': DrainExcavation(), 'expectedText': 'Work'},
     {'widget': ManholesSlabs(), 'expectedText': 'Work'},
     {'widget': PlasterWork(), 'expectedText': 'Work'},
     {'widget': ShutteringWork(), 'expectedText': 'Work'},
