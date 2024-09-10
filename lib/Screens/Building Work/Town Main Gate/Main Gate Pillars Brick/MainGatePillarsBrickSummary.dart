@@ -6,13 +6,12 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class MainGatePillarsBrickSummary extends StatelessWidget {
   MainGatePillarWorkViewModel mainGatePillarWorkViewModel = Get.put(MainGatePillarWorkViewModel());
+  void initState() => mainGatePillarWorkViewModel.fetchAllMainPillar();
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-    mainGatePillarWorkViewModel.fetchAllMainPillar();
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

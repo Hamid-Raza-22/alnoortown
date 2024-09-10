@@ -5,14 +5,13 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class MainGatePlasterSummary extends StatelessWidget {
   MgPlasterWorkViewModel mgPlasterWorkViewModel = Get.put(MgPlasterWorkViewModel());
+  void initState() => mgPlasterWorkViewModel.fetchAllMgPlaster();
 
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-    mgPlasterWorkViewModel.fetchAllMgPlaster();
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

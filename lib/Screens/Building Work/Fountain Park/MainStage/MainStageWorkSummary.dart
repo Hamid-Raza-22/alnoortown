@@ -8,9 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart' show  Get, Inst, Obx;
 
 class MainStageWorkSummary extends StatefulWidget {
-
     MainStageWorkSummary({super.key});
-
   @override
   State<MainStageWorkSummary> createState() => _MainStageWorkSummaryState();
 }

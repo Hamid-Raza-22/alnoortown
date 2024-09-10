@@ -7,14 +7,12 @@ import '../../../ViewModels/BuildingWorkViewModel/RoadsCurbstonesWorkViewModel/r
 
 class CurbstonesWorkSummary extends StatelessWidget {
   RoadCurbStonesWorkViewModel roadCurbStonesWorkViewModel = Get.put(RoadCurbStonesWorkViewModel());
+  void initState() => roadCurbStonesWorkViewModel.fetchAllRoadCurb();
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-
-    // Fetch data when the widget is built
-    roadCurbStonesWorkViewModel.fetchAllRoadCurb();
 
     return Scaffold(
       backgroundColor: Colors.white,

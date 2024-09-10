@@ -6,14 +6,12 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class MainGateFoundationSummary extends StatelessWidget {
   MainGateFoundationWorkViewModel mainGateFoundationWorkViewModel = Get.put(MainGateFoundationWorkViewModel());
-
-
+  void initState() => mainGateFoundationWorkViewModel.fetchAllMainFoundation();
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-    mainGateFoundationWorkViewModel.fetchAllMainFoundation();
 
     return Scaffold(
       backgroundColor: Colors.white,

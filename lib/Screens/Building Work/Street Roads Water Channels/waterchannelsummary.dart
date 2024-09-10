@@ -5,14 +5,12 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class WaterChannelsSummary extends StatelessWidget {
   StreetRoadWaterChannelViewModel streetRoadWaterChannelViewModel = Get.put(StreetRoadWaterChannelViewModel());
+  void initState() => streetRoadWaterChannelViewModel.fetchAllStreetRoad();
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-
-    streetRoadWaterChannelViewModel.fetchAllStreetRoad();
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

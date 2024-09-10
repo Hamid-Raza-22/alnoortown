@@ -6,13 +6,11 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 class MainGateGreyStructureSummary extends StatelessWidget {
   MgGreyStructureViewModel mgGreyStructureViewModel = Get.put(MgGreyStructureViewModel());
 
-
   void initState() => mgGreyStructureViewModel.fetchAllMainGrey();
 
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-
 
     return Scaffold(
       backgroundColor: Colors.white,

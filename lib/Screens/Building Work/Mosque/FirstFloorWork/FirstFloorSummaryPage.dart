@@ -103,8 +103,8 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: _buildDataCell('date'.tr(), _formatDate(data["timestamp"]))),
-                Expanded(child: _buildDataCell('time'.tr(), _formatTime(data["timestamp"]))),
+                Expanded(child: _buildDataCell('date'.tr(),data["date"])),
+                Expanded(child: _buildDataCell('time'.tr(),data["timestamp"])),
               ],
             ),
           ],
@@ -138,15 +138,15 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
     );
   }
 
-  String _formatDate(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('d MMM yyyy').format(dateTime);
-  }
-
-  String _formatTime(String? timestamp) {
-    if (timestamp == null) return "N/A";
-    final dateTime = DateTime.parse(timestamp);
-    return DateFormat('h:mm a').format(dateTime);
-  }
+  // String _formatDate(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('d MMM yyyy').format(dateTime);
+  // }
+  //
+  // String _formatTime(String? timestamp) {
+  //   if (timestamp == null) return "N/A";
+  //   final dateTime = DateTime.parse(timestamp);
+  //   return DateFormat('h:mm a').format(dateTime);
+  // }
 }

@@ -5,13 +5,11 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class CanopyColoumnsummary extends StatelessWidget {
   CanopyColumnPouringViewModel canopyColumnPouringViewModel = Get.put(CanopyColumnPouringViewModel());
-
+  void initState() => canopyColumnPouringViewModel.fetchAllCanopy();
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-
-    canopyColumnPouringViewModel.fetchAllCanopy();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
