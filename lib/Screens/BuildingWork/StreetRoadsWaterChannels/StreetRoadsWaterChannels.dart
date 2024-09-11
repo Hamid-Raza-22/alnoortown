@@ -1,5 +1,5 @@
 import 'package:al_noor_town/Models/BuildingWorkModels/StreetRoadsWaterChannelsModel/street_road_water_channel_model.dart';
-import 'package:al_noor_town/Screens/Building%20Work/Street%20Roads%20Water%20Channels/waterchannelsummary.dart';
+import 'package:al_noor_town/Screens/BuildingWork/StreetRoadsWaterChannels/waterchannelsummary.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/StreetRoadwaterChannelViewModel/street_road_water_channel_view_model.dart';
 import 'package:flutter/material.dart';

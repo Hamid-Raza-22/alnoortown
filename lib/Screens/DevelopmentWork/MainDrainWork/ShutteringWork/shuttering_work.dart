@@ -1,45 +1,29 @@
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/plaster_work_model.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/PlasterWork/plaster_work_summary.dart';
-import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/plaster_work_view_model.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/shuttering_work_model.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/ShutteringWork/shuttering_work_summary.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/shuttering_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
-import 'package:intl/intl.dart';
 
-class PlasterWork extends StatefulWidget {
-  PlasterWork({super.key});
+class ShutteringWork extends StatefulWidget {
+  const ShutteringWork({super.key});
 
   @override
-  PlasterWorkState createState() => PlasterWorkState();
+  ShutteringWorkState createState() => ShutteringWorkState();
 }
 
-class PlasterWorkState extends State<PlasterWork> {
-  PlasterWorkViewModel plasterWorkViewModel = Get.put(PlasterWorkViewModel());
+class ShutteringWorkState extends State<ShutteringWork> {
+  ShutteringWorkViewModel shutteringWorkViewModel = Get.put(ShutteringWorkViewModel());
   DBHelper dbHelper = DBHelper();
-  int? plasterId;
+  int? shutterId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
 
-  Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "numTankers": '',
-  };
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  Map<String, dynamic> createInitialContainerData() {
-    return {
-      "selectedBlock": null,
-      "selectedStreet": null,
-      "numTankers": '',
-    };
-  }
+  String? selectedBlock;
+  String? selectedStreet;
+  String numTankers = '';
 
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -51,6 +35,14 @@ class PlasterWorkState extends State<PlasterWork> {
     final now = DateTime.now();
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
+  }
+
+  void _clearFields() {
+    setState(() {
+      selectedBlock = null;
+      selectedStreet = null;
+      numTankers = '';
+    });
   }
 
   @override
@@ -68,7 +60,7 @@ class PlasterWorkState extends State<PlasterWork> {
                 height: double.infinity,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/plasterrr-01.png'),
+                    image: AssetImage('assets/images/shuttringwork-01.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -89,7 +81,7 @@ class PlasterWorkState extends State<PlasterWork> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PlasterWorkSummary(),
+                    builder: (context) => ShutteringWorkSummary(),
                   ),
                 );
               },
@@ -108,7 +100,7 @@ class PlasterWorkState extends State<PlasterWork> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'plaster_work'.tr(),
+                  'shuttering_work'.tr(),
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -140,10 +132,10 @@ class PlasterWorkState extends State<PlasterWork> {
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              initialValue: numTankers,
               onChanged: (value) {
                 setState(() {
-                  containerData["numTankers"] = value;
+                  numTankers = value;
                 });
               },
               keyboardType: TextInputType.number,
@@ -158,24 +150,16 @@ class PlasterWorkState extends State<PlasterWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  final selectedBlock = containerData["selectedBlock"];
-                  final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
-
-                  await plasterWorkViewModel.addMan(PlasterWorkModel(
-                      id: plasterId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
-                      completedLength: numTankers,
-                      date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                  await shutteringWorkViewModel.addShutter(ShutteringWorkModel(
+                    id: shutterId,
+                    blockNo: selectedBlock,
+                    streetNo: selectedStreet,
+                    completedLength: numTankers,
+                    date: _getFormattedDate(),
+                    time: _getFormattedTime(),
                   ));
-                  await plasterWorkViewModel.fetchAllPlaster();
-
-                  setState(() {
-                    containerData = createInitialContainerData(); // Clear the fields
-                  });
-
+                  await shutteringWorkViewModel.fetchAllShutter();
+                  _clearFields(); // Clear fields after submission
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -183,6 +167,7 @@ class PlasterWorkState extends State<PlasterWork> {
                       ),
                     ),
                   );
+
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
@@ -205,21 +190,25 @@ class PlasterWorkState extends State<PlasterWork> {
     return Row(
       children: [
         Expanded(
-          child: buildDropdownField(
-              'block_no'.tr(), "selectedBlock", blocks
-          ),
+          child: buildDropdownField('block_no'.tr(), selectedBlock, blocks, (value) {
+            setState(() {
+              selectedBlock = value;
+            });
+          }),
         ),
         const SizedBox(width: 16),
         Expanded(
-          child: buildDropdownField(
-              'street_no'.tr(), "selectedStreet", streets
-          ),
+          child: buildDropdownField('street_no'.tr(), selectedStreet, streets, (value) {
+            setState(() {
+              selectedStreet = value;
+            });
+          }),
         ),
       ],
     );
   }
 
-  Widget buildDropdownField(String title, String key, List<String> items) {
+  Widget buildDropdownField(String title, String? selectedValue, List<String> items, ValueChanged<String?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -229,18 +218,14 @@ class PlasterWorkState extends State<PlasterWork> {
         ),
         const SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: containerData[key],
+          value: selectedValue,
           items: items.map((item) {
             return DropdownMenuItem(
               value: item,
               child: Text(item),
             );
           }).toList(),
-          onChanged: (value) {
-            setState(() {
-              containerData[key] = value;
-            });
-          },
+          onChanged: onChanged,
           decoration: const InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),

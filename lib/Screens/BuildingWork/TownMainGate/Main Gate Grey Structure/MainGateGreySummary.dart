@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class MainGateGreyStructureSummary extends StatelessWidget {
-  MgGreyStructureViewModel mgGreyStructureViewModel = Get.put(MgGreyStructureViewModel());
+  MgGreyStructureViewModel mgGreyStructureViewModel = Get.put(
+      MgGreyStructureViewModel());
 
   void initState() => mgGreyStructureViewModel.fetchAllMainGrey();
 

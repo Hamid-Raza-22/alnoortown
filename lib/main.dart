@@ -1,3 +1,7 @@
+import 'package:al_noor_town/Screens/BuildingWork/building_work_navigation.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/development_page.dart';
+import 'package:al_noor_town/Screens/MaterialShifting/material_shifting.dart';
+import 'package:al_noor_town/Screens/NewMaterial/new_material.dart';
 import 'package:al_noor_town/Screens/home_page.dart';
 import 'package:al_noor_town/Screens/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -7,10 +11,7 @@ import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
-import 'Screens/Building Work/building_work_navigation.dart';
-import 'Screens/Development Work/development_page.dart';
-import 'Screens/Material Shifting/material_shifting.dart';
-import 'Screens/New Material/new_material.dart';
+
 import 'Screens/login_page.dart';
 import 'ViewModels/all_noor_view_model.dart';
 import 'firebase_options.dart';
@@ -75,7 +76,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/home', page: () =>  HomePage()),
         GetPage(name: '/development', page: () =>  DevelopmentPage()),
-        GetPage(name: '/materialShifting', page: () =>  MaterialShiftingPage()),
+        GetPage(name: '/materialShifting', page: () =>  const MaterialShiftingPage()),
         GetPage(name: '/newMaterial', page: () => NewMaterial()),
         GetPage(name: '/buildingWork', page: () => Building_Navigation_Page()),
       ],

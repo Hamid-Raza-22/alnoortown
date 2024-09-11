@@ -92,7 +92,7 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
           ),
         ],
         title:   Text(
-          'canopy_column_pouring'.tr(),
+          'main_gate_canopy_column_pouring_work'.tr(),
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,

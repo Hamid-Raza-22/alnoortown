@@ -1,29 +1,41 @@
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/shuttering_work_model.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Main%20Drain%20Work/Shuttering%20Work/shuttering_work_summary.dart';
-import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/shuttering_work_view_model.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_excavation_model.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/LightPolesWork/PolesExcavation/poles_excavation_summary.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_excavation_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
+import 'package:intl/intl.dart';
 
-class ShutteringWork extends StatefulWidget {
-  const ShutteringWork({super.key});
+class PolesFoundation extends StatefulWidget {
+  PolesFoundation({super.key});
 
   @override
-  ShutteringWorkState createState() => ShutteringWorkState();
+  PolesFoundationState createState() => PolesFoundationState();
 }
 
-class ShutteringWorkState extends State<ShutteringWork> {
-  ShutteringWorkViewModel shutteringWorkViewModel = Get.put(ShutteringWorkViewModel());
+class PolesFoundationState extends State<PolesFoundation> {
+  PolesExcavationViewModel polesExcavationViewModel = Get.put(PolesExcavationViewModel());
   DBHelper dbHelper = DBHelper();
-  int? shutterId;
+  int? exId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
+  Map<String, dynamic> containerData = {};
 
-  String? selectedBlock;
-  String? selectedStreet;
-  String numTankers = '';
+  @override
+  void initState() {
+    super.initState();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet": null,
+      "numTankers": '',
+    };
+  }
 
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -37,19 +49,11 @@ class ShutteringWorkState extends State<ShutteringWork> {
     return formatter.format(now);
   }
 
-  void _clearFields() {
-    setState(() {
-      selectedBlock = null;
-      selectedStreet = null;
-      numTankers = '';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(180.0),
+        preferredSize: Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -58,9 +62,9 @@ class ShutteringWorkState extends State<ShutteringWork> {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: const BoxDecoration(
+                decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/shuttringwork-01.png'),
+                    image: AssetImage('assets/images/pol-01.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -69,19 +73,19 @@ class ShutteringWorkState extends State<ShutteringWork> {
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+            icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
           actions: [
             IconButton(
-              icon: const Icon(Icons.summarize, color: Color(0xFFC69840)),
+              icon: Icon(Icons.summarize, color: Color(0xFFC69840)),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ShutteringWorkSummary(),
+                    builder: (context) => PolesExcavationSummary(),
                   ),
                 );
               },
@@ -90,23 +94,22 @@ class ShutteringWorkState extends State<ShutteringWork> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 1),
+            SizedBox(height: 1),
             Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+                padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'shuttering_work'.tr(),
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                  'poles_excavation_work'.tr(),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
             ),
             buildContainer(),
-            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -115,51 +118,59 @@ class ShutteringWorkState extends State<ShutteringWork> {
 
   Widget buildContainer() {
     return Card(
-      margin: const EdgeInsets.only(bottom: 16),
+      margin: EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             Text(
-              'total_length_completed'.tr(),
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+              "no_of_poles_excavation".tr(),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
             TextFormField(
-              initialValue: numTankers,
+              initialValue: containerData["numTankers"],
               onChanged: (value) {
                 setState(() {
-                  numTankers = value;
+                  containerData["numTankers"] = value;
                 });
               },
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  await shutteringWorkViewModel.addShutter(ShutteringWorkModel(
-                    id: shutterId,
+                  final selectedBlock = containerData["selectedBlock"];
+                  final selectedStreet = containerData["selectedStreet"];
+                  final numTankers = containerData["numTankers"];
+                  await polesExcavationViewModel.addPoleExa(PolesExcavationModel(
+                    id: exId,
                     blockNo: selectedBlock,
                     streetNo: selectedStreet,
-                    completedLength: numTankers,
+                    lengthTotal: numTankers,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));
-                  await shutteringWorkViewModel.fetchAllShutter();
-                  _clearFields(); // Clear fields after submission
+                  await polesExcavationViewModel.fetchAllPoleExa();
+
+                  // Clear fields after submission
+                  setState(() {
+                    containerData = createInitialContainerData();
+                  });
+
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -167,17 +178,16 @@ class ShutteringWorkState extends State<ShutteringWork> {
                       ),
                     ),
                   );
-
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
+                  backgroundColor: Color(0xFFF3F4F6),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: TextStyle(fontSize: 14),
+                  shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: Text('submit'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -190,43 +200,39 @@ class ShutteringWorkState extends State<ShutteringWork> {
     return Row(
       children: [
         Expanded(
-          child: buildDropdownField('block_no'.tr(), selectedBlock, blocks, (value) {
-            setState(() {
-              selectedBlock = value;
-            });
-          }),
+          child: buildDropdownField('block_no'.tr(), "selectedBlock", blocks),
         ),
-        const SizedBox(width: 16),
+        SizedBox(width: 16),
         Expanded(
-          child: buildDropdownField('street_no'.tr(), selectedStreet, streets, (value) {
-            setState(() {
-              selectedStreet = value;
-            });
-          }),
+          child: buildDropdownField('street_no'.tr(), "selectedStreet", streets),
         ),
       ],
     );
   }
 
-  Widget buildDropdownField(String title, String? selectedValue, List<String> items, ValueChanged<String?> onChanged) {
+  Widget buildDropdownField(String title, String key, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
+        SizedBox(height: 8),
         DropdownButtonFormField<String>(
-          value: selectedValue,
+          value: containerData[key],
           items: items.map((item) {
             return DropdownMenuItem(
               value: item,
               child: Text(item),
             );
           }).toList(),
-          onChanged: onChanged,
-          decoration: const InputDecoration(
+          onChanged: (value) {
+            setState(() {
+              containerData[key] = value;
+            });
+          },
+          decoration: InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),

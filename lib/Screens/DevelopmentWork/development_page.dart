@@ -1,24 +1,25 @@
+import 'package:al_noor_town/Screens/DevelopmentWork/LightPolesWork/PolesExcavation/poles_foundation.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/AsphaltWork/asphaltwork.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/BrickWork/brick_work.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/DrainExcavation/drain_excavation.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/IronWork/iron_work.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/ManholesSlabs/manholes%20_slabs.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/PlasterWork/plaster_work.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/ShutteringWork/shuttering_work.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/RoadMaintenance/WaterTanker/water_tanker.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/SewerageWork/Backfiling/backfilling.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/SewerageWork/Excavation/excavation.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/SewerageWork/Manholes/manholes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../Building Work/Mosque/MosqueExcavationWork/mosque_excavation_work.dart';
-import 'Light poles work/Light Wires Work/light_wires_work.dart';
-import 'Light poles work/Poles Excavation/poles_foundation.dart';
-import 'Light poles work/Poles/poles.dart';
-import 'Main Drain Work/AsphaltWork/asphaltwork.dart';
-import 'Main Drain Work/BrickWork/brick_work.dart';
-import 'Main Drain Work/Iron Work/iron_work.dart';
-import 'Main Drain Work/Drain Excavation/drain_excavation.dart';
-import 'Main Drain Work/Manholes Slabs/manholes _slabs.dart';
-import 'Main Drain Work/PlasterWork/plaster_work.dart';
-import 'Main Drain Work/Shuttering Work/shuttering_work.dart';
-import 'Road Maintenance/Machines/machines.dart';
-import 'Road Maintenance/Water Tanker/water_tanker.dart';
-import 'Sewerage Work/Backfiling/backfilling.dart';
-import 'Sewerage Work/Excavation/excavation.dart';
-import 'Sewerage Work/Manholes/manholes.dart';
-import 'Sewerage Work/Pipelying/pipe_lying.dart';
+import 'LightPolesWork/LightWiresWork/light_wires_work.dart';
+import 'LightPolesWork/Poles/poles.dart';
+import 'RoadMaintenance/Machines/machines.dart';
+import 'SewerageWork/Pipelying/pipe_lying.dart';
+
+
 
 
 class DevelopmentPage extends StatefulWidget {

@@ -1,32 +1,36 @@
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_excavation_model.dart';
-import 'package:al_noor_town/Screens/Development%20Work/Light%20poles%20work/Poles%20Excavation/poles_excavation_summary.dart';
-import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_excavation_view_model.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/plaster_work_model.dart';
+import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/PlasterWork/plaster_work_summary.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/plaster_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 
-class PolesFoundation extends StatefulWidget {
-  PolesFoundation({super.key});
+class PlasterWork extends StatefulWidget {
+  PlasterWork({super.key});
 
   @override
-  PolesFoundationState createState() => PolesFoundationState();
+  PlasterWorkState createState() => PlasterWorkState();
 }
 
-class PolesFoundationState extends State<PolesFoundation> {
-  PolesExcavationViewModel polesExcavationViewModel = Get.put(PolesExcavationViewModel());
+class PlasterWorkState extends State<PlasterWork> {
+  PlasterWorkViewModel plasterWorkViewModel = Get.put(PlasterWorkViewModel());
   DBHelper dbHelper = DBHelper();
-  int? exId;
+  int? plasterId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
-  Map<String, dynamic> containerData = {};
+
+  Map<String, dynamic> containerData = {
+    "selectedBlock": null,
+    "selectedStreet": null,
+    "numTankers": '',
+  };
 
   @override
   void initState() {
     super.initState();
-    containerData = createInitialContainerData();
   }
 
   Map<String, dynamic> createInitialContainerData() {
@@ -53,7 +57,7 @@ class PolesFoundationState extends State<PolesFoundation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(180.0),
+        preferredSize: const Size.fromHeight(180.0),
         child: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -62,9 +66,9 @@ class PolesFoundationState extends State<PolesFoundation> {
               Container(
                 width: double.infinity,
                 height: double.infinity,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage('assets/images/pol-01.png'),
+                    image: AssetImage('assets/images/plasterrr-01.png'),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -73,19 +77,19 @@ class PolesFoundationState extends State<PolesFoundation> {
           ),
           systemOverlayStyle: SystemUiOverlayStyle.dark,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+            icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.pop(context);
             },
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.summarize, color: Color(0xFFC69840)),
+              icon: const Icon(Icons.summarize, color: Color(0xFFC69840)),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => PolesExcavationSummary(),
+                    builder: (context) => PlasterWorkSummary(),
                   ),
                 );
               },
@@ -94,22 +98,23 @@ class PolesFoundationState extends State<PolesFoundation> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 1),
+            const SizedBox(height: 1),
             Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 16.0),
+                padding: const EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'poles_excavation_work'.tr(),
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                  'plaster_work'.tr(),
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
             ),
             buildContainer(),
+            const SizedBox(height: 16),
           ],
         ),
       ),
@@ -118,22 +123,22 @@ class PolesFoundationState extends State<PolesFoundation> {
 
   Widget buildContainer() {
     return Card(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Text(
-              "no_of_poles_excavation".tr(),
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+              'total_length_completed'.tr(),
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             TextFormField(
               initialValue: containerData["numTankers"],
               onChanged: (value) {
@@ -142,33 +147,33 @@ class PolesFoundationState extends State<PolesFoundation> {
                 });
               },
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
-                  await polesExcavationViewModel.addPoleExa(PolesExcavationModel(
-                    id: exId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    lengthTotal: numTankers,
-                    date: _getFormattedDate(),
-                    time: _getFormattedTime(),
-                  ));
-                  await polesExcavationViewModel.fetchAllPoleExa();
 
-                  // Clear fields after submission
+                  await plasterWorkViewModel.addMan(PlasterWorkModel(
+                      id: plasterId,
+                      blockNo: selectedBlock,
+                      streetNo: selectedStreet,
+                      completedLength: numTankers,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime()
+                  ));
+                  await plasterWorkViewModel.fetchAllPlaster();
+
                   setState(() {
-                    containerData = createInitialContainerData();
+                    containerData = createInitialContainerData(); // Clear the fields
                   });
 
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -180,14 +185,14 @@ class PolesFoundationState extends State<PolesFoundation> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFF3F4F6),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
+                  backgroundColor: const Color(0xFFF3F4F6),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: const TextStyle(fontSize: 14),
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: Text('submit'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -200,11 +205,15 @@ class PolesFoundationState extends State<PolesFoundation> {
     return Row(
       children: [
         Expanded(
-          child: buildDropdownField('block_no'.tr(), "selectedBlock", blocks),
+          child: buildDropdownField(
+              'block_no'.tr(), "selectedBlock", blocks
+          ),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         Expanded(
-          child: buildDropdownField('street_no'.tr(), "selectedStreet", streets),
+          child: buildDropdownField(
+              'street_no'.tr(), "selectedStreet", streets
+          ),
         ),
       ],
     );
@@ -216,9 +225,9 @@ class PolesFoundationState extends State<PolesFoundation> {
       children: [
         Text(
           title,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -232,7 +241,7 @@ class PolesFoundationState extends State<PolesFoundation> {
               containerData[key] = value;
             });
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),
