@@ -1,5 +1,5 @@
 
-class FilingModel{
+class BackFilingModel{
   int? id;
   dynamic blockNo;
   dynamic streetNo;
@@ -7,7 +7,7 @@ class FilingModel{
   dynamic date;
   dynamic time;
 
-  FilingModel({
+  BackFilingModel({
     this.id,
     this.blockNo,
     this.streetNo,
@@ -17,12 +17,13 @@ class FilingModel{
 
   });
 
-  factory FilingModel.fromMap(Map<dynamic,dynamic>json)
+  factory BackFilingModel.fromMap(Map<dynamic,dynamic>json)
   {
-    return FilingModel(
+    return BackFilingModel(
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
+        status: json['status'],
         date:  json['date'],
         time:  json['time']
 

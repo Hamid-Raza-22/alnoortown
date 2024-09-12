@@ -2,18 +2,17 @@
 
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
-import 'package:al_noor_town/Globals/globals.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/filing_model.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/back_filing_model.dart';
 import 'package:flutter/foundation.dart';
 
 
 
 
-class FillingRepository{
+class BackFillingRepository{
 
   DBHelper dbHelper = DBHelper();
 
-  Future<List<FilingModel>> getFiling() async {
+  Future<List<BackFilingModel>> getFiling() async {
     // Get the database client
     var dbClient = await dbHelper.db;
 
@@ -34,9 +33,9 @@ class FillingRepository{
     }
 
     // Convert the raw data into a list of MachineModel objects
-    List<FilingModel> filing = [];
+    List<BackFilingModel> backFiling = [];
     for (int i = 0; i < maps.length; i++) {
-      filing.add(FilingModel.fromMap(maps[i]));
+      backFiling.add(BackFilingModel.fromMap(maps[i]));
     }
 
     // Print the list of MachineModel objects
@@ -49,19 +48,19 @@ class FillingRepository{
     //   }
     // }
 
-    return filing;
+    return backFiling;
   }
 
 
-  Future<int>add(FilingModel filingModel) async{
+  Future<int>add(BackFilingModel backFilingModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameBackFiling,filingModel.toMap());
+    return await dbClient.insert(tableNameBackFiling,backFilingModel.toMap());
   }
 
-  Future<int>update(FilingModel filingModel) async{
+  Future<int>update(BackFilingModel backFilingModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameBackFiling,filingModel.toMap(),
-        where: 'id = ?', whereArgs: [filingModel.id]);
+    return await dbClient.update(tableNameBackFiling,backFilingModel.toMap(),
+        where: 'id = ?', whereArgs: [backFilingModel.id]);
 
   }
 
