@@ -3,11 +3,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import '../../../ReusableDesigns/filter_widget.dart';
 
 class FoundationSummaryPage extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-    FoundationSummaryPage({super.key, required this.containerDataList});
+  FoundationSummaryPage({super.key, required this.containerDataList});
 
   @override
   State<FoundationSummaryPage> createState() => _FoundationSummaryPageState();
@@ -15,6 +16,11 @@ class FoundationSummaryPage extends StatefulWidget {
 
 class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
   final FoundationWorkViewModel foundationWorkViewModel = Get.put(FoundationWorkViewModel());
+
+  DateTime? fromDate;
+  DateTime? toDate;
+  String? blockFilter;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +28,12 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title:   Text(
+        title: Text(
           'foundation_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
@@ -38,18 +44,45 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-              SizedBox(height: 4),
+            // Insert the FilterWidget here
+            FilterWidget(
+              onFilter: (selectedFromDate, selectedToDate, selectedBlock) {
+                setState(() {
+                  fromDate = selectedFromDate;
+                  toDate = selectedToDate;
+                  blockFilter = selectedBlock;
+                });
+              },
+            ),
+            SizedBox(height: 4),
             // Data Grid
             Expanded(
               child: Obx(() {
+                // Apply filters to the data
+                var filteredData = foundationWorkViewModel.allFoundation.where((data) {
+                  bool matchesDate = true;
+                  bool matchesBlock = true;
+
+                  if (fromDate != null && toDate != null) {
+                    DateTime dataDate = DateTime.parse(data.date); // Assuming date is stored in string format
+                    matchesDate = dataDate.isAfter(fromDate!) && dataDate.isBefore(toDate!);
+                  }
+
+                  if (blockFilter != null && blockFilter!.isNotEmpty) {
+                    matchesBlock = data.blockNo == blockFilter;
+                  }
+
+                  return matchesDate && matchesBlock;
+                }).toList();
+
                 return ListView.builder(
-                  itemCount: foundationWorkViewModel.allFoundation.length,
+                  itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    final data = foundationWorkViewModel.allFoundation[index];
+                    final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "brickWorkStatus": data.brickWork,
@@ -70,29 +103,29 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin:   EdgeInsets.only(bottom: 8.0),
+      margin: EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color:   Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding:   EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
         child: Column(
           children: [
             _buildDataCell('block_no'.tr(), data["selectedBlock"] ?? "N/A"),
-              Divider(color: Color(0xFFC69840), thickness: 1.0),
+            Divider(color: Color(0xFFC69840), thickness: 1.0),
             _buildDataCell('brick_work'.tr(), data["brickWorkStatus"] ?? "N/A"),
-              Divider(color: Color(0xFFC69840), thickness: 1.0),
+            Divider(color: Color(0xFFC69840), thickness: 1.0),
             _buildDataCell('mud_filling_work'.tr(), data["mudFillingStatus"] ?? "N/A"),
-              Divider(color: Color(0xFFC69840), thickness: 1.0),
+            Divider(color: Color(0xFFC69840), thickness: 1.0),
             _buildDataCell('plaster_work'.tr(), data["plasterWorkStatus"] ?? "N/A"),
-              Divider(color: Color(0xFFC69840), thickness: 1.0),
+            Divider(color: Color(0xFFC69840), thickness: 1.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: _buildDataCell('date'.tr(),data["date"])),
-                Expanded(child: _buildDataCell('time'.tr(),data["timestamp"])),
+                Expanded(child: _buildDataCell('date'.tr(), data["date"])),
+                Expanded(child: _buildDataCell('time'.tr(), data["timestamp"])),
               ],
             ),
           ],
@@ -106,7 +139,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
       children: [
         Text(
           "$label: ",
-          style:   TextStyle(
+          style: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -115,7 +148,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
         Expanded(
           child: Text(
             text ?? "N/A",
-            style:   TextStyle(
+            style: TextStyle(
               fontSize: 12,
               color: Color(0xFF000000),
             ),
@@ -125,16 +158,4 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
       ],
     );
   }
-
-  // String _formatDate(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('d MMM yyyy').format(dateTime);
-  // }
-  //
-  // String _formatTime(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('h:mm a').format(dateTime);
-  // }
 }

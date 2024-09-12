@@ -1,19 +1,30 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
-import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import '../../../../ViewModels/BuildingWorkViewModel/Mosque/mosque_excavation_view_model.dart'; // Import GetX package
+import 'package:get/get.dart';
+import '../../../../ViewModels/BuildingWorkViewModel/Mosque/mosque_excavation_view_model.dart';
+import '../../../ReusableDesigns/filter_widget.dart';
 
 class MosqueSummaryPage extends StatefulWidget {
-    MosqueSummaryPage({super.key});
+  MosqueSummaryPage({super.key});
 
   @override
   State<MosqueSummaryPage> createState() => _MosqueSummaryPageState();
 }
 
 class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
-  // Initialize ViewModel using GetX
   final MosqueExcavationViewModel mosqueViewModel = Get.put(MosqueExcavationViewModel());
+  DateTime? fromDate;
+  DateTime? toDate;
+  String? block;
+
+  void _applyFilter(DateTime? fromDate, DateTime? toDate, String? block) {
+    setState(() {
+      this.fromDate = fromDate;
+      this.toDate = toDate;
+      this.block = block;
+      // Apply your filtering logic here using mosqueViewModel.allMosque
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,13 +32,13 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title:   Text(
-          'summary'.tr(),
+        title: Text(
+          'summary',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
@@ -36,75 +47,48 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding:   EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // Table Header
-            Container(
-              color:   Color(0xFFC69840),
-              child: Padding(
-                padding:   EdgeInsets.symmetric(vertical: 12.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Expanded(child: _buildHeaderCell('block_no'.tr())),
-                    Expanded(child: _buildHeaderCell('status'.tr())),
-                    Expanded(child: _buildHeaderCell('date'.tr())),
-                    Expanded(child: _buildHeaderCell('time'.tr())),
-                  ],
-                ),
-              ),
-            ),
-              SizedBox(height: 8),
-            // Data Grid
-            Expanded(
-              // Use Obx to listen for changes in allMosque list
-              child: Obx(() {
-                return ListView.builder(
-                  itemCount: mosqueViewModel.allMosque.length,
-                  itemBuilder: (context, index) {
-                    final data = mosqueViewModel.allMosque[index];
-                    return _buildDataRow({
-                      "selectedBlock": data.blockNo,
-                      "status": data.completionStatus,
-                      "date": data.date,
-                      "time": data.time
-                    });
-                  },
-                );
-              }),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+      body: Column(
+        children: [
+          FilterWidget(onFilter: _applyFilter),
+          Expanded(
+            child: Obx(() {
+              // Apply filtering on the data based on the selected date and block
+              final filteredData = mosqueViewModel.allMosque.where((data) {
+                bool matchesDate = (fromDate == null || data.date.isAfter(fromDate!)) &&
+                    (toDate == null || data.date.isBefore(toDate!));
+                bool matchesBlock = block == null || block!.isEmpty || data.blockNo == block;
+                return matchesDate && matchesBlock;
+              }).toList();
 
-  Widget _buildHeaderCell(String title) {
-    return Center(
-      child: Text(
-        title,
-        style:   TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
-        ),
+              return ListView.builder(
+                itemCount: filteredData.length,
+                itemBuilder: (context, index) {
+                  final data = filteredData[index];
+                  return _buildDataRow({
+                    "selectedBlock": data.blockNo,
+                    "status": data.completionStatus,
+                    "date": data.date,
+                    "time": data.time
+                  });
+                },
+              );
+            }),
+          ),
+        ],
       ),
     );
   }
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin:   EdgeInsets.only(bottom: 8.0),
+      margin: EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color:   Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding:   EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -122,23 +106,11 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
     return Center(
       child: Text(
         text ?? "N/A",
-        style:   TextStyle(
+        style: TextStyle(
           fontSize: 14,
           color: Color(0xFFC69840),
         ),
       ),
     );
   }
-
-  // String _formatDate(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('d MMM yyyy').format(dateTime);
-  // }
-  //
-  // String _formatTime(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('h:mm a').format(dateTime);
-  // }
 }
