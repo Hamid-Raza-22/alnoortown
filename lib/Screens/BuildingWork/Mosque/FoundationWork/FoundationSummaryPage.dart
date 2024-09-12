@@ -2,7 +2,7 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/foundation_
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
+
 import '../../../ReusableDesigns/filter_widget.dart';
 
 class FoundationSummaryPage extends StatefulWidget {
@@ -125,7 +125,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(child: _buildDataCell('date'.tr(), data["date"])),
-                Expanded(child: _buildDataCell('time'.tr(), data["timestamp"])),
+                Expanded(child: _buildDataCell('time'.tr(), data["time"])),
               ],
             ),
           ],

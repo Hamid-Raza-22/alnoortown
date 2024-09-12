@@ -26,7 +26,8 @@ class _DrainExcavationState extends State<DrainExcavation> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers": '',
+      "totalCompletedLength": null,
+
     };
   }
 
@@ -118,14 +119,14 @@ class _DrainExcavationState extends State<DrainExcavation> {
                   for (var containerData in containerDataList) {
                     final selectedBlock = containerData["selectedBlock"];
                     final selectedStreet = containerData["selectedStreet"];
-                    final numTankers = containerData["numTankers"];
+                    final totalCompletedLength = containerData["totalCompletedLength"];
 
                     await mainDrainExcavationViewModel.addWork(
                         MainDrainExcavationModel(
                             id: drainId,
                             blockNo: selectedBlock,
                             streetNo: selectedStreet,
-                            completedLength: numTankers,
+                            completedLength: totalCompletedLength,
                             date: _getFormattedDate(),
                             time: _getFormattedTime()
                         ));
@@ -141,7 +142,7 @@ class _DrainExcavationState extends State<DrainExcavation> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: ${containerDataList[0]["selectedBlock"]}, ${containerDataList[0]["selectedStreet"]}, No. of Tankers: ${containerDataList[0]["numTankers"]}',
+                        'Selected: ${containerDataList[0]["selectedBlock"]}, ${containerDataList[0]["selectedStreet"]}, Total Lengths: ${containerDataList[0]["totalCompletedLength"]}',
                       ),
                     ),
                   );
@@ -184,10 +185,10 @@ class _DrainExcavationState extends State<DrainExcavation> {
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              initialValue: containerData["totalCompletedLength"],
               onChanged: (value) {
                 setState(() {
-                  containerData["numTankers"] = value;
+                  containerData["totalCompletedLength"] = value;
                 });
               },
               keyboardType: TextInputType.number,

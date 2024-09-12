@@ -36,6 +36,7 @@ class AsphaltWorkModel{
     return {
       'id':id,
       'blockNo':blockNo,
+      'numOfTons':numOfTons,
       'streetNo':streetNo,
       'backFillingStatus':backFillingStatus,
       'date':date,
