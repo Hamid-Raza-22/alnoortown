@@ -3,7 +3,7 @@ class ManholesModel{
   int? id;
   dynamic blockNo;
   dynamic streetNo;
-  dynamic length;
+  dynamic noOfManholes;
   dynamic date;
   dynamic time;
 
@@ -12,7 +12,7 @@ class ManholesModel{
     this.id,
     this.blockNo,
     this.streetNo,
-    this.length,
+    this.noOfManholes,
     this.date,
     this.time
 
@@ -24,7 +24,7 @@ class ManholesModel{
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
-      length: json['length'],
+        noOfManholes: json['noOfManholes'],
         date:  json['date'],
         time:  json['time']
 
@@ -36,7 +36,7 @@ class ManholesModel{
       'id':id,
       'blockNo':blockNo,
       'streetNo':streetNo,
-      'length':length,
+      'noOfManholes':noOfManholes,
       'date':date,
       'time':time,
 

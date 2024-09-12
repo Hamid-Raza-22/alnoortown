@@ -5,15 +5,13 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class MachinesSummary extends StatelessWidget {
   final MachineViewModel machineViewModel = Get.put(MachineViewModel());
-
-
+  void initState() => machineViewModel.fetchAllMachine();
   MachinesSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-    machineViewModel.fetchAllMachine();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

@@ -33,7 +33,7 @@ class PolesFoundationState extends State<PolesFoundation> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers": '',
+      "polesExcavation": '',
     };
   }
 
@@ -135,10 +135,10 @@ class PolesFoundationState extends State<PolesFoundation> {
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              initialValue: containerData["polesExcavation"],
               onChanged: (value) {
                 setState(() {
-                  containerData["numTankers"] = value;
+                  containerData["polesExcavation"] = value;
                 });
               },
               keyboardType: TextInputType.number,
@@ -155,12 +155,12 @@ class PolesFoundationState extends State<PolesFoundation> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
+                  final polesExcavation = containerData["polesExcavation"];
                   await polesExcavationViewModel.addPoleExa(PolesExcavationModel(
                     id: exId,
                     blockNo: selectedBlock,
                     streetNo: selectedStreet,
-                    lengthTotal: numTankers,
+                    noOfExcavation: polesExcavation,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));
@@ -174,7 +174,7 @@ class PolesFoundationState extends State<PolesFoundation> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
+                        'Selected: $selectedBlock, $selectedStreet, No. of Excavation: $polesExcavation',
                       ),
                     ),
                   );

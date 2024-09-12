@@ -17,7 +17,7 @@ class LightWiresRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameLightWires,
-        columns: ['id', 'blockNo', 'status','date','time']
+        columns: ['id', 'blockNo', 'lightWireWorkStatus','streetNo','totalLength','date','time']
     );
 
     // Print the raw data retrieved from the database

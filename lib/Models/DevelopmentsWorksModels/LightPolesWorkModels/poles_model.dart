@@ -2,14 +2,14 @@ class PolesModel{
   int? id;
   dynamic blockNo;
   dynamic streetNo;
-  dynamic totalLength;
+  dynamic noOfPoles;
   dynamic date;
   dynamic time;
   PolesModel({
     this.id,
     this.blockNo,
     this.streetNo,
-    this.totalLength,
+    this.noOfPoles,
     this.date,
     this.time
   });
@@ -20,7 +20,7 @@ class PolesModel{
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
-      totalLength: json['totalLength'],
+        noOfPoles: json['noOfPoles'],
         date:  json['date'],
         time:  json['time']
 
@@ -32,7 +32,7 @@ class PolesModel{
       'id':id,
       'blockNo':blockNo,
       'streetNo':streetNo,
-      'totalLength':totalLength,
+      'noOfPoles':noOfPoles,
       'date':date,
       'time':time,
     };

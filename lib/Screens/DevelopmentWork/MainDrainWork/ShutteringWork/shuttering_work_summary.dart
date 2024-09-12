@@ -1,7 +1,11 @@
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/shuttering_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class ShutteringWorkSummary extends StatelessWidget {
+  final ShutteringWorkViewModel shutteringWorkViewModel = Get.put(ShutteringWorkViewModel());
+  void initState() => shutteringWorkViewModel.fetchAllShutter();
 
   final List<Map<String, dynamic>> backfillingDataList = [
     {"blockNo": "Block A", "streetNo": "Street 1", "Total length": "23 ft", "date": "01 Sep 2024", "time": "10:00 AM"},
@@ -39,36 +43,43 @@ class ShutteringWorkSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(
-            children: [
-              // Header row
-              Row(
-                children: [
-                  buildHeaderCell('Block No.'),
-                  buildHeaderCell('Street No.'),
-                  buildHeaderCell('Total length'),
-                  buildHeaderCell('Date'),
-                  buildHeaderCell('Time'),
-                ],
-              ),
-              const SizedBox(height: 10),
-              // Data rows
-              ...backfillingDataList.map((entry) {
-                return Row(
-                  children: [
-                    buildDataCell(entry['blockNo'] ?? 'N/A'),
-                    buildDataCell(entry['streetNo'] ?? 'N/A'),
-                    buildDataCell(entry['Total length'] ?? 'N/A'),
-                    buildDataCell(entry['date'] ?? 'N/A'),
-                    buildDataCell(entry['time'] ?? 'N/A'),
-                  ],
-                );
-              }).toList(),
-            ],
-          ),
-        ),
+    child: Obx(() {
+    // Use Obx to rebuild when the data changes
+    if (shutteringWorkViewModel.allShutter.isEmpty) {
+    return Center(child: Text('No data available'));
+    }
+
+    return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Column(
+    children: [
+    // Header row
+    Row(
+    children: [
+    buildHeaderCell('Block No.'),
+    buildHeaderCell('Street No.'),
+    buildHeaderCell('Total length'),
+    buildHeaderCell('Date'),
+    buildHeaderCell('Time'),
+    ],
+    ),
+    const SizedBox(height: 10),
+    // Data rows
+    ...shutteringWorkViewModel.allShutter.map((entry){
+    return Row(
+    children: [
+    buildDataCell(entry.blockNo?? 'N/A'),
+    buildDataCell(entry.streetNo ?? 'N/A'),
+    buildDataCell(entry.completedLength ?? 'N/A'),
+    buildDataCell(entry.date ?? 'N/A'),
+    buildDataCell(entry.time ?? 'N/A'),
+    ],
+    );
+    }).toList(),
+    ],
+    ),
+    );
+    }),
       ),
     );
   }

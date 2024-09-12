@@ -1,7 +1,12 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/back_filling_ws_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/filling_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart' show Get,Inst ,Obx;
 
 class BackfillingSummary extends StatelessWidget {
+  final FillingViewModel fillingViewModel = Get.put(FillingViewModel());
+  void initState() => fillingViewModel.fetchAllFill();
 
   final List<Map<String, dynamic>> backfillingDataList = [
     {"blockNo": "Block A", "streetNo": "Street 1", "status": "In Process", "date": "01 Sep 2024", "time": "10:00 AM"},
@@ -39,36 +44,43 @@ class BackfillingSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Column(
-            children: [
-              // Header row
-              Row(
-                children: [
-                  buildHeaderCell('Block No.'),
-                  buildHeaderCell('Street No.'),
-                  buildHeaderCell('Status'),
-                  buildHeaderCell('Date'),
-                  buildHeaderCell('Time'),
-                ],
-              ),
-              const SizedBox(height: 10),
-              // Data rows
-              ...backfillingDataList.map((entry) {
-                return Row(
-                  children: [
-                    buildDataCell(entry['blockNo'] ?? 'N/A'),
-                    buildDataCell(entry['streetNo'] ?? 'N/A'),
-                    buildDataCell(entry['status'] ?? 'N/A'),
-                    buildDataCell(entry['date'] ?? 'N/A'),
-                    buildDataCell(entry['time'] ?? 'N/A'),
-                  ],
-                );
-              }).toList(),
-            ],
-          ),
-        ),
+    child: Obx(() {
+    // Use Obx to rebuild when the data changes
+    if (fillingViewModel.allFill.isEmpty) {
+    return Center(child: Text('No data available'));
+    }
+
+    return SingleChildScrollView(
+    scrollDirection: Axis.horizontal,
+    child: Column(
+    children: [
+    // Header row
+    Row(
+    children: [
+    buildHeaderCell('Block No.'),
+    buildHeaderCell('Street No.'),
+    buildHeaderCell('Status'),
+    buildHeaderCell('Date'),
+    buildHeaderCell('Time'),
+    ],
+    ),
+    const SizedBox(height: 10),
+    // Data rows
+    ...fillingViewModel.allFill.map((entry) {
+    return Row(
+    children: [
+    buildDataCell(entry.blockNo?? 'N/A'),
+    buildDataCell(entry.streetNo??'N/A'),
+    buildDataCell(entry.status ?? 'N/A'),
+    buildDataCell(entry.date ?? 'N/A'),
+    buildDataCell(entry.time ?? 'N/A'),
+    ],
+    );
+    }).toList(),
+    ],
+    ),
+    );
+    }),
       ),
     );
   }

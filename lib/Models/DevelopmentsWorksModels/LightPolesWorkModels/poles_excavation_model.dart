@@ -2,14 +2,14 @@ class PolesExcavationModel{
   int? id;
   dynamic blockNo;
   dynamic streetNo;
-  dynamic lengthTotal;
+  dynamic noOfExcavation;
   dynamic date;
   dynamic time;
   PolesExcavationModel({
     this.id,
     this.blockNo,
     this.streetNo,
-    this.lengthTotal,
+    this.noOfExcavation,
     this.date,
     this.time
   });
@@ -20,7 +20,7 @@ class PolesExcavationModel{
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
-      lengthTotal: json['lengthTotal'],
+        noOfExcavation: json['noOfExcavation'],
         date:  json['date'],
         time:  json['time']
     );
@@ -31,7 +31,7 @@ class PolesExcavationModel{
       'id':id,
       'blockNo':blockNo,
       'streetNo':streetNo,
-      'lengthTotal':lengthTotal,
+      'noOfExcavation':noOfExcavation,
       'date':date,
       'time':time,
     };
