@@ -5,7 +5,7 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 import '../../../ViewModels/BuildingWorkViewModel/RoadsCurbstonesWorkViewModel/road_curb_stones_work_view_model.dart';
 
-class CurbstonesWorkSummary extends StatelessWidget {
+class RoadsCurbstonesWorkSummary extends StatelessWidget {
   RoadCurbStonesWorkViewModel roadCurbStonesWorkViewModel = Get.put(RoadCurbStonesWorkViewModel());
   void initState() => roadCurbStonesWorkViewModel.fetchAllRoadCurb();
 

@@ -27,7 +27,7 @@ class _PolesState extends State<Poles> {
   Map<String, dynamic> containerData = {
     "selectedBlock": null,
     "selectedStreet": null,
-    "numTankers": '',
+    "poles": '',
   };
 
   String _getFormattedDate() {
@@ -129,10 +129,10 @@ class _PolesState extends State<Poles> {
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              initialValue: containerData["poles"],
               onChanged: (value) {
                 setState(() {
-                  containerData["numTankers"] = value;
+                  containerData["poles"] = value;
                 });
               },
               keyboardType: TextInputType.number,
@@ -149,14 +149,14 @@ class _PolesState extends State<Poles> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
+                  final  selectedPoles= containerData["poles"];
 
                   // Save data to ViewModel
                   await polesViewModel.addPole(PolesModel(
                     id: poleId,
                     blockNo: selectedBlock,
                     streetNo: selectedStreet,
-                    totalLength: numTankers,
+                    noOfPoles: selectedPoles,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));
@@ -167,13 +167,13 @@ class _PolesState extends State<Poles> {
                   setState(() {
                     containerData["selectedBlock"] = null;
                     containerData["selectedStreet"] = null;
-                    containerData["numTankers"] = '';
+                    containerData["poles"] = '';
                   });
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
+                        'Selected: $selectedBlock, $selectedStreet, No of poles: $selectedPoles',
                       ),
                     ),
                   );

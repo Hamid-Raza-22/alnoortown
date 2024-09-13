@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:convert';
 
-import '../../../../ViewModels/BuildingWorkViewModel/Mosque/ceiling_work_view_model.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'DoorsWorkSummary.dart';

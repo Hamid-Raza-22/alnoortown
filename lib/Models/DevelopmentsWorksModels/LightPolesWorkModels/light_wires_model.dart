@@ -3,6 +3,7 @@ class LightWiresModel{
   dynamic blockNo;
   dynamic streetNo;
   dynamic totalLength;
+  dynamic lightWireWorkStatus;
   dynamic date;
   dynamic time;
   LightWiresModel({
@@ -10,6 +11,7 @@ class LightWiresModel{
     this.blockNo,
     this.streetNo,
     this.totalLength,
+    this.lightWireWorkStatus,
     this.date,
     this.time
   });
@@ -21,6 +23,7 @@ class LightWiresModel{
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],
       totalLength: json['totalLength'],
+        lightWireWorkStatus: json['lightWireWorkStatus'],
         date:  json['date'],
         time:  json['time']
     );
@@ -32,6 +35,7 @@ class LightWiresModel{
       'blockNo':blockNo,
       'streetNo':streetNo,
       'totalLength':totalLength,
+      'lightWireWorkStatus':lightWireWorkStatus,
       'date':date,
       'time':time,
     };

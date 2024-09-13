@@ -81,7 +81,7 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CurbstonesWorkSummary(),
+                  builder: (context) => RoadsCurbstonesWorkSummary(),
                 ),
               );
             },

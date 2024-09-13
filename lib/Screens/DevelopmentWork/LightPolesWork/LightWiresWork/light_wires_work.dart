@@ -34,7 +34,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers": '',
+      "totalLength": '',
       "status": null,
     };
   }
@@ -136,10 +136,10 @@ class LightWiresWorkState extends State<LightWiresWork> {
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              initialValue: containerData["totalLength"],
               onChanged: (value) {
                 setState(() {
-                  containerData["numTankers"] = value;
+                  containerData["totalLength"] = value;
                 });
               },
               keyboardType: TextInputType.number,
@@ -163,13 +163,14 @@ class LightWiresWorkState extends State<LightWiresWork> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
+                  final totalLength = containerData["totalLength"];
                   final status = containerData["status"];
                   await lightWiresViewModel.addLight(LightWiresModel(
                     id: wireId,
                     blockNo: selectedBlock,
                     streetNo: selectedStreet,
-                    totalLength: numTankers,
+                    totalLength: totalLength,
+                    lightWireWorkStatus: status,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));
@@ -183,7 +184,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, Total Length: $numTankers, Status: $status',
+                        'Selected: $selectedBlock, $selectedStreet, Total Length: $totalLength, Status: $status',
                       ),
                     ),
                   );

@@ -2,7 +2,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/tiles_work_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
 
 import '../../../ReusableDesigns/filter_widget.dart';
 

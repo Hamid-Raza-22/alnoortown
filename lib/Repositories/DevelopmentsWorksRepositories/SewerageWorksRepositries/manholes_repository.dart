@@ -16,7 +16,7 @@ class ManholesRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameManholes,
-        columns: ['id', 'blockNo', 'streetNo', 'length','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'noOfManholes','date','time']
     );
 
     // Print the raw data retrieved from the database

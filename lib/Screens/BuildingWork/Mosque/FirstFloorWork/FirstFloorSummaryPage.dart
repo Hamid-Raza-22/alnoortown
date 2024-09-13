@@ -104,7 +104,7 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(child: _buildDataCell('date'.tr(),data["date"])),
-                Expanded(child: _buildDataCell('time'.tr(),data["timestamp"])),
+                Expanded(child: _buildDataCell('time'.tr(),data["time"])),
               ],
             ),
           ],
