@@ -17,11 +17,10 @@ class _FilterWidgetState extends State<FilterWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(8.0), // Reduced padding
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Date Range Filter Row (Compact)
           Row(
             children: [
               Expanded(
@@ -31,7 +30,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                   });
                 }, "From"),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: _buildDateField(context, selectedToDate, (date) {
                   setState(() {
@@ -41,20 +40,18 @@ class _FilterWidgetState extends State<FilterWidget> {
               ),
             ],
           ),
-          SizedBox(height: 8), // Reduced spacing
-
-          // Block Input Field (Compact)
+          const SizedBox(height: 8),
           TextField(
             decoration: InputDecoration(
               hintText: 'Search By Block',
-              hintStyle: TextStyle(color: Colors.grey.withOpacity(0.6)), // Lighter opacity for placeholder
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFC69840), width: 1.0), // Gold border
+              hintStyle: TextStyle(color: Colors.grey.withOpacity(0.6)),
+              border: const OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFC69840), width: 1.0),
               ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFC69840), width: 2.0), // Thicker gold border when focused
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFFC69840), width: 2.0),
               ),
-              contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 10), // Compact size
+              contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
             ),
             onChanged: (value) {
               setState(() {
@@ -62,19 +59,16 @@ class _FilterWidgetState extends State<FilterWidget> {
               });
             },
           ),
-          SizedBox(height: 8), // Reduced spacing
-
-          // Search Button
+          const SizedBox(height: 8),
           Align(
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
-                // Call the filter function with the selected dates and block (convert block to lowercase)
                 widget.onFilter(selectedFromDate, selectedToDate, selectedBlock?.toLowerCase());
               },
-              child: Text(
+              child: const Text(
                 "Search",
-                style: TextStyle(color: Color(0xFFC69840)), // Gold color for text
+                style: TextStyle(color: Color(0xFFC69840)),
               ),
             ),
           ),
@@ -83,7 +77,6 @@ class _FilterWidgetState extends State<FilterWidget> {
     );
   }
 
-  // Simplified Date Field Builder with small-sized calendar
   Widget _buildDateField(BuildContext context, DateTime? selectedDate, Function(DateTime?) onDateSelected, String placeholder) {
     return InkWell(
       onTap: () async {
@@ -95,16 +88,16 @@ class _FilterWidgetState extends State<FilterWidget> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Container(
-                height: 320, // Smaller height for the calendar
-                width: 280,  // Smaller width for the calendar
+                height: 320,
+                width: 280,
                 child: Theme(
                   data: Theme.of(context).copyWith(
-                    colorScheme: ColorScheme.light(
-                      primary: Color(0xFFC69840), // Gold color for the selected date
+                    colorScheme: const ColorScheme.light(
+                      primary: Color(0xFFC69840),
                     ),
                     textButtonTheme: TextButtonThemeData(
                       style: TextButton.styleFrom(
-                        foregroundColor: Color(0xFFC69840), // Gold color for 'OK'/'Cancel' buttons
+                        foregroundColor: const Color(0xFFC69840),
                       ),
                     ),
                     dialogBackgroundColor: Colors.white,
@@ -114,9 +107,8 @@ class _FilterWidgetState extends State<FilterWidget> {
                     firstDate: DateTime(2000),
                     lastDate: DateTime(2101),
                     onDateChanged: (date) {
-                      Navigator.pop(context, date); // Close dialog when date selected
+                      Navigator.pop(context, date);
                     },
-                    selectableDayPredicate: (date) => true, // Allow all days
                   ),
                 ),
               ),
@@ -129,20 +121,20 @@ class _FilterWidgetState extends State<FilterWidget> {
       },
       child: InputDecorator(
         decoration: InputDecoration(
-          hintText: placeholder, // Placeholder (e.g., "From", "To")
-          border: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFC69840), width: 1.0), // Gold border
+          hintText: placeholder,
+          border: const OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFC69840), width: 1.0),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Color(0xFFC69840), width: 2.0), // Thicker gold border when focused
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Color(0xFFC69840), width: 2.0),
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 6, horizontal: 10), // Compact size
+          contentPadding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
         ),
         child: Text(
           selectedDate != null
               ? "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}"
               : placeholder,
-          style: TextStyle(color: selectedDate != null ? Colors.black : Colors.grey[600]), // Update text color if date is selected
+          style: TextStyle(color: selectedDate != null ? Colors.black : Colors.grey[600]),
         ),
       ),
     );

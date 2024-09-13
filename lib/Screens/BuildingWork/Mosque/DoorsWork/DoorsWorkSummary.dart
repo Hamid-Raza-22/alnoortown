@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-
-
+import 'package:get/get.dart' show Get, Inst, Obx;
 import '../../../../ViewModels/BuildingWorkViewModel/Mosque/door_work_view_model.dart';
+import '../../../ReusableDesigns/filter_widget.dart';
+
 
 class DoorsWorkSummary extends StatefulWidget {
-    DoorsWorkSummary({super.key});
+  DoorsWorkSummary({super.key});
 
   @override
   State<DoorsWorkSummary> createState() => DoorsWorkSummaryState();
@@ -14,6 +14,10 @@ class DoorsWorkSummary extends StatefulWidget {
 
 class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
   final DoorWorkViewModel doorWorkViewModel = Get.put(DoorWorkViewModel());
+
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,18 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Filter Widget
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
+            ),
+            SizedBox(height: 16),
+
             // Table Header
             Container(
               color: Color(0xFFC69840),
@@ -59,18 +75,39 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
               ),
             ),
             SizedBox(height: 8),
+
             // Data Grid
             Expanded(
               child: Obx(() {
+                // Apply filters to the data
+                final filteredData = doorWorkViewModel.allDoor.where((data) {
+                  final blockMatch = _block == null || data.blockNo.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse the date string to DateTime
+                  DateTime? dataDate;
+                  try {
+                    dataDate = DateTime.parse(data.date); // Assuming data.date is a string
+                  } catch (e) {
+                    // Handle parsing error
+                    dataDate = null;
+                  }
+
+                  final dateMatch = (dataDate == null) ||
+                      (_fromDate == null || dataDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || dataDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
                 return ListView.builder(
-                  itemCount: doorWorkViewModel.allDoor.length,
+                  itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    final data = doorWorkViewModel.allDoor[index];
+                    final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "status": data.doorsWorkStatus,
-                      "date": data.date,
-                      "time": data.time
+                      "date": _formatDate(data.date),
+                      "time": _formatTime(data.date),
                     });
                   },
                 );
@@ -80,6 +117,24 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
         ),
       ),
     );
+  }
+
+  String _formatDate(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('d MMM yyyy').format(date);
+    } catch (e) {
+      return "N/A";
+    }
+  }
+
+  String _formatTime(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('h:mm a').format(date);
+    } catch (e) {
+      return "N/A";
+    }
   }
 
   Widget _buildHeaderCell(String title) {
@@ -129,16 +184,4 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
       ),
     );
   }
-
-//   String _formatDate(String? timestamp) {
-//     if (timestamp == null) return "N/A";
-//     final dateTime = DateTime.parse(timestamp);
-//     return DateFormat('d MMM yyyy').format(dateTime);
-//   }
-//
-//   String _formatTime(String? timestamp) {
-//     if (timestamp == null) return "N/A";
-//     final dateTime = DateTime.parse(timestamp);
-//     return DateFormat('h:mm a').format(dateTime);
-//   }
 }

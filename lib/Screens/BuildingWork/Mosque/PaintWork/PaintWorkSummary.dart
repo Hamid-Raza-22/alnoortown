@@ -1,12 +1,12 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/paint_work_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
+import 'package:get/get.dart' show Get, Inst, Obx;
 
+import '../../../ReusableDesigns/filter_widget.dart';
 
 class PaintWorkSummary extends StatefulWidget {
-    PaintWorkSummary({super.key});
+  PaintWorkSummary({super.key});
 
   @override
   State<PaintWorkSummary> createState() => _PaintWorkSummaryState();
@@ -14,6 +14,11 @@ class PaintWorkSummary extends StatefulWidget {
 
 class _PaintWorkSummaryState extends State<PaintWorkSummary> {
   final PaintWorkViewModel paintWorkViewModel = Get.put(PaintWorkViewModel());
+
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,71 +26,122 @@ class _PaintWorkSummaryState extends State<PaintWorkSummary> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title:   Text(
+        title: Text(
           'paint_work_summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color(0xFFC69840),
+            color: const Color(0xFFC69840),
           ),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Filter Widget
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+
             // Table Header
             Container(
-              color:   Color(0xFFC69840),
+              color: const Color(0xFFC69840),
               child: Padding(
-                padding:   EdgeInsets.symmetric(vertical: 12.0),
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Expanded(child: _buildHeaderCell('block_no'.tr())),
                     Expanded(child: _buildHeaderCell('status'.tr())),
-                    Expanded(child: _buildHeaderCell('date'.tr().tr())),
+                    Expanded(child: _buildHeaderCell('date'.tr())),
                     Expanded(child: _buildHeaderCell('time'.tr())),
                   ],
                 ),
               ),
             ),
-              SizedBox(height: 8),
+            const SizedBox(height: 8),
+
             // Data Grid
             Expanded(
               child: Obx(() {
+                // Apply filters to the data
+                final filteredData = paintWorkViewModel.allPaint.where((data) {
+                  final blockMatch = _block == null || data.blockNo.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse the date string to DateTime
+                  DateTime? dataDate;
+                  try {
+                    dataDate = DateTime.parse(data.date); // Assuming data.date is a string
+                  } catch (e) {
+                    // Handle parsing error
+                    dataDate = null;
+                  }
+
+                  final dateMatch = (dataDate == null) ||
+                      (_fromDate == null || dataDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || dataDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
                 return ListView.builder(
-                  itemCount: paintWorkViewModel.allPaint.length,
+                  itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    final data = paintWorkViewModel.allPaint[index];
+                    final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "status": data.paintWorkStatus,
-                      "date": data.date,
-                      "time": data.time
+                      "date": _formatDate(data.date),
+                      "time": _formatTime(data.date),
                     });
                   },
                 );
               }),
-              ),
+            ),
           ],
         ),
       ),
     );
   }
 
+  String _formatDate(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('d MMM yyyy').format(date);
+    } catch (e) {
+      return "N/A";
+    }
+  }
+
+  String _formatTime(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('h:mm a').format(date);
+    } catch (e) {
+      return "N/A";
+    }
+  }
+
   Widget _buildHeaderCell(String title) {
     return Center(
       child: Text(
         title,
-        style:   TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16,
@@ -96,19 +152,19 @@ class _PaintWorkSummaryState extends State<PaintWorkSummary> {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin:   EdgeInsets.only(bottom: 8.0),
+      margin: const EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color:   Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: const Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding:   EdgeInsets.symmetric(vertical: 12.0),
+        padding: const EdgeInsets.symmetric(vertical: 12.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Expanded(child: _buildCell(data["selectedBlock"]?? "N/A")),
-            Expanded(child: _buildCell(data["status"]?? "N/A")),
+            Expanded(child: _buildCell(data["selectedBlock"] ?? "N/A")),
+            Expanded(child: _buildCell(data["status"] ?? "N/A")),
             Expanded(child: _buildCell(data["date"])),
             Expanded(child: _buildCell(data["time"])),
           ],
@@ -121,7 +177,7 @@ class _PaintWorkSummaryState extends State<PaintWorkSummary> {
     return Center(
       child: Text(
         content ?? '',
-        style:   TextStyle(
+        style: const TextStyle(
           fontSize: 14,
           color: Color(0xFFC69840),
         ),

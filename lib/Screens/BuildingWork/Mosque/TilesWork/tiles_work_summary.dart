@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 
+import '../../../ReusableDesigns/filter_widget.dart';
+
+
 class TilesWorkSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-    TilesWorkSummary({super.key, required this.containerDataList});
+  TilesWorkSummary({super.key, required this.containerDataList});
 
   @override
   State<TilesWorkSummary> createState() => _TilesWorkSummaryState();
@@ -15,6 +18,11 @@ class TilesWorkSummary extends StatefulWidget {
 
 class _TilesWorkSummaryState extends State<TilesWorkSummary> {
   final TilesWorkViewModel tilesWorkViewModel = Get.put(TilesWorkViewModel());
+
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +30,12 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title:   Text(
+        title: Text(
           'tiles_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
@@ -38,15 +46,28 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Filter Widget
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+                _applyFilters();
+              },
+            ),
+            SizedBox(height: 16),
+
             // Table Header
             Container(
-              color:   Color(0xFFC69840),
+              color: Color(0xFFC69840),
               child: Padding(
-                padding:   EdgeInsets.symmetric(vertical: 12.0),
+                padding: EdgeInsets.symmetric(vertical: 12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -58,19 +79,40 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
                 ),
               ),
             ),
-              SizedBox(height: 8),
+            SizedBox(height: 8),
+
             // Data Grid
             Expanded(
               child: Obx(() {
+                // Apply filters to the data
+                final filteredData = tilesWorkViewModel.allTiles.where((data) {
+                  final blockMatch = _block == null || data.blockNo.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse the date string to DateTime
+                  DateTime? dataDate;
+                  try {
+                    dataDate = DateTime.parse(data.date); // Assuming data.date is a string
+                  } catch (e) {
+                    // Handle parsing error
+                    dataDate = null;
+                  }
+
+                  final dateMatch = (dataDate == null) ||
+                      (_fromDate == null || dataDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || dataDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
                 return ListView.builder(
-                  itemCount: tilesWorkViewModel.allTiles.length,
+                  itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    final data = tilesWorkViewModel.allTiles[index];
+                    final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "status": data.tilesWorkStatus,
-                      "date": data.date,
-                      "time": data.time
+                      "date": _formatDate(data.date),
+                      "time": _formatTime(data.date),
                     });
                   },
                 );
@@ -82,11 +124,33 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
     );
   }
 
+  void _applyFilters() {
+    // Logic to apply filters, handled reactively by Obx in the ListView.
+  }
+
+  String _formatDate(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('d MMM yyyy').format(date);
+    } catch (e) {
+      return "N/A";
+    }
+  }
+
+  String _formatTime(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('h:mm a').format(date);
+    } catch (e) {
+      return "N/A";
+    }
+  }
+
   Widget _buildHeaderCell(String title) {
     return Center(
       child: Text(
         title,
-        style:   TextStyle(
+        style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16,
@@ -97,14 +161,14 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin:   EdgeInsets.only(bottom: 8.0),
+      margin: EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color:   Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding:   EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -122,23 +186,11 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
     return Center(
       child: Text(
         text ?? "N/A",
-        style:   TextStyle(
+        style: TextStyle(
           fontSize: 14,
           color: Color(0xFFC69840),
         ),
       ),
     );
   }
-
-  // String _formatDate(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('d MMM yyyy').format(dateTime);
-  // }
-  //
-  // String _formatTime(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('h:mm a').format(dateTime);
-  // }
 }

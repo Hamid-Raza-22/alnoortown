@@ -1,8 +1,7 @@
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/foundation_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
+import 'package:get/get.dart';
 import '../../../ReusableDesigns/filter_widget.dart';
 
 class FoundationSummaryPage extends StatefulWidget {
@@ -28,23 +27,23 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text(
-          'foundation_work_summary'.tr(),
+        title: const Text(
+          'foundation_work_summary',
           style: TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
-            color: Color(0xFFC69840),
+            color: const Color(0xFFC69840),
           ),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -58,7 +57,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
                 });
               },
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             // Data Grid
             Expanded(
               child: Obx(() {
@@ -67,17 +66,28 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
                   bool matchesDate = true;
                   bool matchesBlock = true;
 
+                  // Filter by date range
                   if (fromDate != null && toDate != null) {
                     DateTime dataDate = DateTime.parse(data.date); // Assuming date is stored in string format
                     matchesDate = dataDate.isAfter(fromDate!) && dataDate.isBefore(toDate!);
                   }
 
+                  // Filter by block number
                   if (blockFilter != null && blockFilter!.isNotEmpty) {
-                    matchesBlock = data.blockNo == blockFilter;
+                    matchesBlock = data.blockNo.trim() == blockFilter!.trim();
                   }
 
                   return matchesDate && matchesBlock;
                 }).toList();
+
+                if (filteredData.isEmpty) {
+                  return const Center(
+                    child: Text(
+                      "No data available for the selected criteria.",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  );
+                }
 
                 return ListView.builder(
                   itemCount: filteredData.length,
@@ -103,29 +113,29 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin: EdgeInsets.only(bottom: 8.0),
+      margin: const EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: const Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
         child: Column(
           children: [
-            _buildDataCell('block_no'.tr(), data["selectedBlock"] ?? "N/A"),
-            Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell('brick_work'.tr(), data["brickWorkStatus"] ?? "N/A"),
-            Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell('mud_filling_work'.tr(), data["mudFillingStatus"] ?? "N/A"),
-            Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell('plaster_work'.tr(), data["plasterWorkStatus"] ?? "N/A"),
-            Divider(color: Color(0xFFC69840), thickness: 1.0),
+            _buildDataCell('block_no', data["selectedBlock"] ?? "N/A"),
+            const Divider(color: Color(0xFFC69840), thickness: 1.0),
+            _buildDataCell('brick_work', data["brickWorkStatus"] ?? "N/A"),
+            const Divider(color: Color(0xFFC69840), thickness: 1.0),
+            _buildDataCell('mud_filling_work', data["mudFillingStatus"] ?? "N/A"),
+            const Divider(color: Color(0xFFC69840), thickness: 1.0),
+            _buildDataCell('plaster_work', data["plasterWorkStatus"] ?? "N/A"),
+            const Divider(color: Color(0xFFC69840), thickness: 1.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(child: _buildDataCell('date'.tr(), data["date"])),
-                Expanded(child: _buildDataCell('time'.tr(), data["timestamp"])),
+                Expanded(child: _buildDataCell('date', data["date"])),
+                Expanded(child: _buildDataCell('time', data["time"])),
               ],
             ),
           ],
@@ -139,7 +149,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
       children: [
         Text(
           "$label: ",
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -148,7 +158,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
         Expanded(
           child: Text(
             text ?? "N/A",
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12,
               color: Color(0xFF000000),
             ),

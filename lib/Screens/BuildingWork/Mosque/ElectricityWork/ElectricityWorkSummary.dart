@@ -1,12 +1,15 @@
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/electricity_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
+import 'package:get/get.dart' show Get, Inst, Obx;
+
+import '../../../ReusableDesigns/filter_widget.dart';
+
 
 class ElectricityWorkSummary extends StatefulWidget {
   final List<Map<String, dynamic>> containerDataList;
 
-    ElectricityWorkSummary({super.key, required this.containerDataList});
+  ElectricityWorkSummary({super.key, required this.containerDataList});
 
   @override
   State<ElectricityWorkSummary> createState() => _ElectricityWorkSummaryState();
@@ -14,22 +17,26 @@ class ElectricityWorkSummary extends StatefulWidget {
 
 class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
   final ElectricityWorkViewModel electricityWorkViewModel = Get.put(ElectricityWorkViewModel());
+
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title:   Text(
-          'electricity_work_summary',
-          style: TextStyle(
+        title: Text(
+          'electricity_work_summary'.tr(),
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -38,15 +45,27 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Filter Widget
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+
             // Table Header
             Container(
-              color:   Color(0xFFC69840),
+              color: const Color(0xFFC69840),
               child: Padding(
-                padding:   EdgeInsets.symmetric(vertical: 12.0),
+                padding: const EdgeInsets.symmetric(vertical: 12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -58,19 +77,40 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
                 ),
               ),
             ),
-              SizedBox(height: 8),
+            const SizedBox(height: 8),
+
             // Data Grid
             Expanded(
               child: Obx(() {
+                // Apply filters to the data
+                final filteredData = electricityWorkViewModel.allElectricity.where((data) {
+                  final blockMatch = _block == null || data.blockNo.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse the date string to DateTime
+                  DateTime? dataDate;
+                  try {
+                    dataDate = DateTime.parse(data.date); // Assuming data.date is a string
+                  } catch (e) {
+                    // Handle parsing error
+                    dataDate = null;
+                  }
+
+                  final dateMatch = (dataDate == null) ||
+                      (_fromDate == null || dataDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || dataDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
                 return ListView.builder(
-                  itemCount: electricityWorkViewModel.allElectricity.length,
+                  itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    final data = electricityWorkViewModel.allElectricity[index];
+                    final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "status": data.electricityWorkStatus,
-                      "date": data.date,
-                      "time": data.time
+                      "date": _formatDate(data.date),
+                      "time": _formatTime(data.date),
                     });
                   },
                 );
@@ -82,11 +122,29 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
     );
   }
 
+  String _formatDate(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('d MMM yyyy').format(date);
+    } catch (e) {
+      return "N/A";
+    }
+  }
+
+  String _formatTime(String dateStr) {
+    try {
+      final date = DateTime.parse(dateStr);
+      return DateFormat('h:mm a').format(date);
+    } catch (e) {
+      return "N/A";
+    }
+  }
+
   Widget _buildHeaderCell(String title) {
     return Center(
       child: Text(
         title,
-        style:   TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16,
@@ -97,14 +155,14 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin:   EdgeInsets.only(bottom: 8.0),
+      margin: const EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color:   Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: const Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding:   EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -122,23 +180,11 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
     return Center(
       child: Text(
         text ?? "N/A",
-        style:   TextStyle(
+        style: const TextStyle(
           fontSize: 14,
           color: Color(0xFFC69840),
         ),
       ),
     );
   }
-
-  // String _formatDate(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('d MMM yyyy').format(dateTime);
-  // }
-  //
-  // String _formatTime(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('h:mm a').format(dateTime);
-  // }
 }
