@@ -1,11 +1,11 @@
-class TankerModel{
+class WaterTankerModel{
   int? id;
   dynamic blockNo;
   dynamic streetNo;
   dynamic tankerNo;
   dynamic date;
   dynamic time;
-  TankerModel ({
+  WaterTankerModel ({
     this.id,
     this.blockNo,
     this.streetNo,
@@ -15,9 +15,9 @@ class TankerModel{
 
   });
 
-  factory TankerModel.fromMap(Map<dynamic,dynamic>json)
+  factory WaterTankerModel.fromMap(Map<dynamic,dynamic>json)
   {
-    return TankerModel(
+    return WaterTankerModel(
       id: json['id'],
       blockNo: json['blockNo'],
       streetNo: json['streetNo'],

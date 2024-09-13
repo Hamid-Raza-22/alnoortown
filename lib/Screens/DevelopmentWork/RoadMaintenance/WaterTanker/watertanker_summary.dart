@@ -1,21 +1,21 @@
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/water_tanker_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get,Inst ,Obx;
-import '../../../../ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/tanker_view_model.dart';
 
 class WaterTankerSummary extends StatelessWidget {
-  TankerViewModel _tankerViewModel = Get.put(TankerViewModel());
+  WaterTankerViewModel _waterTankerViewModel = Get.put(WaterTankerViewModel());
 
 
-  TankerViewModel tankerViewModel = Get.put(TankerViewModel());
+   WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
 
-    _tankerViewModel.fetchAllTanker();
-    tankerViewModel.fetchAllTanker();
+    _waterTankerViewModel.fetchAllTanker();
+    waterTankerViewModel.fetchAllTanker();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -37,7 +37,7 @@ class WaterTankerSummary extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
         child: Obx(() {
-          if (tankerViewModel.allTanker.isEmpty) {
+          if (waterTankerViewModel.allTanker.isEmpty) {
             return Center(child: Text('No data available'));
           }
 
@@ -49,7 +49,7 @@ class WaterTankerSummary extends StatelessWidget {
               mainAxisSpacing: 1.0,
               childAspectRatio: 3.0, // Adjust for better width
             ),
-            itemCount: tankerViewModel.allTanker.length * 3 + 3,
+            itemCount: waterTankerViewModel.allTanker.length * 3 + 3,
             // Additional 3 for headings
             itemBuilder: (context, index) {
               if (index < 3) {
@@ -73,8 +73,8 @@ class WaterTankerSummary extends StatelessWidget {
               } else {
                 final entryIndex = (index - 3) ~/ 3;
                 final column = (index - 3) % 3;
-                if (entryIndex < tankerViewModel.allTanker.length) {
-                  final entry = tankerViewModel.allTanker[entryIndex];
+                if (entryIndex < waterTankerViewModel.allTanker.length) {
+                  final entry = waterTankerViewModel.allTanker[entryIndex];
                   final data = [
                     entry.blockNo ?? 'N/A',
                     entry.streetNo ?? 'N/A',
