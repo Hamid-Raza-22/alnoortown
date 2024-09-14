@@ -24,7 +24,7 @@ class MachinesSummary extends StatelessWidget {
         ),
         title: Text(
           'machines_summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -37,7 +37,7 @@ class MachinesSummary extends StatelessWidget {
         child: Obx(() {
           // Use Obx to rebuild when the data changes
           if (machineViewModel.allMachine.isEmpty) {
-            return  Center(child: Text('No data available'));
+            return  const Center(child: Text('No data available'));
             }
 
           return SingleChildScrollView(

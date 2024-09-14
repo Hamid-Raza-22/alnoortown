@@ -21,12 +21,12 @@ class WaterTankerSummary extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text(
+        title: const Text(
           'Water Tanker Summary',
           style: TextStyle(fontSize: 14,
               fontWeight: FontWeight.bold,
@@ -38,11 +38,11 @@ class WaterTankerSummary extends StatelessWidget {
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
         child: Obx(() {
           if (tankerViewModel.allTanker.isEmpty) {
-            return Center(child: Text('No data available'));
+            return const Center(child: Text('No data available'));
           }
 
           return GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               // 3 columns for 'block_no'.tr()., Street No., and No. of Tankers
               crossAxisSpacing: 1.0,
@@ -55,7 +55,7 @@ class WaterTankerSummary extends StatelessWidget {
               if (index < 3) {
                 // Header Row
                 return Container(
-                  color: Color(0xFFC69840),
+                  color: const Color(0xFFC69840),
                   alignment: Alignment.center,
                   child: Text(
                     [
@@ -65,7 +65,7 @@ class WaterTankerSummary extends StatelessWidget {
                       'date'.tr(),
                       'time'.tr()
                     ][index],
-                    style: TextStyle(color: Colors.white,
+                    style: const TextStyle(color: Colors.white,
                         fontWeight: FontWeight.bold,
                         fontSize: 14),
                   ),
@@ -94,7 +94,7 @@ class WaterTankerSummary extends StatelessWidget {
                               ),
                               title: Text(
                                 'Tanker Details | ${data[0]}',
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 18),
                               ),
                               content: SingleChildScrollView(
@@ -102,11 +102,11 @@ class WaterTankerSummary extends StatelessWidget {
                                   children: [
                                     Text(
                                       'Street No.: ${data[1]}',
-                                      style: TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 16),
                                     ),
                                     Text(
                                       'No. of Tankers: ${data[2]}',
-                                      style: TextStyle(fontSize: 16),
+                                      style: const TextStyle(fontSize: 16),
                                     ),
                                   ],
                                 ),
@@ -115,7 +115,7 @@ class WaterTankerSummary extends StatelessWidget {
                                 TextButton(
                                   style: TextButton.styleFrom(
                                     foregroundColor: Colors.white,
-                                    backgroundColor: Color(0xFFC69840),
+                                    backgroundColor: const Color(0xFFC69840),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),
                                     ),
@@ -132,12 +132,12 @@ class WaterTankerSummary extends StatelessWidget {
                       }
                     },
                     child: Container(
-                      padding: EdgeInsets.all(8.0),
-                      color: column % 2 == 0 ? Colors.white : Color(0xFFEFEFEF),
+                      padding: const EdgeInsets.all(8.0),
+                      color: column % 2 == 0 ? Colors.white : const Color(0xFFEFEFEF),
                       alignment: Alignment.center,
                       child: Text(
                         data[column],
-                        style: TextStyle(fontSize: 12.0),
+                        style: const TextStyle(fontSize: 12.0),
                         overflow: TextOverflow.ellipsis, // Handle overflow
                         maxLines: 1, // Limit to one line
                       ),
