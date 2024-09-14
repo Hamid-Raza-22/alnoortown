@@ -23,6 +23,7 @@ class MainGateGreyStructureSummary extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+
         title: Text(
           'main_gate_grey_structure_summary'.tr(),
           style: const TextStyle(fontSize: 14,
