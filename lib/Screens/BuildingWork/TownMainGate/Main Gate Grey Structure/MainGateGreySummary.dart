@@ -1,14 +1,36 @@
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/mg_grey_structure_view_model.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart';
 
-class MainGateGreyStructureSummary extends StatelessWidget {
-  MgGreyStructureViewModel mgGreyStructureViewModel = Get.put(
-      MgGreyStructureViewModel());
+import '../../../ReusableDesigns/filter_widget.dart';
 
-  void initState() => mgGreyStructureViewModel.fetchAllMainGrey();
+class MainGateGreyStructureSummary extends StatefulWidget {
+  @override
+  _MainGateGreyStructureSummaryState createState() => _MainGateGreyStructureSummaryState();
+}
 
+class _MainGateGreyStructureSummaryState extends State<MainGateGreyStructureSummary> {
+  MgGreyStructureViewModel mgGreyStructureViewModel = Get.put(MgGreyStructureViewModel());
+
+  DateTime? selectedFromDate;
+  DateTime? selectedToDate;
+  String? selectedBlock;
+
+  @override
+  void initState() {
+    super.initState();
+    mgGreyStructureViewModel.fetchAllMainGrey();
+  }
+
+  void _onFilter(DateTime? fromDate, DateTime? toDate, String? block) {
+    setState(() {
+      selectedFromDate = fromDate;
+      selectedToDate = toDate;
+      selectedBlock = block;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
@@ -23,129 +45,140 @@ class MainGateGreyStructureSummary extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-
         title: Text(
-          'main_gate_grey_structure_summary'.tr(),
-          style: const TextStyle(fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: const Color(0xFFC69840)),
+          'main_gate_grey_structure_summary',
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: Obx(() {
-          if (mgGreyStructureViewModel.allMainGrey.isEmpty) {
-            return const Center(child: Text('No data available'));
-          }
+        child: Column(
+          children: [
+            FilterWidget(onFilter: _onFilter),
+            Expanded(
+              child: Obx(() {
+                if (mgGreyStructureViewModel.allMainGrey.isEmpty) {
+                  return const Center(child: Text('No data available'));
+                }
 
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 4,
-              crossAxisSpacing: 1.0,
-              mainAxisSpacing: 1.0,
-              childAspectRatio: 2.0, // Adjusted for better width
-            ),
-            itemCount: mgGreyStructureViewModel.allMainGrey.length * 4 + 4,
-            // Update this to 6 columns
-            itemBuilder: (context, index) {
-              if (index < 4) {
-                // Header Row
-                return Container(
-                  color: const Color(0xFFC69840),
-                  alignment: Alignment.center,
-                  child: Text(
-                    [
-                      'block_no'.tr(),
-                      'work_status'.tr(),
-                      'date'.tr(),
-                      'time'.tr()
-                    ][index],
-                    style: const TextStyle(color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
+                // Filter data based on the selected criteria
+                var filteredData = mgGreyStructureViewModel.allMainGrey.where((entry) {
+                  final entryDate = entry.date != null ? DateTime.tryParse(entry.date!) : null;
+                  bool matchesDate = true;
+                  if (selectedFromDate != null && selectedToDate != null) {
+                    if (entryDate != null) {
+                      matchesDate = entryDate.isAfter(selectedFromDate!) && entryDate.isBefore(selectedToDate!);
+                    }
+                  }
+                  bool matchesBlock = selectedBlock == null || (entry.blockNo?.toLowerCase().contains(selectedBlock!.toLowerCase()) ?? false);
+                  return matchesDate && matchesBlock;
+                }).toList();
+
+                return GridView.builder(
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 4,
+                    crossAxisSpacing: 1.0,
+                    mainAxisSpacing: 1.0,
+                    childAspectRatio: 2.0, // Adjusted for better width
                   ),
-                );
-              } else {
-                final entryIndex = (index - 4) ~/ 4;
-                if (entryIndex < mgGreyStructureViewModel.allMainGrey.length) {
-                  final entry = mgGreyStructureViewModel
-                      .allMainGrey[entryIndex];
-                  final data = [
-                    entry.blockNo ?? 'N/A',
-                    entry.workStatus ?? 'N/A',
-                    entry.date ?? 'N/A',
-                    entry.time ?? 'N/A'
-                  ];
-                  return GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            title: Text(
-                              'Work Status | ${data[0]}',
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            content: SingleChildScrollView(
-                              child: ListBody(
-                                children: [
-                                  Text(
-                                    '${data[1]}',
-                                    style: const TextStyle(fontSize: 16),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            actions: [
-                              TextButton(
-                                style: TextButton.styleFrom(
-                                  foregroundColor: Colors.white,
-                                  backgroundColor: const Color(0xFFC69840),
+                  itemCount: filteredData.length * 4 + 4,
+                  itemBuilder: (context, index) {
+                    if (index < 4) {
+                      // Header Row
+                      return Container(
+                        color: const Color(0xFFC69840),
+                        alignment: Alignment.center,
+                        child: Text(
+                          [
+                            'block_no',
+                            'work_status',
+                            'date',
+                            'time'
+                          ][index],
+                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      );
+                    } else {
+                      final entryIndex = (index - 4) ~/ 4;
+                      if (entryIndex < filteredData.length) {
+                        final entry = filteredData[entryIndex];
+                        final data = [
+                          entry.blockNo ?? 'N/A',
+                          entry.workStatus ?? 'N/A',
+                          entry.date ?? 'N/A',
+                          entry.time ?? 'N/A'
+                        ];
+                        return GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  title: Text(
+                                    'Work Status | ${data[0]}',
+                                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                                  ),
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: [
+                                        Text(
+                                          '${data[1]}',
+                                          style: const TextStyle(fontSize: 16),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      style: TextButton.styleFrom(
+                                        foregroundColor: Colors.white,
+                                        backgroundColor: const Color(0xFFC69840),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text('close'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.all(8.0),
+                            color: index % 4 == 0 ? Colors.white : const Color(0xFFEFEFEF),
+                            alignment: Alignment.center,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    data[index % 4],
+                                    style: const TextStyle(fontSize: 12.0),
+                                    overflow: TextOverflow.ellipsis,
+                                    maxLines: 1, // Limit to one line
                                   ),
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('close'.tr()),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      color: index % 4 == 0 ? Colors.white : const Color(0xFFEFEFEF),
-                      alignment: Alignment.center,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Text(
-                              data[index % 4],
-                              style: const TextStyle(fontSize: 12.0),
-                              overflow: TextOverflow.ellipsis,
-                              // Handle overflow
-                              maxLines: 1, // Limit to one line
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                  );
-                }
-                return Container(); // Empty container for extra items
-              }
-            },
-          );
-        }),
+                        );
+                      }
+                      return Container(); // Empty container for extra items
+                    }
+                  },
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }
