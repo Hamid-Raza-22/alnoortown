@@ -1,7 +1,7 @@
 import 'package:al_noor_town/Database/db_helper.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/tanker_model.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/RoadMaintenance/WaterTanker/watertanker_summary.dart';
-import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/tanker_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/water_tanker_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +15,7 @@ class WaterTanker extends StatefulWidget {
 }
 
 class _WaterTankerState extends State<WaterTanker>  {
-  TankerViewModel tankerViewModel = Get.put(TankerViewModel());
+  WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
   DBHelper dbHelper = DBHelper();
   int? tankerId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
@@ -140,7 +140,7 @@ class _WaterTankerState extends State<WaterTanker>  {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final selectedTankers = containerData["selectedTankers"];
-                  await tankerViewModel.addTanker(TankerModel(
+                  await waterTankerViewModel.addTanker(WaterTankerModel(
                     id: tankerId,
                     blockNo: selectedBlock,
                     streetNo: selectedStreet,
@@ -148,7 +148,7 @@ class _WaterTankerState extends State<WaterTanker>  {
                       date: _getFormattedDate(),
                       time: _getFormattedTime()
                   ));
-                  await tankerViewModel.fetchAllTanker();
+                  await waterTankerViewModel.fetchAllTanker();
 
                   setState(() {
                     containerData["selectedBlock"] = null;

@@ -1,18 +1,14 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
-import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/tanker_model.dart';
+import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:flutter/foundation.dart';
 
-
-
-
-class TankerRepository{
+class WaterTankerRepository{
 
   DBHelper dbHelper = DBHelper();
 
-  Future<List<TankerModel>> getTanker() async {
+  Future<List<WaterTankerModel>> getTanker() async {
     // Get the database client
     var dbClient = await dbHelper.db;
 
@@ -33,36 +29,28 @@ class TankerRepository{
     }
 
     // Convert the raw data into a list of MachineModel objects
-    List<TankerModel> tanker = [];
+    List<WaterTankerModel> waterTanker = [];
     for (int i = 0; i < maps.length; i++) {
-      tanker.add(TankerModel.fromMap(maps[i]));
+      waterTanker.add(WaterTankerModel.fromMap(maps[i]));
     }
 
     // Print the list of MachineModel objects
     if (kDebugMode) {
-      print('Parsed TankerModel objects:');
+      print('Parsed WaterTankerModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
 
-    return tanker;
+    return waterTanker;
   }
 
-
-
-
-  Future<int>add(TankerModel tankerModel) async{
+  Future<int>add(WaterTankerModel waterTankerModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameWaterTanker,tankerModel.toMap());
+    return await dbClient.insert(tableNameWaterTanker,waterTankerModel.toMap());
   }
 
-  Future<int>update(TankerModel tankerModel) async{
+  Future<int>update(WaterTankerModel waterTankerModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameWaterTanker,tankerModel.toMap(),
-        where: 'id = ?', whereArgs: [tankerModel.id]);
+    return await dbClient.update(tableNameWaterTanker,waterTankerModel.toMap(),
+        where: 'id = ?', whereArgs: [waterTankerModel.id]);
 
   }
 
