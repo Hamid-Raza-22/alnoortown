@@ -16,9 +16,7 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final mediaQuery = MediaQuery.of(context);
-    // final isPortrait = mediaQuery.orientation == Orientation.portrait;
-    // materialShiftingViewModel.fetchAllShifting();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
