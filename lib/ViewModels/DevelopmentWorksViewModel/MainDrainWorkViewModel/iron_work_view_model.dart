@@ -1,40 +1,48 @@
-
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/iron_works_model.dart';
 import 'package:al_noor_town/Repositories/DevelopmentsWorksRepositories/MainDrainWorkRepositories/iron_works_repository.dart';
 import 'package:get/get.dart';
 
 class IronWorkViewModel extends GetxController {
-
   var allWorks = <IronWorksModel>[].obs;
-  IronWorksRepository ironWorksRepository = IronWorksRepository();
+  final IronWorksRepository ironWorksRepository = IronWorksRepository();
 
   @override
-  void onInit(){
-    // TODO: implement onInit
+  void onInit() {
     super.onInit();
-    //fetchAllWorks();
+    fetchAllWorks(); // Initial fetch if needed
   }
 
-  fetchAllWorks() async{
-    var iron = await ironWorksRepository.getIronWorks();
-    allWorks .value = iron;
+  Future<void> fetchAllWorks({DateTime? fromDate, DateTime? toDate, String? block}) async {
+    // Fetch all works from repository
+    var allWorksList = await ironWorksRepository.getIronWorks();
 
+    // Apply filters if provided
+    if (fromDate != null) {
+      allWorksList = allWorksList.where((work) => work.date != null && DateTime.parse(work.date!).isAfter(fromDate)).toList();
+    }
+    if (toDate != null) {
+      allWorksList = allWorksList.where((work) => work.date != null && DateTime.parse(work.date!).isBefore(toDate)).toList();
+    }
+    if (block != null && block.isNotEmpty) {
+      allWorksList = allWorksList.where((work) => work.blockNo != null && work.blockNo!.contains(block)).toList();
+    }
+
+    // Update the observable list
+    allWorks.value = allWorksList;
   }
 
-  addWorks(IronWorksModel ironWorksModel){
-    ironWorksRepository.add(ironWorksModel);
-   // fetchAllWorks();
+  Future<void> addWorks(IronWorksModel ironWorksModel) async {
+    await ironWorksRepository.add(ironWorksModel);
+    fetchAllWorks(); // Optionally refresh after adding
   }
 
-  updateWorks(IronWorksModel ironWorksModel){
+  void updateWorks(IronWorksModel ironWorksModel) {
     ironWorksRepository.update(ironWorksModel);
-    fetchAllWorks();
+    fetchAllWorks(); // Refresh after updating
   }
 
-  deleteWorks(int id){
+  void deleteWorks(int id) {
     ironWorksRepository.delete(id);
-    fetchAllWorks();
+    fetchAllWorks(); // Refresh after deleting
   }
-
 }
-
