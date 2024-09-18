@@ -3,7 +3,6 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenace
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
 import '../../../../Models/DevelopmentsWorksModels/RoadMaintenanceModels/machine_model.dart';
 import 'MachinesSummary.dart';
 
@@ -22,14 +21,14 @@ class MachinesState extends State<Machines> {
     "Excavator", "Bulldozer", "Crane", "Loader", "Dump Truck", "Forklift", "Paver", "Other"
   ];
   final List<Icon> machineIcons = [
-    Icon(Icons.construction, color: Color(0xFFC69840)),
-    Icon(Icons.agriculture, color: Color(0xFFC69840)),
-    Icon(Icons.account_balance, color: Color(0xFFC69840)),
-    Icon(Icons.local_shipping, color: Color(0xFFC69840)),
-    Icon(Icons.fire_truck, color: Color(0xFFC69840)),
-    Icon(Icons.precision_manufacturing, color: Color(0xFFC69840)),
-    Icon(Icons.add_box, color: Color(0xFFC69840)),
-    Icon(Icons.edit, color: Color(0xFFC69840)),
+    const Icon(Icons.construction, color: Color(0xFFC69840)),
+    const Icon(Icons.agriculture, color: Color(0xFFC69840)),
+    const Icon(Icons.account_balance, color: Color(0xFFC69840)),
+    const Icon(Icons.local_shipping, color: Color(0xFFC69840)),
+    const Icon(Icons.fire_truck, color: Color(0xFFC69840)),
+    const Icon(Icons.precision_manufacturing, color: Color(0xFFC69840)),
+    const Icon(Icons.add_box, color: Color(0xFFC69840)),
+    const Icon(Icons.edit, color: Color(0xFFC69840)),
   ];
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
@@ -58,7 +57,7 @@ class MachinesState extends State<Machines> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: Size.fromHeight(200.0),
+        preferredSize: const Size.fromHeight(200.0),
         child: AppBar(
           flexibleSpace: FlexibleSpaceBar(
             background: Image.asset(
@@ -68,9 +67,9 @@ class MachinesState extends State<Machines> {
           ),
           actions: [
             IconButton(
-              icon: Icon(Icons.summarize, color: Color(0xFFC69840),),
+              icon: const Icon(Icons.summarize, color: Color(0xFFC69840),),
               onPressed: () async {
-                final savedData = await machineViewModel.fetchAllMachine();
+                final savedData = await machineViewModel.fetchAllMachines();
 
                 Navigator.push(
                   context,
@@ -85,18 +84,18 @@ class MachinesState extends State<Machines> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 1),
+            const SizedBox(height: 1),
              Align(
               alignment: Alignment.center,
               child: Padding(
-                padding: EdgeInsets.only(bottom: 12.0),
+                padding: const EdgeInsets.only(bottom: 12.0),
                 child: Text(
                   'machine'.tr(),
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
             ),
@@ -109,32 +108,32 @@ class MachinesState extends State<Machines> {
 
   Widget buildContainer() {
     return Card(
-      margin: EdgeInsets.only(bottom: 16),
+      margin: const EdgeInsets.only(bottom: 16),
       elevation: 3,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding: EdgeInsets.all(24.0),
+        padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockStreetRow(),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
              Text(
               "machine".tr(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFC69840),
               ),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             buildMachineDropdown(),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             buildTimeButtons(),
 
 
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -144,7 +143,8 @@ class MachinesState extends State<Machines> {
                   final clockInTime = containerData["clockInTime"];
                   final clockOutTime = containerData["clockOutTime"];
 
-                  await machineViewModel.addMachine(MachineModel(
+                  // Create a MachineModel instance
+                  final machineModel = MachineModel(
                     id: machineId,
                     blockNo: selectedBlock,
                     streetNo: selectedStreet,
@@ -153,9 +153,23 @@ class MachinesState extends State<Machines> {
                     timeOut: clockOutTime,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
-                  ));
+                  );
 
-                  await machineViewModel.fetchAllMachine();
+                  try {
+                    // Step 1: Add machine to the local database
+                    await machineViewModel.addMachine(machineModel);
+                    print('Machine added to local database');
+
+                    // Step 2: Post data from the database to the API
+                    await machineViewModel.postDataFromDatabaseToAPI();
+                  } catch (e) {
+                    print('Error posting machine data: $e');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Error posting to API: $e'),
+                      ),
+                    );
+                  }
 
                   // Clear fields after submission
                   setState(() {
@@ -168,6 +182,7 @@ class MachinesState extends State<Machines> {
                     };
                   });
 
+                  // Show a success message
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
@@ -177,18 +192,19 @@ class MachinesState extends State<Machines> {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFF3F4F6),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: TextStyle(fontSize: 14),
-                  shape: RoundedRectangleBorder(
+                  backgroundColor: const Color(0xFFF3F4F6),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: const TextStyle(fontSize: 14),
+                  shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child:  Text(
+                child: Text(
                   'submit'.tr(),
-                  style: TextStyle(color: Color(0xFFC69840)),
+                  style: const TextStyle(color: Color(0xFFC69840)),
                 ),
               ),
+
             )
 
           ],
@@ -203,7 +219,7 @@ class MachinesState extends State<Machines> {
         Expanded(
           child: buildDropdownField("block_no".tr(), "selectedBlock", blocks),
         ),
-        SizedBox(width: 16),
+        const SizedBox(width: 16),
         Expanded(
           child: buildDropdownField("street_no".tr(), "selectedStreet", streets),
         ),
@@ -217,12 +233,12 @@ class MachinesState extends State<Machines> {
       children: [
         Text(
           title,
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-        SizedBox(height: 8),
+        const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: containerData[key],
           items: items.map((item) {
@@ -236,7 +252,7 @@ class MachinesState extends State<Machines> {
               containerData[key] = value;
             });
           },
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(
               borderSide: BorderSide(color: Color(0xFFC69840)),
             ),
@@ -257,7 +273,7 @@ class MachinesState extends State<Machines> {
           child: Row(
             children: [
               machineIcons[idx],
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(machine),
             ],
           ),
@@ -268,7 +284,7 @@ class MachinesState extends State<Machines> {
           containerData["selectedMachine"] = value;
         });
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Color(0xFFC69840)),
         ),
@@ -287,13 +303,13 @@ class MachinesState extends State<Machines> {
               containerData["clockInTime"] = getCurrentTime();
             });
           },
-          icon: Icon(Icons.access_time, color: Color(0xFFC69840)),
-          label:  Text('time_in'.tr(), style: TextStyle(color: Color(0xFFC69840))),
+          icon: const Icon(Icons.access_time, color: Color(0xFFC69840)),
+          label:  Text('time_in'.tr(), style: const TextStyle(color: Color(0xFFC69840))),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFF3F4F6),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            textStyle: TextStyle(fontSize: 14),
-            shape: RoundedRectangleBorder(
+            backgroundColor: const Color(0xFFF3F4F6),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            textStyle: const TextStyle(fontSize: 14),
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
           ),
@@ -304,13 +320,13 @@ class MachinesState extends State<Machines> {
               containerData["clockOutTime"] = getCurrentTime();
             });
           },
-          icon: Icon(Icons.access_time, color: Color(0xFFC69840)),
-          label:  Text('time_out'.tr(), style: TextStyle(color: Color(0xFFC69840))),
+          icon: const Icon(Icons.access_time, color: Color(0xFFC69840)),
+          label:  Text('time_out'.tr(), style: const TextStyle(color: Color(0xFFC69840))),
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFF3F4F6),
-            padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            textStyle: TextStyle(fontSize: 14),
-            shape: RoundedRectangleBorder(
+            backgroundColor: const Color(0xFFF3F4F6),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            textStyle: const TextStyle(fontSize: 14),
+            shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.zero,
             ),
           ),

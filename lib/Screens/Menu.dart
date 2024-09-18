@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
@@ -78,6 +80,7 @@ class _MenuState extends State<Menu> {
       ),
       onTap: () async {
         await context.setLocale(locale);
+        exit(0);
         Phoenix.rebirth(context);
       },
     );

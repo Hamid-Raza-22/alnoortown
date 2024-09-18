@@ -71,7 +71,6 @@ import 'package:al_noor_town/Screens/BuildingWork/StreetRoadsWaterChannels/Stree
 import 'package:al_noor_town/Screens/BuildingWork/StreetRoadsWaterChannels/waterchannelsummary.dart';
 import 'package:al_noor_town/Screens/BuildingWork/TownMainGate/Canopy%20Coloumn%20Pouring/CanopyColoumnSummary.dart';
 import 'package:al_noor_town/Screens/BuildingWork/TownMainGate/Canopy%20Coloumn%20Pouring/Canopy_coloumn_pouring.dart';
-
 import 'package:al_noor_town/Screens/BuildingWork/TownMainGate/Main%20Gate%20Foundation/MainGateFoundation.dart';
 import 'package:al_noor_town/Screens/BuildingWork/TownMainGate/Main%20Gate%20Foundation/MainGateFoundationSummary.dart';
 import 'package:al_noor_town/Screens/BuildingWork/TownMainGate/Main%20Gate%20Grey%20Structure/MainGateGreyStructure.dart';

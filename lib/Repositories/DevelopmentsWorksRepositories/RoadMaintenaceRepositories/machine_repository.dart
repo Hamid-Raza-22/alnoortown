@@ -17,7 +17,7 @@ class MachineRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMachine,
-        columns: ['id', 'blockNo', 'streetNo', 'machine', 'timeIn', 'timeOut','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'machine', 'timeIn', 'timeOut','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -29,28 +29,27 @@ class MachineRepository{
         print(map);
       }
     }
-
     // Convert the raw data into a list of MachineModel objects
     List<MachineModel> machine = [];
     for (int i = 0; i < maps.length; i++) {
       machine.add(MachineModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
-    if (kDebugMode) {
-      print('Parsed MachineModel objects:');
-    }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
-
     return machine;
   }
 
+  // Fetch all unposted machines (posted = 0)
+  Future<List<MachineModel>> getUnPostedMachines() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameMachine,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
+    List<MachineModel> machines = maps.map((map) => MachineModel.fromMap(map)).toList();
+    return machines;
+  }
   Future<int>add(MachineModel machineModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameMachine,machineModel.toMap());

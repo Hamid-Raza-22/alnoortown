@@ -34,7 +34,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "totalLength": '',
+      "totalLength": null,
       "status": null,
     };
   }
@@ -152,7 +152,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
             ),
             SizedBox(height: 16),
             Text(
-              'Light Wire Work Status'.tr(),
+              'status'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             SizedBox(height: 8),

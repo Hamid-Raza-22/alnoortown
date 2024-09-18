@@ -16,12 +16,13 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
   DateTime? toDate;
   String? block;
 
+  String? errorMessage; // For showing no data available
+
   void _applyFilter(DateTime? fromDate, DateTime? toDate, String? block) {
     setState(() {
       this.fromDate = fromDate;
       this.toDate = toDate;
       this.block = block;
-      // Apply your filtering logic here using mosqueViewModel.allMosque
     });
   }
 
@@ -32,12 +33,12 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: Text(
+        title: const Text(
           'summary',
           style: TextStyle(
             fontSize: 18,
@@ -52,13 +53,21 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
           FilterWidget(onFilter: _applyFilter),
           Expanded(
             child: Obx(() {
-              // Apply filtering on the data based on the selected date and block
               final filteredData = mosqueViewModel.allMosque.where((data) {
                 bool matchesDate = (fromDate == null || data.date.isAfter(fromDate!)) &&
                     (toDate == null || data.date.isBefore(toDate!));
-                bool matchesBlock = block == null || block!.isEmpty || data.blockNo == block;
+                bool matchesBlock = block == null || block!.isEmpty || data.blockNo.toLowerCase() == block!.toLowerCase();
                 return matchesDate && matchesBlock;
               }).toList();
+
+              if (filteredData.isEmpty) {
+                return Center(
+                  child: Text(
+                    errorMessage ?? "No data available for the selected criteria.",
+                    style: const TextStyle(color: Colors.grey),
+                  ),
+                );
+              }
 
               return ListView.builder(
                 itemCount: filteredData.length,
@@ -81,14 +90,14 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin: EdgeInsets.only(bottom: 8.0),
+      margin: const EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: const Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -106,7 +115,7 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
     return Center(
       child: Text(
         text ?? "N/A",
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 14,
           color: Color(0xFFC69840),
         ),

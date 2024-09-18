@@ -3,15 +3,18 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get,Inst ,Obx;
 
+import '../../../ReusableDesigns/searchable_filters.dart';
+
 class MachinesSummary extends StatelessWidget {
   final MachineViewModel machineViewModel = Get.put(MachineViewModel());
-  void initState() => machineViewModel.fetchAllMachine();
+  void initState() => machineViewModel.fetchAllMachines();
   MachinesSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
+    machineViewModel.fetchAllMachines();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -24,7 +27,7 @@ class MachinesSummary extends StatelessWidget {
         ),
         title: Text(
           'machines_summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -36,7 +39,7 @@ class MachinesSummary extends StatelessWidget {
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
         child: Obx(() {
           // Use Obx to rebuild when the data changes
-          if (machineViewModel.allMachine.isEmpty) {
+          if (machineViewModel.allMachines.isEmpty) {
             return  Center(child: Text('No data available'));
             }
 
@@ -58,7 +61,7 @@ class MachinesSummary extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 // Data rows
-                ...machineViewModel.allMachine.map((entry) {
+                ...machineViewModel.allMachines.map((entry) {
                   return Row(
                     children: [
                       buildDataCell(entry.blockNo?? 'N/A'),
