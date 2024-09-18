@@ -64,7 +64,7 @@ class _FilterWidgetState extends State<FilterWidget> {
             alignment: Alignment.centerRight,
             child: TextButton(
               onPressed: () {
-                widget.onFilter(selectedFromDate, selectedToDate, selectedBlock?.toLowerCase());
+                widget.onFilter(selectedFromDate, selectedToDate, selectedBlock);
               },
               child: const Text(
                 "Search",
@@ -140,3 +140,4 @@ class _FilterWidgetState extends State<FilterWidget> {
     );
   }
 }
+

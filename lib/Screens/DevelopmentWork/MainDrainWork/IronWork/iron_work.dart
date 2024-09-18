@@ -2,9 +2,10 @@ import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/iron_works_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/iron_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart' show Get, Inst;
+import 'package:get/get.dart';
 import 'iron_work_summary.dart';
 
 class IronWork extends StatefulWidget {
@@ -15,8 +16,8 @@ class IronWork extends StatefulWidget {
 }
 
 class _IronWorkState extends State<IronWork> {
-  IronWorkViewModel ironWorkViewModel = Get.put(IronWorkViewModel());
-  DBHelper dbHelper = DBHelper();
+  final IronWorkViewModel ironWorkViewModel = Get.put(IronWorkViewModel());
+  final DBHelper dbHelper = DBHelper();
   int? ironId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
   final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
@@ -38,6 +39,7 @@ class _IronWorkState extends State<IronWork> {
     return formatter.format(now);
   }
 
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,11 +92,11 @@ class _IronWorkState extends State<IronWork> {
             const SizedBox(height: 1),
             Align(
               alignment: Alignment.center,
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 16.0),
+              child: const Padding(
+                padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'iron_work'.tr(),
-                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                  'iron_work',
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
             ),
@@ -118,9 +120,9 @@ class _IronWorkState extends State<IronWork> {
           children: [
             buildBlockStreetRow(containerData),
             const SizedBox(height: 16),
-            Text(
-              'total_length_completed'.tr(),
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+            const Text(
+              'total_length_completed',
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             const SizedBox(height: 8),
             TextFormField(
@@ -146,15 +148,17 @@ class _IronWorkState extends State<IronWork> {
                   final selectedStreet = containerData["selectedStreet"];
                   final completedLength = containerData["numTankers"];
 
+                  // Add a new work entry
                   await ironWorkViewModel.addWorks(IronWorksModel(
-                      id: ironId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
-                      completedLength: completedLength,
-                      date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                    id: ironId,
+                    blockNo: selectedBlock,
+                    streetNo: selectedStreet,
+                    completedLength: completedLength,
+                    date: _getFormattedDate(),
+                    time: _getFormattedTime(),
                   ));
 
+                  // Fetch updated works
                   await ironWorkViewModel.fetchAllWorks();
 
                   // Clear the fields after submission
@@ -180,7 +184,7 @@ class _IronWorkState extends State<IronWork> {
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: Text('submit'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: const Text('submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -189,18 +193,19 @@ class _IronWorkState extends State<IronWork> {
     );
   }
 
+
   Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
     return Row(
       children: [
         Expanded(
           child: buildDropdownField(
-              'block_no'.tr(), containerData, "selectedBlock", blocks
+              'block_no', containerData, "selectedBlock", blocks
           ),
         ),
         const SizedBox(width: 16),
         Expanded(
           child: buildDropdownField(
-              'street_no'.tr(), containerData, "selectedStreet", streets
+              'street_no', containerData, "selectedStreet", streets
           ),
         ),
       ],
