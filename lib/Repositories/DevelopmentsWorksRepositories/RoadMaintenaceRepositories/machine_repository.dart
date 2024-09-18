@@ -50,6 +50,7 @@ class MachineRepository{
     List<MachineModel> machines = maps.map((map) => MachineModel.fromMap(map)).toList();
     return machines;
   }
+
   Future<int>add(MachineModel machineModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameMachine,machineModel.toMap());
