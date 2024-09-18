@@ -4,13 +4,14 @@ import 'package:al_noor_town/Services/ApiServices/api_constants.dart';
 import 'package:al_noor_town/Services/ApiServices/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class MachineViewModel extends GetxController {
   var allMachines = <MachineModel>[].obs;
   var filteredMachines = <MachineModel>[].obs;
   MachineRepository machineRepository = MachineRepository();
-  ApiService apiService = ApiService(baseUrl: ApiConstants.baseUrl);
+ ApiService apiService = ApiService(baseUrl: ApiConstants.baseUrl);
 
   @override
   void onInit() {
@@ -99,27 +100,29 @@ class MachineViewModel extends GetxController {
       }
     }
   }
-
-  // Function to post data to the API
   Future<void> postMachineToAPI(MachineModel machineModel) async {
     try {
-      var machineData = machineModel.toMap();
-      final response = await apiService.postRequest(machineData);
+      var machineData = machineModel.toMap(); // Converts MachineModel to JSON
+      final response = await http.post(
+        Uri.parse(ApiConstants.baseUrl),  // Ensure this is the correct URL
+        headers: {
+          "Content-Type": "application/json",  // Set the request content type to JSON
+          "Accept": "application/json",
+        },
+        body: jsonEncode(machineData),  // Encode the map as JSON
+      );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        if (kDebugMode) {
-          print('Machine data posted successfully: $machineData');
-        }
+        print('Machine data posted successfully: $machineData');
       } else {
-        throw Exception('Server error: ${response.statusCode}');
+        throw Exception('Server error: ${response.statusCode}, ${response.body}');
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Error posting machine data: $e');
-      }
+      print('Error posting machine data: $e');
       throw Exception('Failed to post data: $e');
     }
   }
+
 
   // Method to filter machines based on user-friendly search criteria
   void applyFilters({

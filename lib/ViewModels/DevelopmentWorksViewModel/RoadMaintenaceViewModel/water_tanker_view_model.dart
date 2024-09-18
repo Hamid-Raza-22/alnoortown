@@ -1,9 +1,12 @@
 
+import 'dart:convert';
+
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:al_noor_town/Repositories/DevelopmentsWorksRepositories/RoadMaintenaceRepositories/water_tanker_repository.dart';
 import 'package:al_noor_town/Services/ApiServices/api_service.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
 
 import '../../../Services/ApiServices/api_constants.dart';
 
@@ -11,7 +14,6 @@ class WaterTankerViewModel extends GetxController {
 
   var allTanker = <WaterTankerModel>[].obs;
   WaterTankerRepository waterTankerRepository = WaterTankerRepository();
-  ApiService apiService = ApiService(baseUrl: ApiConstants.baseUrl);
 
   @override
   void onInit(){
@@ -37,43 +39,46 @@ class WaterTankerViewModel extends GetxController {
           // await machineRepository.delete(machine.id);
 
           if (kDebugMode) {
-            print('WaterTanker with id ${waterTanker
-                .id} posted and updated in local database.');
+            print('WaterTanker with id ${waterTanker.id} posted and updated in local database.');
           }
         } catch (e) {
           if (kDebugMode) {
-            print('Failed to post machine with id ${waterTanker.id}: $e');
+            print('Failed to post WaterTanker with id ${waterTanker.id}: $e');
           }
           // Handle any errors (e.g., server down, network issues)
         }
       }
     } catch (e) {
       if (kDebugMode) {
-        print('Error fetching unPosted machines: $e');
+        print('Error fetching unPosted WaterTanker: $e');
       }
     }
   }
 
   // Function to post data to the API
-  Future<void> postWaterTankerToAPI(WaterTankerModel waterTankerModel ) async {
+  Future<void> postWaterTankerToAPI(WaterTankerModel waterTankerModel) async {
     try {
-      var waterTankerModelData = waterTankerModel.toMap();
-      final response = await apiService.postRequest(waterTankerModelData);
+      var waterTankerModelData = waterTankerModel.toMap(); // Converts MachineModel to JSON
+      final response = await http.post(
+        Uri.parse('http://103.149.32.30:8080/ords/alnoor_town/watertanker/post/'),  // Ensure this is the correct URL
+        headers: {
+          "Content-Type": "application/json",  // Set the request content type to JSON
+          "Accept": "application/json",
+        },
+        body: jsonEncode(waterTankerModelData),  // Encode the map as JSON
+      );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        if (kDebugMode) {
-          print('WaterTanker data posted successfully: $waterTankerModelData');
-        }
+        print('WaterTanker data posted successfully: $waterTankerModelData');
       } else {
-        throw Exception('Server error: ${response.statusCode}');
+        throw Exception('Server error: ${response.statusCode}, ${response.body}');
       }
     } catch (e) {
-      if (kDebugMode) {
-        print('Error posting machine data: $e');
-      }
+      print('Error posting WaterTanker data: $e');
       throw Exception('Failed to post data: $e');
     }
   }
+
   fetchAllTanker() async{
     var tanker = await waterTankerRepository.getTanker();
     allTanker .value = tanker;
