@@ -7,14 +7,16 @@ import 'package:al_noor_town/Screens/splash_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
-
 import 'Screens/login_page.dart';
+import 'Services/StripeServices/consts.dart';
 import 'ViewModels/all_noor_view_model.dart';
-import 'firebase_options.dart';
+import 'Services/FirebaseServices/firebase_options.dart';
 
 
 Future<void> main() async {
@@ -25,7 +27,8 @@ Future<void> main() async {
   );
 
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-
+//  await dotenv.load();
+  Stripe.publishableKey = stripePublishableKey;
   runApp(
     Phoenix(
     child:EasyLocalization(

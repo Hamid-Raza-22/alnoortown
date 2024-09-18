@@ -64,6 +64,9 @@ dependencies:
   flutter_phoenix: ^1.1.1
   restart_app: ^1.2.1
   mockito: ^5.4.4
+  flutter_stripe: ^11.0.0
+  flutter_dotenv: ^5.1.0
+  dio: ^5.7.0
 
 dev_dependencies:
   flutter_test:

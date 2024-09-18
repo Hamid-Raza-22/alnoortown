@@ -1,4 +1,4 @@
-class MachineModel{
+class MachineModel {
   int? id;
   dynamic blockNo;
   dynamic streetNo;
@@ -7,6 +7,8 @@ class MachineModel{
   dynamic timeOut;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
+
   MachineModel({
     this.id,
     this.blockNo,
@@ -15,11 +17,11 @@ class MachineModel{
     this.timeIn,
     this.timeOut,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
   });
 
-  factory MachineModel.fromMap(Map<dynamic,dynamic>json)
-  {
+  factory MachineModel.fromMap(Map<dynamic, dynamic> json) {
     return MachineModel(
       id: json['id'],
       blockNo: json['blockNo'],
@@ -27,21 +29,23 @@ class MachineModel{
       machine: json['machine'],
       timeIn: json['timeIn'],
       timeOut: json['timeOut'],
-      date:  json['date'],
-        time:  json['time']
+      date: json['date'],
+      time: json['time'],
+      posted: json['posted'],  // Get the posted status from the database
     );
   }
 
-  Map<String, dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
-      'id':id,
-      'blockNo':blockNo,
-      'streetNo':streetNo,
-      'machine':machine,
-      'timeIn':timeIn,
-      'timeOut':timeOut,
-      'date':date,
-      'time':time,
+      'id': id,
+      'blockNo': blockNo,
+      'streetNo': streetNo,
+      'machine': machine,
+      'timeIn': timeIn,
+      'timeOut': timeOut,
+      'date': date,
+      'time': time,
+      'posted': posted,  // Include the posted status
     };
   }
 }

@@ -7,7 +7,18 @@ import 'package:flutter/foundation.dart';
 class WaterTankerRepository{
 
   DBHelper dbHelper = DBHelper();
+  // Fetch all unposted machines (posted = 0)
+  Future<List<WaterTankerModel>> getUnPostedWaterTanker() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameWaterTanker,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<WaterTankerModel> waterTankerModel = maps.map((map) => WaterTankerModel.fromMap(map)).toList();
+    return waterTankerModel;
+  }
   Future<List<WaterTankerModel>> getTanker() async {
     // Get the database client
     var dbClient = await dbHelper.db;
@@ -15,7 +26,7 @@ class WaterTankerRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameWaterTanker,
-        columns: ['id', 'blockNo', 'streetNo', 'tankerNo','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'tankerNo','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
