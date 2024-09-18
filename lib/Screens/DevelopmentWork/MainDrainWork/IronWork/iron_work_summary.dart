@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/iron_work_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+
 import '../../../ReusableDesigns/filter_widget.dart';
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 
 class IronWorkSummary extends StatelessWidget {
   final IronWorkViewModel ironWorkViewModel = Get.put(IronWorkViewModel());
@@ -26,8 +28,8 @@ class IronWorkSummary extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
-          'Iron Work Summary', // Ensure this is correct
+        title: Text(
+          'Iron Work Summary'.tr(),
           style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,

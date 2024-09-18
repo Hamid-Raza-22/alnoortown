@@ -11,10 +11,8 @@ class CurbstonesWorkSummary extends StatefulWidget {
   @override
   State<CurbstonesWorkSummary> createState() => CubstonesWorkSummaryState();
 }
-
 class CubstonesWorkSummaryState extends State<CurbstonesWorkSummary> {
  CubStonesWorkViewModel cubStonesWorkViewModel = Get.put(CubStonesWorkViewModel());
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

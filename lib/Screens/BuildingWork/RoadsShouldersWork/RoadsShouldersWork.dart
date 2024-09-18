@@ -37,33 +37,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('RoadsShouldersDataList');
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('RoadsShouldersWorkDataList', json.encode(containerDataList));
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? roadSide, String? totalLength, String? status) {
-  //   return {
-  //     "startDate": startDate?.toIso8601String(),
-  //     "endDate": endDate?.toIso8601String(),
-  //     "block": block,
-  //     "roadNo": roadNo,
-  //     "roadSide": roadSide,
-  //     "totalLength": totalLength,
-  //     "status": status,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
+
 
   @override
   Widget build(BuildContext context) {

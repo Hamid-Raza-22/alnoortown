@@ -40,7 +40,7 @@ class BackFillingRepository{
 
     // Print the list of MachineModel objects
     if (kDebugMode) {
-      print('Parsed ExcavationModel objects:');
+      print('Parsed BackFilingModel objects:');
     }
     // for (var item in machine) {
     //   if (kDebugMode) {

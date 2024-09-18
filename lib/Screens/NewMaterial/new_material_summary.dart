@@ -2,6 +2,7 @@ import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_m
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 
 class NewMaterialSummary extends StatelessWidget {
   NewMaterialViewModel newMaterialViewModel = Get.put(NewMaterialViewModel());
@@ -107,6 +108,7 @@ class NewMaterialSummary extends StatelessWidget {
         ),
       ),
     );
+
   }
 
   Widget buildHeaderCell(String text) {

@@ -35,31 +35,6 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('WaterChannelsDataList');
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('WaterChannelsDataList', json.encode(containerDataList));
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(String? block, String? roadNo, String? roadSide, String? noOfWaterChannels, String? status) {
-  //   return {
-  //     "block": block,
-  //     "roadNo": roadNo,
-  //     "roadSide": roadSide,
-  //     "noOfWaterChannels": noOfWaterChannels,
-  //     "status": status,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
 
   @override
   Widget build(BuildContext context) {

@@ -106,8 +106,8 @@ class _PaintWorkSummaryState extends State<PaintWorkSummary> {
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "status": data.paintWorkStatus,
-                      "date": _formatDate(data.date),
-                      "time": _formatTime(data.date),
+                      "date": data.date,
+                      "time": data.time,
                     });
                   },
                 );

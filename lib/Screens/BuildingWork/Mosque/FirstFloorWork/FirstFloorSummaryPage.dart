@@ -138,15 +138,4 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
     );
   }
 
-  // String _formatDate(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('d MMM yyyy').format(dateTime);
-  // }
-  //
-  // String _formatTime(String? timestamp) {
-  //   if (timestamp == null) return "N/A";
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return DateFormat('h:mm a').format(dateTime);
-  // }
 }

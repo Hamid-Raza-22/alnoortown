@@ -5,9 +5,6 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewMo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 
-
-
-
 class CurbStonesWork extends StatefulWidget {
     CurbStonesWork({super.key});
 
