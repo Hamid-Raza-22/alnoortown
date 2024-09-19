@@ -2,6 +2,7 @@ import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModel
 import 'package:al_noor_town/Repositories/DevelopmentsWorksRepositories/RoadMaintenaceRepositories/machine_repository.dart';
 import 'package:al_noor_town/Services/ApiServices/api_constants.dart';
 import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
@@ -104,7 +105,7 @@ class MachineViewModel extends GetxController {
     try {
       var machineData = machineModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(ApiConstants.baseUrl),  // Ensure this is the correct URL
+        Uri.parse(Config.apiUrl),  // Use the URL from Remote Config
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
@@ -122,6 +123,7 @@ class MachineViewModel extends GetxController {
       throw Exception('Failed to post data: $e');
     }
   }
+
 
 
   // Method to filter machines based on user-friendly search criteria

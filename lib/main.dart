@@ -4,10 +4,12 @@ import 'package:al_noor_town/Screens/MaterialShifting/material_shifting.dart';
 import 'package:al_noor_town/Screens/NewMaterial/new_material.dart';
 import 'package:al_noor_town/Screens/home_page.dart';
 import 'package:al_noor_town/Screens/splash_screen.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
@@ -17,14 +19,13 @@ import 'Screens/login_page.dart';
 import 'Services/StripeServices/consts.dart';
 import 'ViewModels/all_noor_view_model.dart';
 import 'Services/FirebaseServices/firebase_options.dart';
-
-
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await Config.initialize();
 
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 //  await dotenv.load();

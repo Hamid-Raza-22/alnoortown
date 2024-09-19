@@ -56,7 +56,7 @@ dependencies:
   intl_phone_field: ^3.2.0
   country_code_picker: ^3.0.0
   firebase_auth: ^5.1.4
-  fkafka: ^2.0.1
+#  fkafka: ^2.0.1
   jwt_decoder: ^2.0.1
   flutter_secure_storage: ^9.2.2
   http: ^1.2.2
@@ -67,6 +67,8 @@ dependencies:
   flutter_stripe: ^11.0.0
   flutter_dotenv: ^5.1.0
   dio: ^5.7.0
+  firebase_remote_config: ^5.1.2
+  firebase_analytics: ^11.3.2
 
 dev_dependencies:
   flutter_test:
