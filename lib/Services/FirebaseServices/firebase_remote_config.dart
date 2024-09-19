@@ -7,9 +7,9 @@ class Config {
   static Future<void> initialize() async {
     remoteConfig = FirebaseRemoteConfig.instance;
     await remoteConfig.setConfigSettings(RemoteConfigSettings(
-      fetchTimeout: Duration(minutes: 1),
+      fetchTimeout: Duration(seconds: 1),
       // Set to 1 minute for development; change to a larger interval for production
-      minimumFetchInterval: Duration(minutes: 1),
+      minimumFetchInterval: Duration(seconds: 1),
     ));
     await fetchLatestConfig(); // Fetch and activate immediately
   }
