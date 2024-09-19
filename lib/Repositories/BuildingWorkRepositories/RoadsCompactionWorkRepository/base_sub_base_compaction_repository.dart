@@ -16,7 +16,7 @@ class BaseSubBaseCompactionRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBaseSubBaseCompaction,
-        columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','baseSubBaseCompStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','baseSubBaseCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -39,10 +39,19 @@ class BaseSubBaseCompactionRepository{
     if (kDebugMode) {
       print('Parsed BaseSubBaseCompactionModel objects:');
     }
-
     return baseSubBaseCompaction;
   }
+  Future<List<BaseSubBaseCompactionModel>> getUnPostedBaseSubBase() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameBaseSubBaseCompaction,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<BaseSubBaseCompactionModel> baseSubBaseCompaction = maps.map((map) => BaseSubBaseCompactionModel.fromMap(map)).toList();
+    return baseSubBaseCompaction;
+  }
   Future<int>add(BaseSubBaseCompactionModel baseSubBaseCompactionModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameBaseSubBaseCompaction,baseSubBaseCompactionModel.toMap());

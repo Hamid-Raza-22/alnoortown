@@ -16,7 +16,7 @@ class RoadsSignBoardsRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadsSignBoards,
-        columns: ['id', 'blockNo', 'roadNo','fromPlotNo','toPlotNo','roadSide','compStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','fromPlotNo','toPlotNo','roadSide','compStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class RoadsSignBoardsRepository{
 
     return roadsSignBoards;
   }
+  Future<List<RoadsSignBoardsModel>> getUnPostedMachines() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameRoadsSignBoards,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<RoadsSignBoardsModel> roadsSignBoards = maps.map((map) => RoadsSignBoardsModel.fromMap(map)).toList();
+    return roadsSignBoards;
+  }
   Future<int>add(RoadsSignBoardsModel roadsSignBoardsModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameRoadsSignBoards,roadsSignBoardsModel.toMap());

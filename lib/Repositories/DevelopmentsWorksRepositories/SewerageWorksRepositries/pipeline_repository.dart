@@ -16,7 +16,7 @@ class PipelineRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePipeLaying,
-        columns: ['id', 'blockNo', 'streetNo', 'length','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'length','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -39,18 +39,19 @@ class PipelineRepository{
     if (kDebugMode) {
       print('Parsed PipelineModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
-
     return pipeline;
   }
+  Future<List<PipelineModel>> getUnPostedPipeLine() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNamePipeLaying,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
-
+    List<PipelineModel> pipeline = maps.map((map) => PipelineModel.fromMap(map)).toList();
+    return pipeline;
+  }
   Future<int>add(PipelineModel pipelineModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNamePipeLaying,pipelineModel.toMap());

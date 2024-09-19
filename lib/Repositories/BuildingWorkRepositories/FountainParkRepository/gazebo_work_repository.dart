@@ -16,7 +16,7 @@ class GazeboWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGazeboWork,
-        columns: ['id', 'startDate', 'expectedCompDate','gazeboWorkCompStatus','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','gazeboWorkCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class GazeboWorkRepository{
 
     return gazeboWork;
   }
+  Future<List<GazeboWorkModel>> getUnPostedGazebo() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameGazeboWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<GazeboWorkModel> gazeboWork = maps.map((map) => GazeboWorkModel.fromMap(map)).toList();
+    return gazeboWork;
+  }
   Future<int>add(GazeboWorkModel gazeboWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameGazeboWork,gazeboWorkModel.toMap());

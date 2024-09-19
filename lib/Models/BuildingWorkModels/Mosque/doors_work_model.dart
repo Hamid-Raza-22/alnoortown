@@ -4,12 +4,16 @@ class DoorsWorkModel{
   dynamic doorsWorkStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
+
   DoorsWorkModel({
     this.id,
     this.blockNo,
     this.doorsWorkStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory DoorsWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -19,7 +23,9 @@ class DoorsWorkModel{
         blockNo: json['blockNo'],
         doorsWorkStatus: json['doorsWorkStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -30,6 +36,7 @@ class DoorsWorkModel{
       'doorsWorkStatus':doorsWorkStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
     };
   }

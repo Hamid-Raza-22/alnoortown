@@ -14,7 +14,7 @@ class ShiftingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameShiftingWork,
-        columns: ['id', 'fromBlock', 'toBlock', 'numOfShift','date','time']
+        columns: ['id', 'fromBlock', 'toBlock', 'numOfShift','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -37,17 +37,19 @@ class ShiftingWorkRepository{
     if (kDebugMode) {
       print('Parsed ShiftingWorkModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
-
     return shiftingWork;
   }
+  Future<List<ShiftingWorkModel>> getUnPostedShiftingWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameShiftingWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
+    List<ShiftingWorkModel> shiftingWork = maps.map((map) => ShiftingWorkModel.fromMap(map)).toList();
+    return shiftingWork;
+  }
   Future<int>add(ShiftingWorkModel shiftingWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameShiftingWork,shiftingWorkModel.toMap());

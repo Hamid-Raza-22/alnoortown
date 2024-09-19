@@ -1,14 +1,10 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/asphalt_work_model.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../Globals/globals.dart';
-
-
-
 
 class AsphaltWorkRepository{
 
@@ -21,7 +17,7 @@ class AsphaltWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameAsphaltWork,
-        columns: ['id', 'blockNo', 'streetNo', 'numOfTons','backFillingStatus','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'numOfTons','backFillingStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -45,10 +41,19 @@ class AsphaltWorkRepository{
       print('Parsed AsphaltWorkModel objects:');
     }
 
-
     return asphaltWork;
   }
+  Future<List<AsphaltWorkModel>> getUnPostedAsphaltWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameAsphaltWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<AsphaltWorkModel> asphaltWork = maps.map((map) => AsphaltWorkModel.fromMap(map)).toList();
+    return asphaltWork;
+  }
   Future<int>add(AsphaltWorkModel asphaltWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameAsphaltWork,asphaltWorkModel.toMap());

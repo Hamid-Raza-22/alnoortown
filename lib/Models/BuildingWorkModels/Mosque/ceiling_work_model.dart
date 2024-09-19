@@ -4,13 +4,16 @@ class CeilingWorkModel{
   dynamic ceilingWorkStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   CeilingWorkModel({
     this.id,
     this.blockNo,
     this.ceilingWorkStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory CeilingWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -20,7 +23,9 @@ class CeilingWorkModel{
         blockNo: json['blockNo'],
         ceilingWorkStatus: json['ceilingWorkStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -31,6 +36,8 @@ class CeilingWorkModel{
       'ceilingWorkStatus':ceilingWorkStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
+
 
     };
   }

@@ -1,12 +1,8 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/manholes_slab_model.dart';
 import 'package:flutter/foundation.dart';
-
-
-
 class ManholesSlabRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -18,7 +14,7 @@ class ManholesSlabRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameManHolesSlabs,
-        columns: ['id', 'blockNo', 'streetNo', 'numOfCompSlab','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'numOfCompSlab','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,18 +37,20 @@ class ManholesSlabRepository{
     if (kDebugMode) {
       print('Parsed ManholesSlabModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
 
     return manholesSlab;
   }
+  Future<List<ManholesSlabModel>> getUnPostedManHolesSlab() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameManHolesSlabs,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
-
+    List<ManholesSlabModel> manholesSlab = maps.map((map) => ManholesSlabModel.fromMap(map)).toList();
+    return manholesSlab;
+  }
   Future<int>add(ManholesSlabModel manHolesSlabModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameManHolesSlabs,manHolesSlabModel.toMap());

@@ -5,8 +5,6 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/shuttering_work_model.dart';
 import 'package:flutter/foundation.dart';
 
-
-
 class ShutteringWorkRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -18,10 +16,9 @@ class ShutteringWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameShutteringWork,
-        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time','posted']
     );
 
-    // Print the raw data retrieved from the database
     if (kDebugMode) {
       print('Raw data from database:');
     }
@@ -31,25 +28,26 @@ class ShutteringWorkRepository{
       }
     }
 
-    // Convert the raw data into a list of MachineModel objects
     List<ShutteringWorkModel> shutteringWork = [];
     for (int i = 0; i < maps.length; i++) {
       shutteringWork.add(ShutteringWorkModel.fromMap(maps[i]));
     }
-
-    // Print the list of MachineModel objects
     if (kDebugMode) {
       print('Parsed ShutteringWorkModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
-
     return shutteringWork;
   }
+  Future<List<ShutteringWorkModel>> getUnPostedShutteringWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameShutteringWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<ShutteringWorkModel> shutteringWork = maps.map((map) => ShutteringWorkModel.fromMap(map)).toList();
+    return shutteringWork;
+  }
   Future<int>add(ShutteringWorkModel shutteringWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameShutteringWork,shutteringWorkModel.toMap());

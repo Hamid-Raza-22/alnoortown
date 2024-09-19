@@ -16,7 +16,7 @@ class StreetRoadWaterChannelRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameStreetRoadWaterChannels,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','noOfWaterChannels','waterChCompStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','roadSide','noOfWaterChannels','waterChCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class StreetRoadWaterChannelRepository{
 
     return streetRoadWaterChannel;
   }
+  Future<List<StreetRoadWaterChannelModel>> getUnPostedMachines() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameStreetRoadWaterChannels,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<StreetRoadWaterChannelModel> streetRoadWaterChannel = maps.map((map) => StreetRoadWaterChannelModel.fromMap(map)).toList();
+    return streetRoadWaterChannel;
+  }
   Future<int>add(StreetRoadWaterChannelModel streetRoadWaterChannelModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameStreetRoadWaterChannels,streetRoadWaterChannelModel.toMap());

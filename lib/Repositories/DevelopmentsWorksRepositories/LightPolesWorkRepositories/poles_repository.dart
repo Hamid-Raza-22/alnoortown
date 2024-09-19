@@ -1,12 +1,8 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_model.dart';
 import 'package:flutter/foundation.dart';
-
-
-
 class PolesRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -18,7 +14,7 @@ class PolesRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePoles,
-        columns: ['id', 'blockNo', 'streetNo','noOfPoles','date','time']
+        columns: ['id', 'blockNo', 'streetNo','noOfPoles','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -30,28 +26,27 @@ class PolesRepository{
         print(map);
       }
     }
-
-    // Convert the raw data into a list of MachineModel objects
     List<PolesModel> poles = [];
     for (int i = 0; i < maps.length; i++) {
       poles.add(PolesModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
     if (kDebugMode) {
       print('Parsed PolesModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
-
     return poles;
   }
+  Future<List<PolesModel>> getUnPostedPoles() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNamePoles,
+      where: 'posted = ?',
+      whereArgs: [0],
+    );
 
-
-
+    List<PolesModel> poles = maps.map((map) => PolesModel.fromMap(map)).toList();
+    return poles;
+  }
   Future<int>add(PolesModel polesModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNamePoles,polesModel.toMap());
@@ -61,9 +56,7 @@ class PolesRepository{
     var dbClient = await dbHelper.db;
     return await dbClient.update(tableNamePoles,polesModel.toMap(),
         where: 'id = ?', whereArgs: [polesModel.id]);
-
   }
-
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
     return await dbClient.delete(tableNamePoles,

@@ -16,7 +16,7 @@ class MiniParkMudFillingRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMudFillingMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','mpMudFillingCompStatus','totalDumpers','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','mpMudFillingCompStatus','totalDumpers','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class MiniParkMudFillingRepository{
 
     return miniParkMudFilling;
   }
+  Future<List<MiniParkMudFillingModel>> getUnPostedMudFillingMp() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameMudFillingMiniPark,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<MiniParkMudFillingModel> miniParkMudFilling = maps.map((map) => MiniParkMudFillingModel.fromMap(map)).toList();
+    return miniParkMudFilling;
+  }
   Future<int>add(MiniParkMudFillingModel miniParkMudFillingModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameMudFillingMiniPark,miniParkMudFillingModel.toMap());

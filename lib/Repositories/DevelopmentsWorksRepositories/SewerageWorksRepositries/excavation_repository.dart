@@ -1,5 +1,4 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/excavation_model.dart';
@@ -7,11 +6,7 @@ import 'package:flutter/foundation.dart';
 
 import '../../../Globals/globals.dart';
 
-
-
 class ExcavationRepository{
-
-
   DBHelper dbHelper = DBHelper();
 
   Future<List<ExcavationModel>> getExcavation() async {
@@ -21,7 +16,7 @@ class ExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameExcavation,
-        columns: ['id', 'blockNo', 'streetNo', 'length','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'length','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -44,18 +39,20 @@ class ExcavationRepository{
     if (kDebugMode) {
       print('Parsed ExcavationModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
 
     return excavation;
   }
+  Future<List<ExcavationModel>> getUnPostedExcavationSewerageWorks() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameExcavation,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
-
+    List<ExcavationModel> excavation = maps.map((map) => ExcavationModel.fromMap(map)).toList();
+    return excavation;
+  }
   Future<int>add(ExcavationModel excavationModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameExcavation,excavationModel.toMap());

@@ -16,7 +16,7 @@ class RoadsShoulderWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadShoulder,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsShoulderCompStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsShoulderCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -39,10 +39,19 @@ class RoadsShoulderWorkRepository{
     if (kDebugMode) {
       print('Parsed RoadsShoulderWorkModel objects:');
     }
-
     return roadsShoulderWork;
   }
+  Future<List<RoadsShoulderWorkModel>> getUnPostedRoadsShoulder() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameRoadShoulder,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<RoadsShoulderWorkModel> roadsShoulderWork = maps.map((map) => RoadsShoulderWorkModel.fromMap(map)).toList();
+    return roadsShoulderWork;
+  }
   Future<int>add(RoadsShoulderWorkModel roadsShoulderWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameRoadShoulder,roadsShoulderWorkModel.toMap());

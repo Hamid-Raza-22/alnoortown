@@ -8,6 +8,8 @@ class BaseSubBaseCompactionModel{
   String? baseSubBaseCompStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
+
   BaseSubBaseCompactionModel({
     this.id,
     this.blockNo,
@@ -17,7 +19,9 @@ class BaseSubBaseCompactionModel{
     this.expectedCompDate,
     this.baseSubBaseCompStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory BaseSubBaseCompactionModel.fromMap(Map<dynamic,dynamic>json)
@@ -31,7 +35,9 @@ class BaseSubBaseCompactionModel{
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         baseSubBaseCompStatus:json['baseSubBaseCompStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -46,6 +52,7 @@ class BaseSubBaseCompactionModel{
       'baseSubBaseCompStatus':baseSubBaseCompStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
 
     };

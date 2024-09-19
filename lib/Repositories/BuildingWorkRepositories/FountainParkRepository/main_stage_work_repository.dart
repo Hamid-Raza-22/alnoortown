@@ -16,7 +16,7 @@ class MainStageWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMainStage,
-        columns: ['id', 'startDate', 'expectedCompDate','mainStageWorkCompStatus','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','mainStageWorkCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class MainStageWorkRepository{
 
     return mainStageWork;
   }
+  Future<List<MainStageWorkModel>> getUnPostedMainStage() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameMainStage,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<MainStageWorkModel> mainStageWork = maps.map((map) => MainStageWorkModel.fromMap(map)).toList();
+    return mainStageWork;
+  }
   Future<int>add(MainStageWorkModel mainStageWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameMainStage,mainStageWorkModel.toMap());

@@ -16,7 +16,7 @@ class ElectricityWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameElectricityWorkMosque,
-        columns: ['id', 'blockNo', 'electricityWorkStatus','date','time']
+        columns: ['id', 'blockNo', 'electricityWorkStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class ElectricityWorkRepository{
 
     return electricityWork;
   }
+  Future<List<ElectricityWorkModel>> getUnPostedElectricityWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameElectricityWorkMosque,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<ElectricityWorkModel> electricityWork = maps.map((map) => ElectricityWorkModel.fromMap(map)).toList();
+    return electricityWork;
+  }
   Future<int>add(ElectricityWorkModel electricityWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameElectricityWorkMosque,electricityWorkModel.toMap());

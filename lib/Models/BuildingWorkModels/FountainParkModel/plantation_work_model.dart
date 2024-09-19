@@ -5,6 +5,7 @@ class PlantationWorkModel{
   String? plantationCompStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   PlantationWorkModel({
     this.id,
@@ -12,7 +13,9 @@ class PlantationWorkModel{
     this.expectedCompDate,
     this.plantationCompStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory PlantationWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -23,7 +26,9 @@ class PlantationWorkModel{
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         plantationCompStatus:json['plantationCompStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -35,6 +40,7 @@ class PlantationWorkModel{
       'plantationCompStatus':plantationCompStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
     };
   }

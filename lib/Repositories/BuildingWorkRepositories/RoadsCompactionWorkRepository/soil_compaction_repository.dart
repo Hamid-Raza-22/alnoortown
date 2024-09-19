@@ -16,7 +16,7 @@ class SoilCompactionRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameSoilCompaction,
-        columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','soilCompStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','soilCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class SoilCompactionRepository{
 
     return soilCompaction;
   }
+  Future<List<SoilCompactionModel>> getUnPostedSoilCompaction() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameSoilCompaction,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<SoilCompactionModel> soilCompaction = maps.map((map) => SoilCompactionModel.fromMap(map)).toList();
+    return soilCompaction;
+  }
   Future<int>add(SoilCompactionModel soilCompactionModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameSoilCompaction,soilCompactionModel.toMap());

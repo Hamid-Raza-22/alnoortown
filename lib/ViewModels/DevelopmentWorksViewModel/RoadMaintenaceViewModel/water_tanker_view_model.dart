@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:al_noor_town/Repositories/DevelopmentsWorksRepositories/RoadMaintenaceRepositories/water_tanker_repository.dart';
-import 'package:al_noor_town/Services/ApiServices/api_service.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';

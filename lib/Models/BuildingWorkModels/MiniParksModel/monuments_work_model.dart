@@ -5,14 +5,15 @@ class MonumentsWorkModel{
   String?  monumentsWorkCompStatus;
   dynamic date;
   dynamic time;
-
+  int posted;
   MonumentsWorkModel({
     this.id,
     this.startDate,
     this.expectedCompDate,
     this.monumentsWorkCompStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,
   });
 
   factory MonumentsWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -23,7 +24,9 @@ class MonumentsWorkModel{
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         monumentsWorkCompStatus:json['monumentsWorkCompStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -35,6 +38,7 @@ class MonumentsWorkModel{
       'monumentsWorkCompStatus':monumentsWorkCompStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
     };
   }

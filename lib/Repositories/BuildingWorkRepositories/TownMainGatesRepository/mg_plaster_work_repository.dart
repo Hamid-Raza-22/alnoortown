@@ -16,7 +16,7 @@ class MgPlasterWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePlasterWorkMainGate,
-        columns:  ['id', 'blockNo', 'workStatus','date','time']
+        columns:  ['id', 'blockNo', 'workStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -40,6 +40,18 @@ class MgPlasterWorkRepository{
       print('Parsed MgPlasterWorkModel objects:');
     }
 
+    return mgPlasterWork;
+  }
+
+  Future<List<MgPlasterWorkModel>> getUnPostedMainGatePlaster() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNamePlasterWorkMainGate,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
+
+    List<MgPlasterWorkModel> mgPlasterWork = maps.map((map) => MgPlasterWorkModel.fromMap(map)).toList();
     return mgPlasterWork;
   }
 

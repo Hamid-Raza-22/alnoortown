@@ -1,10 +1,8 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/paint_work_model.dart';
 import 'package:flutter/foundation.dart';
-
 class PaintWorkRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -16,7 +14,7 @@ class PaintWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePaintWorkMosque,
-        columns: ['id', 'blockNo', 'paintWorkStatus','date','time']
+        columns: ['id', 'blockNo', 'paintWorkStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +40,17 @@ class PaintWorkRepository{
 
     return paintWork;
   }
+  Future<List<PaintWorkModel>> getUnPostedPaintWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNamePaintWorkMosque,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<PaintWorkModel> paintWork = maps.map((map) => PaintWorkModel.fromMap(map)).toList();
+    return paintWork;
+  }
   Future<int>add(PaintWorkModel paintWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNamePaintWorkMosque,paintWorkModel.toMap());

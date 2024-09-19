@@ -16,7 +16,7 @@ class MpFancyLightPolesRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFancyLightPolesMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','mpLCompStatus','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','mpLCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class MpFancyLightPolesRepository{
 
     return mpFancyLightPoles;
   }
+  Future<List<MpFancyLightPolesModel>> getUnPostedFancyLightPolesMp() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameFancyLightPolesMiniPark,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<MpFancyLightPolesModel> mpFancyLightPoles = maps.map((map) => MpFancyLightPolesModel.fromMap(map)).toList();
+    return mpFancyLightPoles;
+  }
   Future<int>add(MpFancyLightPolesModel mpFancyLightPolesModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameFancyLightPolesMiniPark,mpFancyLightPolesModel.toMap());

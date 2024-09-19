@@ -45,14 +45,23 @@ class WaterTankerRepository{
       waterTanker.add(WaterTankerModel.fromMap(maps[i]));
     }
 
-    // Print the list of MachineModel objects
     if (kDebugMode) {
       print('Parsed WaterTankerModel objects:');
     }
 
     return waterTanker;
   }
+  Future<List<WaterTankerModel>> getUnPostedWaterTankerr() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameWaterTanker,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<WaterTankerModel> waterTanker = maps.map((map) => WaterTankerModel.fromMap(map)).toList();
+    return waterTanker;
+  }
   Future<int>add(WaterTankerModel waterTankerModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameWaterTanker,waterTankerModel.toMap());

@@ -5,9 +5,6 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/iron_works_model.dart';
 import 'package:flutter/foundation.dart';
 
-
-
-
 class IronWorksRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -19,7 +16,7 @@ class IronWorksRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameIronWork,
-        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,13 +38,19 @@ class IronWorksRepository{
     if (kDebugMode) {
       print('Parsed IronWorksModel objects:');
     }
-    
-
     return ironWorks;
   }
+  Future<List<IronWorksModel>> getUnPostedIronWorks() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameIronWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
+    List<IronWorksModel> ironWorks = maps.map((map) => IronWorksModel.fromMap(map)).toList();
+    return ironWorks;
+  }
   Future<int>add(IronWorksModel ironWorksModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameIronWork,ironWorksModel.toMap());

@@ -8,6 +8,7 @@ class SandCompactionModel{
   dynamic sandCompStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   SandCompactionModel({
     this.id,
@@ -18,7 +19,9 @@ class SandCompactionModel{
     this.expectedCompDate,
     this.sandCompStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory SandCompactionModel.fromMap(Map<dynamic,dynamic>json)
@@ -32,7 +35,9 @@ class SandCompactionModel{
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         sandCompStatus:json['sandCompStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -47,6 +52,8 @@ class SandCompactionModel{
       'sandCompStatus':sandCompStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
+
     };
   }
 }

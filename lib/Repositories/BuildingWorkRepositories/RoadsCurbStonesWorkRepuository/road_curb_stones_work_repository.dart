@@ -16,7 +16,7 @@ class RoadCurbStonesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadCurbStone,
-        columns: ['id', 'blockNo', 'roadNo','totalLength','compStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','totalLength','compStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class RoadCurbStonesWorkRepository{
 
     return roadCurbStonesWork;
   }
+  Future<List<RoadCurbStonesWorkModel>> getUnPostedRoadCurbStones() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameRoadCurbStone,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<RoadCurbStonesWorkModel> roadCurbStonesWork = maps.map((map) => RoadCurbStonesWorkModel.fromMap(map)).toList();
+    return roadCurbStonesWork;
+  }
   Future<int>add(RoadCurbStonesWorkModel roadCurbStonesWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameRoadCurbStone,roadCurbStonesWorkModel.toMap());

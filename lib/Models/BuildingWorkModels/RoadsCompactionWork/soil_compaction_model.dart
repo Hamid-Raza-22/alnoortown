@@ -8,6 +8,7 @@ class SoilCompactionModel{
   String?  soilCompStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   SoilCompactionModel({
     this.id,
@@ -18,7 +19,9 @@ class SoilCompactionModel{
     this.expectedCompDate,
     this.soilCompStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory SoilCompactionModel.fromMap(Map<dynamic,dynamic>json)
@@ -32,7 +35,9 @@ class SoilCompactionModel{
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         soilCompStatus:json['soilCompStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -47,6 +52,7 @@ class SoilCompactionModel{
       'soilCompStatus':soilCompStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
     };
   }

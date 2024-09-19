@@ -16,7 +16,7 @@ class CeilingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCeilingWorkMosque,
-        columns: ['id', 'blockNo', 'ceilingWorkStatus','date','time']
+        columns: ['id', 'blockNo', 'ceilingWorkStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class CeilingWorkRepository{
 
     return ceilingWork;
   }
+  Future<List<CeilingWorkModel>> getUnPostedCeilingWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameCeilingWorkMosque,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<CeilingWorkModel> ceilingWork = maps.map((map) => CeilingWorkModel.fromMap(map)).toList();
+    return ceilingWork;
+  }
   Future<int>add(CeilingWorkModel ceilingWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameCeilingWorkMosque,ceilingWorkModel.toMap());

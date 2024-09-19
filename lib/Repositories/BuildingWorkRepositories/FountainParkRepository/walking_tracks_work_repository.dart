@@ -16,7 +16,7 @@ class WalkingTracksWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameWalkingTracksWork,
-        columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','walkingTracksCompStatus','date','time']
+        columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','walkingTracksCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class WalkingTracksWorkRepository{
 
     return walkingTracksWork;
   }
+  Future<List<WalkingTracksWorkModel>> getUnPostedWalkingTrack() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameWalkingTracksWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<WalkingTracksWorkModel> walkingTracksWork = maps.map((map) => WalkingTracksWorkModel.fromMap(map)).toList();
+    return walkingTracksWork;
+  }
   Future<int>add(WalkingTracksWorkModel walkingTracksWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameWalkingTracksWork,walkingTracksWorkModel.toMap());

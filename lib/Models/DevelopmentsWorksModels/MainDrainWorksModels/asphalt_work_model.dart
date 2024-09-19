@@ -6,6 +6,7 @@ class AsphaltWorkModel{
   dynamic backFillingStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   AsphaltWorkModel({
     this.id,
@@ -14,7 +15,9 @@ class AsphaltWorkModel{
     this.numOfTons,
     this.backFillingStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
 
   });
 
@@ -27,7 +30,9 @@ class AsphaltWorkModel{
       numOfTons: json['numOfTons'],
       backFillingStatus: json['backFillingStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
 
     );
   }
@@ -41,6 +46,8 @@ class AsphaltWorkModel{
       'backFillingStatus':backFillingStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
+
     };
   }
 }

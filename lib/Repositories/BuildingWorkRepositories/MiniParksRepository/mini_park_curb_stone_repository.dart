@@ -2,6 +2,7 @@
 
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/grass_work_model.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mini_park_curb_stone_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -16,7 +17,7 @@ class MiniParkCurbStoneRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCurbStonesWorkMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','mpCurbStoneCompStatus','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','mpCurbStoneCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +43,17 @@ class MiniParkCurbStoneRepository{
 
     return miniParkCurbStone;
   }
+  Future<List<MiniParkCurbStoneModel>> getUnPostedCurbStoneMp() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameCurbStonesWorkMiniPark,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<MiniParkCurbStoneModel> miniParkCurbStone = maps.map((map) => MiniParkCurbStoneModel.fromMap(map)).toList();
+    return miniParkCurbStone;
+  }
   Future<int>add(MiniParkCurbStoneModel miniParkCurbStoneModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameCurbStonesWorkMiniPark,miniParkCurbStoneModel.toMap());

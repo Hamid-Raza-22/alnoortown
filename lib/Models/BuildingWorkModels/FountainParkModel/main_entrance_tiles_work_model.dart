@@ -5,6 +5,7 @@ class MainEntranceTilesWorkModel{
   String?  mainEntranceTilesWorkCompStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   MainEntranceTilesWorkModel({
     this.id,
@@ -12,7 +13,9 @@ class MainEntranceTilesWorkModel{
     this.expectedCompDate,
     this.mainEntranceTilesWorkCompStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory MainEntranceTilesWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -23,7 +26,9 @@ class MainEntranceTilesWorkModel{
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         mainEntranceTilesWorkCompStatus:json['mainEntranceTilesWorkCompStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -35,6 +40,7 @@ class MainEntranceTilesWorkModel{
       'mainEntranceTilesWorkCompStatus':mainEntranceTilesWorkCompStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
 
     };

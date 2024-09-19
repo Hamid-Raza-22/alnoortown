@@ -16,7 +16,7 @@ class BackFillingWsRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameWaterSupplyBackFilling,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyBackFillingCompStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyBackFillingCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class BackFillingWsRepository{
 
     return backFillingWs;
   }
+  Future<List<BackFillingWsModel>> getUnPostedWaterSupplyBackFilling() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameWaterSupplyBackFilling,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<BackFillingWsModel> backFillingWs = maps.map((map) => BackFillingWsModel.fromMap(map)).toList();
+    return backFillingWs;
+  }
   Future<int>add(BackFillingWsModel backFillingWsModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameWaterSupplyBackFilling,backFillingWsModel.toMap());

@@ -6,6 +6,7 @@ class MiniParkMudFillingModel{
   String? mpMudFillingCompStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   MiniParkMudFillingModel({
     this.id,
@@ -14,7 +15,9 @@ class MiniParkMudFillingModel{
     this.totalDumpers,
     this.mpMudFillingCompStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory MiniParkMudFillingModel.fromMap(Map<dynamic,dynamic>json)
@@ -26,7 +29,9 @@ class MiniParkMudFillingModel{
         totalDumpers: json['totalDumpers'],
         mpMudFillingCompStatus:json['mpMudFillingCompStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -39,6 +44,7 @@ class MiniParkMudFillingModel{
       'mpMudFillingCompStatus':mpMudFillingCompStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
     };
   }

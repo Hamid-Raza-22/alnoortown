@@ -16,7 +16,7 @@ class FoundationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFoundationWorkMosque,
-        columns: ['id', 'blockNo', 'brickWork','mudFiling','plasterWork','date','time']
+        columns: ['id', 'blockNo', 'brickWork','mudFiling','plasterWork','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class FoundationWorkRepository{
 
     return foundationWork;
   }
+  Future<List<FoundationWorkModel>> getUnPostedFoundationWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameFoundationWorkMosque,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<FoundationWorkModel> foundationWork = maps.map((map) => FoundationWorkModel.fromMap(map)).toList();
+    return foundationWork;
+  }
   Future<int>add(FoundationWorkModel foundationWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameFoundationWorkMosque,foundationWorkModel.toMap());

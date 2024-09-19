@@ -17,7 +17,7 @@ class LightWiresRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameLightWires,
-        columns: ['id', 'blockNo', 'lightWireWorkStatus','streetNo','totalLength','date','time']
+        columns: ['id', 'blockNo', 'lightWireWorkStatus','streetNo','totalLength','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -43,7 +43,17 @@ class LightWiresRepository{
 
     return lightWires;
   }
+  Future<List<LightWiresModel>> getUnPostedLightWires() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameLightWires,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<LightWiresModel> lightWires = maps.map((map) => LightWiresModel.fromMap(map)).toList();
+    return lightWires;
+  }
   Future<int>add(LightWiresModel lightWiresModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameLightWires,lightWiresModel.toMap());

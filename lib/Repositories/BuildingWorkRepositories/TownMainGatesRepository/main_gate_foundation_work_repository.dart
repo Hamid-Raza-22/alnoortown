@@ -1,5 +1,4 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/main_gate_foundation_work_model.dart';
@@ -16,7 +15,7 @@ class MainGateFoundationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFoundationWorkMainGate,
-        columns:  ['id', 'blockNo', 'workStatus','date','time']
+        columns:  ['id', 'blockNo', 'workStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +41,17 @@ class MainGateFoundationWorkRepository{
 
     return mainGateFoundationWork;
   }
+  Future<List<MainGateFoundationWorkModel>> getUnPostedMainGateFoundation() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameFoundationWorkMainGate,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<MainGateFoundationWorkModel> mainGateFoundationWork = maps.map((map) => MainGateFoundationWorkModel.fromMap(map)).toList();
+    return mainGateFoundationWork;
+  }
   Future<int>add(MainGateFoundationWorkModel mainGateFoundationWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameFoundationWorkMainGate,mainGateFoundationWorkModel.toMap());

@@ -6,6 +6,8 @@ class LightWiresModel{
   dynamic lightWireWorkStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
+
   LightWiresModel({
     this.id,
     this.blockNo,
@@ -13,7 +15,9 @@ class LightWiresModel{
     this.totalLength,
     this.lightWireWorkStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory LightWiresModel.fromMap(Map<dynamic,dynamic>json)
@@ -25,7 +29,9 @@ class LightWiresModel{
       totalLength: json['totalLength'],
         lightWireWorkStatus: json['lightWireWorkStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -38,6 +44,8 @@ class LightWiresModel{
       'lightWireWorkStatus':lightWireWorkStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
+
     };
   }
 }

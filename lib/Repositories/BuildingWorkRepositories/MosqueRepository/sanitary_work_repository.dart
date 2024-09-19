@@ -1,12 +1,10 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/sanitary_work_model.dart';
 import 'package:flutter/foundation.dart';
 
 class SanitaryWorkRepository{
-
   DBHelper dbHelper = DBHelper();
 
   Future<List<SanitaryWorkModel>> getSanitaryWork() async {
@@ -16,7 +14,7 @@ class SanitaryWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameSanitaryWorkMosque,
-        columns: ['id', 'blockNo', 'sanitaryWorkStatus','date','time']
+        columns: ['id', 'blockNo', 'sanitaryWorkStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +40,17 @@ class SanitaryWorkRepository{
 
     return sanitaryWork;
   }
+  Future<List<SanitaryWorkModel>> getUnPostedSanitaryWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameSanitaryWorkMosque,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<SanitaryWorkModel> sanitaryWork = maps.map((map) => SanitaryWorkModel.fromMap(map)).toList();
+    return sanitaryWork;
+  }
   Future<int>add(SanitaryWorkModel sanitaryWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameSanitaryWorkMosque,sanitaryWorkModel.toMap());

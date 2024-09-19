@@ -1,5 +1,4 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/machine_model.dart';
@@ -37,8 +36,6 @@ class MachineRepository{
 
     return machine;
   }
-
-  // Fetch all unposted machines (posted = 0)
   Future<List<MachineModel>> getUnPostedMachines() async {
     var dbClient = await dbHelper.db;
     List<Map> maps = await dbClient.query(

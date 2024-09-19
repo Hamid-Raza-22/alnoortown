@@ -16,7 +16,7 @@ class MonumentsWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMonumentWork,
-        columns: ['id', 'startDate', 'expectedCompDate','monumentsWorkCompStatus','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','monumentsWorkCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class MonumentsWorkRepository{
 
     return monumentsWork;
   }
+  Future<List<MonumentsWorkModel>> getUnPostedMonumentWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameMonumentWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<MonumentsWorkModel> monumentsWork = maps.map((map) => MonumentsWorkModel.fromMap(map)).toList();
+    return monumentsWork;
+  }
   Future<int>add(MonumentsWorkModel monumentsWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameMonumentWork,monumentsWorkModel.toMap());

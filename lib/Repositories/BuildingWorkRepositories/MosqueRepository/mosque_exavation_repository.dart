@@ -4,14 +4,6 @@ import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_
 import 'package:flutter/foundation.dart';
 
 import '../../../Globals/globals.dart';
-
-
-
-
-
-
-
-
 class MosqueExcavationRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -23,7 +15,7 @@ class MosqueExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMosqueExcavationWork,
-        columns: ['id', 'blockNo', 'completionStatus', 'date', 'time']
+        columns: ['id', 'blockNo', 'completionStatus', 'date', 'time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -46,12 +38,19 @@ class MosqueExcavationRepository{
     if (kDebugMode) {
       print('Parsed MosqueExcavationWorkModel objects:');
     }
-
-
     return mosqueExavationWork;
   }
+  Future<List<MosqueExcavationWorkModel>> getUnPostedMosqueExcavation() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameMosqueExcavationWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
+    List<MosqueExcavationWorkModel> mosqueExavationWork = maps.map((map) => MosqueExcavationWorkModel.fromMap(map)).toList();
+    return mosqueExavationWork;
+  }
   Future<int>add(MosqueExcavationWorkModel mosqueExcavationWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameMosqueExcavationWork,mosqueExcavationWorkModel.toMap());

@@ -16,7 +16,7 @@ class ManholesRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameManholes,
-        columns: ['id', 'blockNo', 'streetNo', 'noOfManholes','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'noOfManholes','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -39,18 +39,19 @@ class ManholesRepository{
     if (kDebugMode) {
       print('Parsed ManholesModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
-
     return manholes;
   }
+  Future<List<ManholesModel>> getUnPostedManHolesSewerageWorks() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameManholes,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
-
+    List<ManholesModel> manholes = maps.map((map) => ManholesModel.fromMap(map)).toList();
+    return manholes;
+  }
   Future<int>add(ManholesModel manholesModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameManholes,manholesModel.toMap());

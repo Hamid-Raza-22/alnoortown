@@ -14,7 +14,7 @@ class MainDrainExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameDrainExcavation,
-        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -37,18 +37,20 @@ class MainDrainExcavationRepository{
     if (kDebugMode) {
       print('Parsed MainDrainExcavationModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
 
     return mainDrainExcavation;
   }
+  Future<List<MainDrainExcavationModel>> getUnPostedMainDrainExcavation() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameDrainExcavation,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
-
+    List<MainDrainExcavationModel> mainDrainExcavation = maps.map((map) => MainDrainExcavationModel.fromMap(map)).toList();
+    return mainDrainExcavation;
+  }
   Future<int>add(MainDrainExcavationModel mainDrainExcavationModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameDrainExcavation,mainDrainExcavationModel.toMap());

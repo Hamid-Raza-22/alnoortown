@@ -5,9 +5,6 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/back_filing_model.dart';
 import 'package:flutter/foundation.dart';
 
-
-
-
 class BackFillingRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -19,7 +16,7 @@ class BackFillingRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBackFiling,
-        columns: ['id', 'blockNo', 'streetNo', 'status','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'status','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,16 +39,20 @@ class BackFillingRepository{
     if (kDebugMode) {
       print('Parsed BackFilingModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
 
     return backFiling;
   }
+  Future<List<BackFilingModel>> getUnPostedBackFilling() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameBackFiling,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
+    List<BackFilingModel> backFiling = maps.map((map) => BackFilingModel.fromMap(map)).toList();
+    return backFiling;
+  }
   Future<int>add(BackFilingModel backFilingModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameBackFiling,backFilingModel.toMap());

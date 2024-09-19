@@ -5,6 +5,7 @@ class MiniParkCurbStoneModel{
   String? mpCurbStoneCompStatus;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   MiniParkCurbStoneModel({
     this.id,
@@ -12,7 +13,9 @@ class MiniParkCurbStoneModel{
     this.expectedCompDate,
     this.mpCurbStoneCompStatus,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory MiniParkCurbStoneModel.fromMap(Map<dynamic,dynamic>json)
@@ -23,7 +26,9 @@ class MiniParkCurbStoneModel{
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         mpCurbStoneCompStatus:json['mpCurbStoneCompStatus'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -35,6 +40,7 @@ class MiniParkCurbStoneModel{
       'mpCurbStoneCompStatus':mpCurbStoneCompStatus,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
     };
   }

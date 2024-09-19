@@ -1,12 +1,8 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/NewMaterialModels/new_material_model.dart';
 import 'package:flutter/foundation.dart';
-
-
-
 class NewMaterialRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -18,7 +14,7 @@ class NewMaterialRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameNewMaterials,
-        columns: ['id', 'sand','soil', 'base', 'subBase','waterBound','otherMaterial','otherMaterialValue','date','time']
+        columns: ['id', 'sand','soil', 'base', 'subBase','waterBound','otherMaterial','otherMaterialValue','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,19 +37,20 @@ class NewMaterialRepository{
     if (kDebugMode) {
       print('Parsed NewMaterialModel objects:');
     }
-    // for (var item in machine) {
-    //   if (kDebugMode) {
-    //     print(item);
-    //   }
-    // }
 
     return newMaterial;
   }
+  Future<List<NewMaterialModel>> getUnPostedNewMaterial() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameNewMaterials,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
-
-
+    List<NewMaterialModel> newMaterial = maps.map((map) => NewMaterialModel.fromMap(map)).toList();
+    return newMaterial;
+  }
   Future<int>add(NewMaterialModel newMaterialModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameNewMaterials,newMaterialModel.toMap());

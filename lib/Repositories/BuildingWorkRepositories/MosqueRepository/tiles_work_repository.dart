@@ -16,7 +16,7 @@ class TilesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameTilesWorkMosque,
-        columns: ['id', 'blockNo', 'tilesWorkStatus','date','time']
+        columns: ['id', 'blockNo', 'tilesWorkStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class TilesWorkRepository{
 
     return tilesWork;
   }
+  Future<List<TilesWorkModel>> getUnPostedTilesWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameTilesWorkMosque,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<TilesWorkModel> tilesWork = maps.map((map) => TilesWorkModel.fromMap(map)).toList();
+    return tilesWork;
+  }
   Future<int>add(TilesWorkModel tilesWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameTilesWorkMosque,tilesWorkModel.toMap());

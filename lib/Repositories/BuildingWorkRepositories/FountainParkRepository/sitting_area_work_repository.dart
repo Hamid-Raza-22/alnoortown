@@ -2,6 +2,7 @@
 
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/plantation_work_model.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/sitting_area_work_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -16,7 +17,7 @@ class SittingAreaWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameSittingAreaWork,
-        columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','sittingAreaCompStatus','date','time']
+        columns: ['id','typeOfWork', 'startDate', 'expectedCompDate','sittingAreaCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -40,6 +41,17 @@ class SittingAreaWorkRepository{
       print('Parsed SittingAreaWorkModel objects:');
     }
 
+    return sittingAreaWork;
+  }
+  Future<List<SittingAreaWorkModel>> getUnPostedSittingArea() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameSittingAreaWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
+
+    List<SittingAreaWorkModel> sittingAreaWork = maps.map((map) => SittingAreaWorkModel.fromMap(map)).toList();
     return sittingAreaWork;
   }
 

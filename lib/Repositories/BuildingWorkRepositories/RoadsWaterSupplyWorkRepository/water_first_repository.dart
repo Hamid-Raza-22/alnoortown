@@ -16,7 +16,7 @@ class WaterFirstRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadsWaterSupplyWork,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyCompStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','waterSupplyCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class WaterFirstRepository{
 
     return waterFirst;
   }
+  Future<List<WaterFirstModel>> getUnPostedRoadsWaterSupplyWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameRoadsWaterSupplyWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<WaterFirstModel> waterFirst = maps.map((map) => WaterFirstModel.fromMap(map)).toList();
+    return waterFirst;
+  }
   Future<int>add(WaterFirstModel waterFirstModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameRoadsWaterSupplyWork,waterFirstModel.toMap());

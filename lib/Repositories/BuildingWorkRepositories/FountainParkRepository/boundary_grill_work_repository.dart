@@ -16,7 +16,7 @@ class BoundaryGrillWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBoundaryGrillWork,
-        columns: ['id', 'startDate', 'expectedCompDate','boundaryWorkCompStatus','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','boundaryWorkCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,18 @@ class BoundaryGrillWorkRepository{
 
     return boundaryGrillWork;
   }
+// Fetch all unposted machines (posted = 0)
+  Future<List<BoundaryGrillWorkModel>> getUnPostedBoundaryGrill() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameBoundaryGrillWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<BoundaryGrillWorkModel> boundaryGrillWork = maps.map((map) => BoundaryGrillWorkModel.fromMap(map)).toList();
+    return boundaryGrillWork;
+  }
   Future<int>add(BoundaryGrillWorkModel boundaryGrillWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameBoundaryGrillWork,boundaryGrillWorkModel.toMap());

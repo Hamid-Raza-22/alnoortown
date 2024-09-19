@@ -6,6 +6,8 @@ class FirstFloorModel{
   dynamic plasterWork;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
+
   FirstFloorModel({
     this.id,
     this.blockNo,
@@ -13,7 +15,9 @@ class FirstFloorModel{
     this.mudFiling,
     this.plasterWork,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory FirstFloorModel.fromMap(Map<dynamic,dynamic>json)
@@ -25,7 +29,9 @@ class FirstFloorModel{
         mudFiling: json['mudFiling'],
         plasterWork: json['plasterWork'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
     );
   }
 
@@ -38,6 +44,8 @@ class FirstFloorModel{
       'plasterWork':plasterWork,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
+
     };
   }
 }

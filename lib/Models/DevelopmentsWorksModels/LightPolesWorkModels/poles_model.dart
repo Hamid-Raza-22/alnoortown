@@ -5,13 +5,17 @@ class PolesModel{
   dynamic noOfPoles;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
+
   PolesModel({
     this.id,
     this.blockNo,
     this.streetNo,
     this.noOfPoles,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory PolesModel.fromMap(Map<dynamic,dynamic>json)
@@ -22,7 +26,9 @@ class PolesModel{
       streetNo: json['streetNo'],
         noOfPoles: json['noOfPoles'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
 
     );
   }
@@ -35,6 +41,8 @@ class PolesModel{
       'noOfPoles':noOfPoles,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
+
     };
   }
 }

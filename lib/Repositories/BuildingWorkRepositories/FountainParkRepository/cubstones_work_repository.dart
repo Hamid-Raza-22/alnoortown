@@ -16,7 +16,7 @@ class CubStonesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCurbStonesWork,
-        columns: ['id', 'startDate', 'expectedCompDate','cubStonesCompStatus','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','cubStonesCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class CubStonesWorkRepository{
 
     return cubStonesWork;
   }
+  Future<List<CubStonesWorkModel>> getUnPostedCubStonesWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameCurbStonesWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<CubStonesWorkModel> cubStonesWork = maps.map((map) => CubStonesWorkModel.fromMap(map)).toList();
+    return cubStonesWork;
+  }
   Future<int>add(CubStonesWorkModel cubStonesWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameCurbStonesWork,cubStonesWorkModel.toMap());

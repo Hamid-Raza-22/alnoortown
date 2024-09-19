@@ -16,7 +16,7 @@ class GrassWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGrassWorkMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','grassWorkCompStatus','date','time']
+        columns: ['id', 'startDate', 'expectedCompDate','grassWorkCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class GrassWorkRepository{
 
     return grassWork;
   }
+  Future<List<GrassWorkModel>> getUnPostedGrassWorkMp() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameGrassWorkMiniPark,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<GrassWorkModel> grassWork = maps.map((map) => GrassWorkModel.fromMap(map)).toList();
+    return grassWork;
+  }
   Future<int>add(GrassWorkModel grassWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameGrassWorkMiniPark,grassWorkModel.toMap());

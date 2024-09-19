@@ -5,6 +5,7 @@ class BrickWorkModel{
   dynamic completedLength;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   BrickWorkModel({
     this.id,
@@ -12,7 +13,9 @@ class BrickWorkModel{
     this.streetNo,
     this.completedLength,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory BrickWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -23,7 +26,9 @@ class BrickWorkModel{
       streetNo: json['streetNo'],
       completedLength: json['completedLength'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
 
     );
   }
@@ -36,6 +41,7 @@ class BrickWorkModel{
       'completedLength':completedLength,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
 
     };
   }

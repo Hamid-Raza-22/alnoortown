@@ -16,7 +16,7 @@ class CompactionWaterBoundRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCompactionAfterWaterBound,
-        columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','waterBoundCompStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','waterBoundCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class CompactionWaterBoundRepository{
 
     return compactionWaterBound;
   }
+  Future<List<CompactionWaterBoundModel>> getUnPostedCompactionWaterBound() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameCompactionAfterWaterBound,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<CompactionWaterBoundModel> compactionWaterBound = maps.map((map) => CompactionWaterBoundModel.fromMap(map)).toList();
+    return compactionWaterBound;
+  }
   Future<int>add(CompactionWaterBoundModel compactionWaterBoundModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameCompactionAfterWaterBound,compactionWaterBoundModel.toMap());

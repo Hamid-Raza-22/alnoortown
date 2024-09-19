@@ -16,7 +16,7 @@ class MainGatePillarWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePillarsBrickWorkMainGate,
-        columns:  ['id', 'blockNo', 'workStatus','date','time']
+        columns:  ['id', 'blockNo', 'workStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class MainGatePillarWorkRepository{
 
     return mainGatePillarWork;
   }
+  Future<List<MainGatePillarWorkModel>> getUnPostedMainGatePillarWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNamePillarsBrickWorkMainGate,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<MainGatePillarWorkModel> mainGatePillarWork = maps.map((map) => MainGatePillarWorkModel.fromMap(map)).toList();
+    return mainGatePillarWork;
+  }
   Future<int>add(MainGatePillarWorkModel mainGatePillarWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNamePillarsBrickWorkMainGate,mainGatePillarWorkModel.toMap());

@@ -9,6 +9,7 @@ class NewMaterialModel{
   dynamic otherMaterialValue;
   dynamic date;
   dynamic time;
+  int posted;  // New field to track whether data has been posted
 
   NewMaterialModel({
     this.id,
@@ -20,7 +21,9 @@ class NewMaterialModel{
     this.otherMaterial,
     this.otherMaterialValue,
     this.date,
-    this.time
+    this.time,
+    this.posted = 0,  // Default to 0 (not posted)
+
   });
 
   factory NewMaterialModel.fromMap(Map<dynamic,dynamic>json)
@@ -35,7 +38,9 @@ class NewMaterialModel{
       otherMaterial: json['otherMaterial'],
         otherMaterialValue: json['otherMaterialValue'],
         date:  json['date'],
-        time:  json['time']
+        time:  json['time'],
+      posted: json['posted'],  // Get the posted status from the database
+
 
     );
   }
@@ -52,6 +57,8 @@ class NewMaterialModel{
       'otherMaterialValue':otherMaterialValue,
       'date':date,
       'time':time,
+      'posted': posted,  // Include the posted status
+
     };
   }
 }

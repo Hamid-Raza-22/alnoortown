@@ -1,14 +1,10 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_excavation_model.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../Globals/globals.dart';
-
-
-
 
 class PolesExcavationRepository{
 
@@ -21,7 +17,7 @@ class PolesExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePolesExcavation,
-        columns: ['id', 'blockNo', 'streetNo', 'noOfExcavation','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'noOfExcavation','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -40,18 +36,23 @@ class PolesExcavationRepository{
       polesExcavation.add(PolesExcavationModel.fromMap(maps[i]));
     }
 
-    // Print the list
     if (kDebugMode) {
       print('Parsed PolesExcavationModel objects:');
     }
 
-
     return polesExcavation;
   }
+  Future<List<PolesExcavationModel>> getUnPostedPolesExcavation() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNamePolesExcavation,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
-
-
+    List<PolesExcavationModel> polesExcavation = maps.map((map) => PolesExcavationModel.fromMap(map)).toList();
+    return polesExcavation;
+  }
   Future<int>add(PolesExcavationModel polesExcavationModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNamePolesExcavation,polesExcavationModel.toMap());

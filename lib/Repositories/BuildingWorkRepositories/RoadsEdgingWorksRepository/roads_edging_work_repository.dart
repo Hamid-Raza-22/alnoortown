@@ -16,7 +16,7 @@ class RoadsEdgingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadsEdging,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsEdgingCompStatus','date','time']
+        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsEdgingCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +42,17 @@ class RoadsEdgingWorkRepository{
 
     return roadsEdgingWork;
   }
+  Future<List<RoadsEdgingWorkModel>> getUnPostedRoadsEdging() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameRoadsEdging,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
+    List<RoadsEdgingWorkModel> roadsEdgingWork = maps.map((map) => RoadsEdgingWorkModel.fromMap(map)).toList();
+    return roadsEdgingWork;
+  }
   Future<int>add(RoadsEdgingWorkModel roadsEdgingWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameRoadsEdging,roadsEdgingWorkModel.toMap());

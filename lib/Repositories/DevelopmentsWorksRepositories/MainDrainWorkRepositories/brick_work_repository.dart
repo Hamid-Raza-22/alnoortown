@@ -1,12 +1,8 @@
 
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/brick_work_model.dart';
 import 'package:flutter/foundation.dart';
-
-
-
 class BrickWorkRepository{
 
   DBHelper dbHelper = DBHelper();
@@ -18,7 +14,7 @@ class BrickWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBrickWork,
-        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time']
+        columns: ['id', 'blockNo', 'streetNo', 'completedLength','date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -43,8 +39,17 @@ class BrickWorkRepository{
     }
     return brickWork;
   }
+  Future<List<BrickWorkModel>> getUnPostedBrickWork() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameBrickWork,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
 
-
+    List<BrickWorkModel> brickWork = maps.map((map) => BrickWorkModel.fromMap(map)).toList();
+    return brickWork;
+  }
   Future<int>add(BrickWorkModel brickWorkModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameBrickWork,brickWorkModel.toMap());
