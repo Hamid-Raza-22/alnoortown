@@ -11,7 +11,6 @@ class WalkingTracksSummaryPage extends StatefulWidget {
   @override
   State<WalkingTracksSummaryPage> createState() => _WalkingTracksSummaryPageState();
 }
-
 class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
    WalkingTracksWorkViewModel walkingTracksWorkViewModel = Get.put(WalkingTracksWorkViewModel());
   @override

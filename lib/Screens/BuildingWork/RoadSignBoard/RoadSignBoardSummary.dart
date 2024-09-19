@@ -114,11 +114,4 @@ RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewM
     );
   }
 
-  // String formatTimestamp(String? timestamp) {
-  //   if (timestamp == null || timestamp.isEmpty) {
-  //     return 'N/A';
-  //   }
-  //   final dateTime = DateTime.parse(timestamp);
-  //   return '${dateTime.day}/${dateTime.month}/${dateTime.year} ${dateTime.hour}:${dateTime.minute}';
-  // }
 }

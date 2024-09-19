@@ -43,43 +43,43 @@ class LightWorkSummary extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
     child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (lightWiresViewModel.allLight.isEmpty) {
-    return Center(child: Text('No data available'));
-    }
+      // Use Obx to rebuild when the data changes
+      if (lightWiresViewModel.allLight.isEmpty) {
+        return Center(child: Text('No data available'));
+      }
 
-    return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Column(
-    children: [
-    // Header row
-    Row(
-    children: [
-    buildHeaderCell('Block No.'),
-    buildHeaderCell('Street No.'),
-    buildHeaderCell('Total Length'),
-    buildHeaderCell('Status'),
-    buildHeaderCell('Date'),
-    buildHeaderCell('Time'),
-    ],
-    ),
-    const SizedBox(height: 10),
-    // Data rows
-    ...lightWiresViewModel.allLight.map((entry) {
-    return Row(
-    children: [
-    buildDataCell(entry.blockNo?? 'N/A'),
-    buildDataCell(entry.streetNo?? 'N/A'),
-    buildDataCell(entry.totalLength ?? 'N/A'),
-    buildDataCell(entry.lightWireWorkStatus ?? 'N/A'),
-    buildDataCell(entry.date ?? 'N/A'),
-    buildDataCell(entry.time ?? 'N/A'),
-    ],
-    );
-    }).toList(),
-    ],
-    ),
-    );
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            // Header row
+            Row(
+              children: [
+                buildHeaderCell('Block No.'),
+                buildHeaderCell('Street No.'),
+                buildHeaderCell('Total Length'),
+                buildHeaderCell('Status'),
+                buildHeaderCell('Date'),
+                buildHeaderCell('Time'),
+              ],
+            ),
+            const SizedBox(height: 10),
+            // Data rows
+            ...lightWiresViewModel.allLight.map((entry) {
+              return Row(
+                children: [
+                  buildDataCell(entry.blockNo ?? 'N/A'),
+                  buildDataCell(entry.streetNo ?? 'N/A'),
+                  buildDataCell(entry.totalLength ?? 'N/A'),
+                  buildDataCell(entry.lightWireWorkStatus ?? 'N/A'),
+                  buildDataCell(entry.date ?? 'N/A'),
+                  buildDataCell(entry.time ?? 'N/A'),
+                ],
+              );
+            }).toList(),
+          ],
+        ),
+      );
     }),
       ),
     );

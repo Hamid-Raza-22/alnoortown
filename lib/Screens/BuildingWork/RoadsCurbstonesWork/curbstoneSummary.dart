@@ -1,14 +1,11 @@
-import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCurbstonesWorkModel/road_curb_stones_work_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get,Inst ,Obx;
-
 import '../../../ViewModels/BuildingWorkViewModel/RoadsCurbstonesWorkViewModel/road_curb_stones_work_view_model.dart';
 
 class RoadsCurbstonesWorkSummary extends StatelessWidget {
   RoadCurbStonesWorkViewModel roadCurbStonesWorkViewModel = Get.put(RoadCurbStonesWorkViewModel());
   void initState() => roadCurbStonesWorkViewModel.fetchAllRoadCurb();
-
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);

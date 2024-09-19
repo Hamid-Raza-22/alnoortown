@@ -45,30 +45,6 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('firstFloorWorkData'); // Unique key for First Floor Work
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('firstFloorWorkData', json.encode(containerDataList)); // Unique key for First Floor Work
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? brickStatus, String? mudStatus, String? plasterStatus) {
-  //   return {
-  //     "selectedBlock": selectedBlock,
-  //     "brickWorkStatus": brickStatus,
-  //     "mudFillingStatus": mudStatus,
-  //     "plasterWorkStatus": plasterStatus,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
 
   @override
   Widget build(BuildContext context) {

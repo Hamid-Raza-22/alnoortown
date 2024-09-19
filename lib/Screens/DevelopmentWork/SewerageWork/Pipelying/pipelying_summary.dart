@@ -44,41 +44,41 @@ class PipelyingSummary extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
     child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (pipelineViewModel.allPipe.isEmpty) {
-    return Center(child: Text('No data available'));
-    }
+      // Use Obx to rebuild when the data changes
+      if (pipelineViewModel.allPipe.isEmpty) {
+        return Center(child: Text('No data available'));
+      }
 
-    return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: Column(
-    children: [
-    // Header row
-    Row(
-    children: [
-    buildHeaderCell('Block No.'),
-    buildHeaderCell('Street No.'),
-    buildHeaderCell('Total length'),
-    buildHeaderCell('Date'),
-    buildHeaderCell('Time'),
-    ],
-    ),
-    const SizedBox(height: 10),
-    // Data rows
-    ...pipelineViewModel.allPipe.map((entry) {
-    return Row(
-    children: [
-    buildDataCell(entry.blockNo?? 'N/A'),
-    buildDataCell(entry.streetNo ?? 'N/A'),
-    buildDataCell(entry.length ?? 'N/A'),
-    buildDataCell(entry.date ?? 'N/A'),
-    buildDataCell(entry.time ?? 'N/A'),
-    ],
-    );
-    }).toList(),
-    ],
-    ),
-    );
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            // Header row
+            Row(
+              children: [
+                buildHeaderCell('Block No.'),
+                buildHeaderCell('Street No.'),
+                buildHeaderCell('Total length'),
+                buildHeaderCell('Date'),
+                buildHeaderCell('Time'),
+              ],
+            ),
+            const SizedBox(height: 10),
+            // Data rows
+            ...pipelineViewModel.allPipe.map((entry) {
+              return Row(
+                children: [
+                  buildDataCell(entry.blockNo ?? 'N/A'),
+                  buildDataCell(entry.streetNo ?? 'N/A'),
+                  buildDataCell(entry.length ?? 'N/A'),
+                  buildDataCell(entry.date ?? 'N/A'),
+                  buildDataCell(entry.time ?? 'N/A'),
+                ],
+              );
+            }).toList(),
+          ],
+        ),
+      );
     }),
       ),
     );

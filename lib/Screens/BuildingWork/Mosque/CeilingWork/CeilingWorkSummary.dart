@@ -106,8 +106,8 @@ class _CeilingWorkSummaryState extends State<CeilingWorkSummary> {
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "status": data.ceilingWorkStatus,
-                      "date": _formatDate(data.date),
-                      "time": _formatTime(data.date),
+                      "date": data.date,
+                      "time": data.time,
                     });
                   },
                 );

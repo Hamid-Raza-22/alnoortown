@@ -34,30 +34,7 @@ class MudFillingWorkState extends State<MudFillingWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('excavationWorkDataList');
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('excavationWorkDataList', json.encode(containerDataList));
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? dumpers, String? status) {
-  //   return {
-  //     "startDate": startDate?.toIso8601String(),
-  //     "endDate": endDate?.toIso8601String(),
-  //     "dumpers": dumpers,
-  //     "status": status,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
+
 
   @override
   Widget build(BuildContext context) {

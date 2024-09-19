@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 import '../../../../ViewModels/BuildingWorkViewModel/Mosque/door_work_view_model.dart';
 import '../../../ReusableDesigns/filter_widget.dart';
-
-
 class DoorsWorkSummary extends StatefulWidget {
   DoorsWorkSummary({super.key});
-
   @override
   State<DoorsWorkSummary> createState() => DoorsWorkSummaryState();
 }
-
 class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
   final DoorWorkViewModel doorWorkViewModel = Get.put(DoorWorkViewModel());
 
@@ -106,8 +102,8 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "status": data.doorsWorkStatus,
-                      "date": _formatDate(data.date),
-                      "time": _formatTime(data.date),
+                      "date": data.date,
+                      "time": data.time,
                     });
                   },
                 );
@@ -117,24 +113,6 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
         ),
       ),
     );
-  }
-
-  String _formatDate(String dateStr) {
-    try {
-      final date = DateTime.parse(dateStr);
-      return DateFormat('d MMM yyyy').format(date);
-    } catch (e) {
-      return "N/A";
-    }
-  }
-
-  String _formatTime(String dateStr) {
-    try {
-      final date = DateTime.parse(dateStr);
-      return DateFormat('h:mm a').format(date);
-    } catch (e) {
-      return "N/A";
-    }
   }
 
   Widget _buildHeaderCell(String title) {
@@ -184,4 +162,5 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
       ),
     );
   }
+
 }

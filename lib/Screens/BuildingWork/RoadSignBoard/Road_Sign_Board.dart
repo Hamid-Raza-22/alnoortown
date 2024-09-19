@@ -8,11 +8,9 @@ import 'RoadSignBoardSummary.dart';
 
 class RoadsSignBoards extends StatefulWidget {
     RoadsSignBoards({Key? key}) : super(key: key);
-
   @override
   _RoadsSignBoardsState createState() => _RoadsSignBoardsState();
 }
-
 class _RoadsSignBoardsState extends State<RoadsSignBoards> {
   RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
   TextEditingController roadNoController = TextEditingController();
@@ -37,35 +35,6 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  //
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('RoadSignBoardDataList');
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('RoadSignBoardDataList', json.encode(containerDataList));
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(DateTime? startDate, DateTime? endDate, String? block, String? roadNo, String? fromPlot, String? toPlot, String? roadSide, String? status) {
-  //   return {
-  //     "startDate": startDate?.toIso8601String() ?? '',
-  //     "endDate": endDate?.toIso8601String() ?? '',
-  //     "block": block ?? '',
-  //     "roadNo": roadNo ?? '',
-  //     "fromPlot": fromPlot ?? '',
-  //     "toPlot": toPlot ?? '',
-  //     "roadSide": roadSide ?? '',
-  //     "status": status ?? '',
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -230,7 +199,6 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
       ],
     );
   }
-
   Widget buildTextFieldRow(String label, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

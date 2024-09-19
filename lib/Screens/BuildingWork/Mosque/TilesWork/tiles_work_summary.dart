@@ -110,8 +110,8 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
                     return _buildDataRow({
                       "selectedBlock": data.blockNo,
                       "status": data.tilesWorkStatus,
-                      "date": _formatDate(data.date),
-                      "time": _formatTime(data.date),
+                      "date": data.date,
+                      "time": data.time,
                     });
                   },
                 );

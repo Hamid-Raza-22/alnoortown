@@ -42,30 +42,6 @@ class TilesWorkState extends State<TilesWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('tilesWorkDataList');
-  //   if (savedData != null) {
-  //     setState(() {
-  //       tilecontainerDataList =
-  //       List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('tilesWorkDataList', json.encode(tilecontainerDataList));
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
-  //   return {
-  //     "selectedBlock": selectedBlock,
-  //     "status": status,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

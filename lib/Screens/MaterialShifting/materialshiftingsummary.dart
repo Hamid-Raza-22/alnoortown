@@ -2,7 +2,6 @@ import 'package:al_noor_town/ViewModels/MaterialShiftingViewModel/material_shift
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get,Inst ,Obx;
 
-
 class MaterialShiftingSummaryPage extends StatelessWidget {
   final MaterialShiftingViewModel materialShiftingViewModel= Get.put(MaterialShiftingViewModel());
   final List<Map<String, String>> machineDataList = [
@@ -16,9 +15,7 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final mediaQuery = MediaQuery.of(context);
-    // final isPortrait = mediaQuery.orientation == Orientation.portrait;
-    // materialShiftingViewModel.fetchAllShifting();
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -98,7 +95,7 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
           }
         },
       );
-    } ),
+    }),
     ),
     );
   }

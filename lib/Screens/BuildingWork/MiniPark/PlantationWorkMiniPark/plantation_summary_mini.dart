@@ -38,48 +38,62 @@ class _Plantation_Mini_SummaryState extends State<Plantation_Mini_Summary> {
       body: Padding(
         padding:   EdgeInsets.all(16.0),
           child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (mpPlantationWorkViewModel.allMpPlant.isEmpty) {
-    return Center(child: CircularProgressIndicator()); // Show loading indicator
-    }
+            // Use Obx to rebuild when the data changes
+            if (mpPlantationWorkViewModel.allMpPlant.isEmpty) {
+              return Center(
+                  child: CircularProgressIndicator()); // Show loading indicator
+            }
 
-    return SingleChildScrollView(
-    scrollDirection: Axis.horizontal,
-    child: DataTable(
-    columnSpacing: 16.0,
-    headingRowColor: WidgetStateProperty.all( Color(0xFFC69840)),
-    border: TableBorder(
-    horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
-    verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                columnSpacing: 16.0,
+                headingRowColor: WidgetStateProperty.all(Color(0xFFC69840)),
+                border: TableBorder(
+                  horizontalInside: BorderSide(
+                      color: Color(0xFFC69840), width: 1.0),
+                  verticalInside: BorderSide(
+                      color: Color(0xFFC69840), width: 1.0),
+                ),
+                columns: [
+                  DataColumn(label: Text('start_date'.tr(),
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text('end_date'.tr(),
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text('status'.tr(),
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text('date'.tr(),
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+                  DataColumn(label: Text('time'.tr(),
+                      style: TextStyle(fontWeight: FontWeight.bold))),
+                ],
+                rows: mpPlantationWorkViewModel.allMpPlant.map((entry) {
+                  // Format the DateTime objects to a readable string format
+                  String startDate = entry.startDate != null
+                      ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                      : ''; // Show empty string if null
+
+                  String expectedCompDate = entry.expectedCompDate != null
+                      ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                      : ''; // Show empty string if null
+                  return DataRow(cells: [
+                    DataCell(Text(startDate)),
+                    // Formatted start date
+                    DataCell(Text(expectedCompDate)),
+                    // Formatted expected completion date
+                    DataCell(Text(entry.mpPCompStatus ?? '')),
+                    // Null check for status
+                    DataCell(Text(entry.date ?? '')),
+                    // Display date as-is (assuming it's already formatted)
+                    DataCell(Text(entry.time ?? '')),
+                    // Display time as-is (assuming it's already formatted)
+                  ]);
+                }).toList(),
+
+              ),
+            );
+          }
     ),
-    columns: [
-    DataColumn(label: Text('start_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-    DataColumn(label: Text('end_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-    DataColumn(label: Text('status'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-    DataColumn(label: Text('date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-    DataColumn(label: Text('time'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
-    ],
-    rows: mpPlantationWorkViewModel.allMpPlant.map((entry) {
-    // Format the DateTime objects to a readable string format
-    String startDate = entry.startDate != null
-    ? DateFormat('d MMM yyyy').format(entry.startDate!)
-        : ''; // Show empty string if null
-
-    String expectedCompDate = entry.expectedCompDate != null
-    ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
-        : ''; // Show empty string if null
-    return DataRow(cells: [
-    DataCell(Text(startDate)), // Formatted start date
-    DataCell(Text(expectedCompDate)), // Formatted expected completion date
-    DataCell(Text(entry.mpPCompStatus ?? '')), // Null check for status
-    DataCell(Text(entry.date ?? '')), // Display date as-is (assuming it's already formatted)
-    DataCell(Text(entry.time ?? '')), // Display time as-is (assuming it's already formatted)
-    ]);
-    }).toList(),
-
-    ),
-    );
-    }),
       ),
     );
   }

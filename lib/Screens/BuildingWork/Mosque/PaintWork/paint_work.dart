@@ -45,29 +45,6 @@ class PaintWorkState extends State<PaintWork>{
     return formatter.format(now);
   }
 
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('paintWorkDataList'); // Unique key for Paint Work
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList = List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('paintWorkDataList', json.encode(containerDataList)); // Unique key for Paint Work
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
-  //   return {
-  //     "selectedBlock": selectedBlock,
-  //     "status": status,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
