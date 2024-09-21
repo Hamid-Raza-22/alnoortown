@@ -60,7 +60,25 @@ class _MainGateFoundationSummaryState extends State<MainGateFoundationSummary> {
             Expanded(
               child: Obx(() {
                 if (mainGateFoundationWorkViewModel.allMainFoundation.isEmpty) {
-                  return const Center(child: Text('No data available'));
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
                 }
 
                 // Filter data based on the selected criteria

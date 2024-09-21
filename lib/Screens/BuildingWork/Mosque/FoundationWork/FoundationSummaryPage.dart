@@ -2,7 +2,6 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/foundation_
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-
 import '../../../ReusableDesigns/filter_widget.dart';
 
 class FoundationSummaryPage extends StatefulWidget {
@@ -48,7 +47,6 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Insert the FilterWidget here
             FilterWidget(
               onFilter: (selectedFromDate, selectedToDate, selectedBlock) {
                 setState(() {
@@ -78,6 +76,30 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
 
                   return matchesDate && matchesBlock;
                 }).toList();
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'No data available',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
 
                 return ListView.builder(
                   itemCount: filteredData.length,

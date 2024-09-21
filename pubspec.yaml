@@ -70,6 +70,7 @@ dependencies:
   firebase_remote_config: ^5.1.2
   firebase_analytics: ^11.3.2
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -156,6 +157,7 @@ flutter:
     - assets/images/door-01.png
     - assets/images/machin.png
     - assets/images/ironworkk-01.png
+    - assets/images/nodata.png
 
   # assets:
   #   - images/a_dot_burr.jpeg

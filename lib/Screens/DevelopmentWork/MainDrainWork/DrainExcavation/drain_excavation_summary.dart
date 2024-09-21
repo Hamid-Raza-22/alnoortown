@@ -45,7 +45,29 @@ class DrainExcavationSummary extends StatelessWidget {
     child: Obx(() {
       // Use Obx to rebuild when the data changes
       if (mainDrainExcavationViewModel.allDrain.isEmpty) {
-        return Center(child: Text('No data available'));
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/nodata.png', // Image path
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+              const SizedBox(height: 16),
+              const Text(
+                'No data available',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        );
       }
 
       return SingleChildScrollView(

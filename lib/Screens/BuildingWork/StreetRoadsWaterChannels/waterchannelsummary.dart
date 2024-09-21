@@ -12,7 +12,6 @@ class WaterChannelsSummary extends StatelessWidget {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -23,18 +22,36 @@ class WaterChannelsSummary extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text(
+        title:   Text(
           'street_roads_water_channels_summary'.tr(),
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(isPortrait ? 8.0 : 16.0),  // Adjust padding for portrait/landscape
-        child: Obx(() {
-          if (streetRoadWaterChannelViewModel.allStreetRoad.isEmpty) {
-            return Center(child: Text('No data available'));
-          }
+        padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
+    child: Obx(() {
+    if (streetRoadWaterChannelViewModel.allStreetRoad.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/nodata.png',
+              width: 200,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: 16),
+            Text(
+              'No data available',
+              style: TextStyle(
+                  color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      );
+    }
 
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,  // Enable horizontal scrolling
