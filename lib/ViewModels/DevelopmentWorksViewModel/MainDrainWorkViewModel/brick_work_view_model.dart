@@ -56,10 +56,10 @@ class BrickWorkViewModel extends GetxController {
   Future<void> postBrickWorkToAPI(BrickWorkModel brickWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated BrickWork Post API: ${Config.waterTankerPostApi}');
+      print('Updated BrickWork Post API: ${Config.postApiUrlWaterTanker}');
       var brickWorkModelData = brickWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
+        Uri.parse(Config.postApiUrlWaterTanker),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

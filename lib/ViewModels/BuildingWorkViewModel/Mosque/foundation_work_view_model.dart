@@ -56,10 +56,10 @@ class FoundationWorkViewModel extends GetxController {
   Future<void> postFoundationWorksToAPI(FoundationWorkModel foundationWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated FoundationWorks Post API: ${Config.waterTankerPostApi}');
+      print('Updated FoundationWorks Post API: ${Config.postApiUrlWaterTanker}');
       var foundationWorkModelData = foundationWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
+        Uri.parse(Config.postApiUrlWaterTanker),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

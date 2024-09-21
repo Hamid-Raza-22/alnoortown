@@ -56,10 +56,10 @@ class MiniParkCurbStoneViewModel extends GetxController {
   Future<void> postMiniParkCurbStoneToAPI(MiniParkCurbStoneModel miniParkCurbStoneModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated  MiniParkCurbStone Post API: ${Config.waterTankerPostApi}');
+      print('Updated  MiniParkCurbStone Post API: ${Config.postApiUrlWaterTanker}');
       var miniParkCurbStoneModelData = miniParkCurbStoneModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
+        Uri.parse(Config.postApiUrlWaterTanker),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

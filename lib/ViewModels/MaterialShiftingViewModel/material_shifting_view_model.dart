@@ -55,10 +55,10 @@ class MaterialShiftingViewModel extends GetxController {
   Future<void> postMaterialShiftingToAPI(ShiftingWorkModel shiftingWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MaterialShifting Post API: ${Config.waterTankerPostApi}');
+      print('Updated MaterialShifting Post API: ${Config.postApiUrlWaterTanker}');
       var shiftingWorkModelData = shiftingWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
+        Uri.parse(Config.postApiUrlWaterTanker),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

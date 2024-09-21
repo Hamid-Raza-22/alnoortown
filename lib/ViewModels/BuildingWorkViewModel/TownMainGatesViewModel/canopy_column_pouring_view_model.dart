@@ -56,10 +56,10 @@ class CanopyColumnPouringViewModel extends GetxController {
   Future<void> postCanopyColumnPouringToAPI(CanopyColumnPouringModel canopyColumnPouringModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated CanopyColumnPouring Post API: ${Config.waterTankerPostApi}');
+      print('Updated CanopyColumnPouring Post API: ${Config.postApiUrlWaterTanker}');
       var canopyColumnPouringModelData = canopyColumnPouringModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
+        Uri.parse(Config.postApiUrlWaterTanker),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

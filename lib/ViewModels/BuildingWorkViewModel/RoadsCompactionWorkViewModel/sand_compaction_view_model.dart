@@ -56,10 +56,10 @@ class SandCompactionViewModel extends GetxController {
   Future<void> postSandCompactionToAPI(SandCompactionModel sandCompactionModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated SandCompaction Post API: ${Config.waterTankerPostApi}');
+      print('Updated SandCompaction Post API: ${Config.postApiUrlWaterTanker}');
       var sandCompactionModelData = sandCompactionModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
+        Uri.parse(Config.postApiUrlWaterTanker),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

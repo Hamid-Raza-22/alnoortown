@@ -55,10 +55,10 @@ class MudFillingWorkViewModel extends GetxController {
   Future<void> postMudFillingToAPI(MudFillingWorkModel mudFillingWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MudFilling Post API: ${Config.waterTankerPostApi}');
+      print('Updated MudFilling Post API: ${Config.postApiUrlWaterTanker}');
       var mudFillingWorkModelData = mudFillingWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),         headers: {
+        Uri.parse(Config.postApiUrlWaterTanker),         headers: {
         "Content-Type": "application/json",  // Set the request content type to JSON
         "Accept": "application/json",
       },

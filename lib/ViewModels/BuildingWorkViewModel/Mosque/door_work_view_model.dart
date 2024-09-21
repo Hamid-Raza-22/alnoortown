@@ -56,10 +56,10 @@ class DoorWorkViewModel extends GetxController {
   Future<void> postDoorsWorksToAPI(DoorsWorkModel doorsWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('UpdatedDoorsWorks Post API: ${Config.waterTankerPostApi}');
+      print('UpdatedDoorsWorks Post API: ${Config.postApiUrlWaterTanker}');
       var doorsWorkModelData = doorsWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
+        Uri.parse(Config.postApiUrlWaterTanker),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

@@ -59,10 +59,10 @@ class WaterTankerViewModel extends GetxController {
   Future<void> postWaterTankerToAPI(WaterTankerModel waterTankerModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated Water Tanker Post API: ${Config.waterTankerPostApi}');
+      print('Updated Water Tanker Post API: ${Config.postApiUrlWaterTanker}');
       var waterTankerModelData = waterTankerModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),         headers: {
+        Uri.parse(Config.postApiUrlWaterTanker),         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
         },

@@ -56,10 +56,10 @@ class TilesWorkViewModel extends GetxController {
   Future<void> postTilesWorksToAPI(TilesWorkModel tilesWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated TilesWorks  Post API: ${Config.waterTankerPostApi}');
+      print('Updated TilesWorks  Post API: ${Config.postApiUrlWaterTanker}');
       var tilesWorkModelData = tilesWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
+        Uri.parse(Config.postApiUrlWaterTanker),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
