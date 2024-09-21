@@ -42,7 +42,7 @@ class StreetRoadWaterChannelRepository{
 
     return streetRoadWaterChannel;
   }
-  Future<List<StreetRoadWaterChannelModel>> getUnPostedMachines() async {
+  Future<List<StreetRoadWaterChannelModel>> getUnPostedStreetRoadWaterChannel() async {
     var dbClient = await dbHelper.db;
     List<Map> maps = await dbClient.query(
       tableNameStreetRoadWaterChannels,
