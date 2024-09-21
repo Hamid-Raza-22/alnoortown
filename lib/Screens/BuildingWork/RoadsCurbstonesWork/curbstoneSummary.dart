@@ -31,7 +31,25 @@ class RoadsCurbstonesWorkSummary extends StatelessWidget {
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
         child: Obx(() {
           if (roadCurbStonesWorkViewModel.allRoadCurb.isEmpty) {
-            return Center(child: Text('No data available'));
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/nodata.png',
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'No data available',
+                    style: TextStyle(
+                        color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            );
           }
 
           return GridView.builder(

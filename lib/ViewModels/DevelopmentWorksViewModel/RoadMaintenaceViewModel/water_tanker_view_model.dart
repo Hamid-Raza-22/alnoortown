@@ -1,11 +1,14 @@
 
+import 'dart:convert';
+
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:al_noor_town/Repositories/DevelopmentsWorksRepositories/RoadMaintenaceRepositories/water_tanker_repository.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
-import 'dart:convert';
+
+import '../../../Services/ApiServices/api_constants.dart';
 
 class WaterTankerViewModel extends GetxController {
 
@@ -59,8 +62,7 @@ class WaterTankerViewModel extends GetxController {
       print('Updated Water Tanker Post API: ${Config.waterTankerPostApi}');
       var waterTankerModelData = waterTankerModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.waterTankerPostApi),
-        headers: {
+        Uri.parse(Config.waterTankerPostApi),         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
         },

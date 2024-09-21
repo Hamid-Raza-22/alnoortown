@@ -62,13 +62,25 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
 
               if (filteredData.isEmpty) {
                 return Center(
-                  child: Text(
-                    errorMessage ?? "No data available for the selected criteria.",
-                    style: const TextStyle(color: Colors.grey),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/nodata.png',
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(height: 16),
+                      Text(
+                        'No data available',
+                        style: TextStyle(
+                            color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
                 );
               }
-
               return ListView.builder(
                 itemCount: filteredData.length,
                 itemBuilder: (context, index) {

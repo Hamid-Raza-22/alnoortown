@@ -39,7 +39,28 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
     child: Obx(() {
       if (materialShiftingViewModel.allShifting.isEmpty) {
-        return Center(child: Text('No data available'));
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/nodata.png', // Replace with your image path
+                width: 200,
+                height: 200,
+                fit: BoxFit.cover,
+              ),
+              SizedBox(height: 16),
+              Text(
+                'No data available',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        );
       }
 
       return GridView.builder(

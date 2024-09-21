@@ -44,10 +44,28 @@ class BackfillingSummary extends StatelessWidget {
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
     child: Obx(() {
-      // Use Obx to rebuild when the data changes
-      if (backFillingViewModel.allFill.isEmpty) {
-        return Center(child: Text('No data available'));
-      }
+    // Use Obx to rebuild when the data changes
+    if (backFillingViewModel.allFill.isEmpty) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            'assets/images/nodata.png',
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,
+          ),
+          SizedBox(height: 16),
+          Text(
+            'No data available',
+            style: TextStyle(
+                color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    );
+    }
 
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,

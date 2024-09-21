@@ -1,13 +1,12 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/water_tanker_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show Get, Inst, Obx;
 
 class WaterTankerSummary extends StatelessWidget {
   WaterTankerViewModel _waterTankerViewModel = Get.put(WaterTankerViewModel());
 
-
-   WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
+  WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +27,8 @@ class WaterTankerSummary extends StatelessWidget {
         ),
         title: Text(
           'Water Tanker Summary',
-          style: TextStyle(fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFFC69840)),
+          style: TextStyle(
+              fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
@@ -38,22 +36,37 @@ class WaterTankerSummary extends StatelessWidget {
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
         child: Obx(() {
           if (waterTankerViewModel.allTanker.isEmpty) {
-            return Center(child: Text('No data available'));
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/nodata.png',
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'No data available',
+                    style: TextStyle(
+                        color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            );
           }
 
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
-              // 3 columns for 'block_no'.tr()., Street No., and No. of Tankers
               crossAxisSpacing: 1.0,
               mainAxisSpacing: 1.0,
               childAspectRatio: 3.0, // Adjust for better width
             ),
             itemCount: waterTankerViewModel.allTanker.length * 3 + 3,
-            // Additional 3 for headings
             itemBuilder: (context, index) {
               if (index < 3) {
-                // Header Row
                 return Container(
                   color: Color(0xFFC69840),
                   alignment: Alignment.center,
@@ -65,9 +78,8 @@ class WaterTankerSummary extends StatelessWidget {
                       'date'.tr(),
                       'time'.tr()
                     ][index],
-                    style: TextStyle(color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                 );
               } else {
