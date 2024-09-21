@@ -105,7 +105,7 @@ class MachineViewModel extends GetxController {
     try {
       var machineData = machineModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.apiUrl),  // Use the URL from Remote Config
+        Uri.parse(Config.postApiUrlMachine),  // Use the URL from Remote Config
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
