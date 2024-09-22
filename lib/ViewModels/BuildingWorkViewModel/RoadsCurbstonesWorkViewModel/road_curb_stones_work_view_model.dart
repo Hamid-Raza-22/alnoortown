@@ -56,10 +56,10 @@ class RoadCurbStonesWorkViewModel extends GetxController {
   Future<void> postRoadCurbStoneToAPI(RoadCurbStonesWorkModel roadCurbStonesWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated RoadCurbStone Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated RoadCurbStone Post API: ${Config.postApiUrlRoadCurbStone}');
       var roadCurbStonesWorkModelData = roadCurbStonesWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlRoadCurbStone),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

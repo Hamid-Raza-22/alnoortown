@@ -56,10 +56,10 @@ class PaintWorkViewModel extends GetxController {
   Future<void> postPaintWorkToAPI(PaintWorkModel paintWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated PaintWork Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated PaintWork Post API: ${Config.postApiUrlPaintWorkMosque}');
       var paintWorkModelData = paintWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlPaintWorkMosque),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

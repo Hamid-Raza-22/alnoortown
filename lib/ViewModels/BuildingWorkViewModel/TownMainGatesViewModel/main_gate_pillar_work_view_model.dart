@@ -56,10 +56,10 @@ class MainGatePillarWorkViewModel extends GetxController {
   Future<void> postMainGatePillarToAPI(MainGatePillarWorkModel mainGatePillarWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MainGatePillar Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated MainGatePillar Post API: ${Config.postApiUrlPillarsBrickWorkMainGate}');
       var mainGatePillarWorkModelData = mainGatePillarWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlPillarsBrickWorkMainGate),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

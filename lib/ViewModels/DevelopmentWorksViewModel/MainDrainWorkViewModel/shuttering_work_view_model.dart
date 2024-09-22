@@ -55,10 +55,10 @@ class ShutteringWorkViewModel extends GetxController {
   Future<void> postShutteringWorkToAPI(ShutteringWorkModel shutteringWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated Water Tanker Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated Water Tanker Post API: ${Config.postApiUrlShutteringWork}');
       var shutteringWorkModelData = shutteringWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlShutteringWork),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

@@ -55,10 +55,10 @@ class MpFancyLightPolesViewModel extends GetxController {
   Future<void> postMiniParkFancyLightPolesToAPI(MpFancyLightPolesModel mpFancyLightPolesModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MiniParkFancyLightPoles Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated MiniParkFancyLightPoles Post API: ${Config.postApiUrlFancyLightPolesMiniPark}');
       var mpFancyLightPolesModelData = mpFancyLightPolesModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlFancyLightPolesMiniPark),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

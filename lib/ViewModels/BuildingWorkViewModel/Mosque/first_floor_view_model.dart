@@ -56,10 +56,10 @@ class FirstFloorViewModel extends GetxController {
   Future<void> postFirstFloorToAPI(FirstFloorModel firstFloorModelModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated FirstFloor Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated FirstFloor Post API: ${Config.postApiUrlFirstFloorMosque}');
       var firstFloorModelData = firstFloorModelModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlFirstFloorMosque),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

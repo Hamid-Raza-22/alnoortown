@@ -56,10 +56,10 @@ class MainDrainExcavationViewModel extends GetxController {
   Future<void> postMainDrainExcavationToAPI(MainDrainExcavationModel mainDrainExcavationModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MainDrainExcavation Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated MainDrainExcavation Post API: ${Config.postApiUrlDrainExcavation}');
       var mainDrainExcavationModelData = mainDrainExcavationModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlDrainExcavation),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

@@ -56,14 +56,13 @@ class MainStageWorkViewModel extends GetxController {
   Future<void> postMainStageWorkToAPI(MainStageWorkModel mainStageWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MainStage Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated MainStageWork Post API: ${Config.postApiUrlMainStage}');
       var mainStageWorkModelData = mainStageWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
-        headers: {
-          "Content-Type": "application/json",  // Set the request content type to JSON
-          "Accept": "application/json",
-        },
+        Uri.parse(Config.postApiUrlMainStage),         headers: {
+        "Content-Type": "application/json",  // Set the request content type to JSON
+        "Accept": "application/json",
+      },
         body: jsonEncode(mainStageWorkModelData),  // Encode the map as JSON
       );
 

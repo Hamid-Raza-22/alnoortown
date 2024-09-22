@@ -56,10 +56,10 @@ class CompactionWaterBoundViewModel extends GetxController {
   Future<void> postCompactionWaterBoundToAPI(CompactionWaterBoundModel compactionWaterBoundModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated CompactionWaterBound Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated CompactionWaterBound Post API: ${Config.postApiUrlCompactionAfterWaterBound}');
       var compactionWaterBoundModelData = compactionWaterBoundModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlCompactionAfterWaterBound),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

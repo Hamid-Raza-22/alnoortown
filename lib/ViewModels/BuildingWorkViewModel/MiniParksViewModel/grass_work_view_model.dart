@@ -56,10 +56,10 @@ class GrassWorkViewModel extends GetxController {
   Future<void> postGrassWorkToAPI(GrassWorkModel grassWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated Grass Work  Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated Grass Work  Post API: ${Config.postApiUrlGrassWorkMiniPark}');
       var grassWorkModelData = grassWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlGrassWorkMiniPark),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

@@ -56,10 +56,10 @@ class MgPlasterWorkViewModel extends GetxController {
   Future<void> postMainGatePlasterToAPI(MgPlasterWorkModel mgPlasterWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MainGatePlaster Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated MainGatePlaster Post API: ${Config.postApiUrlPlasterWorkMainGate}');
       var mgPlasterWorkModelData = mgPlasterWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlPlasterWorkMainGate),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

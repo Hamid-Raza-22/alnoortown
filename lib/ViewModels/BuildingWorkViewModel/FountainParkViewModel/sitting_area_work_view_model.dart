@@ -56,10 +56,10 @@ class SittingAreaWorkViewModel extends GetxController {
   Future<void> postSittingAreaWorkToAPI(SittingAreaWorkModel sittingAreaWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated SittingArea Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated SittingArea Post API: ${Config.postApiUrlSittingAreaWork}');
       var sittingAreaWorkModelData = sittingAreaWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlSittingAreaWork),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

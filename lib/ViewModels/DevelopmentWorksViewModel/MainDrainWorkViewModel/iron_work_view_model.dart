@@ -53,10 +53,10 @@ class IronWorkViewModel extends GetxController {
   Future<void> postWaterTankerToAPI(IronWorksModel ironWorksModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated ironWorks Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated ironWorks Post API: ${Config.postApiUrlIronWork}');
       var ironWorksModelData = ironWorksModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlIronWork),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

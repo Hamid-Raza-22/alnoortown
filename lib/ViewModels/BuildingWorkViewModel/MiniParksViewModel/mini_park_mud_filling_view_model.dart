@@ -55,10 +55,10 @@ class MiniParkMudFillingViewModel extends GetxController {
   Future<void> postMudFillingMpToAPI(MiniParkMudFillingModel miniParkMudFillingModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MudFillingMiniPark Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated MudFillingMiniPark Post API: ${Config.postApiUrlMudFillingMiniPark}');
       var miniParkMudFillingModelData = miniParkMudFillingModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlMudFillingMiniPark),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

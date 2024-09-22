@@ -51,10 +51,10 @@ class CeilingWorkViewModel extends GetxController {
   Future<void> postCeilingWorksToAPI(CeilingWorkModel ceilingWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated CeilingWorks Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated CeilingWorks Post API: ${Config.postApiUrlCeilingWorkMosque}');
       var ceilingWorkModelData = ceilingWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlCeilingWorkMosque),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

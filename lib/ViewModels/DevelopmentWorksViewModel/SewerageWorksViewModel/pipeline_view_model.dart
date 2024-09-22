@@ -55,10 +55,10 @@ class PipelineViewModel extends GetxController {
   Future<void> postPipelineWorksToAPI(PipelineModel pipelineModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated PipelineWorks Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated PipelineWorks Post API: ${Config.postApiUrlPipeLaying}');
       var pipelineModelData = pipelineModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlPipeLaying),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

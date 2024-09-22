@@ -56,10 +56,10 @@ class PolesViewModel extends GetxController {
   Future<void> postPolesToAPI(PolesModel polesModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated Poles Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated Poles Post API: ${Config.postApiUrlPoles}');
       var polesModelData = polesModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlPoles),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

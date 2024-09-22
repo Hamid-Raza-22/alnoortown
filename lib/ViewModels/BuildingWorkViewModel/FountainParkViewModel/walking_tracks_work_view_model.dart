@@ -57,10 +57,10 @@ class WalkingTracksWorkViewModel extends GetxController {
   Future<void> postWalkingTracksToAPI(WalkingTracksWorkModel walkingTracksWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated WalkingTracks Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated WalkingTracks Post API: ${Config.postApiUrlWalkingTracksWork}');
       var walkingTracksWorkModelData = walkingTracksWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlWalkingTracksWork),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

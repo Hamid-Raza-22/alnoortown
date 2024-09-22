@@ -56,10 +56,10 @@ class AsphaltWorkViewModel extends GetxController {
   Future<void> postAsphaltToAPI(AsphaltWorkModel asphaltWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated Asphalt Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated Asphalt Post API: ${Config.postApiUrlAsphaltWork}');
       var asphaltWorkModelData = asphaltWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlAsphaltWork),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

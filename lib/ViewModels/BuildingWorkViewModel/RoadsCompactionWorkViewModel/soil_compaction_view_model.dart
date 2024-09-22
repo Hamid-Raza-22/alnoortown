@@ -55,10 +55,10 @@ class SoilCompactionViewModel extends GetxController {
   Future<void> postSoilCompactionToAPI(SoilCompactionModel soilCompactionModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated SoilCompaction Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated SoilCompaction Post API: ${Config.postApiUrlSoilCompaction}');
       var soilCompactionModelData = soilCompactionModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlSoilCompaction),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

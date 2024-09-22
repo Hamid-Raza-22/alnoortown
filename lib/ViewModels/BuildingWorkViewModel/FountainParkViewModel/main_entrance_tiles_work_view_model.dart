@@ -56,14 +56,13 @@ class MainEntranceTilesWorkViewModel extends GetxController {
   Future<void> postMainEntranceTilesToAPI(MainEntranceTilesWorkModel mainEntranceTilesWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MainEntranceTiles Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated MainEntranceTilesWork Post API: ${Config.postApiUrlMainEntranceTilesWork}');
       var mainEntranceTilesWorkModelData = mainEntranceTilesWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
-        headers: {
-          "Content-Type": "application/json",  // Set the request content type to JSON
-          "Accept": "application/json",
-        },
+        Uri.parse(Config.postApiUrlMainEntranceTilesWork),         headers: {
+        "Content-Type": "application/json",  // Set the request content type to JSON
+        "Accept": "application/json",
+      },
         body: jsonEncode(mainEntranceTilesWorkModelData),  // Encode the map as JSON
       );
 

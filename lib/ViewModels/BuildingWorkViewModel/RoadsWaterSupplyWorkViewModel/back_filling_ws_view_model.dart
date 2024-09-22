@@ -56,10 +56,10 @@ class BackFillingWsViewModel extends GetxController {
   Future<void> postBackFillingWaterSupplyToAPI(BackFillingWsModel backFillingWsModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated BackFillingWaterSupply Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated BackFillingWaterSupply Post API: ${Config.postApiUrlWaterSupplyBackFilling}');
       var backFillingWsModelData = backFillingWsModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlWaterSupplyBackFilling),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

@@ -55,10 +55,10 @@ class MgGreyStructureViewModel extends GetxController {
   Future<void> postMainGateGreyStructureToAPI(MgGreyStructureModel mgGreyStructureModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated MainGateGreyStructure Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated MainGateGreyStructure Post API: ${Config.postApiUrlGreyStructureMainGate}');
       var mgGreyStructureModelData = mgGreyStructureModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlGreyStructureMainGate),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

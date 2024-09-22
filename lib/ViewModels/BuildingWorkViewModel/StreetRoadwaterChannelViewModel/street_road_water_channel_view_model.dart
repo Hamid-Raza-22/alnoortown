@@ -56,10 +56,10 @@ class StreetRoadWaterChannelViewModel extends GetxController {
   Future<void> postStreetRoadsWaterChannelsToAPI(StreetRoadWaterChannelModel streetRoadWaterChannelModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated StreetRoadsWaterChannels Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated StreetRoadsWaterChannels Post API: ${Config.postApiUrlStreetRoadWaterChannels}');
       var streetRoadWaterChannelModelData = streetRoadWaterChannelModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlStreetRoadWaterChannels),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

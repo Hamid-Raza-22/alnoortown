@@ -56,10 +56,10 @@ class RoadsEdgingWorkViewModel extends GetxController {
   Future<void> postRoadsEdgingWorksToAPI(RoadsEdgingWorkModel roadsEdgingWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated RoadsEdging Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated RoadsEdging Post API: ${Config.postApiUrlRoadsEdging}');
       var roadsEdgingWorkModelData = roadsEdgingWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlRoadsEdging),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

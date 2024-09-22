@@ -56,10 +56,10 @@ class ManHolesSlabViewModel extends GetxController {
   Future<void> postManHolesSlabToAPI(ManholesSlabModel manholesSlabModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated ManHolesSlab Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated ManHolesSlab Post API: ${Config.postApiUrlManholesSlabs}');
       var manholesSlabModelData = manholesSlabModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlManholesSlabs),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

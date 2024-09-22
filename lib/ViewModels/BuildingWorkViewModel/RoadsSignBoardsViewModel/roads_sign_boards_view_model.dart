@@ -56,10 +56,10 @@ class RoadsSignBoardsViewModel extends GetxController {
   Future<void> postRoadsSignBoardsToAPI(RoadsSignBoardsModel roadsSignBoardsModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated RoadsSignBoards Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated RoadsSignBoards Post API: ${Config.postApiUrlRoadsSignBoards}');
       var roadsSignBoardsModelData = roadsSignBoardsModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlRoadsSignBoards),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

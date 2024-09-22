@@ -57,10 +57,10 @@ class RoadsShoulderWorkViewModel extends GetxController {
   Future<void> postRoadsShoulderToAPI(RoadsShoulderWorkModel roadsShoulderWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated RoadsShoulder Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated RoadsShoulder Post API: ${Config.postApiUrlRoadShoulder}');
       var roadsShoulderWorkModelData = roadsShoulderWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlRoadShoulder),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",

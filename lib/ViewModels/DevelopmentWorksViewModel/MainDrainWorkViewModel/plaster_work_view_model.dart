@@ -56,10 +56,10 @@ class PlasterWorkViewModel extends GetxController {
   Future<void> postPlasterworkToAPI(PlasterWorkModel plasterWorkModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated Plasterwork Post API: ${Config.postApiUrlWaterTanker}');
+      print('Updated Plasterwork Post API: ${Config.postApiUrlPlasterWork}');
       var plasterWorkModelData = plasterWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
+        Uri.parse(Config.postApiUrlPlasterWork),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
