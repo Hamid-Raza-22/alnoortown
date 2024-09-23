@@ -65,7 +65,28 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
             Expanded(
               child: Obx(() {
                 if (roadsEdgingWorkViewModel.allRoadEdging.isEmpty) {
-                  return const Center(child: CircularProgressIndicator()); // Show loading indicator
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
                 }
 
                 // Filter data based on the selected criteria

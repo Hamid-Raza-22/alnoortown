@@ -1,20 +1,26 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/back_filling_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show Get, Inst, Obx;
 
-class BackfillingSummary extends StatelessWidget {
+import '../../../ReusableDesigns/filter_widget.dart';
+
+class BackfillingSummary extends StatefulWidget {
+  @override
+  _BackfillingSummaryState createState() => _BackfillingSummaryState();
+}
+
+class _BackfillingSummaryState extends State<BackfillingSummary> {
   final BackFillingViewModel backFillingViewModel = Get.put(BackFillingViewModel());
-  void initState() => backFillingViewModel.fetchAllFill();
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
 
-  final List<Map<String, dynamic>> backfillingDataList = [
-    {"blockNo": "Block A", "streetNo": "Street 1", "status": "In Process", "date": "01 Sep 2024", "time": "10:00 AM"},
-    {"blockNo": "Block B", "streetNo": "Street 2", "status": "Done", "date": "04 Sep 2024", "time": "11:00 AM"},
-    {"blockNo": "Block C", "streetNo": "Street 3", "status": "In Process", "date": "08 Sep 2024", "time": "12:00 PM"},
-    {"blockNo": "Block D", "streetNo": "Street 4", "status": "Done", "date": "09 Sep 2024", "time": "01:00 PM"},
-  ];
-
-  BackfillingSummary({super.key});
+  @override
+  void initState() {
+    super.initState();
+    backFillingViewModel.fetchAllFill();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,7 @@ class BackfillingSummary extends StatelessWidget {
         ),
         title: Text(
           'Backfilling Summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -43,61 +49,99 @@ class BackfillingSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-    child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (backFillingViewModel.allFill.isEmpty) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/nodata.png',
-            width: 200,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(height: 16),
-          Text(
-            'No data available',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-    }
-
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
-            // Header row
-            Row(
-              children: [
-                buildHeaderCell('Block No.'),
-                buildHeaderCell('Street No.'),
-                buildHeaderCell('Status'),
-                buildHeaderCell('Date'),
-                buildHeaderCell('Time'),
-              ],
+            // Add the FilterWidget here
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
             ),
-            const SizedBox(height: 10),
-            // Data rows
-            ...backFillingViewModel.allFill.map((entry) {
-              return Row(
-                children: [
-                  buildDataCell(entry.blockNo ?? 'N/A'),
-                  buildDataCell(entry.streetNo ?? 'N/A'),
-                  buildDataCell(entry.status ?? 'N/A'),
-                  buildDataCell(entry.date ?? 'N/A'),
-                  buildDataCell(entry.time ?? 'N/A'),
-                ],
-              );
-            }).toList(),
+            const SizedBox(height: 16),
+
+            Expanded(
+              child: Obx(() {
+                // Filter data based on selected criteria
+                final filteredData = backFillingViewModel.allFill.where((entry) {
+                  // Filter by block
+                  final blockMatch = _block == null || entry.blockNo.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse date and check if it falls in the range
+                  DateTime? entryDate;
+                  try {
+                    entryDate = DateTime.parse(entry.date); // Assuming date is a string
+                  } catch (e) {
+                    entryDate = null;
+                  }
+
+                  final dateMatch = (entryDate == null) ||
+                      (_fromDate == null || entryDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || entryDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
+                // Show "No data available" if the list is empty
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      // Header row
+                      Row(
+                        children: [
+                          buildHeaderCell('Block No.'),
+                          buildHeaderCell('Street No.'),
+                          buildHeaderCell('Status'),
+                          buildHeaderCell('Date'),
+                          buildHeaderCell('Time'),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      // Data rows
+                      ...filteredData.map((entry) {
+                        return Row(
+                          children: [
+                            buildDataCell(entry.blockNo ?? 'N/A'),
+                            buildDataCell(entry.streetNo ?? 'N/A'),
+                            buildDataCell(entry.status ?? 'N/A'),
+                            buildDataCell(entry.date ?? 'N/A'),
+                            buildDataCell(entry.time ?? 'N/A'),
+                          ],
+                        );
+                      }).toList(),
+                    ],
+                  ),
+                );
+              }),
+            ),
           ],
         ),
-      );
-    }),
       ),
     );
   }

@@ -1,19 +1,28 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/man_holes_slab_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show Get, Inst, Obx;
+import '../../../ReusableDesigns/filter_widget.dart';
 
-class ManholesSlabSummary extends StatelessWidget {
-  final ManHolesSlabViewModel manHolesSlabViewModel = Get.put(ManHolesSlabViewModel());
-  void initState() => manHolesSlabViewModel.fetchAllMan();
-  final List<Map<String, dynamic>> backfillingDataList = [
-    {"blockNo": "Block A", "streetNo": "Street 1", "Slab No.": "12", "date": "01 Sep 2024", "time": "10:00 AM"},
-    {"blockNo": "Block B", "streetNo": "Street 2", "Slab No.": "7", "date": "03 Sep 2024", "time": "11:00 AM"},
-    {"blockNo": "Block C", "streetNo": "Street 3", "Slab No.": "8", "date": "07 Sep 2024", "time": "12:00 PM"},
-    {"blockNo": "Block D", "streetNo": "Street 4", "Slab No.": "3", "date": "09 Sep 2024", "time": "01:00 PM"},
-  ];
-
+class ManholesSlabSummary extends StatefulWidget {
   ManholesSlabSummary({super.key});
+
+  @override
+  _ManholesSlabSummaryState createState() => _ManholesSlabSummaryState();
+}
+
+class _ManholesSlabSummaryState extends State<ManholesSlabSummary> {
+  final ManHolesSlabViewModel manHolesSlabViewModel = Get.put(ManHolesSlabViewModel());
+
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
+
+  @override
+  void initState() {
+    super.initState();
+    manHolesSlabViewModel.fetchAllMan();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +41,7 @@ class ManholesSlabSummary extends StatelessWidget {
         ),
         title: Text(
           'Manholes Slab Summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -42,61 +51,101 @@ class ManholesSlabSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-    child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (manHolesSlabViewModel.allMan.isEmpty) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/nodata.png',
-            width: 200,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(height: 16),
-          Text(
-            'No data available',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-    }
-
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
-            // Header row
-            Row(
-              children: [
-                buildHeaderCell('Block No.'),
-                buildHeaderCell('Street No.'),
-                buildHeaderCell('Slab No.'),
-                buildHeaderCell('Date'),
-                buildHeaderCell('Time'),
-              ],
+            // Add the FilterWidget here
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
             ),
-            const SizedBox(height: 10),
-            // Data rows
-            ...manHolesSlabViewModel.allMan.map((entry) {
-              return Row(
-                children: [
-                  buildDataCell(entry.blockNo ?? 'N/A'),
-                  buildDataCell(entry.streetNo ?? 'N/A'),
-                  buildDataCell(entry.numOfCompSlab ?? 'N/A'),
-                  buildDataCell(entry.date ?? 'N/A'),
-                  buildDataCell(entry.time ?? 'N/A'),
-                ],
-              );
-            }).toList(),
+            const SizedBox(height: 16),
+
+            // Now add the data grid (conditionally showing filtered data)
+            Expanded(
+              child: Obx(() {
+                // Apply filtering to the data
+                final filteredData = manHolesSlabViewModel.allMan.where((entry) {
+                  // Filter by block
+                  final blockMatch = _block == null || entry.blockNo.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse date and check if it falls in the range
+                  DateTime? entryDate;
+                  try {
+                    entryDate = DateTime.parse(entry.date); // Assuming date is a string
+                  } catch (e) {
+                    entryDate = null;
+                  }
+
+                  final dateMatch = (entryDate == null) ||
+                      (_fromDate == null || entryDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || entryDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
+                // Show "No data available" if the list is empty
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      // Header row
+                      Row(
+                        children: [
+                          buildHeaderCell('Block No.'),
+                          buildHeaderCell('Street No.'),
+                          buildHeaderCell('Slab No.'),
+                          buildHeaderCell('Date'),
+                          buildHeaderCell('Time'),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+
+                      // Data rows
+                      ...filteredData.map((entry) {
+                        return Row(
+                          children: [
+                            buildDataCell(entry.blockNo ?? 'N/A'),
+                            buildDataCell(entry.streetNo ?? 'N/A'),
+                            buildDataCell(entry.numOfCompSlab ?? 'N/A'),
+                            buildDataCell(entry.date ?? 'N/A'),
+                            buildDataCell(entry.time ?? 'N/A'),
+                          ],
+                        );
+                      }),
+                    ],
+                  ),
+                );
+              }),
+            ),
           ],
         ),
-      );
-    } ),
       ),
     );
   }

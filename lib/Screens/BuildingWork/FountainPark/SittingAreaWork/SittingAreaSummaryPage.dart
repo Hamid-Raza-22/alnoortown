@@ -15,25 +15,45 @@ class SittingAreaSummaryPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title:   Text(
           'sitting_area_work_summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(16.0),
+        padding:   const EdgeInsets.all(16.0),
           child: Obx(() {
             // Use Obx to rebuild when the data changes
             if (sittingAreaWorkViewModel.allSitting.isEmpty) {
               return Center(
-                  child: CircularProgressIndicator()); // Show loading indicator
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/nodata.png',
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+                    const SizedBox(height: 16),
+                    const Text(
+                      'No data available',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              );
             }
 
             return SingleChildScrollView(
@@ -42,37 +62,37 @@ class SittingAreaSummaryPage extends StatelessWidget {
                 columns: [
                   DataColumn(
                       label: Text('type_of_work'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFFC69840)))),
                   DataColumn(
                       label: Text('start_date'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFFC69840)))),
                   DataColumn(
                       label: Text('end_date'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFFC69840)))),
                   DataColumn(
                       label: Text('status'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFFC69840)))),
                   DataColumn(
                       label: Text('date'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFFC69840)))),
                   DataColumn(
                       label: Text('time'.tr(),
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: Color(0xFFC69840)))),
