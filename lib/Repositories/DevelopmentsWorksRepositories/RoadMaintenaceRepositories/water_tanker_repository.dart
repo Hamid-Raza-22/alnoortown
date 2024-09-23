@@ -59,6 +59,7 @@ class WaterTankerRepository{
       }
     }
 
+
   // Fetch all unposted machines (posted = 0)
   Future<List<WaterTankerModel>> getUnPostedWaterTanker() async {
     var dbClient = await dbHelper.db;
