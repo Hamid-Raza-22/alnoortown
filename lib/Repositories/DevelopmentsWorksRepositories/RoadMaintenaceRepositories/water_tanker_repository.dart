@@ -6,7 +6,9 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
+
+
+import '../../../Services/ApiServices/api_service.dart';
 
 class WaterTankerRepository{
 
@@ -44,12 +46,9 @@ class WaterTankerRepository{
 
     return waterTanker;
   }
-  Future<void> fetchAndSaveTankerData() async {
-    // Fetch data from API
-    final response = await http.get(Uri.parse(Config.getApiUrlWaterTanker));
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
-      List<dynamic> data = jsonResponse['items']; // Extract the list from 'items'
+
+    Future<void> fetchAndSaveTankerData() async {
+      List<dynamic> data = await ApiService.getData(Config.getApiUrlWaterTanker);
       var dbClient = await dbHelper.db;
 
       // Save data to database
@@ -58,10 +57,7 @@ class WaterTankerRepository{
         WaterTankerModel model = WaterTankerModel.fromMap(item);
         await dbClient.insert(tableNameWaterTanker, model.toMap());
       }
-    } else {
-      throw Exception('Failed to load data');
     }
-  }
 
   // Fetch all unposted machines (posted = 0)
   Future<List<WaterTankerModel>> getUnPostedWaterTanker() async {
