@@ -71,7 +71,7 @@ class _PlasterWorkSummaryState extends State<PlasterWorkSummary> {
                 // Apply filtering to the data
                 final filteredData = plasterWorkViewModel.allPlaster.where((entry) {
                   // Filter by block
-                  final blockMatch = _block == null || entry.blockNo.toLowerCase().contains(_block!.toLowerCase());
+                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
 
                   // Parse date and check if it falls in the range
                   DateTime? entryDate;
@@ -131,8 +131,8 @@ class _PlasterWorkSummaryState extends State<PlasterWorkSummary> {
                       ...filteredData.map((entry) {
                         return Row(
                           children: [
-                            buildDataCell(entry.blockNo ?? 'N/A'),
-                            buildDataCell(entry.streetNo ?? 'N/A'),
+                            buildDataCell(entry.block_no ?? 'N/A'),
+                            buildDataCell(entry.street_no ?? 'N/A'),
                             buildDataCell(entry.completedLength ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),

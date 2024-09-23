@@ -71,7 +71,7 @@ class _LightWorkSummaryState extends State<LightWorkSummary> {
                 final filteredData = lightWiresViewModel.allLight.where((entry) {
                   // Filter by block
                   final blockMatch = _block == null ||
-                      (entry.blockNo != null && entry.blockNo!.toLowerCase().contains(_block!.toLowerCase()));
+                      (entry.block_no != null && entry.block_no!.toLowerCase().contains(_block!.toLowerCase()));
 
                   // Parse date and check if it falls in the range
                   DateTime? entryDate;
@@ -132,8 +132,8 @@ class _LightWorkSummaryState extends State<LightWorkSummary> {
                       ...filteredData.map((entry) {
                         return Row(
                           children: [
-                            buildDataCell(entry.blockNo ?? 'N/A'),
-                            buildDataCell(entry.streetNo ?? 'N/A'),
+                            buildDataCell(entry.block_no ?? 'N/A'),
+                            buildDataCell(entry.street_no ?? 'N/A'),
                             buildDataCell(entry.totalLength ?? 'N/A'),
                             buildDataCell(entry.lightWireWorkStatus ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),

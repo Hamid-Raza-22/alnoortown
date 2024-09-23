@@ -16,7 +16,7 @@ class RoadsShouldersSummary extends StatefulWidget {
 
 class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
   final RoadsShoulderWorkViewModel roadsShoulderWorkViewModel = Get.put(RoadsShoulderWorkViewModel());
-  String? _blockNo;
+  String? _block_no;
   String? _roadSide;
   String? _status;
 
@@ -48,9 +48,9 @@ class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
           children: [
             // Add the FilterWidget here
             FilterWidget(
-              onFilter: (blockNo, roadSide, status) {
+              onFilter: (block_no, roadSide, status) {
                 setState(() {
-                  _blockNo = blockNo as String?;
+                  _block_no = block_no as String?;
                   _roadSide = roadSide as String?;
                   _status = status;
                 });
@@ -87,11 +87,11 @@ class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
 
               // Filter the data
               final filteredData = roadsShoulderWorkViewModel.allRoadShoulder.where((entry) {
-                final blockNoMatch = _blockNo == null || (entry.blockNo != null && entry.blockNo!.contains(_blockNo!));
+                final block_noMatch = _block_no == null || (entry.block_no != null && entry.block_no!.contains(_block_no!));
                 final roadSideMatch = _roadSide == null || (entry.roadSide != null && entry.roadSide!.contains(_roadSide!));
                 final statusMatch = _status == null || (entry.roadsShoulderCompStatus != null && entry.roadsShoulderCompStatus!.toLowerCase().contains(_status!.toLowerCase()));
 
-                return blockNoMatch && roadSideMatch && statusMatch;
+                return block_noMatch && roadSideMatch && statusMatch;
               }).toList();
 
               if (filteredData.isEmpty) {
@@ -144,7 +144,7 @@ class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
                     String expectedCompDate = entry.expectedCompDate != null ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!) : '';
 
                     return DataRow(cells: [
-                      DataCell(Text(entry.blockNo ?? '')),
+                      DataCell(Text(entry.block_no ?? '')),
                       DataCell(Text(entry.roadSide ?? '')),
                       DataCell(Text(entry.roadNo ?? '')),
                       DataCell(Text(entry.totalLength ?? '')),

@@ -68,7 +68,7 @@ class _ManholesSummaryState extends State<ManholesSummary> {
                 // Filter data based on selected criteria
                 final filteredData = manholesViewModel.allWorker.where((entry) {
                   // Filter by block
-                  final blockMatch = _block == null || entry.blockNo.toLowerCase().contains(_block!.toLowerCase());
+                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
 
                   // Parse date and check if it falls in the range
                   DateTime? entryDate;
@@ -127,8 +127,8 @@ class _ManholesSummaryState extends State<ManholesSummary> {
                       ...filteredData.map((entry) {
                         return Row(
                           children: [
-                            buildDataCell(entry.blockNo ?? 'N/A'),
-                            buildDataCell(entry.streetNo ?? 'N/A'),
+                            buildDataCell(entry.block_no ?? 'N/A'),
+                            buildDataCell(entry.street_no ?? 'N/A'),
                             buildDataCell(entry.noOfManholes ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),

@@ -14,7 +14,7 @@ class SandCompactionSummary extends StatefulWidget {
 
 class _SandCompactionSummaryState extends State<SandCompactionSummary> {
   final SandCompactionViewModel sandCompactionViewModel = Get.put(SandCompactionViewModel());
-  String? _blockNo;
+  String? _block_no;
   String? _roadNo;
   String? _status;
 
@@ -46,9 +46,9 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
           children: [
             // Add the FilterWidget here
             FilterWidget(
-              onFilter: (blockNo, roadNo, status) {
+              onFilter: (block_no, roadNo, status) {
                 setState(() {
-                  _blockNo = blockNo as String?;
+                  _block_no = block_no as String?;
                   _roadNo = roadNo as String?;
                   _status = status;
                 });
@@ -85,11 +85,11 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
 
               // Filter the data
               final filteredData = sandCompactionViewModel.allSand.where((entry) {
-                final blockNoMatch = _blockNo == null || entry.blockNo.contains(_blockNo!);
+                final block_noMatch = _block_no == null || entry.block_no.contains(_block_no!);
                 final roadNoMatch = _roadNo == null || entry.roadNo.contains(_roadNo!);
                 final statusMatch = _status == null || entry.sandCompStatus.toLowerCase().contains(_status!.toLowerCase());
 
-                return blockNoMatch && roadNoMatch && statusMatch;
+                return block_noMatch && roadNoMatch && statusMatch;
               }).toList();
 
               if (filteredData.isEmpty) {
@@ -145,7 +145,7 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                         : '';
 
                     return DataRow(cells: [
-                      DataCell(Text(entry.blockNo)),
+                      DataCell(Text(entry.block_no)),
                       DataCell(Text(entry.roadNo)),
                       DataCell(Text(entry.totalLength)),
                       DataCell(Text(startDate)),

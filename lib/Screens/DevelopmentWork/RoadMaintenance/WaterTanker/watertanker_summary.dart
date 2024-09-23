@@ -65,7 +65,7 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
                 // Filter data based on selected criteria
                 final filteredData = waterTankerViewModel.allTanker.where((entry) {
                   // Filter by block
-                  final blockMatch = _block == null || entry.blockNo.toLowerCase().contains(_block!.toLowerCase());
+                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
 
                   // Parse date and check if it falls in the range
                   DateTime? entryDate;
@@ -136,9 +136,9 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
                       if (entryIndex < filteredData.length) {
                         final entry = filteredData[entryIndex];
                         final data = [
-                          entry.blockNo ?? 'N/A',
-                          entry.streetNo ?? 'N/A',
-                          entry.tankerNo ?? 'N/A',
+                          entry.block_no ?? 'N/A',
+                          entry.street_no ?? 'N/A',
+                          entry.tanker_no ?? 'N/A',
                           entry.date ?? 'N/A',
                           entry.time ?? 'N/A'
                         ];

@@ -13,7 +13,7 @@ class WaterChannelsSummary extends StatefulWidget {
 class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
   final StreetRoadWaterChannelViewModel streetRoadWaterChannelViewModel = Get.put(StreetRoadWaterChannelViewModel());
 
-  String? _blockNo;
+  String? _block_no;
   String? _roadNo;
   String? _status;
 
@@ -50,9 +50,9 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
         child: Column(
           children: [
             FilterWidget(
-              onFilter: (blockNo, roadNo, status) {
+              onFilter: (block_no, roadNo, status) {
                 setState(() {
-                  _blockNo = blockNo as String?;
+                  _block_no = block_no as String?;
                   _roadNo = roadNo as String?;
                   _status = status;
                 });
@@ -83,11 +83,11 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
                   );
                 }
                 final filteredData = streetRoadWaterChannelViewModel.allStreetRoad.where((entry) {
-                  final blockNoMatch = _blockNo == null || _blockNo!.isEmpty || entry.blockNo == _blockNo;
+                  final block_noMatch = _block_no == null || _block_no!.isEmpty || entry.block_no == _block_no;
                   final roadNoMatch = _roadNo == null || _roadNo!.isEmpty || entry.roadNo == _roadNo;
                   final statusMatch = _status == null || _status!.isEmpty || entry.waterChCompStatus == _status;
 
-                  return blockNoMatch && roadNoMatch && statusMatch;
+                  return block_noMatch && roadNoMatch && statusMatch;
                 }).toList();
 
                 if (filteredData.isEmpty) {
@@ -144,7 +144,7 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
                           if (entryIndex < filteredData.length) {
                             final entry = filteredData[entryIndex];
                             final data = [
-                              entry.blockNo ?? 'N/A',
+                              entry.block_no ?? 'N/A',
                               entry.roadNo ?? 'N/A',
                               entry.roadSide ?? 'N/A',
                               entry.noOfWaterChannels ?? 'N/A',
