@@ -43,21 +43,33 @@ class MachineViewModel extends GetxController {
   }
 
   // Method to fetch machine data from API and insert it into the database
+
+
   Future<void> fetchAndInsertMachinesFromAPI() async {
     try {
-      //ApiConstants.baseUrl='http://103.149.32.30:8080/ords/alnoor_town/blockdetails/get/';
       // Fetch data from API
-      var responseData = await apiService.getRequest(ApiConstants.baseUrl);
+      var response = await http.get(Uri.parse(Config.getApiUrlWaterTanker));
 
-      // Check if the response contains machine data
-      if (responseData != null && responseData is List) {
-        // Iterate through the response and insert each machine into the database
-        for (var machineData in responseData) {
-          MachineModel machineModel = MachineModel.fromMap(machineData);
-          await machineRepository.add(machineModel);
+      // Check if the response is successful
+      if (response.statusCode == 200) {
+        // Parse the response body
+        var responseData = jsonDecode(response.body);
+
+        // Check if the response contains machine data
+        if (responseData != null && responseData is List) {
+          // Iterate through the response and insert each machine into the database
+          for (var machineData in responseData) {
+            MachineModel machineModel = MachineModel.fromMap(machineData);
+            await machineRepository.add(machineModel);
+          }
+          // After inserting, fetch all machines from the database
+          fetchAllMachines();
         }
-        // After inserting, fetch all machines from the database
-        fetchAllMachines();
+      } else {
+        // Handle the case where the response is not successful
+        if (kDebugMode) {
+          print("Error: ${response.statusCode}");
+        }
       }
     } catch (e) {
       // Handle any errors during the API call or data insertion
@@ -134,8 +146,8 @@ class MachineViewModel extends GetxController {
     DateTime? endDate,
   }) {
     filteredMachines.value = allMachines.where((machine) {
-      final matchesBlockNumber = blockNumber == null || blockNumber.isEmpty || machine.blockNo?.contains(blockNumber) == true;
-      final matchesStreetNumber = streetNumber == null || streetNumber.isEmpty || machine.streetNo?.contains(streetNumber) == true;
+      final matchesBlockNumber = blockNumber == null || blockNumber.isEmpty || machine.block_no?.contains(blockNumber) == true;
+      final matchesStreetNumber = streetNumber == null || streetNumber.isEmpty || machine.street_no?.contains(streetNumber) == true;
 
       final matchesStartDate = startDate == null || (machine.date != null && (machine.date!.isAfter(startDate) || machine.date!.isAtSameMomentAs(startDate)));
       final matchesEndDate = endDate == null || (machine.date != null && (machine.date!.isBefore(endDate) || machine.date!.isAtSameMomentAs(endDate)));

@@ -71,7 +71,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
                   }
 
                   if (blockFilter != null && blockFilter!.isNotEmpty) {
-                    matchesBlock = data.blockNo == blockFilter;
+                    matchesBlock = data.block_no == blockFilter;
                   }
 
                   return matchesDate && matchesBlock;
@@ -106,7 +106,7 @@ class _FoundationSummaryPageState extends State<FoundationSummaryPage> {
                   itemBuilder: (context, index) {
                     final data = filteredData[index];
                     return _buildDataRow({
-                      "selectedBlock": data.blockNo,
+                      "selectedBlock": data.block_no,
                       "brickWorkStatus": data.brickWork,
                       "mudFillingStatus": data.mudFiling,
                       "plasterWorkStatus": data.plasterWork,

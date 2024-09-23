@@ -1,6 +1,6 @@
 class SanitaryWorkModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic sanitaryWorkStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class SanitaryWorkModel{
 
   SanitaryWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.sanitaryWorkStatus,
     this.date,
     this.time,
@@ -20,7 +20,7 @@ class SanitaryWorkModel{
   {
     return SanitaryWorkModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         sanitaryWorkStatus: json['sanitaryWorkStatus'],
         date:  json['date'],
         time:  json['time'],
@@ -32,7 +32,7 @@ class SanitaryWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'sanitaryWorkStatus':sanitaryWorkStatus,
       'date':date,
       'time':time,

@@ -158,8 +158,8 @@ class PolesFoundationState extends State<PolesFoundation> {
                   final polesExcavation = containerData["polesExcavation"];
                   await polesExcavationViewModel.addPoleExa(PolesExcavationModel(
                     id: exId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     noOfExcavation: polesExcavation,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),

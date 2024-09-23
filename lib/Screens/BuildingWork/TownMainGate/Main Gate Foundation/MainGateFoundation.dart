@@ -126,7 +126,7 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
                 onPressed: () async {
                   if (selectedBlock != null && workStatus != null) {
                     await mainGateFoundationWorkViewModel.addMainFoundation(MainGateFoundationWorkModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       workStatus: workStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

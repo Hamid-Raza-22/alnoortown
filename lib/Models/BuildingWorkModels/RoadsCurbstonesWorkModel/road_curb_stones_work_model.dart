@@ -1,6 +1,6 @@
 class RoadCurbStonesWorkModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic roadNo;
   dynamic totalLength;
   dynamic compStatus;
@@ -10,7 +10,7 @@ class RoadCurbStonesWorkModel{
 
   RoadCurbStonesWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.roadNo,
     this.totalLength,
     this.compStatus,
@@ -25,7 +25,7 @@ class RoadCurbStonesWorkModel{
   {
     return RoadCurbStonesWorkModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         roadNo: json['roadNo'],
         totalLength: json['totalLength'],
         compStatus: json['compStatus'],
@@ -39,7 +39,7 @@ class RoadCurbStonesWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'roadNo':roadNo,
       'totalLength':totalLength,
       'compStatus':compStatus,

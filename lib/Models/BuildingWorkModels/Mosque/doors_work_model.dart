@@ -1,6 +1,6 @@
 class DoorsWorkModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic doorsWorkStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class DoorsWorkModel{
 
   DoorsWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.doorsWorkStatus,
     this.date,
     this.time,
@@ -20,7 +20,7 @@ class DoorsWorkModel{
   {
     return DoorsWorkModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         doorsWorkStatus: json['doorsWorkStatus'],
         date:  json['date'],
         time:  json['time'],
@@ -32,7 +32,7 @@ class DoorsWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'doorsWorkStatus':doorsWorkStatus,
       'date':date,
       'time':time,

@@ -76,7 +76,7 @@ class RoadsCurbstonesWorkSummary extends StatelessWidget {
                 if (entryIndex < roadCurbStonesWorkViewModel.allRoadCurb.length) {
                   final entry = roadCurbStonesWorkViewModel.allRoadCurb[entryIndex];
                   final data = [
-                    entry.blockNo ?? 'N/A',
+                    entry.block_no ?? 'N/A',
                     entry.roadNo ?? 'N/A',
                     entry.totalLength ?? 'N/A',
                     entry.compStatus ?? 'N/A',

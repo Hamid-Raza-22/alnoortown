@@ -1,7 +1,7 @@
 class AsphaltWorkModel{
   int? id;
-  dynamic blockNo;
-  dynamic streetNo;
+  dynamic block_no;
+  dynamic street_no;
   dynamic numOfTons;
   dynamic backFillingStatus;
   dynamic date;
@@ -10,8 +10,8 @@ class AsphaltWorkModel{
 
   AsphaltWorkModel({
     this.id,
-    this.blockNo,
-    this.streetNo,
+    this.block_no,
+    this.street_no,
     this.numOfTons,
     this.backFillingStatus,
     this.date,
@@ -25,8 +25,8 @@ class AsphaltWorkModel{
   {
     return AsphaltWorkModel(
       id: json['id'],
-      blockNo: json['blockNo'],
-      streetNo: json['streetNo'],
+      block_no: json['block_no'],
+      street_no: json['street_no'],
       numOfTons: json['numOfTons'],
       backFillingStatus: json['backFillingStatus'],
         date:  json['date'],
@@ -40,9 +40,9 @@ class AsphaltWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'numOfTons':numOfTons,
-      'streetNo':streetNo,
+      'street_no':street_no,
       'backFillingStatus':backFillingStatus,
       'date':date,
       'time':time,

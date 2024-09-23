@@ -151,8 +151,8 @@ class _IronWorkState extends State<IronWork> {
                   // Add a new work entry
                   await ironWorkViewModel.addWorks(IronWorksModel(
                     id: ironId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     completedLength: completedLength,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),

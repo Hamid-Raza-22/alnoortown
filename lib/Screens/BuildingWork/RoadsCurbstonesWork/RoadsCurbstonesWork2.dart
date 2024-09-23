@@ -136,7 +136,7 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
                       selectedBlock != null &&
                       selectedStatus != null) {
                     await roadCurbStonesWorkViewModel.addRoadCurb(RoadCurbStonesWorkModel(
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         totalLength: totalLengthController.text,
                         compStatus: selectedStatus,

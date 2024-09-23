@@ -124,8 +124,8 @@ class _DrainExcavationState extends State<DrainExcavation> {
                     await mainDrainExcavationViewModel.addWork(
                         MainDrainExcavationModel(
                             id: drainId,
-                            blockNo: selectedBlock,
-                            streetNo: selectedStreet,
+                            block_no: selectedBlock,
+                            street_no: selectedStreet,
                             completedLength: totalCompletedLength,
                             date: _getFormattedDate(),
                             time: _getFormattedTime()

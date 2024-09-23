@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/gazebo_work_model.dart';
 import 'package:al_noor_town/Repositories/BuildingWorkRepositories/FountainParkRepository/gazebo_work_repository.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
@@ -55,15 +56,17 @@ class GazeboWorkViewModel extends GetxController {
   // Function to post data to the API
   Future<void> postGazeboWorkToAPI(GazeboWorkModel gazeboWorkModel) async {
     try {
+      await Config.fetchLatestConfig();
+      print('Updated GazeboWork Post API: ${Config.postApiUrlGazeboWork}');
       var gazeboWorkModelData = gazeboWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse('http://103.149.32.30:8080/ords/alnoor_town/watertanker/post/'),  // Ensure this is the correct URL
-        headers: {
-          "Content-Type": "application/json",  // Set the request content type to JSON
-          "Accept": "application/json",
-        },
+        Uri.parse(Config.postApiUrlGazeboWork),         headers: {
+        "Content-Type": "application/json",  // Set the request content type to JSON
+        "Accept": "application/json",
+      },
         body: jsonEncode(gazeboWorkModelData),  // Encode the map as JSON
       );
+
 
       if (response.statusCode == 200 || response.statusCode == 201) {
         print('GazeboWork data posted successfully: $gazeboWorkModelData');

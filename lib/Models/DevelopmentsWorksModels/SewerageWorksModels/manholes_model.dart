@@ -1,8 +1,8 @@
 
 class ManholesModel{
   int? id;
-  dynamic blockNo;
-  dynamic streetNo;
+  dynamic block_no;
+  dynamic street_no;
   dynamic noOfManholes;
   dynamic date;
   dynamic time;
@@ -11,8 +11,8 @@ class ManholesModel{
 
   ManholesModel({
     this.id,
-    this.blockNo,
-    this.streetNo,
+    this.block_no,
+    this.street_no,
     this.noOfManholes,
     this.date,
     this.time,
@@ -25,8 +25,8 @@ class ManholesModel{
   {
     return ManholesModel(
       id: json['id'],
-      blockNo: json['blockNo'],
-      streetNo: json['streetNo'],
+      block_no: json['block_no'],
+      street_no: json['street_no'],
         noOfManholes: json['noOfManholes'],
         date:  json['date'],
         time:  json['time'],
@@ -38,8 +38,8 @@ class ManholesModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
-      'streetNo':streetNo,
+      'block_no':block_no,
+      'street_no':street_no,
       'noOfManholes':noOfManholes,
       'date':date,
       'time':time,

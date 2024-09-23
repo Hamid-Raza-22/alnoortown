@@ -164,7 +164,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                       selectedRoadSide != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     await waterFirstViewModel.addWaterFirst(WaterFirstModel(
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         totalLength: totalLengthController.text,
                         roadSide:selectedRoadSide,

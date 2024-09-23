@@ -1,7 +1,7 @@
 class PolesExcavationModel{
   int? id;
-  dynamic blockNo;
-  dynamic streetNo;
+  dynamic block_no;
+  dynamic street_no;
   dynamic noOfExcavation;
   dynamic date;
   dynamic time;
@@ -9,8 +9,8 @@ class PolesExcavationModel{
 
   PolesExcavationModel({
     this.id,
-    this.blockNo,
-    this.streetNo,
+    this.block_no,
+    this.street_no,
     this.noOfExcavation,
     this.date,
     this.time,
@@ -22,8 +22,8 @@ class PolesExcavationModel{
   {
     return PolesExcavationModel(
       id: json['id'],
-      blockNo: json['blockNo'],
-      streetNo: json['streetNo'],
+      block_no: json['block_no'],
+      street_no: json['street_no'],
         noOfExcavation: json['noOfExcavation'],
         date:  json['date'],
         time:  json['time'],
@@ -35,8 +35,8 @@ class PolesExcavationModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
-      'streetNo':streetNo,
+      'block_no':block_no,
+      'street_no':street_no,
       'noOfExcavation':noOfExcavation,
       'date':date,
       'time':time,

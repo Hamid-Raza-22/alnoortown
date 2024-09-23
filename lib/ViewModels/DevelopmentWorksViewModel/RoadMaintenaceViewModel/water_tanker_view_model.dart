@@ -20,6 +20,7 @@ class WaterTankerViewModel extends GetxController {
     super.onInit();
     //fetchAllTanker ();
   }
+
   Future<void> postDataFromDatabaseToAPI() async {
     try {
       // Step 1: Fetch machines that haven't been posted yet
@@ -61,8 +62,7 @@ class WaterTankerViewModel extends GetxController {
       print('Updated Water Tanker Post API: ${Config.postApiUrlWaterTanker}');
       var waterTankerModelData = waterTankerModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse(Config.postApiUrlWaterTanker),
-        headers: {
+        Uri.parse(Config.postApiUrlWaterTanker),         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
         },
@@ -85,7 +85,9 @@ class WaterTankerViewModel extends GetxController {
     allTanker .value = tanker;
 
   }
-
+  fetchAndSaveTankerData() async {
+    await waterTankerRepository.fetchAndSaveTankerData();
+  }
   addTanker(WaterTankerModel waterTankerModel){
     waterTankerRepository.add(waterTankerModel);
     //fetchAllTanker();

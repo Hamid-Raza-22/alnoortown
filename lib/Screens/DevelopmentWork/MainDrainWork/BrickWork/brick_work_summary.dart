@@ -111,45 +111,44 @@ class _BrickWorkSummaryState extends State<BrickWorkSummary> {
                   );
                 }
 
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      // Header row
-                      Row(
-                        children: [
-                          buildHeaderCell('Block No.'),
-                          buildHeaderCell('Street No.'),
-                          buildHeaderCell('Total length'),
-                          buildHeaderCell('Date'),
-                          buildHeaderCell('Time'),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-
-                      // Data rows
-                      ...filteredData.map((entry) {
-                        return Row(
-                          children: [
-                            buildDataCell(entry.blockNo ?? 'N/A'),
-                            buildDataCell(entry.streetNo ?? 'N/A'),
-                            buildDataCell(entry.completedLength ?? 'N/A'),
-                            buildDataCell(entry.date ?? 'N/A'),
-                            buildDataCell(entry.time ?? 'N/A'),
-                          ],
-                        );
-                      }),
-                    ],
-                  ),
-                );
-              }),
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            // Header row
+            Row(
+              children: [
+                buildHeaderCell('Block No.'),
+                buildHeaderCell('Street No.'),
+                buildHeaderCell('Total length'),
+                buildHeaderCell('Date'),
+                buildHeaderCell('Time'),
+              ],
             ),
+            const SizedBox(height: 10),
+            // Data rows
+            ...filteredData.map((entry) {
+
+    ...brickWorkViewModel.allBrick.map((entry) {
+              return Row(
+                children: [
+                  buildDataCell(entry.blockNo ?? 'N/A'),
+                  buildDataCell(entry.streetNo ?? 'N/A'),
+                  buildDataCell(entry.completedLength ?? 'N/A'),
+                  buildDataCell(entry.date ?? 'N/A'),
+                  buildDataCell(entry.time ?? 'N/A'),
+                ],
+              );
+            }),
           ],
         ),
+      );
+    }),
       ),
     );
   }
 
+  // Helper to build header cells
   Widget buildHeaderCell(String text) {
     return Container(
       width: 120, // Adjust as needed
@@ -167,6 +166,7 @@ class _BrickWorkSummaryState extends State<BrickWorkSummary> {
     );
   }
 
+  // Helper to build data cells
   Widget buildDataCell(String text) {
     return Container(
       width: 120,

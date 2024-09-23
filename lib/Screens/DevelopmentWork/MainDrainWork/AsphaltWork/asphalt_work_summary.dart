@@ -1,28 +1,20 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/asphalt_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get, Inst, Obx;
-import '../../../ReusableDesigns/filter_widget.dart';
+import 'package:get/get.dart' show Get,Inst ,Obx;
 
-class AsphaltWorkSummary extends StatefulWidget {
-  const AsphaltWorkSummary({super.key});
-
-  @override
-  _AsphaltWorkSummaryState createState() => _AsphaltWorkSummaryState();
-}
-
-class _AsphaltWorkSummaryState extends State<AsphaltWorkSummary> {
+class AsphaltWorkSummary extends StatelessWidget {
   final AsphaltWorkViewModel asphaltWorkViewModel = Get.put(AsphaltWorkViewModel());
+  void initState() => asphaltWorkViewModel.fetchAllAsphalt();
 
-  DateTime? _fromDate;
-  DateTime? _toDate;
-  String? _block;
+  final List<Map<String, dynamic>> backfillingDataList = [
+    {"blockNo": "Block A", "streetNo": "Street 1", "Ton No.": "2", "Status": "Done", "date": "01 Sep 2024", "time": "10:00 AM"},
+    {"blockNo": "Block B", "streetNo": "Street 2", "Ton No.": "7","Status": "In Process", "date": "03 Sep 2024", "time": "11:00 AM"},
+    {"blockNo": "Block C", "streetNo": "Street 3", "Ton No.": "2", "Status": "Done","date": "07 Sep 2024", "time": "12:00 PM"},
+    {"blockNo": "Block D", "streetNo": "Street 4", "Ton No.": "1", "Status": "In Process","date": "09 Sep 2024", "time": "01:00 PM"},
+  ];
 
-  @override
-  void initState() {
-    super.initState();
-    asphaltWorkViewModel.fetchAllAsphalt();
-  }
+  AsphaltWorkSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -111,43 +103,39 @@ class _AsphaltWorkSummaryState extends State<AsphaltWorkSummary> {
                   );
                 }
 
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      // Header row
-                      Row(
-                        children: [
-                          buildHeaderCell('Block No.'),
-                          buildHeaderCell('Street No.'),
-                          buildHeaderCell('Ton No.'),
-                          buildHeaderCell('Status'),
-                          buildHeaderCell('Date'),
-                          buildHeaderCell('Time'),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-
-                      // Data rows
-                      ...filteredData.map((entry) {
-                        return Row(
-                          children: [
-                            buildDataCell(entry.blockNo ?? 'N/A'),
-                            buildDataCell(entry.streetNo ?? 'N/A'),
-                            buildDataCell(entry.numOfTons ?? 'N/A'),
-                            buildDataCell(entry.backFillingStatus ?? 'N/A'),
-                            buildDataCell(entry.date ?? 'N/A'),
-                            buildDataCell(entry.time ?? 'N/A'),
-                          ],
-                        );
-                      }),
-                    ],
-                  ),
-                );
-              }),
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            // Header row
+            Row(
+              children: [
+                buildHeaderCell('Block No.'),
+                buildHeaderCell('Street No.'),
+                buildHeaderCell('Ton No.'),
+                buildHeaderCell('Status'),
+                buildHeaderCell('Date'),
+                buildHeaderCell('Time'),
+              ],
             ),
+            const SizedBox(height: 10),
+            // Data rows
+            ...asphaltWorkViewModel.allAsphalt.map((entry) {
+              return Row(
+                children: [
+                  buildDataCell(entry.block_no ?? 'N/A'),
+                  buildDataCell(entry.street_no ?? 'N/A'),
+                  buildDataCell(entry.numOfTons ?? 'N/A'),
+                  buildDataCell(entry.backFillingStatus ?? 'N/A'),
+                  buildDataCell(entry.date ?? 'N/A'),
+                  buildDataCell(entry.time ?? 'N/A'),
+                ],
+              );
+            }),
           ],
         ),
+      );
+    }),
       ),
     );
   }

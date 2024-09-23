@@ -1,6 +1,6 @@
 class TilesWorkModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic tilesWorkStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class TilesWorkModel{
 
   TilesWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.tilesWorkStatus,
     this.date,
     this.time,
@@ -20,7 +20,7 @@ class TilesWorkModel{
   {
     return TilesWorkModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         tilesWorkStatus: json['tilesWorkStatus'],
         date:  json['date'],
         time:  json['time'],
@@ -32,7 +32,7 @@ class TilesWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'tilesWorkStatus':tilesWorkStatus,
       'date':date,
       'time':time,

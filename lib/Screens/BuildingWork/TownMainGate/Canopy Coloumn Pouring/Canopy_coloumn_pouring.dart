@@ -126,7 +126,7 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
                 onPressed: () async {
                   if (selectedBlock != null && workStatus != null && workStatus!.isNotEmpty) {
                     await canopyColumnPouringViewModel.addCanopy(CanopyColumnPouringModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       workStatus:workStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

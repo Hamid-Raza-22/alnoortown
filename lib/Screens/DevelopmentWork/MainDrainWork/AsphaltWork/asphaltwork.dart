@@ -160,8 +160,8 @@ class _AsphaltWorkState extends State<AsphaltWork> {
                   {
                     await asphaltWorkViewModel.addAsphalt(AsphaltWorkModel(
                       id: asphaltId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
+                      block_no: selectedBlock,
+                      street_no: selectedStreet,
                       numOfTons: numTankers,
                       backFillingStatus: status,
                       date: _getFormattedDate(),

@@ -56,7 +56,7 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
               final filteredData = mosqueViewModel.allMosque.where((data) {
                 bool matchesDate = (fromDate == null || data.date.isAfter(fromDate!)) &&
                     (toDate == null || data.date.isBefore(toDate!));
-                bool matchesBlock = block == null || block!.isEmpty || data.blockNo.toLowerCase() == block!.toLowerCase();
+                bool matchesBlock = block == null || block!.isEmpty || data.block_no.toLowerCase() == block!.toLowerCase();
                 return matchesDate && matchesBlock;
               }).toList();
 
@@ -86,7 +86,7 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
                 itemBuilder: (context, index) {
                   final data = filteredData[index];
                   return _buildDataRow({
-                    "selectedBlock": data.blockNo,
+                    "selectedBlock": data.block_no,
                     "status": data.completionStatus,
                     "date": data.date,
                     "time": data.time

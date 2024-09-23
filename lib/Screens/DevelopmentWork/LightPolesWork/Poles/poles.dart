@@ -154,8 +154,8 @@ class _PolesState extends State<Poles> {
                   // Save data to ViewModel
                   await polesViewModel.addPole(PolesModel(
                     id: poleId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     noOfPoles: selectedPoles,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),

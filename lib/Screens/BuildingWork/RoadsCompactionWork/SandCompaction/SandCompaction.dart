@@ -156,7 +156,7 @@ class _SandCompactionState extends State<SandCompaction> {
                     await sandCompactionViewModel.addSand(SandCompactionModel(
                         startDate: selectedStartDate,
                         expectedCompDate: selectedEndDate,
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         totalLength: totalLengthController.text,
                         sandCompStatus: selectedStatus,

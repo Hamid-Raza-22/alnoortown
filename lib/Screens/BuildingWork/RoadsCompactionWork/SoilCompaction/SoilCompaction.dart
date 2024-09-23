@@ -157,7 +157,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
                     await soilCompactionViewModel.addSoil(SoilCompactionModel(
                         startDate: selectedStartDate,
                         expectedCompDate: selectedEndDate,
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         totalLength: totalLengthController.text,
                         soilCompStatus:selectedStatus,

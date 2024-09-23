@@ -16,7 +16,7 @@ class RoadCurbStonesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadCurbStone,
-        columns: ['id', 'blockNo', 'roadNo','totalLength','compStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','totalLength','compStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database

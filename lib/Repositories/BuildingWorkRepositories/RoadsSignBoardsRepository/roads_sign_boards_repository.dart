@@ -16,7 +16,7 @@ class RoadsSignBoardsRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadsSignBoards,
-        columns: ['id', 'blockNo', 'roadNo','fromPlotNo','toPlotNo','roadSide','compStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','fromPlotNo','toPlotNo','roadSide','compStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database

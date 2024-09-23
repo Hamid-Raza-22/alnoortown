@@ -126,7 +126,7 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
                 onPressed: () async {
                   if (selectedBlock != null && workStatus != null) {
                     await mgGreyStructureViewModel.addMainGrey(MgGreyStructureModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       workStatus: workStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

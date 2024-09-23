@@ -41,7 +41,7 @@ class _DrainExcavationSummaryState extends State<DrainExcavationSummary> {
         ),
         title: Text(
           'Drain Excavation Summary'.tr(),
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),

@@ -164,8 +164,8 @@ class PlasterWorkState extends State<PlasterWork> {
 
                   await plasterWorkViewModel.addMan(PlasterWorkModel(
                       id: plasterId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
+                      block_no: selectedBlock,
+                      street_no: selectedStreet,
                       completedLength: numTankers,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()

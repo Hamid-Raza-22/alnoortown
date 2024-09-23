@@ -1,7 +1,7 @@
 class LightWiresModel{
   int? id;
-  dynamic blockNo;
-  dynamic streetNo;
+  dynamic block_no;
+  dynamic street_no;
   dynamic totalLength;
   dynamic lightWireWorkStatus;
   dynamic date;
@@ -10,8 +10,8 @@ class LightWiresModel{
 
   LightWiresModel({
     this.id,
-    this.blockNo,
-    this.streetNo,
+    this.block_no,
+    this.street_no,
     this.totalLength,
     this.lightWireWorkStatus,
     this.date,
@@ -24,8 +24,8 @@ class LightWiresModel{
   {
     return LightWiresModel(
       id: json['id'],
-      blockNo: json['blockNo'],
-      streetNo: json['streetNo'],
+      block_no: json['block_no'],
+      street_no: json['street_no'],
       totalLength: json['totalLength'],
         lightWireWorkStatus: json['lightWireWorkStatus'],
         date:  json['date'],
@@ -38,8 +38,8 @@ class LightWiresModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
-      'streetNo':streetNo,
+      'block_no':block_no,
+      'street_no':street_no,
       'totalLength':totalLength,
       'lightWireWorkStatus':lightWireWorkStatus,
       'date':date,

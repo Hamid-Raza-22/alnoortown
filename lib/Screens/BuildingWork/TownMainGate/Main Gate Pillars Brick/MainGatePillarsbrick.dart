@@ -125,7 +125,7 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
                 onPressed: () async {
                   if (selectedBlock != null && workStatus != null) {
                     await mainGatePillarWorkViewModel.addMainPillar(MainGatePillarWorkModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       workStatus: workStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

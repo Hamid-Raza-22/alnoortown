@@ -142,7 +142,7 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
                       selectedRoadSide != null &&
                       selectedStatus != null) {
                     await roadsSignBoardsViewModel.addRoadsSignBoard(RoadsSignBoardsModel(
-                       blockNo: selectedBlock,
+                       block_no: selectedBlock,
                        roadNo: roadNoController.text,
                        fromPlotNo:fromPlotController.text,
                        toPlotNo: toPlotController.text,

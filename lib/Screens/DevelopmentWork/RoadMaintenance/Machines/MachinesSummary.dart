@@ -153,7 +153,6 @@ class _MachinesSummaryState extends State<MachinesSummary> {
       ),
     );
   }
-
   // Helper to build header cells
   Widget buildHeaderCell(String text) {
     return Container(

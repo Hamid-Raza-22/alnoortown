@@ -104,7 +104,7 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
                     }
                   }
 
-                  bool matchesBlock = selectedBlock == null || (entry.blockNo?.toLowerCase().contains(selectedBlock!.toLowerCase()) ?? false);
+                  bool matchesBlock = selectedBlock == null || (entry.block_no?.toLowerCase().contains(selectedBlock!.toLowerCase()) ?? false);
                   return matchesDate && matchesBlock;
                 }).toList();
 
@@ -140,7 +140,7 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
 
                       return DataRow(cells: [
                         DataCell(Text(startDate)),
-                        DataCell(Text(entry.blockNo ?? '')),
+                        DataCell(Text(entry.block_no ?? '')),
                         DataCell(Text(entry.roadNo ?? '')),
                         DataCell(Text(entry.roadSide ?? '')),
                         DataCell(Text(entry.totalLength ?? '')),

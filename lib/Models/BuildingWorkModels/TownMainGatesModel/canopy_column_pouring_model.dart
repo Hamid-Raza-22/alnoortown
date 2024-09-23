@@ -1,6 +1,6 @@
 class CanopyColumnPouringModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic workStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class CanopyColumnPouringModel{
 
   CanopyColumnPouringModel ({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.workStatus,
     this.date,
     this.time,
@@ -21,7 +21,7 @@ class CanopyColumnPouringModel{
   {
     return CanopyColumnPouringModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         workStatus: json['workStatus'],
         date:  json['date'],
         time:  json['time'],
@@ -34,7 +34,7 @@ class CanopyColumnPouringModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'workStatus':workStatus,
       'date':date,
       'time':time,

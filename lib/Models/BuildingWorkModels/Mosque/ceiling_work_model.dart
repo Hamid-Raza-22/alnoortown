@@ -1,6 +1,6 @@
 class CeilingWorkModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic ceilingWorkStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class CeilingWorkModel{
 
   CeilingWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.ceilingWorkStatus,
     this.date,
     this.time,
@@ -20,7 +20,7 @@ class CeilingWorkModel{
   {
     return CeilingWorkModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         ceilingWorkStatus: json['ceilingWorkStatus'],
         date:  json['date'],
         time:  json['time'],
@@ -32,7 +32,7 @@ class CeilingWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'ceilingWorkStatus':ceilingWorkStatus,
       'date':date,
       'time':time,

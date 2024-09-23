@@ -146,8 +146,8 @@ class MachinesState extends State<Machines> {
                   // Create a MachineModel instance
                   final machineModel = MachineModel(
                     id: machineId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     machine: selectedMachine,
                     timeIn: clockInTime,
                     timeOut: clockOutTime,

@@ -84,7 +84,7 @@ class _BaseSubBaseCompactionSummaryState extends State<BaseSubBaseCompactionSumm
                   return DataRow(cells: [
                     // Formatted start date
 
-                    DataCell(Text(entry.blockNo ?? '')),
+                    DataCell(Text(entry.block_no ?? '')),
                     // Null check for status
                     DataCell(Text(entry.roadNo ?? '')),
                     // Null check for status

@@ -142,14 +142,15 @@ class _WaterTankerState extends State<WaterTanker>  {
                   final selectedTankers = containerData["selectedTankers"];
                   await waterTankerViewModel.addTanker(WaterTankerModel(
                     id: tankerId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
-                    tankerNo: selectedTankers,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
+                    tanker_no: selectedTankers,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()
                   ));
                   await waterTankerViewModel.fetchAllTanker();
                   await waterTankerViewModel.postDataFromDatabaseToAPI();
+
                   setState(() {
                     containerData["selectedBlock"] = null;
                     containerData["selectedStreet"] = null;

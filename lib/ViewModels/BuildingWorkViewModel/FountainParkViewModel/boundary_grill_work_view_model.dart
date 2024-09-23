@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/boundary_grill_work_model.dart';
 import 'package:al_noor_town/Repositories/BuildingWorkRepositories/FountainParkRepository/boundary_grill_work_repository.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
@@ -53,13 +54,14 @@ class BoundaryGrillWorkViewModel extends GetxController {
   // Function to post data to the API
   Future<void> postBoundaryGrillToAPI(BoundaryGrillWorkModel boundaryGrillWorkModel) async {
     try {
+      await Config.fetchLatestConfig();
+      print('Updated Boundary Grill Post API: ${Config.postApiUrlBoundaryGrillWork}');
       var boundaryGrillWorkModelData = boundaryGrillWorkModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
-        Uri.parse('http://103.149.32.30:8080/ords/alnoor_town/watertanker/post/'),  // Ensure this is the correct URL
-        headers: {
-          "Content-Type": "application/json",  // Set the request content type to JSON
-          "Accept": "application/json",
-        },
+        Uri.parse(Config.postApiUrlBoundaryGrillWork),         headers: {
+        "Content-Type": "application/json",  // Set the request content type to JSON
+        "Accept": "application/json",
+      },
         body: jsonEncode(boundaryGrillWorkModelData),  // Encode the map as JSON
       );
 

@@ -152,8 +152,8 @@ class ShutteringWorkState extends State<ShutteringWork> {
                 onPressed: () async {
                   await shutteringWorkViewModel.addShutter(ShutteringWorkModel(
                     id: shutterId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     completedLength: numTankers,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),

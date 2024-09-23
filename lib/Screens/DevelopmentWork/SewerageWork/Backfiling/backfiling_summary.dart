@@ -12,15 +12,16 @@ class BackfillingSummary extends StatefulWidget {
 
 class _BackfillingSummaryState extends State<BackfillingSummary> {
   final BackFillingViewModel backFillingViewModel = Get.put(BackFillingViewModel());
-  DateTime? _fromDate;
-  DateTime? _toDate;
-  String? _block;
+  void initState() => backFillingViewModel.fetchAllFill();
 
-  @override
-  void initState() {
-    super.initState();
-    backFillingViewModel.fetchAllFill();
-  }
+  final List<Map<String, dynamic>> backfillingDataList = [
+    {"blockNo": "Block A", "streetNo": "Street 1", "status": "In Process", "date": "01 Sep 2024", "time": "10:00 AM"},
+    {"blockNo": "Block B", "streetNo": "Street 2", "status": "Done", "date": "04 Sep 2024", "time": "11:00 AM"},
+    {"blockNo": "Block C", "streetNo": "Street 3", "status": "In Process", "date": "08 Sep 2024", "time": "12:00 PM"},
+    {"blockNo": "Block D", "streetNo": "Street 4", "status": "Done", "date": "09 Sep 2024", "time": "01:00 PM"},
+  ];
+
+  BackfillingSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -108,40 +109,37 @@ class _BackfillingSummaryState extends State<BackfillingSummary> {
                   );
                 }
 
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Column(
-                    children: [
-                      // Header row
-                      Row(
-                        children: [
-                          buildHeaderCell('Block No.'),
-                          buildHeaderCell('Street No.'),
-                          buildHeaderCell('Status'),
-                          buildHeaderCell('Date'),
-                          buildHeaderCell('Time'),
-                        ],
-                      ),
-                      const SizedBox(height: 10),
-                      // Data rows
-                      ...filteredData.map((entry) {
-                        return Row(
-                          children: [
-                            buildDataCell(entry.blockNo ?? 'N/A'),
-                            buildDataCell(entry.streetNo ?? 'N/A'),
-                            buildDataCell(entry.status ?? 'N/A'),
-                            buildDataCell(entry.date ?? 'N/A'),
-                            buildDataCell(entry.time ?? 'N/A'),
-                          ],
-                        );
-                      }).toList(),
-                    ],
-                  ),
-                );
-              }),
+      return SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Column(
+          children: [
+            // Header row
+            Row(
+              children: [
+                buildHeaderCell('Block No.'),
+                buildHeaderCell('Street No.'),
+                buildHeaderCell('Status'),
+                buildHeaderCell('Date'),
+                buildHeaderCell('Time'),
+              ],
             ),
+            const SizedBox(height: 10),
+            // Data rows
+            ...backFillingViewModel.allFill.map((entry) {
+              return Row(
+                children: [
+                  buildDataCell(entry.block_no ?? 'N/A'),
+                  buildDataCell(entry.street_no ?? 'N/A'),
+                  buildDataCell(entry.status ?? 'N/A'),
+                  buildDataCell(entry.date ?? 'N/A'),
+                  buildDataCell(entry.time ?? 'N/A'),
+                ],
+              );
+            }).toList(),
           ],
         ),
+      );
+    }),
       ),
     );
   }
