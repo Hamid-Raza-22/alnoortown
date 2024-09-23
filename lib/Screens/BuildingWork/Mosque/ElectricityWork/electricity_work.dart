@@ -141,7 +141,7 @@ class ElectricityWorkState extends State<ElectricityWork> {
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
                     await electricityWorkViewModel.addElectricity(ElectricityWorkModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       electricityWorkStatus: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

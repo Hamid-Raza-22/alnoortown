@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-import '../../../Services/ApiServices/api_constants.dart';
 
 class WaterTankerViewModel extends GetxController {
 
@@ -21,6 +20,7 @@ class WaterTankerViewModel extends GetxController {
     super.onInit();
     //fetchAllTanker ();
   }
+
   Future<void> postDataFromDatabaseToAPI() async {
     try {
       // Step 1: Fetch machines that haven't been posted yet
@@ -85,7 +85,9 @@ class WaterTankerViewModel extends GetxController {
     allTanker .value = tanker;
 
   }
-
+  fetchAndSaveTankerData() async {
+    await waterTankerRepository.fetchAndSaveTankerData();
+  }
   addTanker(WaterTankerModel waterTankerModel){
     waterTankerRepository.add(waterTankerModel);
     //fetchAllTanker();

@@ -167,8 +167,8 @@ class LightWiresWorkState extends State<LightWiresWork> {
                   final status = containerData["status"];
                   await lightWiresViewModel.addLight(LightWiresModel(
                     id: wireId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     totalLength: totalLength,
                     lightWireWorkStatus: status,
                     date: _getFormattedDate(),

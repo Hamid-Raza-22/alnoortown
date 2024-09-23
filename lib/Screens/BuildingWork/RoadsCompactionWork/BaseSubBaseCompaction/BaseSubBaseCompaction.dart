@@ -155,7 +155,7 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                       selectedBlock != null &&
                       selectedStatus != null) {
                     await baseSubBaseCompactionViewModel.addSubBase(BaseSubBaseCompactionModel(
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         startDate: selectedStartDate ,
                         expectedCompDate: selectedEndDate,
                         roadNo: roadNoController.text,

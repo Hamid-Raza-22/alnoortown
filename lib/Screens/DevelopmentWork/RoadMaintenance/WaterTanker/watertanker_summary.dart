@@ -13,7 +13,7 @@ class WaterTankerSummary extends StatelessWidget {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
 
-    _waterTankerViewModel.fetchAllTanker();
+    _waterTankerViewModel.fetchAndSaveTankerData();
     waterTankerViewModel.fetchAllTanker();
     return Scaffold(
       backgroundColor: Colors.white,
@@ -59,14 +59,14 @@ class WaterTankerSummary extends StatelessWidget {
 
           return GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
+              crossAxisCount: 5,
               crossAxisSpacing: 1.0,
               mainAxisSpacing: 1.0,
               childAspectRatio: 3.0, // Adjust for better width
             ),
             itemCount: waterTankerViewModel.allTanker.length * 3 + 3,
             itemBuilder: (context, index) {
-              if (index < 3) {
+              if (index < 5) {
                 return Container(
                   color: Color(0xFFC69840),
                   alignment: Alignment.center,
@@ -88,9 +88,9 @@ class WaterTankerSummary extends StatelessWidget {
                 if (entryIndex < waterTankerViewModel.allTanker.length) {
                   final entry = waterTankerViewModel.allTanker[entryIndex];
                   final data = [
-                    entry.blockNo ?? 'N/A',
-                    entry.streetNo ?? 'N/A',
-                    entry.tankerNo ?? 'N/A',
+                    entry.block_no ?? 'N/A',
+                    entry.street_no ?? 'N/A',
+                    entry.tanker_no ?? 'N/A',
                     entry.date ?? 'N/A',
                     entry.time ?? 'N/A'
                   ];

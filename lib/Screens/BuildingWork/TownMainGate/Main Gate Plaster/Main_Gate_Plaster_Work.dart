@@ -124,7 +124,7 @@ class MainGatePlasterWorkState extends State<MainGatePlasterWork> {
                 onPressed: () async {
                   if (selectedBlock != null && workStatus != null) {
                     await mgPlasterWorkViewModel.addMgPlaster(MgPlasterWorkModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       workStatus: workStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

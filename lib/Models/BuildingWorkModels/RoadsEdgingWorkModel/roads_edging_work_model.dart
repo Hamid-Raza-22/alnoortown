@@ -1,6 +1,6 @@
 class RoadsEdgingWorkModel{
   int? id;
-  String? blockNo;
+  String? block_no;
   String?  roadNo;
   String?  roadSide;
   String?  totalLength;
@@ -13,7 +13,7 @@ class RoadsEdgingWorkModel{
 
   RoadsEdgingWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.roadNo,
     this.roadSide,
     this.totalLength,
@@ -30,7 +30,7 @@ class RoadsEdgingWorkModel{
   {
     return RoadsEdgingWorkModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         roadNo: json['roadNo'],
         roadSide: json['roadSide'],
         totalLength: json['totalLength'],
@@ -47,7 +47,7 @@ class RoadsEdgingWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'roadNo':roadNo,
       'roadSide':roadSide,
       'totalLength':totalLength,

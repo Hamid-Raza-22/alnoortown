@@ -1,6 +1,6 @@
 class ElectricityWorkModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic electricityWorkStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class ElectricityWorkModel{
 
   ElectricityWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.electricityWorkStatus,
     this.date,
     this.time,
@@ -20,7 +20,7 @@ class ElectricityWorkModel{
   {
     return ElectricityWorkModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         electricityWorkStatus: json['electricityWorkStatus'],
         date:  json['date'],
         time:  json['time'],
@@ -32,7 +32,7 @@ class ElectricityWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'electricityWorkStatus':electricityWorkStatus,
       'date':date,
       'time':time,

@@ -16,7 +16,7 @@ class SandCompactionRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameSandCompaction,
-        columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','sandCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','sandCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database

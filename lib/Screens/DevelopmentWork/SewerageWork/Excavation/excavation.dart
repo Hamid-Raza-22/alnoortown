@@ -175,8 +175,8 @@ class ExcavationState extends State<Excavation> {
                   final numTankers = containerData["numTankers"];
                   await excavationViewModel.addExa(ExcavationModel(
                     id: exaId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     length: numTankers,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),

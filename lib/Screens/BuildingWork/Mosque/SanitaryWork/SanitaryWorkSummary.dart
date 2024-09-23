@@ -62,7 +62,7 @@ class SanitaryWorkSummary extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final data = sanitaryWorkViewModel.allSanitary[index];
                     return _buildDataRow({
-                      "selectedBlock": data.blockNo,
+                      "selectedBlock": data.block_no,
                       "status": data.sanitaryWorkStatus,
                       "date": data.date,
                       "time": data.time

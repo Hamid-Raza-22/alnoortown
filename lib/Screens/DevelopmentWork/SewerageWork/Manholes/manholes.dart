@@ -126,8 +126,8 @@ class _ManholesState extends State<Manholes> {
                   final numTankers = containerData["numTankers"];
                   await manholesViewModel.addWorker(ManholesModel(
                       id: holeId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
+                      block_no: selectedBlock,
+                      street_no: selectedStreet,
                       noOfManholes: numTankers,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()

@@ -152,8 +152,8 @@ class _BrickWorkState extends State<BrickWork> {
                   // Add the data
                   await brickWorkViewModel.addBrick(BrickWorkModel(
                     id: brickId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     completedLength: numTankers,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),

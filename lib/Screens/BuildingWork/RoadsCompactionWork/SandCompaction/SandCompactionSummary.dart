@@ -77,7 +77,7 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                       ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
                       : '';
                   return DataRow(cells: [
-                    DataCell(Text(entry.blockNo)),
+                    DataCell(Text(entry.block_no)),
                     DataCell(Text(entry.roadNo)),
                     DataCell(Text(entry.totalLength)),
                     DataCell(Text(startDate)),

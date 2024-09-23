@@ -164,7 +164,7 @@ class BackFillingWsState extends State<BackFillingWs> {
                     await backFillingWsViewModel.addWsBackFilling(BackFillingWsModel(
                         startDate: selectedStartDate,
                         expectedCompDate: selectedEndDate,
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         roadSide:selectedRoadSide,
                         totalLength: totalLengthController.text,

@@ -15,7 +15,7 @@ class MosqueExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMosqueExcavationWork,
-        columns: ['id', 'blockNo', 'completionStatus', 'date', 'time','posted']
+        columns: ['id', 'block_no', 'completionStatus', 'date', 'time','posted']
     );
 
     // Print the raw data retrieved from the database

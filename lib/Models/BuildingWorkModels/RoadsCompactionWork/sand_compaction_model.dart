@@ -1,6 +1,6 @@
 class SandCompactionModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic roadNo;
   dynamic totalLength;
   DateTime? startDate;
@@ -12,7 +12,7 @@ class SandCompactionModel{
 
   SandCompactionModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.roadNo,
     this.totalLength,
     this.startDate,
@@ -28,7 +28,7 @@ class SandCompactionModel{
   {
     return SandCompactionModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         roadNo: json['roadNo'],
         totalLength: json['totalLength'],
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
@@ -44,7 +44,7 @@ class SandCompactionModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'roadNo':roadNo,
       'totalLength':totalLength,
       'startDate': startDate?.toString(),

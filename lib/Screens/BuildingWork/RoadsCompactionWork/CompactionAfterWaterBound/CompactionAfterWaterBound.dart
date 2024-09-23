@@ -158,7 +158,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
                         expectedCompDate: selectedEndDate,
                         roadNo: roadNoController.text,
                         totalLength: totalLengthController.text,
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         waterBoundCompStatus: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

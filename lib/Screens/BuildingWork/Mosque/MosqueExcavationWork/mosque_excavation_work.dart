@@ -140,7 +140,7 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
                     await mosqueExcavationViewModel.addMosque(MosqueExcavationWorkModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       completionStatus: selectedStatus,
                      date: _getFormattedDate(),
                       time: _getFormattedTime()

@@ -87,7 +87,7 @@ class IronWorkViewModel extends GetxController {
       allWorksList = allWorksList.where((work) => work.date != null && DateTime.parse(work.date!).isBefore(toDate)).toList();
     }
     if (block != null && block.isNotEmpty) {
-      allWorksList = allWorksList.where((work) => work.blockNo != null && work.blockNo!.contains(block)).toList();
+      allWorksList = allWorksList.where((work) => work.block_no != null && work.block_no!.contains(block)).toList();
     }
 
     // Update the observable list

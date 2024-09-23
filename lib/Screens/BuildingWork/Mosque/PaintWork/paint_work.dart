@@ -140,7 +140,7 @@ class PaintWorkState extends State<PaintWork>{
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
                     await paintWorkViewModel.addPaint(PaintWorkModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       paintWorkStatus: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

@@ -7,10 +7,10 @@ class LightWorkSummary extends StatelessWidget {
   final LightWiresViewModel lightWiresViewModel = Get.put(LightWiresViewModel());
   void initState() => lightWiresViewModel.fetchAllLight();
   final List<Map<String, dynamic>> backfillingDataList = [
-    {"blockNo": "Block A", "streetNo": "Street 1","Total Length": "2 ft", "Status": "Done", "date": "01 Sep 2024", "time": "9:00 AM"},
-    {"blockNo": "Block B", "streetNo": "Street 2","Total Length": "3 ft", "Status": "Done", "date": "03 Sep 2024", "time": "1:00 AM"},
-    {"blockNo": "Block C", "streetNo": "Street 3", "Total Length": "8 ft","Status": "In Process", "date": "08 Sep 2024", "time": "12:00 PM"},
-    {"blockNo": "Block D", "streetNo": "Street 4", "Total Length": "10 ft","Status": "Done", "date": "09 Sep 2024", "time": "04:00 PM"},
+    {"block_no": "Block A", "street_no": "Street 1","Total Length": "2 ft", "Status": "Done", "date": "01 Sep 2024", "time": "9:00 AM"},
+    {"block_no": "Block B", "street_no": "Street 2","Total Length": "3 ft", "Status": "Done", "date": "03 Sep 2024", "time": "1:00 AM"},
+    {"block_no": "Block C", "street_no": "Street 3", "Total Length": "8 ft","Status": "In Process", "date": "08 Sep 2024", "time": "12:00 PM"},
+    {"block_no": "Block D", "street_no": "Street 4", "Total Length": "10 ft","Status": "Done", "date": "09 Sep 2024", "time": "04:00 PM"},
   ];
 
   LightWorkSummary({super.key});
@@ -86,8 +86,8 @@ class LightWorkSummary extends StatelessWidget {
             ...lightWiresViewModel.allLight.map((entry) {
               return Row(
                 children: [
-                  buildDataCell(entry.blockNo ?? 'N/A'),
-                  buildDataCell(entry.streetNo ?? 'N/A'),
+                  buildDataCell(entry.block_no ?? 'N/A'),
+                  buildDataCell(entry.street_no ?? 'N/A'),
                   buildDataCell(entry.totalLength ?? 'N/A'),
                   buildDataCell(entry.lightWireWorkStatus ?? 'N/A'),
                   buildDataCell(entry.date ?? 'N/A'),

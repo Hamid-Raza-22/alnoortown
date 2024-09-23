@@ -146,7 +146,7 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
                       selectedRoadSide != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     await streetRoadWaterChannelViewModel.addStreetRoad(StreetRoadWaterChannelModel(
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         roadSide: selectedRoadSide,
                         noOfWaterChannels: noOfWaterChannelsController.text,

@@ -16,7 +16,7 @@ class FoundationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFoundationWorkMosque,
-        columns: ['id', 'blockNo', 'brickWork','mudFiling','plasterWork','date','time','posted']
+        columns: ['id', 'block_no', 'brickWork','mudFiling','plasterWork','date','time','posted']
     );
 
     // Print the raw data retrieved from the database

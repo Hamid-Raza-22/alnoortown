@@ -1,24 +1,17 @@
 
+import 'dart:convert';
+
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 
 class WaterTankerRepository{
 
   DBHelper dbHelper = DBHelper();
-  // Fetch all unposted machines (posted = 0)
-  Future<List<WaterTankerModel>> getUnPostedWaterTanker() async {
-    var dbClient = await dbHelper.db;
-    List<Map> maps = await dbClient.query(
-      tableNameWaterTanker,
-      where: 'posted = ?',
-      whereArgs: [0],  // Fetch machines that have not been posted
-    );
 
-    List<WaterTankerModel> waterTankerModel = maps.map((map) => WaterTankerModel.fromMap(map)).toList();
-    return waterTankerModel;
-  }
   Future<List<WaterTankerModel>> getTanker() async {
     // Get the database client
     var dbClient = await dbHelper.db;
@@ -26,7 +19,7 @@ class WaterTankerRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameWaterTanker,
-        columns: ['id', 'blockNo', 'streetNo', 'tankerNo','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'tanker_no','water_tanker_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -50,6 +43,37 @@ class WaterTankerRepository{
     }
 
     return waterTanker;
+  }
+  Future<void> fetchAndSaveTankerData() async {
+    // Fetch data from API
+    final response = await http.get(Uri.parse(Config.getApiUrlWaterTanker));
+    if (response.statusCode == 200) {
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> data = jsonResponse['items']; // Extract the list from 'items'
+      var dbClient = await dbHelper.db;
+
+      // Save data to database
+      for (var item in data) {
+        item['posted'] = 1; // Set posted to 1
+        WaterTankerModel model = WaterTankerModel.fromMap(item);
+        await dbClient.insert(tableNameWaterTanker, model.toMap());
+      }
+    } else {
+      throw Exception('Failed to load data');
+    }
+  }
+
+  // Fetch all unposted machines (posted = 0)
+  Future<List<WaterTankerModel>> getUnPostedWaterTanker() async {
+    var dbClient = await dbHelper.db;
+    List<Map> maps = await dbClient.query(
+      tableNameWaterTanker,
+      where: 'posted = ?',
+      whereArgs: [0],  // Fetch machines that have not been posted
+    );
+
+    List<WaterTankerModel> waterTankerModel = maps.map((map) => WaterTankerModel.fromMap(map)).toList();
+    return waterTankerModel;
   }
   Future<List<WaterTankerModel>> getUnPostedWaterTankerr() async {
     var dbClient = await dbHelper.db;

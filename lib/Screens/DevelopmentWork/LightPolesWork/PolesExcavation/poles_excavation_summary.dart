@@ -8,10 +8,10 @@ class PolesExcavationSummary extends StatelessWidget {
   void initState() => polesExcavationViewModel.fetchAllPoleExa();
 
   final List<Map<String, dynamic>> backfillingDataList = [
-    {"blockNo": "Block A", "streetNo": "Street 1", "Poles No.": "1", "date": "03 Sep 2024", "time": "2:00 AM"},
-    {"blockNo": "Block B", "streetNo": "Street 2", "Poles No.": "3", "date": "04 Sep 2024", "time": "7:00 AM"},
-    {"blockNo": "Block C", "streetNo": "Street 3", "Poles No.": "8", "date": "08 Sep 2024", "time": "12:00 PM"},
-    {"blockNo": "Block D", "streetNo": "Street 4", "Poles No.": "2", "date": "09 Sep 2024", "time": "04:00 PM"},
+    {"block_no": "Block A", "street_no": "Street 1", "Poles No.": "1", "date": "03 Sep 2024", "time": "2:00 AM"},
+    {"block_no": "Block B", "street_no": "Street 2", "Poles No.": "3", "date": "04 Sep 2024", "time": "7:00 AM"},
+    {"block_no": "Block C", "street_no": "Street 3", "Poles No.": "8", "date": "08 Sep 2024", "time": "12:00 PM"},
+    {"block_no": "Block D", "street_no": "Street 4", "Poles No.": "2", "date": "09 Sep 2024", "time": "04:00 PM"},
   ];
 
   PolesExcavationSummary({super.key});
@@ -86,8 +86,8 @@ class PolesExcavationSummary extends StatelessWidget {
             ...polesExcavationViewModel.allPoleExa.map((entry) {
               return Row(
                 children: [
-                  buildDataCell(entry.blockNo ?? 'N/A'),
-                  buildDataCell(entry.streetNo ?? 'N/A'),
+                  buildDataCell(entry.block_no ?? 'N/A'),
+                  buildDataCell(entry.street_no ?? 'N/A'),
                   buildDataCell(entry.noOfExcavation ?? 'N/A'),
                   buildDataCell(entry.date ?? 'N/A'),
                   buildDataCell(entry.time ?? 'N/A'),

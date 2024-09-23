@@ -82,7 +82,7 @@ class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
                       ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
                       : ''; // Show empty string if null
                   return DataRow(cells: [
-                    DataCell(Text(entry.blockNo ?? '')),
+                    DataCell(Text(entry.block_no ?? '')),
                     DataCell(Text(entry.roadSide ?? '')),
                     DataCell(Text(entry.roadNo ?? '')),
                     DataCell(Text(entry.totalLength ?? '')),

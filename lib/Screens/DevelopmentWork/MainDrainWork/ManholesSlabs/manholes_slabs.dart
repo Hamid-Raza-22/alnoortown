@@ -129,8 +129,8 @@ class ManholesSlabsState extends State<ManholesSlabs> {
 
                   await manHolesSlabViewModel.addMan(ManholesSlabModel(
                       id: manId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
+                      block_no: selectedBlock,
+                      street_no: selectedStreet,
                       numOfCompSlab: numTankers,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()

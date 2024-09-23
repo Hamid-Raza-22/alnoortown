@@ -86,7 +86,7 @@ class _WaterBoundSummaryState extends State<WaterBoundSummary> {
                   return DataRow(cells: [
                     // Formatted start date
 
-                    DataCell(Text(entry.blockNo ?? '')),
+                    DataCell(Text(entry.block_no ?? '')),
                     // Null check for status
                     DataCell(Text(entry.roadNo ?? '')),
                     DataCell(Text(entry.totalLength ?? '')),

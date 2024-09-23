@@ -77,7 +77,7 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
               child: Obx(() {
                 // Apply filters to the data
                 final filteredData = doorWorkViewModel.allDoor.where((data) {
-                  final blockMatch = _block == null || data.blockNo.toLowerCase().contains(_block!.toLowerCase());
+                  final blockMatch = _block == null || data.block_no.toLowerCase().contains(_block!.toLowerCase());
 
                   // Parse the date string to DateTime
                   DateTime? dataDate;
@@ -100,7 +100,7 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
                   itemBuilder: (context, index) {
                     final data = filteredData[index];
                     return _buildDataRow({
-                      "selectedBlock": data.blockNo,
+                      "selectedBlock": data.block_no,
                       "status": data.doorsWorkStatus,
                       "date": data.date,
                       "time": data.time,

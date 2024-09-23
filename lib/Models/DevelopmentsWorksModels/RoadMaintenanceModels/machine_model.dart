@@ -1,7 +1,7 @@
 class MachineModel {
   int? id;
-  dynamic blockNo;
-  dynamic streetNo;
+  dynamic block_no;
+  dynamic street_no;
   dynamic machine;
   dynamic timeIn;
   dynamic timeOut;
@@ -11,8 +11,8 @@ class MachineModel {
 
   MachineModel({
     this.id,
-    this.blockNo,
-    this.streetNo,
+    this.block_no,
+    this.street_no,
     this.machine,
     this.timeIn,
     this.timeOut,
@@ -24,8 +24,8 @@ class MachineModel {
   factory MachineModel.fromMap(Map<dynamic, dynamic> json) {
     return MachineModel(
       id: json['id'],
-      blockNo: json['blockNo'],
-      streetNo: json['streetNo'],
+      block_no: json['block_no'],
+      street_no: json['street_no'],
       machine: json['machine'],
       timeIn: json['timeIn'],
       timeOut: json['timeOut'],
@@ -38,8 +38,8 @@ class MachineModel {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'blockNo': blockNo,
-      'streetNo': streetNo,
+      'block_no': block_no,
+      'street_no': street_no,
       'machine': machine,
       'timeIn': timeIn,
       'timeOut': timeOut,

@@ -16,7 +16,7 @@ class SoilCompactionRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameSoilCompaction,
-        columns: ['id', 'blockNo', 'roadNo','totalLength','startDate','expectedCompDate','soilCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','soilCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database

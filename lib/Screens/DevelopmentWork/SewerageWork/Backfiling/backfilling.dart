@@ -168,8 +168,8 @@ class _BackfilingState extends State<Backfiling> {
                   // Submit data
                   await backFillingViewModel.addFill(BackFilingModel(
                     id: fillingId,
-                    blockNo: selectedBlock,
-                    streetNo: selectedStreet,
+                    block_no: selectedBlock,
+                    street_no: selectedStreet,
                     status: status,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),

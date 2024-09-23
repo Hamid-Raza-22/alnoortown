@@ -1,6 +1,6 @@
 class StreetRoadWaterChannelModel{
   int? id;
-  String?  blockNo;
+  String?  block_no;
   String? roadNo;
   String? roadSide;
   String? noOfWaterChannels;
@@ -11,7 +11,7 @@ class StreetRoadWaterChannelModel{
 
   StreetRoadWaterChannelModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.roadNo,
     this.roadSide,
     this.noOfWaterChannels,
@@ -26,7 +26,7 @@ class StreetRoadWaterChannelModel{
   {
     return StreetRoadWaterChannelModel(
       id: json['id'],
-      blockNo: json['blockNo'],
+      block_no: json['block_no'],
       roadNo: json['roadNo'],
       roadSide: json['roadSide'],
       noOfWaterChannels: json['noOfWaterChannels'],
@@ -41,7 +41,7 @@ class StreetRoadWaterChannelModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'roadNo':roadNo,
       'roadSide':roadSide,
       'noOfWaterChannels':noOfWaterChannels,

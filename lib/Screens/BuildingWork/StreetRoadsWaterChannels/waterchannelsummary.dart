@@ -85,7 +85,7 @@ class WaterChannelsSummary extends StatelessWidget {
                     if (entryIndex < streetRoadWaterChannelViewModel.allStreetRoad.length) {
                       final entry = streetRoadWaterChannelViewModel.allStreetRoad[entryIndex];
                       final data = [
-                        entry.blockNo ?? 'N/A',
+                        entry.block_no ?? 'N/A',
                         entry.roadNo ?? 'N/A',
                         entry.roadSide ?? 'N/A',
                         entry.noOfWaterChannels ?? 'N/A',

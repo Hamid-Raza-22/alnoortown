@@ -164,7 +164,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
                     await roadsEdgingWorkViewModel.addRoadEdging(RoadsEdgingWorkModel(
                         startDate: selectedStartDate,
                         expectedCompDate: selectedEndDate,
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         totalLength: totalLengthController.text,
                         roadSide: selectedRoadSide,

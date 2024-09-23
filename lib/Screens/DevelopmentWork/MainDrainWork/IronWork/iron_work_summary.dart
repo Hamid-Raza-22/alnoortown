@@ -98,8 +98,8 @@ class IronWorkSummary extends StatelessWidget {
                       ...ironWorkViewModel.allWorks.map((entry) {
                         return Row(
                           children: [
-                            buildDataCell(entry.blockNo ?? 'N/A'),
-                            buildDataCell(entry.streetNo ?? 'N/A'),
+                            buildDataCell(entry.block_no ?? 'N/A'),
+                            buildDataCell(entry.street_no ?? 'N/A'),
                             buildDataCell(entry.completedLength ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),

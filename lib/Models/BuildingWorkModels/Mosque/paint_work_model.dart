@@ -1,6 +1,6 @@
 class PaintWorkModel{
   int? id;
-  dynamic  blockNo;
+  dynamic  block_no;
   dynamic  paintWorkStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class PaintWorkModel{
 
   PaintWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.paintWorkStatus,
     this.date,
     this.time,
@@ -20,7 +20,7 @@ class PaintWorkModel{
   {
     return PaintWorkModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         paintWorkStatus: json['paintWorkStatus'],
         date:  json['date'],
         time:  json['time'],
@@ -32,7 +32,7 @@ class PaintWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'paintWorkStatus':paintWorkStatus,
       'date':date,
       'time':time,

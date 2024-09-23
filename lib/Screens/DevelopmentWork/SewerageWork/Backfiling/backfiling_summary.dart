@@ -8,10 +8,10 @@ class BackfillingSummary extends StatelessWidget {
   void initState() => backFillingViewModel.fetchAllFill();
 
   final List<Map<String, dynamic>> backfillingDataList = [
-    {"blockNo": "Block A", "streetNo": "Street 1", "status": "In Process", "date": "01 Sep 2024", "time": "10:00 AM"},
-    {"blockNo": "Block B", "streetNo": "Street 2", "status": "Done", "date": "04 Sep 2024", "time": "11:00 AM"},
-    {"blockNo": "Block C", "streetNo": "Street 3", "status": "In Process", "date": "08 Sep 2024", "time": "12:00 PM"},
-    {"blockNo": "Block D", "streetNo": "Street 4", "status": "Done", "date": "09 Sep 2024", "time": "01:00 PM"},
+    {"block_no": "Block A", "street_no": "Street 1", "status": "In Process", "date": "01 Sep 2024", "time": "10:00 AM"},
+    {"block_no": "Block B", "street_no": "Street 2", "status": "Done", "date": "04 Sep 2024", "time": "11:00 AM"},
+    {"block_no": "Block C", "street_no": "Street 3", "status": "In Process", "date": "08 Sep 2024", "time": "12:00 PM"},
+    {"block_no": "Block D", "street_no": "Street 4", "status": "Done", "date": "09 Sep 2024", "time": "01:00 PM"},
   ];
 
   BackfillingSummary({super.key});
@@ -86,8 +86,8 @@ class BackfillingSummary extends StatelessWidget {
             ...backFillingViewModel.allFill.map((entry) {
               return Row(
                 children: [
-                  buildDataCell(entry.blockNo ?? 'N/A'),
-                  buildDataCell(entry.streetNo ?? 'N/A'),
+                  buildDataCell(entry.block_no ?? 'N/A'),
+                  buildDataCell(entry.street_no ?? 'N/A'),
                   buildDataCell(entry.status ?? 'N/A'),
                   buildDataCell(entry.date ?? 'N/A'),
                   buildDataCell(entry.time ?? 'N/A'),

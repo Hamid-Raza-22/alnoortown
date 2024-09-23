@@ -120,8 +120,8 @@ class _PipelyingState extends State<Pipelying> {
 
                   await pipelineViewModel.addPipe(PipelineModel(
                       id: pipeId,
-                      blockNo: selectedBlock,
-                      streetNo: selectedStreet,
+                      block_no: selectedBlock,
+                      street_no: selectedStreet,
                       length: numTankers,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()

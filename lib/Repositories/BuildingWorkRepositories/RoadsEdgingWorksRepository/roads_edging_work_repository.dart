@@ -16,7 +16,7 @@ class RoadsEdgingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadsEdging,
-        columns: ['id', 'blockNo', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsEdgingCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsEdgingCompStatus','date','time','posted']
     );
 
     // Print the raw data retrieved from the database

@@ -76,7 +76,7 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
                   itemBuilder: (context, index) {
                     final data = firstFloorViewModel.allFirstFloor[index];
                     return _buildDataRow({
-                      "selectedBlock": data.blockNo,
+                      "selectedBlock": data.block_no,
                       "brickWorkStatus": data.brickWork,
                       "mudFillingStatus": data.mudFiling,
                       "plasterWorkStatus": data.plasterWork,

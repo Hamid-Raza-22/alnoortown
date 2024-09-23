@@ -138,7 +138,7 @@ class TilesWorkState extends State<TilesWork> {
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
                     await tilesWorkViewModel.addTiles(TilesWorkModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       tilesWorkStatus: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

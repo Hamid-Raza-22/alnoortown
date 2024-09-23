@@ -89,7 +89,7 @@ class _MainGateGreyStructureSummaryState extends State<MainGateGreyStructureSumm
                       matchesDate = entryDate.isAfter(selectedFromDate!) && entryDate.isBefore(selectedToDate!);
                     }
                   }
-                  bool matchesBlock = selectedBlock == null || (entry.blockNo?.toLowerCase().contains(selectedBlock!.toLowerCase()) ?? false);
+                  bool matchesBlock = selectedBlock == null || (entry.block_no?.toLowerCase().contains(selectedBlock!.toLowerCase()) ?? false);
                   return matchesDate && matchesBlock;
                 }).toList();
 
@@ -122,7 +122,7 @@ class _MainGateGreyStructureSummaryState extends State<MainGateGreyStructureSumm
                       if (entryIndex < filteredData.length) {
                         final entry = filteredData[entryIndex];
                         final data = [
-                          entry.blockNo ?? 'N/A',
+                          entry.block_no ?? 'N/A',
                           entry.workStatus ?? 'N/A',
                           entry.date ?? 'N/A',
                           entry.time ?? 'N/A'

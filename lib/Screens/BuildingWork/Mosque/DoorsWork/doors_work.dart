@@ -167,7 +167,7 @@ class DoorsWorkState extends State<DoorsWork> {
                 onPressed: () async {
                   if (selectedBlock != null && selectedStatus != null) {
                     await doorWorkViewModel.addDoor(DoorsWorkModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       doorsWorkStatus: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

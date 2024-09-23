@@ -1,6 +1,6 @@
 class MosqueExcavationWorkModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic completionStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class MosqueExcavationWorkModel{
 
   MosqueExcavationWorkModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.completionStatus,
     this.date,
     this.time,
@@ -20,7 +20,7 @@ class MosqueExcavationWorkModel{
   {
     return MosqueExcavationWorkModel(
       id: json['id'],
-      blockNo: json['blockNo'],
+      block_no: json['block_no'],
       completionStatus: json['completionStatus'],
         date:  json['date'],
         time: json['time'],
@@ -33,7 +33,7 @@ class MosqueExcavationWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'completionStatus':completionStatus,
       'date':date,
       'time':time,

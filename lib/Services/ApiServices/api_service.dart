@@ -16,18 +16,18 @@ class ApiService {
     }
   }
 
-  Future<dynamic> postRequest( Map<String, dynamic> data) async {
-    try {
-      final response = await http.post(
-        Uri.parse(baseUrl),
-        headers: {'Content-Type': 'application/json'},
-        body: json.encode(data),
-      );
-      return _processResponse(response);
-    } catch (e) {
-      throw Exception('Failed to post data: $e');
-    }
-  }
+  // Future<dynamic> postRequest( Map<String, dynamic> data) async {
+  //   try {
+  //     final response = await http.post(
+  //       Uri.parse(baseUrl),
+  //       headers: {'Content-Type': 'application/json'},
+  //       body: json.encode(data),
+  //     );
+  //     return _processResponse(response);
+  //   } catch (e) {
+  //     throw Exception('Failed to post data: $e');
+  //   }
+  // }
 
   dynamic _processResponse(http.Response response) {
     switch (response.statusCode) {

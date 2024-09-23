@@ -1,6 +1,6 @@
 class RoadsSignBoardsModel{
   int? id;
-  String? blockNo;
+  String? block_no;
   String? roadNo;
   String? fromPlotNo;
   String? toPlotNo;
@@ -12,7 +12,7 @@ class RoadsSignBoardsModel{
 
   RoadsSignBoardsModel({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.roadNo,
     this.fromPlotNo,
     this.toPlotNo,
@@ -28,7 +28,7 @@ class RoadsSignBoardsModel{
   {
     return RoadsSignBoardsModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         roadNo: json['roadNo'],
         fromPlotNo: json['fromPlotNo'],
         toPlotNo: json['toPlotNo'],
@@ -44,7 +44,7 @@ class RoadsSignBoardsModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'roadNo':roadNo,
       'fromPlotNo':fromPlotNo,
       'toPlotNo':toPlotNo,

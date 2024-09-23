@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class MachineFilters extends StatefulWidget {
-  final Function(String blockNo, String streetNo, DateTime? fromDate, DateTime? toDate) onApplyFilters;
+  final Function(String block_no, String street_no, DateTime? fromDate, DateTime? toDate) onApplyFilters;
 
   const MachineFilters({required this.onApplyFilters, Key? key}) : super(key: key);
 
@@ -11,8 +11,8 @@ class MachineFilters extends StatefulWidget {
 }
 
 class _MachineFiltersState extends State<MachineFilters> {
-  final TextEditingController blockNoController = TextEditingController();
-  final TextEditingController streetNoController = TextEditingController();
+  final TextEditingController block_noController = TextEditingController();
+  final TextEditingController street_noController = TextEditingController();
   DateTime? fromDate;
   DateTime? toDate;
 
@@ -23,7 +23,7 @@ class _MachineFiltersState extends State<MachineFilters> {
       children: [
         // Block No. field
         TextField(
-          controller: blockNoController,
+          controller: block_noController,
           decoration: InputDecoration(
             labelText: 'block_no'.tr(),
             labelStyle: TextStyle(color: const Color(0xFFC69840)),
@@ -42,7 +42,7 @@ class _MachineFiltersState extends State<MachineFilters> {
         const SizedBox(height: 10),
         // Street No. field
         TextField(
-          controller: streetNoController,
+          controller: street_noController,
           decoration: InputDecoration(
             labelText: 'street_no'.tr(),
             labelStyle: TextStyle(color: const Color(0xFFC69840)),
@@ -165,8 +165,8 @@ class _MachineFiltersState extends State<MachineFilters> {
           child: ElevatedButton(
             onPressed: () {
               widget.onApplyFilters(
-                blockNoController.text,
-                streetNoController.text,
+                block_noController.text,
+                street_noController.text,
                 fromDate,
                 toDate,
               );
@@ -185,8 +185,8 @@ class _MachineFiltersState extends State<MachineFilters> {
 
   @override
   void dispose() {
-    blockNoController.dispose();
-    streetNoController.dispose();
+    block_noController.dispose();
+    street_noController.dispose();
     super.dispose();
   }
 }

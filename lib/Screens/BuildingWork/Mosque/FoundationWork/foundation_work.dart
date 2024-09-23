@@ -131,7 +131,7 @@ class FoundationWorkState extends State<FoundationWork> {
                 onPressed: () async {
                   if (selectedBlock != null && selectedBrickWorkStatus != null && selectedMudFillingStatus != null && selectedPlasterWorkStatus != null) {
                       await foundationWorkViewModel.addFoundation(FoundationWorkModel(
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         brickWork: selectedBrickWorkStatus,
                         mudFiling: selectedMudFillingStatus,
                         plasterWork: selectedPlasterWorkStatus,

@@ -1,6 +1,6 @@
 class MgGreyStructureModel{
   int? id;
-  dynamic blockNo;
+  dynamic block_no;
   dynamic workStatus;
   dynamic date;
   dynamic time;
@@ -8,7 +8,7 @@ class MgGreyStructureModel{
 
   MgGreyStructureModel ({
     this.id,
-    this.blockNo,
+    this.block_no,
     this.workStatus,
     this.date,
     this.time,
@@ -20,7 +20,7 @@ class MgGreyStructureModel{
   {
     return MgGreyStructureModel(
         id: json['id'],
-        blockNo: json['blockNo'],
+        block_no: json['block_no'],
         workStatus: json['workStatus'],
         date:  json['date'],
         time:  json['time'],
@@ -32,7 +32,7 @@ class MgGreyStructureModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'blockNo':blockNo,
+      'block_no':block_no,
       'workStatus':workStatus,
       'date':date,
       'time':time,

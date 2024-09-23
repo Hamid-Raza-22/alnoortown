@@ -52,7 +52,7 @@ RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewM
 
             return DataRow(
               cells: [
-                DataCell(Text(entry.blockNo ?? 'N/A')),
+                DataCell(Text(entry.block_no ?? 'N/A')),
                 DataCell(Text(entry.roadNo?? 'N/A')),
                 DataCell(Text(entry.fromPlotNo?? 'N/A')),
                 DataCell(Text(entry.toPlotNo?? 'N/A')),
@@ -71,7 +71,7 @@ RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewM
                           borderRadius: BorderRadius.circular(15),
                         ),
                         title: Text(
-                          'Details | ${entry.blockNo?? 'N/A'}',
+                          'Details | ${entry.block_no?? 'N/A'}',
                           style:   TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                         ),
                         content: SingleChildScrollView(

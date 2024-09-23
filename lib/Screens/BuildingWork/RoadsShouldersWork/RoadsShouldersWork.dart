@@ -165,7 +165,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                     await roadsShoulderWorkViewModel.addRoadShoulder(RoadsShoulderWorkModel(
                         startDate: selectedStartDate,
                         expectedCompDate: selectedEndDate,
-                        blockNo: selectedBlock,
+                        block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         roadSide: selectedRoadSide,
                         totalLength: totalLengthController.text,

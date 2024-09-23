@@ -83,7 +83,7 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
               child: Obx(() {
                 // Apply filters to the data
                 final filteredData = tilesWorkViewModel.allTiles.where((data) {
-                  final blockMatch = _block == null || data.blockNo.toLowerCase().contains(_block!.toLowerCase());
+                  final blockMatch = _block == null || data.block_no.toLowerCase().contains(_block!.toLowerCase());
 
                   // Parse the date string to DateTime
                   DateTime? dataDate;
@@ -106,7 +106,7 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
                   itemBuilder: (context, index) {
                     final data = filteredData[index];
                     return _buildDataRow({
-                      "selectedBlock": data.blockNo,
+                      "selectedBlock": data.block_no,
                       "status": data.tilesWorkStatus,
                       "date": data.date,
                       "time": data.time,

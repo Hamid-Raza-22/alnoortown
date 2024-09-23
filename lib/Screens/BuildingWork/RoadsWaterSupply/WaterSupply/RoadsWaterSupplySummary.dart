@@ -83,7 +83,7 @@ class _RoadsWaterSupplySummaryState extends State<RoadsWaterSupplySummary> {
                       : ''; // Show empty string if null
                   return DataRow(cells: [
                     // Formatted start date
-                    DataCell(Text(entry.blockNo ?? '')),
+                    DataCell(Text(entry.block_no ?? '')),
                     DataCell(Text(entry.roadNo ?? '')),
                     DataCell(Text(entry.roadSide ?? '')),
                     DataCell(Text(entry.totalLength ?? '')),

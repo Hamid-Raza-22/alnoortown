@@ -130,7 +130,7 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
                 onPressed: () async {
                   if (selectedBlock != null && selectedBrickWorkStatus != null && selectedMudFillingStatus != null && selectedPlasterWorkStatus != null) {
                     await firstFloorViewModel.addFirstFloor(FirstFloorModel(
-                      blockNo: selectedBlock,
+                      block_no: selectedBlock,
                       brickWork: selectedBrickWorkStatus,
                       mudFiling: selectedMudFillingStatus,
                       plasterWork: selectedPlasterWorkStatus,
