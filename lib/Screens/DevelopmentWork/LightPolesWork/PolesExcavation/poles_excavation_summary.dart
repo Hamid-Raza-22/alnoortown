@@ -1,20 +1,28 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_excavation_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show Get, Inst, Obx;
+import '../../../ReusableDesigns/filter_widget.dart';
 
-class PolesExcavationSummary extends StatelessWidget {
+class PolesExcavationSummary extends StatefulWidget {
+  const PolesExcavationSummary({super.key});
+
+  @override
+  _PolesExcavationSummaryState createState() => _PolesExcavationSummaryState();
+}
+
+class _PolesExcavationSummaryState extends State<PolesExcavationSummary> {
   final PolesExcavationViewModel polesExcavationViewModel = Get.put(PolesExcavationViewModel());
-  void initState() => polesExcavationViewModel.fetchAllPoleExa();
 
-  final List<Map<String, dynamic>> backfillingDataList = [
-    {"block_no": "Block A", "street_no": "Street 1", "Poles No.": "1", "date": "03 Sep 2024", "time": "2:00 AM"},
-    {"block_no": "Block B", "street_no": "Street 2", "Poles No.": "3", "date": "04 Sep 2024", "time": "7:00 AM"},
-    {"block_no": "Block C", "street_no": "Street 3", "Poles No.": "8", "date": "08 Sep 2024", "time": "12:00 PM"},
-    {"block_no": "Block D", "street_no": "Street 4", "Poles No.": "2", "date": "09 Sep 2024", "time": "04:00 PM"},
-  ];
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
 
-  PolesExcavationSummary({super.key});
+  @override
+  void initState() {
+    super.initState();
+    polesExcavationViewModel.fetchAllPoleExa();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +41,7 @@ class PolesExcavationSummary extends StatelessWidget {
         ),
         title: Text(
           'Poles Excavation Summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -43,61 +51,101 @@ class PolesExcavationSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-    child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (polesExcavationViewModel.allPoleExa.isEmpty) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/nodata.png',
-            width: 200,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(height: 16),
-          Text(
-            'No data available',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-    }
-
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
-            // Header row
-            Row(
-              children: [
-                buildHeaderCell('Block No.'),
-                buildHeaderCell('Street No.'),
-                buildHeaderCell('Poles No.'),
-                buildHeaderCell('Date'),
-                buildHeaderCell('Time'),
-              ],
+            // Add the FilterWidget here
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
             ),
-            const SizedBox(height: 10),
-            // Data rows
-            ...polesExcavationViewModel.allPoleExa.map((entry) {
-              return Row(
-                children: [
-                  buildDataCell(entry.block_no ?? 'N/A'),
-                  buildDataCell(entry.street_no ?? 'N/A'),
-                  buildDataCell(entry.noOfExcavation ?? 'N/A'),
-                  buildDataCell(entry.date ?? 'N/A'),
-                  buildDataCell(entry.time ?? 'N/A'),
-                ],
-              );
-            }).toList(),
+            const SizedBox(height: 16),
+
+            // Now add the data grid (conditionally showing filtered data)
+            Expanded(
+              child: Obx(() {
+                // Apply filtering to the data
+                final filteredData = polesExcavationViewModel.allPoleExa.where((entry) {
+                  // Filter by block
+                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse date and check if it falls in the range
+                  DateTime? entryDate;
+                  try {
+                    entryDate = DateTime.parse(entry.date); // Assuming date is a string
+                  } catch (e) {
+                    entryDate = null;
+                  }
+
+                  final dateMatch = (entryDate == null) ||
+                      (_fromDate == null || entryDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || entryDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
+                // Show "No data available" if the list is empty
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      // Header row
+                      Row(
+                        children: [
+                          buildHeaderCell('Block No.'),
+                          buildHeaderCell('Street No.'),
+                          buildHeaderCell('Poles No.'),
+                          buildHeaderCell('Date'),
+                          buildHeaderCell('Time'),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+
+                      // Data rows
+                      ...filteredData.map((entry) {
+                        return Row(
+                          children: [
+                            buildDataCell(entry.block_no ?? 'N/A'),
+                            buildDataCell(entry.street_no ?? 'N/A'),
+                            buildDataCell(entry.noOfExcavation ?? 'N/A'),
+                            buildDataCell(entry.date ?? 'N/A'),
+                            buildDataCell(entry.time ?? 'N/A'),
+                          ],
+                        );
+                      }),
+                    ],
+                  ),
+                );
+              }),
+            ),
           ],
         ),
-      );
-    }),
       ),
     );
   }

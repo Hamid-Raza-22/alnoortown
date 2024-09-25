@@ -1,20 +1,35 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show Get, Inst, Obx;
 
-import '../../../ReusableDesigns/searchable_filters.dart';
+import '../../../ReusableDesigns/filter_widget.dart';
 
-class MachinesSummary extends StatelessWidget {
-  final MachineViewModel machineViewModel = Get.put(MachineViewModel());
-  void initState() => machineViewModel.fetchAllMachines();
+class MachinesSummary extends StatefulWidget {
   MachinesSummary({super.key});
+
+  @override
+  _MachinesSummaryState createState() => _MachinesSummaryState();
+}
+
+class _MachinesSummaryState extends State<MachinesSummary> {
+  final MachineViewModel machineViewModel = Get.put(MachineViewModel());
+
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
+
+  @override
+  void initState() {
+    super.initState();
+    machineViewModel.fetchAllMachines();
+  }
 
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
-    machineViewModel.fetchAllMachines();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -37,47 +52,104 @@ class MachinesSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: Obx(() {
-          // Use Obx to rebuild when the data changes
-          if (machineViewModel.allMachines.isEmpty) {
-            return  Center(child: Text('No data available'));
-            }
-
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Column(
-              children: [
-                // Header row
-                Row(
-                  children: [
-                    buildHeaderCell('Block No.'),
-                    buildHeaderCell('Street No.'),
-                    buildHeaderCell('Machine'),
-                    buildHeaderCell('Date'),
-                    buildHeaderCell('Time In'),
-                    buildHeaderCell('Time Out'),
-                    buildHeaderCell('TIme'),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                // Data rows
-                ...machineViewModel.allMachines.map((entry) {
-                  return Row(
-                    children: [
-                      buildDataCell(entry.block_no?? 'N/A'),
-                      buildDataCell(entry.street_no?? 'N/A'),
-                      buildDataCell(entry.machine ?? 'N/A'),
-                      buildDataCell(entry.date ?? 'N/A'),
-                      buildDataCell(entry.timeIn ?? 'N/A'),
-                      buildDataCell(entry.timeOut ?? 'N/A'),
-                      buildDataCell(entry.time ?? 'N/A'),
-                    ],
-                  );
-                }).toList(),
-              ],
+        child: Column(
+          children: [
+            // Add the FilterWidget here
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
             ),
-          );
-        }),
+            const SizedBox(height: 16),
+
+            // Data grid
+            Expanded(
+              child: Obx(() {
+                // Filter data based on selected criteria
+                final filteredData = machineViewModel.allMachines.where((entry) {
+                  // Filter by block
+                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse date and check if it falls in the range
+                  DateTime? entryDate;
+                  try {
+                    entryDate = DateTime.parse(entry.date); // Assuming date is a string
+                  } catch (e) {
+                    entryDate = null;
+                  }
+
+                  final dateMatch = (entryDate == null) ||
+                      (_fromDate == null || entryDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || entryDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
+                // Show "No data available" if the list is empty
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      // Header row
+                      Row(
+                        children: [
+                          buildHeaderCell('Block No.'),
+                          buildHeaderCell('Street No.'),
+                          buildHeaderCell('Machine'),
+                          buildHeaderCell('Date'),
+                          buildHeaderCell('Time In'),
+                          buildHeaderCell('Time Out'),
+                          buildHeaderCell('Time'),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      // Data rows
+                      ...filteredData.map((entry) {
+                        return Row(
+                          children: [
+                            buildDataCell(entry.block_no ?? 'N/A'),
+                            buildDataCell(entry.street_no ?? 'N/A'),
+                            buildDataCell(entry.machine ?? 'N/A'),
+                            buildDataCell(entry.date ?? 'N/A'),
+                            buildDataCell(entry.timeIn ?? 'N/A'),
+                            buildDataCell(entry.timeOut ?? 'N/A'),
+                            buildDataCell(entry.time ?? 'N/A'),
+                          ],
+                        );
+                      }),
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

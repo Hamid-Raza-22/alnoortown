@@ -43,63 +43,63 @@ class AsphaltWorkSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-    child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (asphaltWorkViewModel.allAsphalt.isEmpty) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/nodata.png',
-            width: 200,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(height: 16),
-          Text(
-            'No data available',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-    }
+        child: Obx(() {
+          // Use Obx to rebuild when the data changes
+          if (asphaltWorkViewModel.allAsphalt.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/nodata.png',
+                    width: 200,
+                    height: 200,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'No data available',
+                    style: TextStyle(
+                        color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            );
+          }
 
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Column(
-          children: [
-            // Header row
-            Row(
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Column(
               children: [
-                buildHeaderCell('Block No.'),
-                buildHeaderCell('Street No.'),
-                buildHeaderCell('Ton No.'),
-                buildHeaderCell('Status'),
-                buildHeaderCell('Date'),
-                buildHeaderCell('Time'),
+                // Header row
+                Row(
+                  children: [
+                    buildHeaderCell('Block No.'),
+                    buildHeaderCell('Street No.'),
+                    buildHeaderCell('Ton No.'),
+                    buildHeaderCell('Status'),
+                    buildHeaderCell('Date'),
+                    buildHeaderCell('Time'),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                // Data rows
+                ...asphaltWorkViewModel.allAsphalt.map((entry) {
+                  return Row(
+                    children: [
+                      buildDataCell(entry.block_no ?? 'N/A'),
+                      buildDataCell(entry.street_no ?? 'N/A'),
+                      buildDataCell(entry.numOfTons ?? 'N/A'),
+                      buildDataCell(entry.backFillingStatus ?? 'N/A'),
+                      buildDataCell(entry.date ?? 'N/A'),
+                      buildDataCell(entry.time ?? 'N/A'),
+                    ],
+                  );
+                }),
               ],
             ),
-            const SizedBox(height: 10),
-            // Data rows
-            ...asphaltWorkViewModel.allAsphalt.map((entry) {
-              return Row(
-                children: [
-                  buildDataCell(entry.block_no ?? 'N/A'),
-                  buildDataCell(entry.street_no ?? 'N/A'),
-                  buildDataCell(entry.numOfTons ?? 'N/A'),
-                  buildDataCell(entry.backFillingStatus ?? 'N/A'),
-                  buildDataCell(entry.date ?? 'N/A'),
-                  buildDataCell(entry.time ?? 'N/A'),
-                ],
-              );
-            }),
-          ],
-        ),
-      );
-    }),
+          );
+        }),
       ),
     );
   }

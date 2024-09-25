@@ -1,19 +1,26 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/manholes_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show Get, Inst, Obx;
 
-class ManholesSummary extends StatelessWidget {
+import '../../../ReusableDesigns/filter_widget.dart';
+
+class ManholesSummary extends StatefulWidget {
+  @override
+  _ManholesSummaryState createState() => _ManholesSummaryState();
+}
+
+class _ManholesSummaryState extends State<ManholesSummary> {
   final ManholesViewModel manholesViewModel = Get.put(ManholesViewModel());
-  void initState() => manholesViewModel.fetchAllWorker();
-  final List<Map<String, dynamic>> backfillingDataList = [
-    {"block_no": "Block A", "street_no": "Street 1", "Manholes No.": "3", "date": "01 Sep 2024", "time": "10:00 AM"},
-    {"block_no": "Block B", "street_no": "Street 2", "Manholes No.": "1", "date": "03 Sep 2024", "time": "11:00 AM"},
-    {"block_no": "Block C", "street_no": "Street 3", "Manholes No.": "8", "date": "07 Sep 2024", "time": "12:00 PM"},
-    {"block_no": "Block D", "street_no": "Street 4", "Manholes No.": "10", "date": "09 Sep 2024", "time": "01:00 PM"},
-  ];
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
 
-  ManholesSummary({super.key});
+  @override
+  void initState() {
+    super.initState();
+    manholesViewModel.fetchAllWorker();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +39,7 @@ class ManholesSummary extends StatelessWidget {
         ),
         title: Text(
           'Manholes Summary'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -42,65 +49,104 @@ class ManholesSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-    child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (manholesViewModel.allWorker.isEmpty) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/nodata.png',
-            width: 200,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(height: 16),
-          Text(
-            'No data available',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-    }
-
-      return SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
         child: Column(
           children: [
-            // Header row
-            Row(
-              children: [
-                buildHeaderCell('Block No.'),
-                buildHeaderCell('Street No.'),
-                buildHeaderCell('Manholes No.'),
-                buildHeaderCell('Date'),
-                buildHeaderCell('Time'),
-              ],
+            // Add the FilterWidget here
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
             ),
-            const SizedBox(height: 10),
-            // Data rows
-            ...manholesViewModel.allWorker.map((entry) {
-              return Row(
-                children: [
-                  buildDataCell(entry.block_no ?? 'N/A'),
-                  buildDataCell(entry.street_no ?? 'N/A'),
-                  buildDataCell(entry.noOfManholes ?? 'N/A'),
-                  buildDataCell(entry.date ?? 'N/A'),
-                  buildDataCell(entry.time ?? 'N/A'),
-                ],
-              );
-            }).toList(),
+            const SizedBox(height: 16),
+
+            Expanded(
+              child: Obx(() {
+                // Filter data based on selected criteria
+                final filteredData = manholesViewModel.allWorker.where((entry) {
+                  // Filter by block
+                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse date and check if it falls in the range
+                  DateTime? entryDate;
+                  try {
+                    entryDate = DateTime.parse(entry.date); // Assuming date is a string
+                  } catch (e) {
+                    entryDate = null;
+                  }
+
+                  final dateMatch = (entryDate == null) ||
+                      (_fromDate == null || entryDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || entryDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
+                // Show "No data available" if the list is empty
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      // Header row
+                      Row(
+                        children: [
+                          buildHeaderCell('Block No.'),
+                          buildHeaderCell('Street No.'),
+                          buildHeaderCell('Manholes No.'),
+                          buildHeaderCell('Date'),
+                          buildHeaderCell('Time'),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      // Data rows
+                      ...filteredData.map((entry) {
+                        return Row(
+                          children: [
+                            buildDataCell(entry.block_no ?? 'N/A'),
+                            buildDataCell(entry.street_no ?? 'N/A'),
+                            buildDataCell(entry.noOfManholes ?? 'N/A'),
+                            buildDataCell(entry.date ?? 'N/A'),
+                            buildDataCell(entry.time ?? 'N/A'),
+                          ],
+                        );
+                      }).toList(),
+                    ],
+                  ),
+                );
+              }),
+            ),
           ],
         ),
-      );
-    }),
       ),
     );
   }
 
+  // Helper to build header cells
   Widget buildHeaderCell(String text) {
     return Container(
       width: 120, // Adjust as needed

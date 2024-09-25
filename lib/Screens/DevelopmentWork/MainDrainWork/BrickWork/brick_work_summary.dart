@@ -1,20 +1,28 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/brick_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show Get, Inst, Obx;
+import '../../../ReusableDesigns/filter_widget.dart';
 
-class BrickWorkSummary extends StatelessWidget {
+class BrickWorkSummary extends StatefulWidget {
+  const BrickWorkSummary({super.key});
+
+  @override
+  _BrickWorkSummaryState createState() => _BrickWorkSummaryState();
+}
+
+class _BrickWorkSummaryState extends State<BrickWorkSummary> {
   final BrickWorkViewModel brickWorkViewModel = Get.put(BrickWorkViewModel());
-  void initState() => brickWorkViewModel.fetchAllBrick();
 
-  final List<Map<String, dynamic>> backfillingDataList = [
-    {"block_no": "Block A", "street_no": "Street 1", "Total length": "23 ft", "date": "01 Sep 2024", "time": "10:00 AM"},
-    {"block_no": "Block B", "street_no": "Street 2", "Total length": "78 ft", "date": "03 Sep 2024", "time": "11:00 AM"},
-    {"block_no": "Block C", "street_no": "Street 3", "Total length": "20 ft", "date": "07 Sep 2024", "time": "12:00 PM"},
-    {"block_no": "Block D", "street_no": "Street 4", "Total length": "13 ft", "date": "09 Sep 2024", "time": "01:00 PM"},
-  ];
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
 
-  BrickWorkSummary({super.key});
+  @override
+  void initState() {
+    super.initState();
+    brickWorkViewModel.fetchAllBrick();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,29 +51,65 @@ class BrickWorkSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-    child: Obx(() {
-    // Use Obx to rebuild when the data changes
-    if (brickWorkViewModel.allBrick.isEmpty) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/images/nodata.png',
-            width: 200,
-            height: 200,
-            fit: BoxFit.cover,
-          ),
-          SizedBox(height: 16),
-          Text(
-            'No data available',
-            style: TextStyle(
-                color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ],
-      ),
-    );
-    }
+        child: Column(
+          children: [
+            // Add the FilterWidget here
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+
+            // Now add the data grid (conditionally showing filtered data)
+            Expanded(
+              child: Obx(() {
+                // Apply filtering to the data
+                final filteredData = brickWorkViewModel.allBrick.where((entry) {
+                  // Filter by block
+                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse date and check if it falls in the range
+                  DateTime? entryDate;
+                  try {
+                    entryDate = DateTime.parse(entry.date); // Assuming date is a string
+                  } catch (e) {
+                    entryDate = null;
+                  }
+
+                  final dateMatch = (entryDate == null) ||
+                      (_fromDate == null || entryDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || entryDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
+                // Show "No data available" if the list is empty
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
 
       return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
@@ -83,7 +127,9 @@ class BrickWorkSummary extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             // Data rows
-            ...brickWorkViewModel.allBrick.map((entry) {
+            ...filteredData.map((entry) {
+
+    //...brickWorkViewModel.allBrick.map((entry) {
               return Row(
                 children: [
                   buildDataCell(entry.block_no ?? 'N/A'),
@@ -99,7 +145,7 @@ class BrickWorkSummary extends StatelessWidget {
       );
     }),
       ),
-    );
+    ])));
   }
 
   // Helper to build header cells
