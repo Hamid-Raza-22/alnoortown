@@ -154,31 +154,46 @@ class _SoilCompactionState extends State<SoilCompaction> {
                       totalLengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
+                    // Add soil data
                     await soilCompactionViewModel.addSoil(SoilCompactionModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        block_no: selectedBlock,
-                        roadNo: roadNoController.text,
-                        totalLength: totalLengthController.text,
-                        soilCompStatus:selectedStatus,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                      startDate: selectedStartDate,
+                      expectedCompDate: selectedEndDate,
+                      block_no: selectedBlock,
+                      roadNo: roadNoController.text,
+                      totalLength: totalLengthController.text,
+                      soilCompStatus: selectedStatus,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime(),
                     ));
+
+                    // Fetch all soil data
                     await soilCompactionViewModel.fetchAllSoil();
 
+                    // Show success message
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                      SnackBar(
                         content: Text('entry_added_successfully'.tr()),
                       ),
                     );
+
+                    // Clear all fields after submission
+                    setState(() {
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedBlock = null;
+                      selectedStatus = null;
+                      roadNoController.clear();
+                      totalLengthController.clear();
+                    });
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                      SnackBar(
                         content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
+
                 style: ElevatedButton.styleFrom(
                   backgroundColor:   Color(0xFFF3F4F6),
                   padding:

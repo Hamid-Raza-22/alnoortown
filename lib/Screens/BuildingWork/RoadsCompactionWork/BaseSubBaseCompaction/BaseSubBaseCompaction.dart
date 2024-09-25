@@ -45,14 +45,14 @@ class _BaseSubBaseState extends State<BaseSubBase> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -66,7 +66,7 @@ class _BaseSubBaseState extends State<BaseSubBase> {
         ],
         title:   Text(
           'base_sub_base_compaction'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
@@ -83,12 +83,12 @@ class _BaseSubBaseState extends State<BaseSubBase> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding:   EdgeInsets.all(16.0),
+              padding:   const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                 ],
               ),
             ),
@@ -100,12 +100,12 @@ class _BaseSubBaseState extends State<BaseSubBase> {
 
   Widget buildContainer() {
     return Card(
-      margin:   EdgeInsets.only(bottom: 16),
+      margin:   const EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding:   EdgeInsets.all(20.0),
+        padding:   const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -114,37 +114,37 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                 selectedBlock = value;
               });
             }),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             buildTextFieldRow('road_no'.tr(), roadNoController),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), totalLengthController),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             buildDatePickerRow(
               'start_date'.tr(),
               selectedStartDate,
                   (date) => setState(() => selectedStartDate = date),
             ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
             buildDatePickerRow(
               'expected_completion_date'.tr(),
               selectedEndDate,
                   (date) => setState(() => selectedEndDate = date),
             ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Text(
               'sand_compaction_completion_status'.tr(),
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -154,45 +154,56 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                       totalLengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
-                    await baseSubBaseCompactionViewModel.addSubBase(BaseSubBaseCompactionModel(
-                        block_no: selectedBlock,
-                        startDate: selectedStartDate ,
-                        expectedCompDate: selectedEndDate,
-                        roadNo: roadNoController.text,
-                        totalLength: totalLengthController.text,
-                        baseSubBaseCompStatus:selectedStatus,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime()
 
+                    // Submit data
+                    await baseSubBaseCompactionViewModel.addSubBase(BaseSubBaseCompactionModel(
+                      block_no: selectedBlock,
+                      startDate: selectedStartDate,
+                      expectedCompDate: selectedEndDate,
+                      roadNo: roadNoController.text,
+                      totalLength: totalLengthController.text,
+                      baseSubBaseCompStatus: selectedStatus,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime(),
                     ));
 
                     await baseSubBaseCompactionViewModel.fetchAllSubBase();
 
+                    // Clear fields after submission
+                    setState(() {
+                      roadNoController.clear();
+                      totalLengthController.clear();
+                      selectedBlock = null;
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                      selectedStatus = null;
+                    });
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                      SnackBar(
                         content: Text('entry_added_successfully'.tr()),
                       ),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                      SnackBar(
                         content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
+
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:   Color(0xFFF3F4F6),
+                  backgroundColor:   const Color(0xFFF3F4F6),
                   padding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle:   TextStyle(fontSize: 14),
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   const TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
                 child:   Text('submit'.tr().tr(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
@@ -208,15 +219,15 @@ class _BaseSubBaseState extends State<BaseSubBase> {
       children: [
         Text(
           label,
-          style:   TextStyle(
+          style:   const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: selectedValue,
-          decoration:   InputDecoration(
+          decoration:   const InputDecoration(
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -238,12 +249,12 @@ class _BaseSubBaseState extends State<BaseSubBase> {
       children: [
         Text(
           label,
-          style:   TextStyle(
+          style:   const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-          SizedBox(height: 8),
+          const SizedBox(height: 8),
         GestureDetector(
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -256,16 +267,16 @@ class _BaseSubBaseState extends State<BaseSubBase> {
           },
           child: Container(
             width: double.infinity,
-            padding:   EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding:   const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              border: Border.all(color:   Color(0xFFC69840)),
+              border: Border.all(color:   const Color(0xFFC69840)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               selectedDate != null
                   ? DateFormat('d MMM yyyy').format(selectedDate)
                   : 'select_date'.tr(),
-              style:   TextStyle(
+              style:   const TextStyle(
                 fontSize: 14,
                 color: Color(0xFFC69840),
               ),
@@ -282,15 +293,15 @@ class _BaseSubBaseState extends State<BaseSubBase> {
         children: [
           Text(
             label,
-            style:   TextStyle(
+            style:   const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFC69840)),
           ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
           TextField(
             controller: controller,
-            decoration:   InputDecoration(
+            decoration:   const InputDecoration(
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.symmetric(horizontal: 8),
             ),
