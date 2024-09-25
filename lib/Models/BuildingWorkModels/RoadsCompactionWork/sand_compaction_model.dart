@@ -34,9 +34,9 @@ class SandCompactionModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         sandCompStatus:json['sandCompStatus'],
-        date:  json['date'],
+        date:  json['sand_compaction_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -50,7 +50,7 @@ class SandCompactionModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'sandCompStatus':sandCompStatus,
-      'date':date,
+      'sand_compaction_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

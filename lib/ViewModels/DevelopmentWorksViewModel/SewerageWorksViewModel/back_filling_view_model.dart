@@ -83,7 +83,9 @@ class BackFillingViewModel extends GetxController {
     allFill .value = filling;
 
   }
-
+  fetchAndSaveBackFillingData() async {
+    await backFillingRepository.fetchAndSaveBackFillingData();
+  }
   addFill(BackFilingModel filingModel){
     backFillingRepository.add(filingModel);
     //fetchAllFill();

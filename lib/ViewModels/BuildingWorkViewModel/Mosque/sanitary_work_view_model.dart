@@ -83,7 +83,9 @@ class SanitaryWorkViewModel extends GetxController {
     allSanitary.value = sanitaryJob;
 
   }
-
+  fetchAndSaveSanitaryWorkData() async {
+    await sanitaryWorkRepository.fetchAndSaveSanitaryWorkData();
+  }
   addSanitary(SanitaryWorkModel sanitaryWorkModel){
     sanitaryWorkRepository.add(sanitaryWorkModel);
 

@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/pipeline_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class PipelineRepository{
@@ -16,7 +18,7 @@ class PipelineRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePipeLaying,
-        columns: ['id', 'block_no', 'street_no', 'length','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'length','pipeline_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -40,6 +42,17 @@ class PipelineRepository{
       print('Parsed PipelineModel objects:');
     }
     return pipeline;
+  }
+  Future<void> fetchAndSavePipelineData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlPipeLaying);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      PipelineModel model = PipelineModel.fromMap(item);
+      await dbClient.insert(tableNameWaterTanker, model.toMap());
+    }
   }
   Future<List<PipelineModel>> getUnPostedPipeLine() async {
     var dbClient = await dbHelper.db;

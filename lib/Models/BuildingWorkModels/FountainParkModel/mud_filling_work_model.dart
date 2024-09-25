@@ -27,9 +27,9 @@ class MudFillingWorkModel {
       expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
       totalDumpers: json['totalDumpers'],
       mudFillingCompStatus: json['mudFillingCompStatus'],
-        date:  json['date'],
+        date:  json['mud_filling_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -41,7 +41,7 @@ class MudFillingWorkModel {
       'expectedCompDate': expectedCompDate?.toString(),
       'totalDumpers': totalDumpers,
       'mudFillingCompStatus': mudFillingCompStatus,
-      'date':date,
+      'mud_filling_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

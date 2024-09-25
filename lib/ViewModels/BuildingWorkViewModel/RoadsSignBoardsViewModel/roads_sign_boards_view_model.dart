@@ -83,7 +83,9 @@ class RoadsSignBoardsViewModel extends GetxController {
     allRoadsSignBoard.value = roadsSignBoard;
 
   }
-
+  fetchAndSaveRoadsSignBoardsData() async {
+    await roadsSignBoardsRepository.fetchAndSaveRoadsSignBoardsData();
+  }
   addRoadsSignBoard(RoadsSignBoardsModel roadsSignBoardsModel){
     roadsSignBoardsRepository.add(roadsSignBoardsModel);
 

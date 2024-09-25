@@ -83,7 +83,9 @@ class MgPlasterWorkViewModel extends GetxController {
     allMgPlaster.value = mgPlaster;
 
   }
-
+  fetchAndSaveMainGatePlasterData() async {
+    await mgPlasterWorkRepository.fetchAndSaveMainGatePlasterWorkData();
+  }
   addMgPlaster(MgPlasterWorkModel mgPlasterWorkModel){
     mgPlasterWorkRepository.add(mgPlasterWorkModel);
 

@@ -2,6 +2,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_excavation_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../Globals/globals.dart';
@@ -17,7 +19,7 @@ class PolesExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePolesExcavation,
-        columns: ['id', 'block_no', 'street_no', 'noOfExcavation','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'noOfExcavation','poles_excavation_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class PolesExcavationRepository{
     }
 
     return polesExcavation;
+  }
+  Future<void> fetchAndSavePolesExcavationData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlPolesExcavation);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      PolesExcavationModel model = PolesExcavationModel.fromMap(item);
+      await dbClient.insert(tableNamePolesExcavation, model.toMap());
+    }
   }
   Future<List<PolesExcavationModel>> getUnPostedPolesExcavation() async {
     var dbClient = await dbHelper.db;

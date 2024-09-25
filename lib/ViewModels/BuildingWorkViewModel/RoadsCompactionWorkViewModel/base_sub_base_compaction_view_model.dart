@@ -82,7 +82,9 @@ class BaseSubBaseCompactionViewModel extends GetxController {
     allSubBase.value = subBase;
 
   }
-
+  fetchAndSaveBaseSubBaseCompactionData() async {
+    await baseSubBaseCompactionRepository.fetchAndSaveBaseSubBaseCompactionData();
+  }
   addSubBase(BaseSubBaseCompactionModel baseSubBaseCompactionModel){
     baseSubBaseCompactionRepository.add(baseSubBaseCompactionModel);
 

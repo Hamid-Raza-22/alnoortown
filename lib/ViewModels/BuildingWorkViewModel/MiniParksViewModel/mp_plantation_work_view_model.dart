@@ -82,7 +82,9 @@ class MpPlantationWorkViewModel extends GetxController {
     allMpPlant.value = mpPlant;
 
   }
-
+  fetchAndSaveMiniParkPlantationData() async {
+    await mpPlantationWorkRepository.fetchAndSaveMiniParkPlantationData();
+  }
   addMpPlant(MpPlantationWorkModel mpPlantationWorkModel){
     mpPlantationWorkRepository.add(mpPlantationWorkModel);
 

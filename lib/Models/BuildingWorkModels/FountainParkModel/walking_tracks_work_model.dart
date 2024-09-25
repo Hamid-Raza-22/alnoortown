@@ -28,9 +28,9 @@ class WalkingTracksWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         walkingTracksCompStatus:json['walkingTracksCompStatus'],
-        date:  json['date'],
+        date:  json['walking_tracks_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
 
     );
@@ -43,7 +43,7 @@ class WalkingTracksWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'walkingTracksCompStatus':walkingTracksCompStatus,
-      'date':date,
+      'walking_tracks_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

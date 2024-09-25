@@ -83,7 +83,9 @@ class NewMaterialViewModel extends GetxController {
     allNew .value = material;
 
   }
-
+  fetchAndSaveNewMaterialData() async {
+    await newMaterialRepository.fetchAndSaveNewMaterialData();
+  }
   addNewMaterial(NewMaterialModel newMaterialModel){
     newMaterialRepository.add(newMaterialModel);
     fetchAllNewMaterial();

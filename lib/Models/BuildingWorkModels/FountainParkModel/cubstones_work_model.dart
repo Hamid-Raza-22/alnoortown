@@ -27,10 +27,9 @@ class CubStonesWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         cubStonesCompStatus:json['cubStonesCompStatus'],
-        date:  json['date'],
+        date:  json['curbStone_Work_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
-
+        posted: json['posted']?? 0
     );
   }
 
@@ -40,11 +39,9 @@ class CubStonesWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'cubStonesCompStatus':cubStonesCompStatus,
-      'date':date,
+      'curbStone_Work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
-
     };
   }
 }

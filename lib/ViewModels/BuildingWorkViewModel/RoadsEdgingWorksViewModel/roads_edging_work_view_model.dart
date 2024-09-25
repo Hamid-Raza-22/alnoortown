@@ -83,7 +83,9 @@ class RoadsEdgingWorkViewModel extends GetxController {
     allRoadEdging.value = roadEdging;
 
   }
-
+  fetchAndSaveRoadsEdgingWorkData() async {
+    await roadsEdgingWorkRepository.fetchAndSaveRoadsEdgingWorkData();
+  }
   addRoadEdging(RoadsEdgingWorkModel roadsEdgingWorkModel){
     roadsEdgingWorkRepository.add(roadsEdgingWorkModel);
 

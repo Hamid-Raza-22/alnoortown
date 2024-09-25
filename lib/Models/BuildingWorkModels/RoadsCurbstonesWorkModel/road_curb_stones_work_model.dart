@@ -29,7 +29,7 @@ class RoadCurbStonesWorkModel{
         roadNo: json['roadNo'],
         totalLength: json['totalLength'],
         compStatus: json['compStatus'],
-        date:  json['date'],
+        date:  json['roads_curbStone_date'],
         time:  json['time'],
       posted: json['posted'],  // Get the posted status from the database
 
@@ -43,7 +43,7 @@ class RoadCurbStonesWorkModel{
       'roadNo':roadNo,
       'totalLength':totalLength,
       'compStatus':compStatus,
-      'date':date,
+      'roads_curbStone_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

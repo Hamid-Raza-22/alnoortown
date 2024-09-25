@@ -84,7 +84,9 @@ class WalkingTracksWorkViewModel extends GetxController {
     allWalking.value = walking;
 
   }
-
+  fetchAndSaveWalkingTracksWorksData() async {
+    await walkingTracksWorkRepository.fetchAndSaveWalkingTracksData();
+  }
   addWalking(WalkingTracksWorkModel walkingTracksWorkModel){
     walkingTracksWorkRepository.add(walkingTracksWorkModel);
 

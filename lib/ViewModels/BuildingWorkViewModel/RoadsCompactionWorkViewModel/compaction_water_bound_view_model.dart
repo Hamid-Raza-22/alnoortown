@@ -83,7 +83,9 @@ class CompactionWaterBoundViewModel extends GetxController {
     allWaterBound.value = waterBound;
 
   }
-
+  fetchAndSaveCompactionWaterBoundData() async {
+    await compactionWaterBoundRepository.fetchAndSaveCompactionWaterBoundData();
+  }
   addWaterBound(CompactionWaterBoundModel compactionWaterBoundModel){
     compactionWaterBoundRepository.add(compactionWaterBoundModel);
 

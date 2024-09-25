@@ -83,7 +83,9 @@ class RoadCurbStonesWorkViewModel extends GetxController {
     allRoadCurb.value = roadCurb;
 
   }
-
+  fetchAndSaveRoadsCurbStonesWorkData() async {
+    await roadCurbStonesWorkRepository.fetchAndSaveRoadCompactionData();
+  }
   addRoadCurb(RoadCurbStonesWorkModel roadCurbStonesWorkModel){
     roadCurbStonesWorkRepository.add(roadCurbStonesWorkModel);
 

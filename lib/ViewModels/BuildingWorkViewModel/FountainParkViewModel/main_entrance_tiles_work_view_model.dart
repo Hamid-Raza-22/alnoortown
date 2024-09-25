@@ -81,7 +81,9 @@ class MainEntranceTilesWorkViewModel extends GetxController {
     allEntrance.value = entrance;
 
   }
-
+  fetchAndSaveMainEntranceTilesWorkData() async {
+    await mainEntranceTilesWorkRepository.fetchAndSaveMainEntranceTilesWorkData();
+  }
   addEntrance(MainEntranceTilesWorkModel mainEntranceTilesWorkModel){
     mainEntranceTilesWorkRepository.add(mainEntranceTilesWorkModel);
 

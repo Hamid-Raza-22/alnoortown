@@ -23,9 +23,9 @@ class MonumentsWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         monumentsWorkCompStatus:json['monumentsWorkCompStatus'],
-        date:  json['date'],
+        date:  json['monuments_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0 // Get the posted status from the database
 
     );
   }
@@ -36,7 +36,7 @@ class MonumentsWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'monumentsWorkCompStatus':monumentsWorkCompStatus,
-      'date':date,
+      'monuments_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

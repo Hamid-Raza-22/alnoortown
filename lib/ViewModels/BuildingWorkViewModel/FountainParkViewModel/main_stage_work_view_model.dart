@@ -82,7 +82,9 @@ class MainStageWorkViewModel extends GetxController {
     allStage.value = stage;
 
   }
-
+  fetchAndSaveMainStageWorkData() async {
+    await mainStageWorkRepository.fetchAndSaveMainStageWorkData();
+  }
   addStage(MainStageWorkModel mainStageWorkModel){
     mainStageWorkRepository.add(mainStageWorkModel);
 

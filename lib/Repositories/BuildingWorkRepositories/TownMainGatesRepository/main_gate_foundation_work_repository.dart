@@ -2,6 +2,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/main_gate_foundation_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class MainGateFoundationWorkRepository{
@@ -15,7 +17,7 @@ class MainGateFoundationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFoundationWorkMainGate,
-        columns:  ['id', 'block_no', 'workStatus','date','time','posted']
+        columns:  ['id', 'block_no', 'workStatus','main_gate_foundation_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -40,6 +42,17 @@ class MainGateFoundationWorkRepository{
     }
 
     return mainGateFoundationWork;
+  }
+  Future<void> fetchAndSaveMainGateFoundationWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlFoundationWorkMainGate);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MainGateFoundationWorkModel model = MainGateFoundationWorkModel.fromMap(item);
+      await dbClient.insert(tableNameFoundationWorkMainGate, model.toMap());
+    }
   }
   Future<List<MainGateFoundationWorkModel>> getUnPostedMainGateFoundation() async {
     var dbClient = await dbHelper.db;

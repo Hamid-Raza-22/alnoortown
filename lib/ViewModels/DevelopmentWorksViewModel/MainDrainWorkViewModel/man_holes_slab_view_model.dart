@@ -83,7 +83,9 @@ class ManHolesSlabViewModel extends GetxController {
     allMan .value = holes;
 
   }
-
+  fetchAndSaveManHolesData() async {
+    await manholesSlabRepository.fetchAndSaveManholesSlabData();
+  }
   addMan(ManholesSlabModel manholesSlabModel){
     manholesSlabRepository.add(manholesSlabModel);
     //fetchAllMan();

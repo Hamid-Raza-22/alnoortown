@@ -82,7 +82,9 @@ class MgGreyStructureViewModel extends GetxController {
     allMainGrey.value = mainGrey;
 
   }
-
+  fetchAndSaveMainGateGreyStructureData() async {
+    await mgGreyStructureRepository.fetchAndSaveMainGateGreyStructureData();
+  }
   addMainGrey(MgGreyStructureModel mgGreyStructureModel){
     mgGreyStructureRepository.add(mgGreyStructureModel);
 

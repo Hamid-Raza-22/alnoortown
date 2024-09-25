@@ -83,7 +83,9 @@ class MainGatePillarWorkViewModel extends GetxController {
     allMainPillar.value = mainPillar;
 
   }
-
+  fetchAndSaveMainGatePillarData() async {
+    await mainGatePillarWorkRepository.fetchAndSaveMainGatePillarData();
+  }
   addMainPillar(MainGatePillarWorkModel mainGatePillarWorkModel){
     mainGatePillarWorkRepository.add(mainGatePillarWorkModel);
 

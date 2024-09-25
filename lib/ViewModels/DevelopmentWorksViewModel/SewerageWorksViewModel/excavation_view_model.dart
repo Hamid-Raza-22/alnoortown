@@ -82,7 +82,9 @@ class ExcavationViewModel extends GetxController {
     allExa .value = excavation;
 
   }
-
+  fetchAndSaveExcavationData() async {
+    await excavationRepository.fetchAndSaveExcavationWorkData();
+  }
   addExa(ExcavationModel excavationModel){
     excavationRepository.add(excavationModel);
     //fetchAllExa();

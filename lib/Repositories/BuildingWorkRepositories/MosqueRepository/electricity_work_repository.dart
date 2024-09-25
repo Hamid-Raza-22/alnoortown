@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/electricity_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class ElectricityWorkRepository{
@@ -16,7 +18,7 @@ class ElectricityWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameElectricityWorkMosque,
-        columns: ['id', 'block_no', 'electricityWorkStatus','date','time','posted']
+        columns: ['id', 'block_no', 'electricityWorkStatus','electricity_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class ElectricityWorkRepository{
     }
 
     return electricityWork;
+  }
+  Future<void> fetchAndSaveElectricityWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlElectricityWorkMosque);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      ElectricityWorkModel model = ElectricityWorkModel.fromMap(item);
+      await dbClient.insert(tableNameElectricityWorkMosque, model.toMap());
+    }
   }
   Future<List<ElectricityWorkModel>> getUnPostedElectricityWork() async {
     var dbClient = await dbHelper.db;

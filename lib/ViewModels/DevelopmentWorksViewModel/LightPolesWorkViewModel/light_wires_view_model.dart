@@ -82,7 +82,9 @@ class LightWiresViewModel extends GetxController {
     allLight.value = light;
 
   }
-
+  fetchAndSaveLightWiresData() async {
+    await lightWiresRepository.fetchAndSaveLightWiresWorkData();
+  }
   addLight(LightWiresModel lightWiresModel){
     lightWiresRepository.add(lightWiresModel);
     //fetchAllLight();

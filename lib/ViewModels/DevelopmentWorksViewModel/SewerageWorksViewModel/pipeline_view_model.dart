@@ -82,7 +82,9 @@ class PipelineViewModel extends GetxController {
     allPipe .value = line;
 
   }
-
+  fetchAndSavePipeLineData() async {
+    await pipelineRepository.fetchAndSavePipelineData();
+  }
   addPipe(PipelineModel pipelineModel){
     pipelineRepository.add(pipelineModel);
     //fetchAllPipe();

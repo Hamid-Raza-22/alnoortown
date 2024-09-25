@@ -83,7 +83,9 @@ class FirstFloorViewModel extends GetxController {
     allFirstFloor.value = firstFloor;
 
   }
-
+  fetchAndSaveFirstFloorData() async {
+    await firstFloorRepository.fetchAndSaveFirstFloorData();
+  }
   addFirstFloor(FirstFloorModel firstFloorModel){
     firstFloorRepository.add(firstFloorModel);
 

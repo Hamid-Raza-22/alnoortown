@@ -83,7 +83,9 @@ class PaintWorkViewModel extends GetxController {
     allPaint.value = paintJob;
 
   }
-
+  fetchAndSavePaintWorkData() async {
+    await paintWorkRepository.fetchAndSavePaintWorkData();
+  }
   addPaint(PaintWorkModel paintWorkModel){
     paintWorkRepository.add(paintWorkModel);
 

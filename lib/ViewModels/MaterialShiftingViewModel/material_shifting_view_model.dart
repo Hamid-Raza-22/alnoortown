@@ -82,7 +82,9 @@ class MaterialShiftingViewModel extends GetxController {
     allShifting .value = shift;
 
   }
-
+  fetchAndSaveMaterialShiftingData() async {
+    await shiftingWorkRepository.fetchAndSaveShiftingWorkData();
+  }
   addShift(ShiftingWorkModel shiftingWorkModel){
     shiftingWorkRepository.add(shiftingWorkModel);
     //fetchAllShifting();

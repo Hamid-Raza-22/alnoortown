@@ -25,9 +25,9 @@ class MainStageWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         mainStageWorkCompStatus:json['mainStageWorkCompStatus'],
-        date:  json['date'],
+        date:  json['main_stage_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -38,7 +38,7 @@ class MainStageWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'mainStageWorkCompStatus':mainStageWorkCompStatus,
-      'date':date,
+      'main_stage_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

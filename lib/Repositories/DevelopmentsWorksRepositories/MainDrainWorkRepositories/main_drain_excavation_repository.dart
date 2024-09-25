@@ -1,6 +1,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/main_drain_excavation_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class MainDrainExcavationRepository{
@@ -14,7 +16,7 @@ class MainDrainExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameDrainExcavation,
-        columns: ['id', 'block_no', 'street_no', 'completedLength','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'completedLength','main_drain_excavation_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -39,6 +41,17 @@ class MainDrainExcavationRepository{
     }
 
     return mainDrainExcavation;
+  }
+  Future<void> fetchAndSaveMainDrainExcavationData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlDrainExcavation);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MainDrainExcavationModel model = MainDrainExcavationModel.fromMap(item);
+      await dbClient.insert(tableNameDrainExcavation, model.toMap());
+    }
   }
   Future<List<MainDrainExcavationModel>> getUnPostedMainDrainExcavation() async {
     var dbClient = await dbHelper.db;

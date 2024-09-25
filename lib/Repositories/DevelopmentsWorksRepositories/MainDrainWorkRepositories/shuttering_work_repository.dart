@@ -3,7 +3,10 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/shuttering_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../../Services/FirebaseServices/firebase_remote_config.dart';
 
 class ShutteringWorkRepository{
 
@@ -16,7 +19,7 @@ class ShutteringWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameShutteringWork,
-        columns: ['id', 'block_no', 'street_no', 'completedLength','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'completedLength','shuttering_work_date','time','posted']
     );
 
     if (kDebugMode) {
@@ -36,6 +39,17 @@ class ShutteringWorkRepository{
       print('Parsed ShutteringWorkModel objects:');
     }
     return shutteringWork;
+  }
+  Future<void> fetchAndSaveShutteringWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlShutteringWork);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      ShutteringWorkModel model = ShutteringWorkModel.fromMap(item);
+      await dbClient.insert(tableNameShutteringWork, model.toMap());
+    }
   }
   Future<List<ShutteringWorkModel>> getUnPostedShutteringWork() async {
     var dbClient = await dbHelper.db;

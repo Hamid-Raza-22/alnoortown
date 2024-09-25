@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/StreetRoadsWaterChannelsModel/street_road_water_channel_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class StreetRoadWaterChannelRepository{
@@ -16,7 +18,7 @@ class StreetRoadWaterChannelRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameStreetRoadWaterChannels,
-        columns: ['id', 'block_no', 'roadNo','roadSide','noOfWaterChannels','waterChCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','roadSide','noOfWaterChannels','waterChCompStatus','street_roads_water_channel_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class StreetRoadWaterChannelRepository{
     }
 
     return streetRoadWaterChannel;
+  }
+  Future<void> fetchAndSaveStreetRoadsWaterChannelData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlStreetRoadWaterChannels);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      StreetRoadWaterChannelModel model = StreetRoadWaterChannelModel.fromMap(item);
+      await dbClient.insert(tableNameStreetRoadWaterChannels, model.toMap());
+    }
   }
   Future<List<StreetRoadWaterChannelModel>> getUnPostedStreetRoadWaterChannel() async {
     var dbClient = await dbHelper.db;

@@ -83,7 +83,9 @@ class SittingAreaWorkViewModel extends GetxController {
     allSitting.value = sitting;
 
   }
-
+  fetchAndSaveSittingAreaData() async {
+    await sittingAreaWorkRepository.fetchAndSaveSittingAreaData();
+  }
   addSitting(SittingAreaWorkModel sittingAreaWorkModel){
     sittingAreaWorkRepository.add(sittingAreaWorkModel);
 

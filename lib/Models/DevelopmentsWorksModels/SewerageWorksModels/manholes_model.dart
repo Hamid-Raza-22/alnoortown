@@ -28,9 +28,9 @@ class ManholesModel{
       block_no: json['block_no'],
       street_no: json['street_no'],
         noOfManholes: json['noOfManholes'],
-        date:  json['date'],
+        date:  json['manholes_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -41,7 +41,7 @@ class ManholesModel{
       'block_no':block_no,
       'street_no':street_no,
       'noOfManholes':noOfManholes,
-      'date':date,
+      'manholes_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

@@ -37,9 +37,9 @@ class RoadsEdgingWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         roadsEdgingCompStatus:json['roadsEdgingCompStatus'],
-        date:  json['date'],
+        date:  json['roads_edging_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0// Get the posted status from the database
 
     );
   }
@@ -54,7 +54,7 @@ class RoadsEdgingWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'roadsEdgingCompStatus':roadsEdgingCompStatus,
-      'date':date,
+      'roads_edging_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

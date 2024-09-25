@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/first_floor_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class FirstFloorRepository{
@@ -16,7 +18,7 @@ class FirstFloorRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFirstFloorMosque,
-        columns: ['id', 'block_no', 'brickWork','mudFiling','plasterWork','date','time','posted']
+        columns: ['id', 'block_no', 'brickWork','mudFiling','plasterWork','first_floor_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -40,6 +42,17 @@ class FirstFloorRepository{
       print('Parsed FirstFloorModel objects:');
     }
     return firstFloor;
+  }
+  Future<void> fetchAndSaveFirstFloorData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlFirstFloorMosque);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      FirstFloorModel model = FirstFloorModel.fromMap(item);
+      await dbClient.insert(tableNameFirstFloorMosque, model.toMap());
+    }
   }
   Future<List<FirstFloorModel>> getUnPostedFirstFloorMosque() async {
     var dbClient = await dbHelper.db;

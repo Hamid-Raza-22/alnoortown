@@ -82,7 +82,9 @@ class MiniParkMudFillingViewModel extends GetxController {
     allMpMud.value = mpMud;
 
   }
-
+  fetchAndSaveMiniParkMudFillingData() async {
+    await miniParkMudFillingRepository.fetchAndSaveMiniParkMudFillingData();
+  }
   addMpMud(MiniParkMudFillingModel miniParkMudFillingModel){
     miniParkMudFillingRepository.add(miniParkMudFillingModel);
 

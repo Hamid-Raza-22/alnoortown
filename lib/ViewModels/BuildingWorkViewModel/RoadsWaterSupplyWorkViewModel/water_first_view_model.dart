@@ -83,7 +83,9 @@ class WaterFirstViewModel extends GetxController {
     allWaterFirst.value = waterFirst;
 
   }
-
+  fetchAndSaveRoadsWaterSupplyData() async {
+    await waterFirstRepository.fetchAndSaveRoadsWaterSupplyData();
+  }
   addWaterFirst(WaterFirstModel waterFirstModel){
     waterFirstRepository.add(waterFirstModel);
 

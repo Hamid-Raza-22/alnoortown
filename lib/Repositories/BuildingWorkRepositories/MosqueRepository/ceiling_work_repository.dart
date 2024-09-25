@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/ceiling_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class CeilingWorkRepository{
@@ -16,7 +18,7 @@ class CeilingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCeilingWorkMosque,
-        columns: ['id', 'block_no', 'ceilingWorkStatus','date','time','posted']
+        columns: ['id', 'block_no', 'ceilingWorkStatus','ceiling_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class CeilingWorkRepository{
     }
 
     return ceilingWork;
+  }
+  Future<void> fetchAndSaveCeilingWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlCeilingWorkMosque);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      CeilingWorkModel model = CeilingWorkModel.fromMap(item);
+      await dbClient.insert(tableNameCeilingWorkMosque, model.toMap());
+    }
   }
   Future<List<CeilingWorkModel>> getUnPostedCeilingWork() async {
     var dbClient = await dbHelper.db;

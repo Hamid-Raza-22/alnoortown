@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/plantation_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class PlantationWorkRepository{
@@ -16,7 +18,7 @@ class PlantationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePlantationWorkFountainPark,
-        columns: ['id', 'startDate', 'expectedCompDate','plantationCompStatus','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','plantationCompStatus','plantation_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class PlantationWorkRepository{
     }
 
     return plantationWork;
+  }
+  Future<void> fetchAndSavePlantationWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlPlantationWorkFountainPark);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      PlantationWorkModel model = PlantationWorkModel.fromMap(item);
+      await dbClient.insert(tableNamePlantationWorkFountainPark, model.toMap());
+    }
   }
   Future<List<PlantationWorkModel>> getUnPostedPlantation() async {
     var dbClient = await dbHelper.db;

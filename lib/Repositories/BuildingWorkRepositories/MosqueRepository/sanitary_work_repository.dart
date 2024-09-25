@@ -2,7 +2,10 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/sanitary_work_model.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../../Services/ApiServices/api_service.dart';
 
 class SanitaryWorkRepository{
   DBHelper dbHelper = DBHelper();
@@ -14,7 +17,7 @@ class SanitaryWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameSanitaryWorkMosque,
-        columns: ['id', 'block_no', 'sanitaryWorkStatus','date','time','posted']
+        columns: ['id', 'block_no', 'sanitaryWorkStatus','sanitary_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -39,6 +42,17 @@ class SanitaryWorkRepository{
     }
 
     return sanitaryWork;
+  }
+  Future<void> fetchAndSaveSanitaryWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlSanitaryWorkMosque);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      SanitaryWorkModel model = SanitaryWorkModel.fromMap(item);
+      await dbClient.insert(tableNameSanitaryWorkMosque, model.toMap());
+    }
   }
   Future<List<SanitaryWorkModel>> getUnPostedSanitaryWork() async {
     var dbClient = await dbHelper.db;

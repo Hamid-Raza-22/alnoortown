@@ -82,7 +82,9 @@ class PolesExcavationViewModel extends GetxController {
     allPoleExa .value = poles;
 
   }
-
+  fetchAndSavePolesExcavationData() async {
+    await polesExcavationRepository.fetchAndSavePolesExcavationData();
+  }
   addPoleExa(PolesExcavationModel polesExcavationModel){
     polesExcavationRepository.add(polesExcavationModel);
     //fetchAllPoleExa();

@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/tiles_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class TilesWorkRepository{
@@ -16,7 +18,7 @@ class TilesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameTilesWorkMosque,
-        columns: ['id', 'block_no', 'tilesWorkStatus','date','time','posted']
+        columns: ['id', 'block_no', 'tilesWorkStatus','tiles_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class TilesWorkRepository{
     }
 
     return tilesWork;
+  }
+  Future<void> fetchAndSaveTilesWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlTilesWorkMosque);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      TilesWorkModel model = TilesWorkModel.fromMap(item);
+      await dbClient.insert(tableNameTilesWorkMosque, model.toMap());
+    }
   }
   Future<List<TilesWorkModel>> getUnPostedTilesWork() async {
     var dbClient = await dbHelper.db;

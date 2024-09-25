@@ -83,7 +83,9 @@ class StreetRoadWaterChannelViewModel extends GetxController {
     allStreetRoad.value = streetRoad;
 
   }
-
+  fetchAndSaveStreetRoadsWaterChannelData() async {
+    await streetRoadWaterChannelRepository.fetchAndSaveStreetRoadsWaterChannelData();
+  }
   addStreetRoad(StreetRoadWaterChannelModel streetRoadWaterChannelModel){
     streetRoadWaterChannelRepository.add(streetRoadWaterChannelModel);
 

@@ -83,7 +83,9 @@ class ElectricityWorkViewModel extends GetxController {
     allElectricity.value = electricity;
 
   }
-
+  fetchAndSaveElectricityWorkData() async {
+    await electricityWorkRepository.fetchAndSaveElectricityWorkData();
+  }
   addElectricity(ElectricityWorkModel electricityWorkModel){
     electricityWorkRepository.add(electricityWorkModel);
 

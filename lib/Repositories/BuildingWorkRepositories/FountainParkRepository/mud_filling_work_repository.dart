@@ -3,7 +3,10 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/mud_filling_work_model.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../../Services/ApiServices/api_service.dart';
 
 class MudFillingWorkRepository{
 
@@ -16,7 +19,7 @@ class MudFillingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMudFillingWorkFountainPark,
-        columns: ['id', 'startDate', 'expectedCompDate','totalDumpers','mudFillingCompStatus','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','totalDumpers','mudFillingCompStatus','mud_filling_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +44,17 @@ class MudFillingWorkRepository{
     }
 
     return mudFillingWork;
+  }
+  Future<void> fetchAndSaveMudFillingData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlMudFillingWorkFountainPark);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MudFillingWorkModel model = MudFillingWorkModel.fromMap(item);
+      await dbClient.insert(tableNameMudFillingWorkFountainPark, model.toMap());
+    }
   }
   Future<List<MudFillingWorkModel>> getUnPostedMudFilling() async {
     var dbClient = await dbHelper.db;

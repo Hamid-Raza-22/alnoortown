@@ -83,6 +83,9 @@ class PolesViewModel extends GetxController {
     allPole .value = poles;
 
   }
+  fetchAndSavePolesData() async {
+    await polesRepository.fetchAndSavePolesWorkData();
+  }
 
   addPole(PolesModel polesModel){
     polesRepository.add(polesModel);

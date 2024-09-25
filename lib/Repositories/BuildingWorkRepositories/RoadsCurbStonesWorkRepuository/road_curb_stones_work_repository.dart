@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCurbstonesWorkModel/road_curb_stones_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class RoadCurbStonesWorkRepository{
@@ -16,7 +18,7 @@ class RoadCurbStonesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadCurbStone,
-        columns: ['id', 'block_no', 'roadNo','totalLength','compStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','totalLength','compStatus','roads_curbStone_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class RoadCurbStonesWorkRepository{
     }
 
     return roadCurbStonesWork;
+  }
+  Future<void> fetchAndSaveRoadCompactionData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlRoadCurbStone);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      RoadCurbStonesWorkModel model = RoadCurbStonesWorkModel.fromMap(item);
+      await dbClient.insert(tableNameRoadCurbStone, model.toMap());
+    }
   }
   Future<List<RoadCurbStonesWorkModel>> getUnPostedRoadCurbStones() async {
     var dbClient = await dbHelper.db;

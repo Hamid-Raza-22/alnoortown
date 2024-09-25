@@ -34,9 +34,9 @@ class RoadsSignBoardsModel{
         toPlotNo: json['toPlotNo'],
         roadSide: json['roadSide'],
         compStatus:json['compStatus'],
-        date:  json['date'],
+        date:  json['roads_sign_boards_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -50,7 +50,7 @@ class RoadsSignBoardsModel{
       'toPlotNo':toPlotNo,
       'roadSide':roadSide,
       'compStatus':compStatus,
-      'date':date,
+      'roads_sign_boards_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

@@ -23,9 +23,9 @@ class CanopyColumnPouringModel{
         id: json['id'],
         block_no: json['block_no'],
         workStatus: json['workStatus'],
-        date:  json['date'],
+        date:  json['canopy_column_pouring_main_gate_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
 
     );
@@ -36,7 +36,7 @@ class CanopyColumnPouringModel{
       'id':id,
       'block_no':block_no,
       'workStatus':workStatus,
-      'date':date,
+      'canopy_column_pouring_main_gate_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

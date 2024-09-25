@@ -83,7 +83,9 @@ class MainGateFoundationWorkViewModel extends GetxController {
     allMainFoundation.value = mainFoundation;
 
   }
-
+  fetchAndSaveMainGateFoundationData() async {
+    await mainGateFoundationWorkRepository.fetchAndSaveMainGateFoundationWorkData();
+  }
   addMainFoundation(MainGateFoundationWorkModel mainGateFoundationWorkModel){
     mainGateFoundationWorkRepository.add(mainGateFoundationWorkModel);
 

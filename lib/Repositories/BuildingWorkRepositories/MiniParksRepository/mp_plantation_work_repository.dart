@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mp_plantation_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class MpPlantationWorkRepository{
@@ -16,7 +18,7 @@ class MpPlantationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePlantationWorkMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','mpPCompStatus','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','mpPCompStatus','mp_plantation_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class MpPlantationWorkRepository{
     }
 
     return mpPlantationWork;
+  }
+  Future<void> fetchAndSaveMiniParkPlantationData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlPlantationWorkMiniPark);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MpPlantationWorkModel model = MpPlantationWorkModel.fromMap(item);
+      await dbClient.insert(tableNamePlantationWorkMiniPark, model.toMap());
+    }
   }
   Future<List<MpPlantationWorkModel>> getUnPostedPlantationWorkMp() async {
     var dbClient = await dbHelper.db;

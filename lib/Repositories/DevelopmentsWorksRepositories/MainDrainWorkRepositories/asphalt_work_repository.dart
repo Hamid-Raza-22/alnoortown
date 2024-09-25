@@ -2,6 +2,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/asphalt_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../Globals/globals.dart';
@@ -17,7 +19,7 @@ class AsphaltWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameAsphaltWork,
-        columns: ['id', 'block_no', 'street_no', 'numOfTons','backFillingStatus','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'numOfTons','backFillingStatus','asphalt_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,6 +44,17 @@ class AsphaltWorkRepository{
     }
 
     return asphaltWork;
+  }
+  Future<void> fetchAndSaveAsphaltWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlAsphaltWork);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      AsphaltWorkModel model = AsphaltWorkModel.fromMap(item);
+      await dbClient.insert(tableNameAsphaltWork, model.toMap());
+    }
   }
   Future<List<AsphaltWorkModel>> getUnPostedAsphaltWork() async {
     var dbClient = await dbHelper.db;

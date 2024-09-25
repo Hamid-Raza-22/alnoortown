@@ -28,9 +28,9 @@ class LightWiresModel{
       street_no: json['street_no'],
       totalLength: json['totalLength'],
         lightWireWorkStatus: json['lightWireWorkStatus'],
-        date:  json['date'],
+        date:  json['light_wires_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -42,7 +42,7 @@ class LightWiresModel{
       'street_no':street_no,
       'totalLength':totalLength,
       'lightWireWorkStatus':lightWireWorkStatus,
-      'date':date,
+      'light_wires_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

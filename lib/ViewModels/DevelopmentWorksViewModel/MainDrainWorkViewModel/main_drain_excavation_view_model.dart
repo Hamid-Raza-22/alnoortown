@@ -83,7 +83,9 @@ class MainDrainExcavationViewModel extends GetxController {
     allDrain .value = main;
 
   }
-
+  fetchAndSaveMainDrainExcavationData() async {
+    await mainDrainExcavationRepository.fetchAndSaveMainDrainExcavationData();
+  }
   addWork(MainDrainExcavationModel mainDrainExcavationModel){
     mainDrainExcavationRepository.add(mainDrainExcavationModel);
     //fetchAllDrain();

@@ -84,7 +84,9 @@ class RoadsShoulderWorkViewModel extends GetxController {
     allRoadShoulder.value = roadsShoulder;
 
   }
-
+  fetchAndSaveRoadsShoulderWorkData() async {
+    await roadsShoulderWorkRepository.fetchAndSaveRoadsShoulderWorkData();
+  }
   addRoadShoulder(RoadsShoulderWorkModel roadsShoulderWorkModel){
     roadsShoulderWorkRepository.add(roadsShoulderWorkModel);
 

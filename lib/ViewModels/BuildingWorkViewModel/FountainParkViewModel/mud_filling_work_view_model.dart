@@ -80,7 +80,9 @@ class MudFillingWorkViewModel extends GetxController {
     allMud.value = mud;
 
   }
-
+  fetchAndSaveMudFillingWorkData() async {
+    await mudFillingWorkRepository.fetchAndSaveMudFillingData();
+  }
   addMud(MudFillingWorkModel mudFillingWorkModel){
     mudFillingWorkRepository.add(mudFillingWorkModel);
 

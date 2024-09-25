@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsEdgingWorkModel/roads_edging_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class RoadsEdgingWorkRepository{
@@ -16,7 +18,7 @@ class RoadsEdgingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadsEdging,
-        columns: ['id', 'block_no', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsEdgingCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsEdgingCompStatus','roads_edging_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class RoadsEdgingWorkRepository{
     }
 
     return roadsEdgingWork;
+  }
+  Future<void> fetchAndSaveRoadsEdgingWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlRoadsEdging);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      RoadsEdgingWorkModel model = RoadsEdgingWorkModel.fromMap(item);
+      await dbClient.insert(tableNameRoadsEdging, model.toMap());
+    }
   }
   Future<List<RoadsEdgingWorkModel>> getUnPostedRoadsEdging() async {
     var dbClient = await dbHelper.db;

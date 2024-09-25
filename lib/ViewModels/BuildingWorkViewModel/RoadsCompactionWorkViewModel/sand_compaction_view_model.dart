@@ -83,7 +83,9 @@ class SandCompactionViewModel extends GetxController {
     allSand.value = sand;
 
   }
-
+  fetchAndSaveSandCompactionData() async {
+    await sandCompactionRepository.fetchAndSaveSandCompactionData();
+  }
   addSand(SandCompactionModel sandCompactionModel){
     sandCompactionRepository.add(sandCompactionModel);
 

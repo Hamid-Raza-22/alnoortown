@@ -29,9 +29,9 @@ class AsphaltWorkModel{
       street_no: json['street_no'],
       numOfTons: json['numOfTons'],
       backFillingStatus: json['backFillingStatus'],
-        date:  json['date'],
+        date:  json['asphalt_work_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
 
     );
@@ -44,7 +44,7 @@ class AsphaltWorkModel{
       'numOfTons':numOfTons,
       'street_no':street_no,
       'backFillingStatus':backFillingStatus,
-      'date':date,
+      'asphalt_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

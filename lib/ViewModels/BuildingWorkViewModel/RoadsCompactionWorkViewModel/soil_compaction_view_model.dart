@@ -63,11 +63,11 @@ class SoilCompactionViewModel extends GetxController {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
         },
-        body: jsonEncode(soilCompactionModel),  // Encode the map as JSON
+        body: jsonEncode(soilCompactionModelData),  // Encode the map as JSON
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('SoilCompaction data posted successfully: $soilCompactionModel');
+        print('SoilCompaction data posted successfully: $soilCompactionModelData');
       } else {
         throw Exception('Server error: ${response.statusCode}, ${response.body}');
       }
@@ -82,7 +82,9 @@ class SoilCompactionViewModel extends GetxController {
     allSoil.value = soil;
 
   }
-
+  fetchAndSaveSoilCompactionData() async {
+    await soilCompactionRepository.fetchAndSaveSoilCompactionData();
+  }
   addSoil(SoilCompactionModel soilCompactionModel){
     soilCompactionRepository.add(soilCompactionModel);
 

@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/main_gate_pillar_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class MainGatePillarWorkRepository{
@@ -16,7 +18,7 @@ class MainGatePillarWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePillarsBrickWorkMainGate,
-        columns:  ['id', 'block_no', 'workStatus','date','time','posted']
+        columns:  ['id', 'block_no', 'workStatus','main_gate_pillar_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class MainGatePillarWorkRepository{
     }
 
     return mainGatePillarWork;
+  }
+  Future<void> fetchAndSaveMainGatePillarData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlPillarsBrickWorkMainGate);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MainGatePillarWorkModel model = MainGatePillarWorkModel.fromMap(item);
+      await dbClient.insert(tableNamePillarsBrickWorkMainGate, model.toMap());
+    }
   }
   Future<List<MainGatePillarWorkModel>> getUnPostedMainGatePillarWork() async {
     var dbClient = await dbHelper.db;

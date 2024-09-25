@@ -26,11 +26,9 @@ class GazeboWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         gazeboWorkCompStatus:json['gazeboWorkCompStatus'],
-        date:  json['date'],
+        date:  json['gazebo_work_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
-
-
+        posted: json['posted']?? 0
     );
   }
 
@@ -40,7 +38,7 @@ class GazeboWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'gazeboWorkCompStatus':gazeboWorkCompStatus,
-      'date':date,
+      'gazebo_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

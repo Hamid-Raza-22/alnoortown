@@ -83,7 +83,9 @@ class TilesWorkViewModel extends GetxController {
     allTiles.value = tilesJob;
 
   }
-
+  fetchAndSaveTilesWorkData() async {
+    await tilesWorkRepository.fetchAndSaveTilesWorkData();
+  }
   addTiles(TilesWorkModel tilesWorkModel){
     tilesWorkRepository.add(tilesWorkModel);
 

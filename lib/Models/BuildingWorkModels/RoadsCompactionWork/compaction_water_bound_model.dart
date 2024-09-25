@@ -34,9 +34,9 @@ class CompactionWaterBoundModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         waterBoundCompStatus:json['waterBoundCompStatus'],
-        date:  json['date'],
+        date:  json['compaction_water_bound_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -50,7 +50,7 @@ class CompactionWaterBoundModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'waterBoundCompStatus':waterBoundCompStatus,
-      'date':date,
+      'compaction_water_bound_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

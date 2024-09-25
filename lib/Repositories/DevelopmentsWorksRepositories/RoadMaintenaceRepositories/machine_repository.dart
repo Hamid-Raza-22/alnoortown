@@ -2,6 +2,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/machine_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 
@@ -16,7 +18,7 @@ class MachineRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMachine,
-        columns: ['id', 'block_no', 'street_no', 'machine', 'timeIn', 'timeOut','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'machine', 'timeIn', 'timeOut','machine_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -35,6 +37,17 @@ class MachineRepository{
     }
 
     return machine;
+  }
+  Future<void> fetchAndSaveTankerData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlWaterTanker);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MachineModel model = MachineModel.fromMap(item);
+      await dbClient.insert(tableNameWaterTanker, model.toMap());
+    }
   }
   Future<List<MachineModel>> getUnPostedMachines() async {
     var dbClient = await dbHelper.db;

@@ -94,6 +94,12 @@ class IronWorkViewModel extends GetxController {
     allWorks.value = allWorksList;
   }
 
+
+  fetchAndSaveIronWorksData() async {
+    await ironWorksRepository.fetchAndSaveIronsWorksData();
+  }
+
+
   Future<void> addWorks(IronWorksModel ironWorksModel) async {
     await ironWorksRepository.add(ironWorksModel);
     fetchAllWorks(); // Optionally refresh after adding

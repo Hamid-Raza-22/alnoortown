@@ -37,9 +37,9 @@ class RoadsShoulderWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         roadsShoulderCompStatus:json['roadsShoulderCompStatus'],
-        date:  json['date'],
+        date:  json['roads_shoulder_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -54,7 +54,7 @@ class RoadsShoulderWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'roadsShoulderCompStatus':roadsShoulderCompStatus,
-      'date':date,
+      'roads_shoulder_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

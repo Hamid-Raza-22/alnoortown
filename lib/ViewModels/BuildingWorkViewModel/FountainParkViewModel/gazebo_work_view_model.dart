@@ -84,7 +84,9 @@ class GazeboWorkViewModel extends GetxController {
     allGazebo.value = gazebo;
 
   }
-
+  fetchAndSaveGazeboData() async {
+    await gazeboWorkRepository.fetchAndSaveGazeboWorkData();
+  }
   addGazebo(GazeboWorkModel gazeboWorkModel){
     gazeboWorkRepository.add(gazeboWorkModel);
 

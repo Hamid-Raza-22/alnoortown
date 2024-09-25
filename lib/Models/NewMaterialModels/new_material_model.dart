@@ -37,9 +37,9 @@ class NewMaterialModel{
       waterBound: json['waterBound'],
       otherMaterial: json['otherMaterial'],
         otherMaterialValue: json['otherMaterialValue'],
-        date:  json['date'],
+        date:  json['new_material_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0 // Get the posted status from the database
 
 
     );
@@ -55,7 +55,7 @@ class NewMaterialModel{
       'waterBound':waterBound,
       'otherMaterial':otherMaterial,
       'otherMaterialValue':otherMaterialValue,
-      'date':date,
+      'new_material_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

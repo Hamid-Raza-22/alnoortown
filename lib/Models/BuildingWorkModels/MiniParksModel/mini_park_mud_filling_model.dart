@@ -28,9 +28,9 @@ class MiniParkMudFillingModel{
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         totalDumpers: json['totalDumpers'],
         mpMudFillingCompStatus:json['mpMudFillingCompStatus'],
-        date:  json['date'],
+        date:  json['mini_park_mud_filling_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -42,7 +42,7 @@ class MiniParkMudFillingModel{
       'expectedCompDate': expectedCompDate?.toString(),
       'totalDumpers':totalDumpers,
       'mpMudFillingCompStatus':mpMudFillingCompStatus,
-      'date':date,
+      'mini_park_mud_filling_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

@@ -82,7 +82,9 @@ class ManholesViewModel extends GetxController {
     allWorker .value = slab;
 
   }
-
+  fetchAndSaveManholesData() async {
+    await manholesRepository.fetchAndSaveManholesData();
+  }
   addWorker(ManholesModel manholesModel){
     manholesRepository.add(manholesModel);
     //fetchAllWorker();

@@ -27,9 +27,9 @@ class BackFilingModel{
       block_no: json['block_no'],
       street_no: json['street_no'],
         status: json['status'],
-        date:  json['date'],
+        date:  json['back_filling_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0 // Get the posted status from the database
 
 
     );
@@ -41,7 +41,7 @@ class BackFilingModel{
       'block_no':block_no,
       'street_no':street_no,
       'status':status,
-      'date':date,
+      'back_filling_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

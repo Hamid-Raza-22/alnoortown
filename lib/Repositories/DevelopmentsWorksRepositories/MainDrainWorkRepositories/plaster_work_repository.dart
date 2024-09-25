@@ -2,6 +2,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/plaster_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class PlasterWorkRepository{
@@ -15,7 +17,7 @@ class PlasterWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePlasterWork,
-        columns: ['id', 'block_no', 'street_no', 'completedLength','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'completedLength','plaster_work_date','time','posted']
     );
 
     if (kDebugMode) {
@@ -34,6 +36,17 @@ class PlasterWorkRepository{
       print('Parsed PlasterWorkModel objects:');
     }
     return plasterWork;
+  }
+  Future<void> fetchAndSavePlasterWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlPlasterWork);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      PlasterWorkModel model = PlasterWorkModel.fromMap(item);
+      await dbClient.insert(tableNamePlasterWork, model.toMap());
+    }
   }
   Future<List<PlasterWorkModel>> getUnPostedPlasterWork() async {
     var dbClient = await dbHelper.db;

@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/iron_works_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class IronWorksRepository{
@@ -16,7 +18,7 @@ class IronWorksRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameIronWork,
-        columns: ['id', 'block_no', 'street_no', 'completedLength','date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'completedLength','iron_works_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -39,6 +41,17 @@ class IronWorksRepository{
       print('Parsed IronWorksModel objects:');
     }
     return ironWorks;
+  }
+  Future<void> fetchAndSaveIronsWorksData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlIronWork);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      IronWorksModel model = IronWorksModel.fromMap(item);
+      await dbClient.insert(tableNameIronWork, model.toMap());
+    }
   }
   Future<List<IronWorksModel>> getUnPostedIronWorks() async {
     var dbClient = await dbHelper.db;

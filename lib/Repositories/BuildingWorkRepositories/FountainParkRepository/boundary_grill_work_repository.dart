@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/boundary_grill_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class BoundaryGrillWorkRepository{
@@ -16,7 +18,7 @@ class BoundaryGrillWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBoundaryGrillWork,
-        columns: ['id', 'startDate', 'expectedCompDate','boundaryWorkCompStatus','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','boundaryWorkCompStatus','boundary_grill_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +44,18 @@ class BoundaryGrillWorkRepository{
 
     return boundaryGrillWork;
   }
-// Fetch all unposted machines (posted = 0)
+  Future<void> fetchAndSaveBoundaryGrillWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlBoundaryGrillWork);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      BoundaryGrillWorkModel model = BoundaryGrillWorkModel.fromMap(item);
+      await dbClient.insert(tableNameBoundaryGrillWork, model.toMap());
+    }
+  }
+
   Future<List<BoundaryGrillWorkModel>> getUnPostedBoundaryGrill() async {
     var dbClient = await dbHelper.db;
     List<Map> maps = await dbClient.query(

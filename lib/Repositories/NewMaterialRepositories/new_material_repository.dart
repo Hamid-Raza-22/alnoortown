@@ -2,6 +2,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/NewMaterialModels/new_material_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 class NewMaterialRepository{
 
@@ -14,7 +16,7 @@ class NewMaterialRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameNewMaterials,
-        columns: ['id', 'sand','soil', 'base', 'subBase','waterBound','otherMaterial','otherMaterialValue','date','time','posted']
+        columns: ['id', 'sand','soil', 'base', 'subBase','waterBound','otherMaterial','otherMaterialValue','new_material_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -39,6 +41,17 @@ class NewMaterialRepository{
     }
 
     return newMaterial;
+  }
+  Future<void> fetchAndSaveNewMaterialData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlNewMaterials);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      NewMaterialModel model = NewMaterialModel.fromMap(item);
+      await dbClient.insert(tableNameWaterTanker, model.toMap());
+    }
   }
   Future<List<NewMaterialModel>> getUnPostedNewMaterial() async {
     var dbClient = await dbHelper.db;

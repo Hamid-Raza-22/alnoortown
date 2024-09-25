@@ -34,9 +34,9 @@ class BaseSubBaseCompactionModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         baseSubBaseCompStatus:json['baseSubBaseCompStatus'],
-        date:  json['date'],
+        date:  json['base_subBase_compaction_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -50,7 +50,7 @@ class BaseSubBaseCompactionModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'baseSubBaseCompStatus':baseSubBaseCompStatus,
-      'date':date,
+      'base_subBase_compaction_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCompactionWork/sand_compaction_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class SandCompactionRepository{
@@ -16,7 +18,7 @@ class SandCompactionRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameSandCompaction,
-        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','sandCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','sandCompStatus','sand_compaction_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class SandCompactionRepository{
     }
 
     return sandCompaction;
+  }
+  Future<void> fetchAndSaveSandCompactionData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlSandCompaction);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      SandCompactionModel model = SandCompactionModel.fromMap(item);
+      await dbClient.insert(tableNameSandCompaction, model.toMap());
+    }
   }
   Future<List<SandCompactionModel>> getUnPostedSandCompaction() async {
     var dbClient = await dbHelper.db;

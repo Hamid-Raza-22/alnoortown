@@ -22,9 +22,9 @@ class TilesWorkModel{
         id: json['id'],
         block_no: json['block_no'],
         tilesWorkStatus: json['tilesWorkStatus'],
-        date:  json['date'],
+        date:  json['tiles_work_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0 // Get the posted status from the database
 
     );
   }
@@ -34,7 +34,7 @@ class TilesWorkModel{
       'id':id,
       'block_no':block_no,
       'tilesWorkStatus':tilesWorkStatus,
-      'date':date,
+      'tiles_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

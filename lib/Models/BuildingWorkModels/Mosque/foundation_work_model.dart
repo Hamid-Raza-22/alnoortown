@@ -29,9 +29,9 @@ class FoundationWorkModel{
         brickWork: json['brickWork'],
         mudFiling: json['mudFiling'],
         plasterWork: json['plasterWork'],
-        date:  json['date'],
+        date:  json['foundation_work_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -43,7 +43,7 @@ class FoundationWorkModel{
       'brickWork':brickWork,
       'mudFiling':mudFiling,
       'plasterWork':plasterWork,
-      'date':date,
+      'foundation_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

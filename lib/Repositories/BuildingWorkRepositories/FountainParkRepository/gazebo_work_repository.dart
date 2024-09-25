@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/gazebo_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class GazeboWorkRepository{
@@ -16,7 +18,7 @@ class GazeboWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGazeboWork,
-        columns: ['id', 'startDate', 'expectedCompDate','gazeboWorkCompStatus','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','gazeboWorkCompStatus','gazebo_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class GazeboWorkRepository{
     }
 
     return gazeboWork;
+  }
+  Future<void> fetchAndSaveGazeboWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlGazeboWork);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      GazeboWorkModel model = GazeboWorkModel.fromMap(item);
+      await dbClient.insert(tableNameGazeboWork, model.toMap());
+    }
   }
   Future<List<GazeboWorkModel>> getUnPostedGazebo() async {
     var dbClient = await dbHelper.db;

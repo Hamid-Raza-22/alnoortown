@@ -37,9 +37,9 @@ class WaterFirstModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         waterSupplyCompStatus:json['waterSupplyCompStatus'],
-        date:  json['date'],
+        date:  json['roads_water_supply_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -54,7 +54,7 @@ class WaterFirstModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'waterSupplyCompStatus':waterSupplyCompStatus,
-      'date':date,
+      'roads_water_supply_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

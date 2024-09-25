@@ -82,7 +82,9 @@ class ShutteringWorkViewModel extends GetxController {
     allShutter .value = work;
 
   }
-
+  fetchAndSaveShutteringWorkData() async {
+    await shutteringWorkRepository.fetchAndSaveShutteringWorkData();
+  }
   addShutter(ShutteringWorkModel shutteringWorkModel){
     shutteringWorkRepository.add(shutteringWorkModel);
     //fetchAllShutter();

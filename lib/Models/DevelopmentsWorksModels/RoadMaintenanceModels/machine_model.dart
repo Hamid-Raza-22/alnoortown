@@ -29,9 +29,9 @@ class MachineModel {
       machine: json['machine'],
       timeIn: json['timeIn'],
       timeOut: json['timeOut'],
-      date: json['date'],
+      date: json['machine_date'],
       time: json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
     );
   }
 
@@ -43,7 +43,7 @@ class MachineModel {
       'machine': machine,
       'timeIn': timeIn,
       'timeOut': timeOut,
-      'date': date,
+      'machine_date': date,
       'time': time,
       'posted': posted,  // Include the posted status
     };

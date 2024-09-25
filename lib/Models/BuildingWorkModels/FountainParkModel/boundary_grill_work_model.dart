@@ -25,20 +25,19 @@ class BoundaryGrillWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate']!= null ? DateTime.parse(json['expectedCompDate']) : null,
         boundaryWorkCompStatus:json['boundaryWorkCompStatus'],
-        date:  json['date'],
+        date:  json['boundary_grill_work_date'],
         time:  json['time'],
-      posted: json['posted'] // Get the posted status from the database
-
+        posted: json['posted']?? 0
     );
   }
 
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'startDate':startDate?.toString(),
-      'expectedCompDate':expectedCompDate?.toString(),
+      'start_date':startDate?.toString(),
+      'expected_compDate':expectedCompDate?.toString(),
       'boundaryWorkCompStatus':boundaryWorkCompStatus,
-      'date':date,
+      'boundary_grill_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

@@ -78,9 +78,10 @@ class BoundaryGrillWorkViewModel extends GetxController {
   fetchAllBoundary() async{
     var boundary = await boundaryGrillWorkRepository.getBoundaryGrillWork();
     allBoundary.value = boundary;
-
   }
-
+  fetchAndSaveBoundaryGrillWorkData() async {
+    await boundaryGrillWorkRepository.fetchAndSaveBoundaryGrillWorkData();
+  }
   addBoundary(BoundaryGrillWorkModel boundaryGrillWorkModel){
     boundaryGrillWorkRepository.add(boundaryGrillWorkModel);
 

@@ -83,7 +83,9 @@ class FoundationWorkViewModel extends GetxController {
     allFoundation.value = foundation;
 
   }
-
+  fetchAndSaveFoundationWorkData() async {
+    await foundationWorkRepository.fetchAndSaveFoundationWorkData();
+  }
   addFoundation(FoundationWorkModel foundationWorkModel){
     foundationWorkRepository.add(foundationWorkModel);
 

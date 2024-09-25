@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mini_park_mud_filling_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class MiniParkMudFillingRepository{
@@ -16,7 +18,7 @@ class MiniParkMudFillingRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMudFillingMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','mpMudFillingCompStatus','totalDumpers','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','mpMudFillingCompStatus','totalDumpers','mini_park_mud_filling_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class MiniParkMudFillingRepository{
     }
 
     return miniParkMudFilling;
+  }
+  Future<void> fetchAndSaveMiniParkMudFillingData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlMudFillingMiniPark);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MiniParkMudFillingModel model = MiniParkMudFillingModel.fromMap(item);
+      await dbClient.insert(tableNameMudFillingMiniPark, model.toMap());
+    }
   }
   Future<List<MiniParkMudFillingModel>> getUnPostedMudFillingMp() async {
     var dbClient = await dbHelper.db;

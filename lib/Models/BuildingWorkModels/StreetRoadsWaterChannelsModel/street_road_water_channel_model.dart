@@ -31,9 +31,9 @@ class StreetRoadWaterChannelModel{
       roadSide: json['roadSide'],
       noOfWaterChannels: json['noOfWaterChannels'],
       waterChCompStatus: json['waterChCompStatus'],
-        date:  json['date'],
+        date:  json['street_roads_water_channel_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -46,7 +46,7 @@ class StreetRoadWaterChannelModel{
       'roadSide':roadSide,
       'noOfWaterChannels':noOfWaterChannels,
       'waterChCompStatus':waterChCompStatus,
-      'date':date,
+      'street_roads_water_channel_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

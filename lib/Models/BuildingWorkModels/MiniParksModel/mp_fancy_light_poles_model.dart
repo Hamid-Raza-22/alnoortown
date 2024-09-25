@@ -25,9 +25,9 @@ class MpFancyLightPolesModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         mpLCompStatus:json['mpLCompStatus'],
-        date:  json['date'],
+        date:  json['mp_fancy_light_poles_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -38,7 +38,7 @@ class MpFancyLightPolesModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'mpLCompStatus':mpLCompStatus,
-      'date':date,
+      'mp_fancy_light_poles_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

@@ -25,9 +25,9 @@ class MainEntranceTilesWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         mainEntranceTilesWorkCompStatus:json['mainEntranceTilesWorkCompStatus'],
-        date:  json['date'],
+        date:  json['main_entrance_tiles_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']?? 0  // Get the posted status from the database
 
     );
   }
@@ -38,7 +38,7 @@ class MainEntranceTilesWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'mainEntranceTilesWorkCompStatus':mainEntranceTilesWorkCompStatus,
-      'date':date,
+      'main_entrance_tiles_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

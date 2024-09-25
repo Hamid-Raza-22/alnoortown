@@ -25,9 +25,9 @@ class MiniParkCurbStoneModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         mpCurbStoneCompStatus:json['mpCurbStoneCompStatus'],
-        date:  json['date'],
+        date:  json['mini_park_curbStone_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -38,7 +38,7 @@ class MiniParkCurbStoneModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'mpCurbStoneCompStatus':mpCurbStoneCompStatus,
-      'date':date,
+      'mini_park_curbStone_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

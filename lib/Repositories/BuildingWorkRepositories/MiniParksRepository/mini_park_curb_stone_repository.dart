@@ -2,8 +2,9 @@
 
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
-import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/grass_work_model.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mini_park_curb_stone_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class MiniParkCurbStoneRepository{
@@ -17,7 +18,7 @@ class MiniParkCurbStoneRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCurbStonesWorkMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','mpCurbStoneCompStatus','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','mpCurbStoneCompStatus','mini_park_curbStone_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,6 +43,17 @@ class MiniParkCurbStoneRepository{
     }
 
     return miniParkCurbStone;
+  }
+  Future<void> fetchAndSaveMiniParkCurbStoneData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlCurbStonesWorkMiniPark);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MiniParkCurbStoneModel model = MiniParkCurbStoneModel.fromMap(item);
+      await dbClient.insert(tableNameCurbStonesWorkMiniPark, model.toMap());
+    }
   }
   Future<List<MiniParkCurbStoneModel>> getUnPostedCurbStoneMp() async {
     var dbClient = await dbHelper.db;

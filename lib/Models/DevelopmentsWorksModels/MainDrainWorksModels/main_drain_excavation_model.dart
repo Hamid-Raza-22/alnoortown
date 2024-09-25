@@ -25,9 +25,9 @@ class MainDrainExcavationModel{
       block_no: json['block_no'],
       street_no: json['street_no'],
       completedLength: json['completedLength'],
-        date:  json['date'],
+        date:  json['main_drain_excavation_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
 
 
@@ -40,7 +40,7 @@ class MainDrainExcavationModel{
       'block_no':block_no,
       'street_no':street_no,
       'completedLength':completedLength,
-      'date':date,
+      'main_drain_excavation_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCompactionWork/compaction_water_bound_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class CompactionWaterBoundRepository{
@@ -16,7 +18,7 @@ class CompactionWaterBoundRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCompactionAfterWaterBound,
-        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','waterBoundCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','waterBoundCompStatus','compaction_water_bound_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class CompactionWaterBoundRepository{
     }
 
     return compactionWaterBound;
+  }
+  Future<void> fetchAndSaveCompactionWaterBoundData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlCompactionAfterWaterBound);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      CompactionWaterBoundModel model = CompactionWaterBoundModel.fromMap(item);
+      await dbClient.insert(tableNameCompactionAfterWaterBound, model.toMap());
+    }
   }
   Future<List<CompactionWaterBoundModel>> getUnPostedCompactionWaterBound() async {
     var dbClient = await dbHelper.db;

@@ -83,7 +83,9 @@ class AsphaltWorkViewModel extends GetxController {
     allAsphalt .value = asphalts;
 
   }
-
+  fetchAndSaveAsphaltWorkData() async {
+    await asphaltWorkRepository.fetchAndSaveAsphaltWorkData();
+  }
   addAsphalt(AsphaltWorkModel asphaltWorkModel){
     asphaltWorkRepository.add(asphaltWorkModel);
     //fetchAllAsphalt();

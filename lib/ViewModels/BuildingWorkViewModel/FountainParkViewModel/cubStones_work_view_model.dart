@@ -82,7 +82,9 @@ class CubStonesWorkViewModel extends GetxController {
     allCubStones.value = cubStones;
 
   }
-
+  fetchAndSaveCurbStoneWorkData() async {
+    await cubStonesWorkRepository.fetchAndSaveCurbStoneWorkData();
+  }
   addCubStones(CubStonesWorkModel cubStonesWorkModel){
     cubStonesWorkRepository.add(cubStonesWorkModel);
 

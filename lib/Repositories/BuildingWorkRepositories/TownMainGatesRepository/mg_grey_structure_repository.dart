@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/TownMainGatesModel/mg_grey_structure_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class MgGreyStructureRepository{
@@ -16,7 +18,7 @@ class MgGreyStructureRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGreyStructureMainGate,
-        columns:  ['id', 'block_no', 'workStatus','date','time','posted']
+        columns:  ['id', 'block_no', 'workStatus','main_gate_grey_structure_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -42,7 +44,17 @@ class MgGreyStructureRepository{
 
     return mgGreyStructure;
   }
+  Future<void> fetchAndSaveMainGateGreyStructureData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlGreyStructureMainGate);
+    var dbClient = await dbHelper.db;
 
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      MgGreyStructureModel model = MgGreyStructureModel.fromMap(item);
+      await dbClient.insert(tableNameGreyStructureMainGate, model.toMap());
+    }
+  }
   Future<List<MgGreyStructureModel>> getUnPostedGreyStructure() async {
     var dbClient = await dbHelper.db;
     List<Map> maps = await dbClient.query(

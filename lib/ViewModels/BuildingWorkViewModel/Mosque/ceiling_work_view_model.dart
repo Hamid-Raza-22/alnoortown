@@ -78,7 +78,9 @@ class CeilingWorkViewModel extends GetxController {
     allCeiling.value = ceiling;
 
   }
-
+  fetchAndSaveCeilingWorkData() async {
+    await ceilingWorkRepository.fetchAndSaveCeilingWorkData();
+  }
   addCeiling(CeilingWorkModel ceilingWorkModel){
     ceilingWorkRepository.add(ceilingWorkModel);
 

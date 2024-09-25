@@ -28,9 +28,9 @@ class SittingAreaWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         sittingAreaCompStatus:json['sittingAreaCompStatus'],
-        date:  json['date'],
+        date:  json['sitting_area_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -42,7 +42,7 @@ class SittingAreaWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'sittingAreaCompStatus':sittingAreaCompStatus,
-      'date':date,
+      'sitting_area_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

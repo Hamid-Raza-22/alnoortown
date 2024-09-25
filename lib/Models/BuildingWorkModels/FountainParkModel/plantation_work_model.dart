@@ -25,9 +25,9 @@ class PlantationWorkModel{
         startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
         expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
         plantationCompStatus:json['plantationCompStatus'],
-        date:  json['date'],
+        date:  json['plantation_work_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -38,7 +38,7 @@ class PlantationWorkModel{
       'startDate': startDate?.toString(),
       'expectedCompDate': expectedCompDate?.toString(),
       'plantationCompStatus':plantationCompStatus,
-      'date':date,
+      'plantation_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

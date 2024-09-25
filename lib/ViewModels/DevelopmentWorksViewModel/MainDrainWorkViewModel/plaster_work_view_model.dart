@@ -83,7 +83,9 @@ class PlasterWorkViewModel extends GetxController {
     allPlaster .value = work;
 
   }
-
+  fetchAndSavePlasterWorkData() async {
+    await plasterWorkRepository.fetchAndSavePlasterWorkData();
+  }
   addMan(PlasterWorkModel plasterWorkModel){
     plasterWorkRepository.add(plasterWorkModel);
    // fetchAllPlaster();

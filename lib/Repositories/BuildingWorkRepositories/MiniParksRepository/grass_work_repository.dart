@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/grass_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class GrassWorkRepository{
@@ -16,7 +18,7 @@ class GrassWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGrassWorkMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','grassWorkCompStatus','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','grassWorkCompStatus','grass_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +43,17 @@ class GrassWorkRepository{
     }
 
     return grassWork;
+  }
+  Future<void> fetchAndSaveGrassWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlGrassWorkMiniPark);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      GrassWorkModel model = GrassWorkModel.fromMap(item);
+      await dbClient.insert(tableNameGrassWorkMiniPark, model.toMap());
+    }
   }
   Future<List<GrassWorkModel>> getUnPostedGrassWorkMp() async {
     var dbClient = await dbHelper.db;

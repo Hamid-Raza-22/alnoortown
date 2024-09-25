@@ -80,7 +80,9 @@ class PlantationWorkViewModel extends GetxController {
     allPlant.value = plant;
 
   }
-
+  fetchAndSavePlantationWorkData() async {
+    await plantationWorkRepository.fetchAndSavePlantationWorkData();
+  }
   addPlant(PlantationWorkModel plantationWorkModel){
     plantationWorkRepository.add(plantationWorkModel);
 

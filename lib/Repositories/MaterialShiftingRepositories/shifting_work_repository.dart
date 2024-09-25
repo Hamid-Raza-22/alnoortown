@@ -1,6 +1,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/MaterialShiftingModels/shifting_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class ShiftingWorkRepository{
@@ -14,7 +16,7 @@ class ShiftingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameShiftingWork,
-        columns: ['id', 'fromBlock', 'toBlock', 'numOfShift','date','time','posted']
+        columns: ['id', 'fromBlock', 'toBlock', 'numOfShift','material_shifting_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -38,6 +40,17 @@ class ShiftingWorkRepository{
       print('Parsed ShiftingWorkModel objects:');
     }
     return shiftingWork;
+  }
+  Future<void> fetchAndSaveShiftingWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlShiftingWork);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      ShiftingWorkModel model = ShiftingWorkModel.fromMap(item);
+      await dbClient.insert(tableNameShiftingWork, model.toMap());
+    }
   }
   Future<List<ShiftingWorkModel>> getUnPostedShiftingWork() async {
     var dbClient = await dbHelper.db;

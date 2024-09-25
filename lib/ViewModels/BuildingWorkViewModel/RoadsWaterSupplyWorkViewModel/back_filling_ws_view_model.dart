@@ -83,7 +83,9 @@ class BackFillingWsViewModel extends GetxController {
     allWsBackFilling.value = wsBackFilling;
 
   }
-
+  fetchAndSaveBackFillingData() async {
+    await backFillingWsRepository.fetchAndSaveBackFillingData();
+  }
   addWsBackFilling(BackFillingWsModel backFillingWsModel){
     backFillingWsRepository.add(backFillingWsModel);
 

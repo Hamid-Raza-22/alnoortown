@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsShoulderWorkModel/roads_shoulder_work_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class RoadsShoulderWorkRepository{
@@ -16,7 +18,7 @@ class RoadsShoulderWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadShoulder,
-        columns: ['id', 'block_no', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsShoulderCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','roadSide','totalLength','startDate','expectedCompDate','roadsShoulderCompStatus','roads_shoulder_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -40,6 +42,17 @@ class RoadsShoulderWorkRepository{
       print('Parsed RoadsShoulderWorkModel objects:');
     }
     return roadsShoulderWork;
+  }
+  Future<void> fetchAndSaveRoadsShoulderWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlRoadShoulder);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      RoadsShoulderWorkModel model = RoadsShoulderWorkModel.fromMap(item);
+      await dbClient.insert(tableNameRoadShoulder, model.toMap());
+    }
   }
   Future<List<RoadsShoulderWorkModel>> getUnPostedRoadsShoulder() async {
     var dbClient = await dbHelper.db;

@@ -83,7 +83,9 @@ class MiniParkCurbStoneViewModel extends GetxController {
     allMpCurb.value = mpCurb;
 
   }
-
+  fetchAndSaveMiniParkCurbStoneData() async {
+    await miniParkCurbStoneRepository.fetchAndSaveMiniParkCurbStoneData();
+  }
   addMpCurb(MiniParkCurbStoneModel miniParkCurbStoneModel){
     miniParkCurbStoneRepository.add(miniParkCurbStoneModel);
 

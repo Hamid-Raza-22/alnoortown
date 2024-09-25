@@ -3,6 +3,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCompactionWork/base_sub_base_compaction_model.dart';
+import 'package:al_noor_town/Services/ApiServices/api_service.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
 
 class BaseSubBaseCompactionRepository{
@@ -16,7 +18,7 @@ class BaseSubBaseCompactionRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBaseSubBaseCompaction,
-        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','baseSubBaseCompStatus','date','time','posted']
+        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','baseSubBaseCompStatus','base_subBase_compaction_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -40,6 +42,17 @@ class BaseSubBaseCompactionRepository{
       print('Parsed BaseSubBaseCompactionModel objects:');
     }
     return baseSubBaseCompaction;
+  }
+  Future<void> fetchAndSaveBaseSubBaseCompactionData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlBaseSubBaseCompaction);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      BaseSubBaseCompactionModel model = BaseSubBaseCompactionModel.fromMap(item);
+      await dbClient.insert(tableNameBaseSubBaseCompaction, model.toMap());
+    }
   }
   Future<List<BaseSubBaseCompactionModel>> getUnPostedBaseSubBase() async {
     var dbClient = await dbHelper.db;

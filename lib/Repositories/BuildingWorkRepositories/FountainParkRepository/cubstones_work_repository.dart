@@ -3,7 +3,10 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/cubstones_work_model.dart';
+import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
+
+import '../../../Services/ApiServices/api_service.dart';
 
 class CubStonesWorkRepository{
 
@@ -16,7 +19,7 @@ class CubStonesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCurbStonesWork,
-        columns: ['id', 'startDate', 'expectedCompDate','cubStonesCompStatus','date','time','posted']
+        columns: ['id', 'startDate', 'expectedCompDate','cubStonesCompStatus','curbStone_Work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -41,6 +44,17 @@ class CubStonesWorkRepository{
     }
 
     return cubStonesWork;
+  }
+  Future<void> fetchAndSaveCurbStoneWorkData() async {
+    List<dynamic> data = await ApiService.getData(Config.getApiUrlCurbStonesWork);
+    var dbClient = await dbHelper.db;
+
+    // Save data to database
+    for (var item in data) {
+      item['posted'] = 1; // Set posted to 1
+      CubStonesWorkModel model = CubStonesWorkModel.fromMap(item);
+      await dbClient.insert(tableNameCurbStonesWork, model.toMap());
+    }
   }
   Future<List<CubStonesWorkModel>> getUnPostedCubStonesWork() async {
     var dbClient = await dbHelper.db;

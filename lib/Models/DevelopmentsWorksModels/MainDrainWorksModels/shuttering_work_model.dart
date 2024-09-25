@@ -25,9 +25,9 @@ class ShutteringWorkModel{
       block_no: json['block_no'],
       street_no: json['street_no'],
       completedLength: json['completedLength'],
-        date:  json['date'],
+        date:  json['shuttering_work_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0 // Get the posted status from the database
 
 
     );
@@ -39,7 +39,7 @@ class ShutteringWorkModel{
       'block_no':block_no,
       'street_no':street_no,
       'completedLength':completedLength,
-      'date':date,
+      'shuttering_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

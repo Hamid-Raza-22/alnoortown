@@ -83,7 +83,9 @@ class DoorWorkViewModel extends GetxController {
     allDoor.value = door;
 
   }
-
+  fetchAndSaveDoorWorkData() async {
+    await doorWorkRepository.fetchAndSaveDoorsWorkData();
+  }
   addDoor(DoorsWorkModel doorsWorkModel){
     doorWorkRepository.add(doorsWorkModel);
 

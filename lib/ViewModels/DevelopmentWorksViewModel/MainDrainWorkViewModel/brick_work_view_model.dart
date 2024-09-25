@@ -83,7 +83,9 @@ class BrickWorkViewModel extends GetxController {
     allBrick .value = asphalts;
 
   }
-
+  fetchAndSaveBrickWorkData() async {
+    await brickWorkRepository.fetchAndSaveBrickWorkData();
+  }
   addBrick(BrickWorkModel brickWorkModel){
     brickWorkRepository.add(brickWorkModel);
     //fetchAllBrick();

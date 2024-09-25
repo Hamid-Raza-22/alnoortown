@@ -1,13 +1,9 @@
 
-import 'dart:convert';
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:flutter/foundation.dart';
-
-
 import '../../../Services/ApiServices/api_service.dart';
 
 class WaterTankerRepository{

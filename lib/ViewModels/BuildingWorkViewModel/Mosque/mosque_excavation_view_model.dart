@@ -82,7 +82,9 @@ class MosqueExcavationViewModel extends GetxController {
     allMosque.value = mosques;
 
   }
-
+  fetchAndSaveMosqueExcavationData() async {
+    await mosqueExcavationRepository.fetchAndSaveExcavationWorkData();
+  }
   addMosque(MosqueExcavationWorkModel mosqueExcavationWorkModel){
     mosqueExcavationRepository.add(mosqueExcavationWorkModel);
     //fetchAllMosque();

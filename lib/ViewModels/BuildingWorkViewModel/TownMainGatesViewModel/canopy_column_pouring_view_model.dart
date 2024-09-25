@@ -83,7 +83,9 @@ class CanopyColumnPouringViewModel extends GetxController {
     allCanopy.value = canopy;
 
   }
-
+  fetchAndSaveCanopyColumnData() async {
+    await canopyColumnPouringRepository.fetchAndSaveCanopyColumnData();
+  }
   addCanopy(CanopyColumnPouringModel canopyColumnPouringModel){
     canopyColumnPouringRepository.add(canopyColumnPouringModel);
 

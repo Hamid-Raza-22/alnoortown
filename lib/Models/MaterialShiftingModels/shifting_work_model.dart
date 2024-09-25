@@ -25,9 +25,9 @@ class ShiftingWorkModel{
       fromBlock: json['fromBlock'],
       toBlock: json['toBlock'],
       numOfShift: json['numOfShift'],
-        date:  json['date'],
+        date:  json['material_shifting_date'],
         time:  json['time'],
-      posted: json['posted'],  // Get the posted status from the database
+      posted: json['posted']??0 // Get the posted status from the database
 
 
     );
@@ -39,7 +39,7 @@ class ShiftingWorkModel{
       'fromBlock':fromBlock,
       'toBlock':toBlock,
       'numOfShift':numOfShift,
-      'date':date,
+      'material_shifting_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

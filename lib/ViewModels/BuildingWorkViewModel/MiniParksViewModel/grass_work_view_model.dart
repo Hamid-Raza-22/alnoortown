@@ -83,7 +83,9 @@ class GrassWorkViewModel extends GetxController {
     allGrass.value = grass;
 
   }
-
+  fetchAndSaveGrassWorkData() async {
+    await grassWorkRepository.fetchAndSaveGrassWorkData();
+  }
   addGrass(GrassWorkModel grassWorkModel){
     grassWorkRepository.add(grassWorkModel);
 

@@ -82,7 +82,9 @@ class MpFancyLightPolesViewModel extends GetxController {
     allMpFancy.value = mpFancy;
 
   }
-
+  fetchAndSaveMiniParkFancyLightPolesData() async {
+    await mpFancyLightPolesRepository.fetchAndSaveMiniParkFancyWorkData();
+  }
   addMpFancy(MpFancyLightPolesModel mpFancyLightPolesModel){
     mpFancyLightPolesRepository.add(mpFancyLightPolesModel);
 

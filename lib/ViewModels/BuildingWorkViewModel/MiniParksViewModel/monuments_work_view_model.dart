@@ -82,7 +82,9 @@ class MonumentsWorkViewModel extends GetxController {
     allMonument.value = monument;
 
   }
-
+  fetchAndSaveMonumentData() async {
+    await monumentsWorkRepository.fetchAndSaveMonumentWorkData();
+  }
   addMonument(MonumentsWorkModel monumentsWorkModel){
     monumentsWorkRepository.add(monumentsWorkModel);
 
