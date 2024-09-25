@@ -1,4 +1,4 @@
-class WaterFirstModel{
+class RoadsWaterSupplyModel{
   int? id;
   String? block_no;
   String? road_no;
@@ -11,7 +11,7 @@ class WaterFirstModel{
   dynamic time;
   int posted;  // New field to track whether data has been posted
 
-  WaterFirstModel({
+  RoadsWaterSupplyModel({
     this.id,
     this.block_no,
     this.road_no,
@@ -26,9 +26,9 @@ class WaterFirstModel{
 
   });
 
-  factory WaterFirstModel.fromMap(Map<dynamic,dynamic>json)
+  factory RoadsWaterSupplyModel.fromMap(Map<dynamic,dynamic>json)
   {
-    return WaterFirstModel(
+    return RoadsWaterSupplyModel(
         id: json['id'],
         block_no: json['block_no'],
         road_no: json['road_no'],

@@ -3,13 +3,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
-
 import '../../ReusableDesigns/filter_widget.dart';
-
 
 class RoadsShouldersSummary extends StatefulWidget {
   RoadsShouldersSummary({super.key});
-
   @override
   State<RoadsShouldersSummary> createState() => _RoadsShouldersSummaryState();
 }

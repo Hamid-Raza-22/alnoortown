@@ -1,5 +1,4 @@
-
-import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/water_first_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/roads_water_supply_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,7 +11,7 @@ class RoadsWaterSupplySummary extends StatefulWidget {
 }
 
 class _RoadsWaterSupplySummaryState extends State<RoadsWaterSupplySummary> {
- WaterFirstViewModel waterFirstViewModel= Get.put(WaterFirstViewModel());
+ RoadsWaterSupplyViewModel roadsWaterSupplyViewModel= Get.put(RoadsWaterSupplyViewModel());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +35,7 @@ class _RoadsWaterSupplySummaryState extends State<RoadsWaterSupplySummary> {
         padding:   EdgeInsets.all(12.0),
           child: Obx(() {
             // Use Obx to rebuild when the data changes
-            if (waterFirstViewModel.allWaterFirst.isEmpty) {
+            if (roadsWaterSupplyViewModel.allRoadWaterSupply.isEmpty) {
               return Center(
                   child: CircularProgressIndicator()); // Show loading indicator
             }
@@ -72,7 +71,7 @@ class _RoadsWaterSupplySummaryState extends State<RoadsWaterSupplySummary> {
                   DataColumn(label: Text('time'.tr(),
                       style: TextStyle(fontWeight: FontWeight.bold))),
                 ],
-                rows: waterFirstViewModel.allWaterFirst.map((entry) {
+                rows: roadsWaterSupplyViewModel.allRoadWaterSupply.map((entry) {
                   // Format the DateTime objects to a readable string format
                   String start_date = entry.start_date != null
                       ? DateFormat('d MMM yyyy').format(entry.start_date!)
