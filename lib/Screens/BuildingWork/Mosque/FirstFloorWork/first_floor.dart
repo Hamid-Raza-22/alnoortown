@@ -66,7 +66,7 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      FirstFloorSummaryPage(containerDataList: containerDataList),
+                      FirstFloorSummaryPage(),
                 ),
               );
             },
