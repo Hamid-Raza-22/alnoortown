@@ -18,7 +18,7 @@ class CanopyColumnPouringRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMainGateCanopyColumnPouringWork,
-        columns: ['id', 'block_no', 'workStatus','canopy_column_pouring_main_gate_date','time','posted']
+        columns: ['id', 'block_no', 'work_status','canopy_column_pouring_main_gate_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
