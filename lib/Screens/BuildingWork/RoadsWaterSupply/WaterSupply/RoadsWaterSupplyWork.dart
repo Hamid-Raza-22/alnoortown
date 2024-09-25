@@ -1,5 +1,5 @@
-import 'package:al_noor_town/Models/BuildingWorkModels/RoadsWaterSupplyWorkModel/water_first_model.dart';
-import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/water_first_view_model.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/RoadsWaterSupplyWorkModel/roads_water_supply_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/roads_water_supply_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
@@ -14,7 +14,7 @@ class RoadsWaterSupplyWork extends StatefulWidget {
 }
 
 class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
-  WaterFirstViewModel waterFirstViewModel = Get.put(WaterFirstViewModel());
+  RoadsWaterSupplyViewModel roadsWaterSupplyViewModel = Get.put(RoadsWaterSupplyViewModel());
   DateTime? selectedStartDate;
   DateTime? selectedEndDate;
   TextEditingController roadNoController = TextEditingController();
@@ -163,7 +163,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                       selectedBlock != null &&
                       selectedRoadSide != null && // Check if Road Side is selected
                       selectedStatus != null) {
-                    await waterFirstViewModel.addWaterFirst(WaterFirstModel(
+                    await roadsWaterSupplyViewModel.addWaterFirst(RoadsWaterSupplyModel(
                         block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         totalLength: totalLengthController.text,
@@ -174,7 +174,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));
-                    await waterFirstViewModel.fetchAllWaterFirst();
+                    await roadsWaterSupplyViewModel.fetchAllWaterFirst();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
