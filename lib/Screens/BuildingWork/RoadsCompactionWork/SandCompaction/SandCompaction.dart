@@ -178,11 +178,11 @@ class _SandCompactionState extends State<SandCompaction> {
 
                     // Clear the fields after successful submission
                     setState(() {
-                      roadNoController.clear();
-                      totalLengthController.clear();
+                      road_noController.clear();
+                      total_lengthController.clear();
                       selectedBlock = null;
                       selectedStatus = null;
-                      selectedStartDate = null;
+                      selectedstart_date = null;
                       selectedEndDate = null;
                     });
                   } else {
