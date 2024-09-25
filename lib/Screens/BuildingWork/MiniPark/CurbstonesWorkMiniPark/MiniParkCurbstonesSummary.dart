@@ -1,9 +1,10 @@
-import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mini_park_curb_stone_view_model.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../../ReusableDesigns/filter_widget.dart';
+
+import '../../../../ViewModels/BuildingWorkViewModel/MiniParksViewModel/mini_park_curb_stone_view_model.dart';
+import '../../../ReusableDesigns/DateFilter.dart';
+
 
 class MiniParkCurbstonesSummary extends StatefulWidget {
   MiniParkCurbstonesSummary({super.key});
@@ -13,11 +14,28 @@ class MiniParkCurbstonesSummary extends StatefulWidget {
 }
 
 class _MiniParkCurbstonesSummaryState extends State<MiniParkCurbstonesSummary> {
-  final MiniParkCurbStoneViewModel miniParkCurbStoneViewModel = Get.put(MiniParkCurbStoneViewModel());
+  MiniParkCurbStoneViewModel miniParkCurbStoneViewModel = Get.put(MiniParkCurbStoneViewModel());
 
-  DateTime? _startDate;
-  DateTime? _endDate;
-  String? _status;
+  DateTime? fromDate;
+  DateTime? toDate;
+
+  // Filter the data based on the selected date range
+  List<dynamic> getFilteredData() {
+    if (fromDate == null && toDate == null) {
+      return miniParkCurbStoneViewModel.allMpCurb;
+    }
+
+    return miniParkCurbStoneViewModel.allMpCurb.where((entry) {
+      DateTime entryDate = entry.startDate ?? DateTime.now(); // Adjust this to your date field
+      if (fromDate != null && entryDate.isBefore(fromDate!)) {
+        return false;
+      }
+      if (toDate != null && entryDate.isAfter(toDate!)) {
+        return false;
+      }
+      return true;
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +50,8 @@ class _MiniParkCurbstonesSummaryState extends State<MiniParkCurbstonesSummary> {
           },
         ),
         title: const Text(
-          'curbstones_work_summary',
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFC69840),
-          ),
+          'Curbstones Work Summary',
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
@@ -45,124 +59,133 @@ class _MiniParkCurbstonesSummaryState extends State<MiniParkCurbstonesSummary> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Add the FilterWidget here
-            FilterWidget(
-              onFilter: (startDate, endDate, status) {
+            // Date filter widget
+            SearchByDate(
+              onFilter: (from, to) {
                 setState(() {
-                  _startDate = startDate;
-                  _endDate = endDate;
-                  _status = status;
+                  fromDate = from;
+                  toDate = to;
                 });
               },
             ),
             const SizedBox(height: 16),
 
-            Obx(() {
-              if (miniParkCurbStoneViewModel.allMpCurb.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/nodata.png',
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'No data available',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+            // Display filtered data with scrollable vertical and horizontal views
+            Expanded(
+              child: Obx(() {
+                List<dynamic> filteredData = getFilteredData();
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
                         ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return SingleChildScrollView(
+                  scrollDirection: Axis.vertical,  // For vertical scrolling
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,  // For horizontal scrolling
+                    child: DataTable(
+                      columnSpacing: 10.0,
+                      headingRowColor: MaterialStateProperty.all(const Color(0xFFC69840)),
+                      border: const TableBorder(
+                        horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
+                        verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
                       ),
-                    ],
+                      columns: [
+                        const DataColumn(
+                          label: Text(
+                            'Start Date',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),  // Smaller font size
+                          ),
+                        ),
+                        const DataColumn(
+                          label: Text(
+                            'End Date',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          ),
+                        ),
+                        const DataColumn(
+                          label: Text(
+                            'Status',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          ),
+                        ),
+                        const DataColumn(
+                          label: Text(
+                            'Date',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          ),
+                        ),
+                        const DataColumn(
+                          label: Text(
+                            'Time',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+                          ),
+                        ),
+                      ],
+                      rows: filteredData.map((entry) {
+                        String startDate = entry.startDate != null
+                            ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                            : '';
+                        String expectedCompDate = entry.expectedCompDate != null
+                            ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                            : '';
+                        return DataRow(
+                          cells: [
+                            DataCell(
+                              Text(
+                                startDate,
+                                style: const TextStyle(fontSize: 12),  // Smaller font size
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                expectedCompDate,
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                entry.mpCurbStoneCompStatus ?? '',
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                entry.date ?? '',
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ),
+                            DataCell(
+                              Text(
+                                entry.time ?? '',
+                                style: const TextStyle(fontSize: 12),
+                              ),
+                            ),
+                          ],
+                        );
+                      }).toList(),
+                    ),
                   ),
                 );
-              }
-
-              // Filter the data
-              final filteredData = miniParkCurbStoneViewModel.allMpCurb.where((entry) {
-                // Filter by start date
-                final startDateMatch = _startDate == null ||
-                    (entry.startDate != null && entry.startDate!.isAfter(_startDate!));
-
-                // Filter by end date
-                final endDateMatch = _endDate == null ||
-                    (entry.expectedCompDate != null && entry.expectedCompDate!.isBefore(_endDate!));
-
-                // Filter by status
-                final statusMatch = _status == null ||
-                    (entry.mpCurbStoneCompStatus != null &&
-                        entry.mpCurbStoneCompStatus!.toLowerCase().contains(_status!.toLowerCase()));
-
-                return startDateMatch && endDateMatch && statusMatch;
-              }).toList();
-
-              if (filteredData.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/nodata.png',
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'No data available',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: DataTable(
-                  columnSpacing: 16.0,
-                  headingRowColor: MaterialStateProperty.all(const Color(0xFFC69840)),
-                  border: const TableBorder(
-                    horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
-                    verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
-                  ),
-                  columns: [
-                    const DataColumn(label: Text('start_date', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('end_date', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('status', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('date', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('time', style: TextStyle(fontWeight: FontWeight.bold))),
-                  ],
-                  rows: filteredData.map((entry) {
-                    // Format the DateTime objects to a readable string format
-                    String startDate = entry.startDate != null
-                        ? DateFormat('d MMM yyyy').format(entry.startDate!)
-                        : ''; // Show empty string if null
-
-                    String expectedCompDate = entry.expectedCompDate != null
-                        ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
-                        : ''; // Show empty string if null
-
-                    return DataRow(cells: [
-                      DataCell(Text(startDate)), // Formatted start date
-                      DataCell(Text(expectedCompDate)), // Formatted expected completion date
-                      DataCell(Text(entry.mpCurbStoneCompStatus ?? '')), // Null check for status
-                      DataCell(Text(entry.date ?? '')), // Display date as-is
-                      DataCell(Text(entry.time ?? '')), // Display time as-is
-                    ]);
-                  }).toList(),
-                ),
-              );
-            }),
+              }),
+            ),
           ],
         ),
       ),
