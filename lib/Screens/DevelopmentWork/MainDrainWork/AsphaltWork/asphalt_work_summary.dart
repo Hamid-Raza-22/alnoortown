@@ -89,8 +89,8 @@ class AsphaltWorkSummary extends StatelessWidget {
                     children: [
                       buildDataCell(entry.block_no ?? 'N/A'),
                       buildDataCell(entry.street_no ?? 'N/A'),
-                      buildDataCell(entry.numOfTons ?? 'N/A'),
-                      buildDataCell(entry.backFillingStatus ?? 'N/A'),
+                      buildDataCell(entry.no_of_tons ?? 'N/A'),
+                      buildDataCell(entry.back_filling_status ?? 'N/A'),
                       buildDataCell(entry.date ?? 'N/A'),
                       buildDataCell(entry.time ?? 'N/A'),
                     ],

@@ -14,7 +14,7 @@ class FancyLightPolesSummary extends StatefulWidget {
 
 class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
   final MpFancyLightPolesViewModel mpFancyLightPolesViewModel = Get.put(MpFancyLightPolesViewModel());
-  DateTime? _startDate;
+  DateTime? _start_date;
   DateTime? _endDate;
   String? _status;
 
@@ -45,9 +45,9 @@ class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
         child: Column(
           children: [
             FilterWidget(
-              onFilter: (startDate, endDate, status) {
+              onFilter: (start_date, endDate, status) {
                 setState(() {
-                  _startDate = startDate;
+                  _start_date = start_date;
                   _endDate = endDate;
                   _status = status;
                 });
@@ -82,19 +82,19 @@ class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
 
               final filteredData = mpFancyLightPolesViewModel.allMpFancy.where((entry) {
                 // Filter by start date
-                final startDateMatch = _startDate == null ||
-                    (entry.startDate != null && entry.startDate!.isAfter(_startDate!));
+                final start_dateMatch = _start_date == null ||
+                    (entry.start_date != null && entry.start_date!.isAfter(_start_date!));
 
                 // Filter by end date
                 final endDateMatch = _endDate == null ||
-                    (entry.expectedCompDate != null && entry.expectedCompDate!.isBefore(_endDate!));
+                    (entry.expected_comp_date != null && entry.expected_comp_date!.isBefore(_endDate!));
 
                 // Filter by status
                 final statusMatch = _status == null ||
-                    (entry.mpLCompStatus != null &&
-                        entry.mpLCompStatus!.toLowerCase().contains(_status!.toLowerCase()));
+                    (entry.mini_park_fancy_light_comp_status != null &&
+                        entry.mini_park_fancy_light_comp_status!.toLowerCase().contains(_status!.toLowerCase()));
 
-                return startDateMatch && endDateMatch && statusMatch;
+                return start_dateMatch && endDateMatch && statusMatch;
               }).toList();
 
               if (filteredData.isEmpty) {
@@ -140,18 +140,18 @@ class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
                   ],
                   rows: filteredData.map((entry) {
                     // Format the DateTime objects to a readable string format
-                    String startDate = entry.startDate != null
-                        ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                    String start_date = entry.start_date != null
+                        ? DateFormat('d MMM yyyy').format(entry.start_date!)
                         : ''; // Show empty string if null
 
-                    String expectedCompDate = entry.expectedCompDate != null
-                        ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                    String expected_comp_date = entry.expected_comp_date != null
+                        ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
                         : ''; // Show empty string if null
 
                     return DataRow(cells: [
-                      DataCell(Text(startDate)), // Formatted start date
-                      DataCell(Text(expectedCompDate)), // Formatted expected completion date
-                      DataCell(Text(entry.mpLCompStatus ?? '')), // Null check for status
+                      DataCell(Text(start_date)), // Formatted start date
+                      DataCell(Text(expected_comp_date)), // Formatted expected completion date
+                      DataCell(Text(entry.mini_park_fancy_light_comp_status ?? '')), // Null check for status
                       DataCell(Text(entry.date ?? '')), // Display date as-is
                       DataCell(Text(entry.time ?? '')), // Display time as-is
                     ]);

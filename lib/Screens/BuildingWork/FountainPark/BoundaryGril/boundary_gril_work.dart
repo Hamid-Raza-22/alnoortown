@@ -15,7 +15,7 @@ class BoundaryGrillWork extends StatefulWidget {
 
 class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
   BoundaryGrillWorkViewModel boundaryGrillWorkViewModel = Get.put(BoundaryGrillWorkViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -107,8 +107,8 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
           children: [
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 10),
             buildDatePickerRow(
@@ -134,13 +134,13 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
                     await boundaryGrillWorkViewModel.addBoundary(BoundaryGrillWorkModel(
-                      startDate: selectedStartDate,
-                      expectedCompDate: selectedEndDate,
-                      boundaryWorkCompStatus: selectedStatus,
+                      start_date: selectedstart_date,
+                      expected_comp_date: selectedEndDate,
+                      boundary_work_comp_status: selectedStatus,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()
                     ));

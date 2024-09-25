@@ -137,7 +137,7 @@ class _SanitaryWorkState extends State<SanitaryWork> {
                   if (selectedBlock != null && selectedStatus != null) {
                     await sanitaryWorkViewModel.addSanitary(SanitaryWorkModel(
                         block_no: selectedBlock,
-                        sanitaryWorkStatus: selectedStatus,
+                        sanitary_work_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

@@ -18,7 +18,7 @@ class MiniParkMudFillingRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMudFillingMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','mpMudFillingCompStatus','totalDumpers','mini_park_mud_filling_date','time','posted']
+        columns: ['id', 'start_date', 'expected_comp_date','mini_park_mud_filling_comp_status','total_dumpers','mini_park_mud_filling_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

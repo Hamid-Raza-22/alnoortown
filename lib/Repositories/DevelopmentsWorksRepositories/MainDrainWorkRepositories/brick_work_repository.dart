@@ -16,7 +16,7 @@ class BrickWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBrickWork,
-        columns: ['id', 'block_no', 'street_no', 'completedLength','brick_work_date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'completed_length','brick_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -30,16 +30,16 @@ class BrickWorkRepository{
     }
 
     // Convert the raw data into a list
-    List<BrickWorkModel> brickWork = [];
+    List<BrickWorkModel> brick_work = [];
     for (int i = 0; i < maps.length; i++) {
-      brickWork.add(BrickWorkModel.fromMap(maps[i]));
+      brick_work.add(BrickWorkModel.fromMap(maps[i]));
     }
 
     // Print the list
     if (kDebugMode) {
       print('Parsed BrickWorkModel objects:');
     }
-    return brickWork;
+    return brick_work;
   }
   Future<void> fetchAndSaveBrickWorkData() async {
     List<dynamic> data = await ApiService.getData(Config.getApiUrlBrickWork);

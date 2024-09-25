@@ -15,7 +15,7 @@ class GazeboWork extends StatefulWidget {
 
 class _GazeboWorkState extends State<GazeboWork> {
   GazeboWorkViewModel gazeboWorkViewModel = Get.put(GazeboWorkViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -106,8 +106,8 @@ class _GazeboWorkState extends State<GazeboWork> {
           children: [
             buildDatePickerRow(
               "start_date".tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 10),
             buildDatePickerRow(
@@ -133,13 +133,13 @@ class _GazeboWorkState extends State<GazeboWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
                     await gazeboWorkViewModel.addGazebo(GazeboWorkModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        gazeboWorkCompStatus: selectedStatus,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                        gazebo_work_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

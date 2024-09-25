@@ -15,7 +15,7 @@ class MainEntranceTilesWork extends StatefulWidget {
 
 class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
   MainEntranceTilesWorkViewModel mainEntranceTilesWorkViewModel = Get.put(MainEntranceTilesWorkViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -107,8 +107,8 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
           children: [
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 10),
             buildDatePickerRow(
@@ -134,13 +134,13 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
                     await mainEntranceTilesWorkViewModel.addEntrance(MainEntranceTilesWorkModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        mainEntranceTilesWorkCompStatus: selectedStatus,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                        main_entrance_tiles_work_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

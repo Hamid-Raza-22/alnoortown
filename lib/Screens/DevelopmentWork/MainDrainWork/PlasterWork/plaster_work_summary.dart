@@ -133,7 +133,7 @@ class _PlasterWorkSummaryState extends State<PlasterWorkSummary> {
                           children: [
                             buildDataCell(entry.block_no ?? 'N/A'),
                             buildDataCell(entry.street_no ?? 'N/A'),
-                            buildDataCell(entry.completedLength ?? 'N/A'),
+                            buildDataCell(entry.completed_length ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),
                           ],

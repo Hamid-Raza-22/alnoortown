@@ -146,14 +146,14 @@ class _IronWorkState extends State<IronWork> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final completedLength = containerData["numTankers"];
+                  final completed_length = containerData["numTankers"];
 
                   // Add a new work entry
                   await ironWorkViewModel.addWorks(IronWorksModel(
                     id: ironId,
                     block_no: selectedBlock,
                     street_no: selectedStreet,
-                    completedLength: completedLength,
+                    completed_length: completed_length,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));
@@ -171,7 +171,7 @@ class _IronWorkState extends State<IronWork> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, completedLength: $completedLength',
+                        'Selected: $selectedBlock, $selectedStreet, completed_length: $completed_length',
                       ),
                     ),
                   );

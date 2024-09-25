@@ -123,7 +123,7 @@ class _MainGateGreyStructureSummaryState extends State<MainGateGreyStructureSumm
                         final entry = filteredData[entryIndex];
                         final data = [
                           entry.block_no ?? 'N/A',
-                          entry.workStatus ?? 'N/A',
+                          entry.work_status ?? 'N/A',
                           entry.date ?? 'N/A',
                           entry.time ?? 'N/A'
                         ];

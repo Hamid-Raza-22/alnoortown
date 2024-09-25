@@ -101,7 +101,7 @@ class DoorsWorkSummaryState extends State<DoorsWorkSummary> {
                     final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.block_no,
-                      "status": data.doorsWorkStatus,
+                      "status": data.doors_work_status,
                       "date": data.date,
                       "time": data.time,
                     });

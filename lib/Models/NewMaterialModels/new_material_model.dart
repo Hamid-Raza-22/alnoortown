@@ -3,10 +3,10 @@ class NewMaterialModel{
   dynamic sand;
   dynamic soil;
   dynamic base;
-  dynamic subBase;
-  dynamic waterBound;
-  dynamic otherMaterial;
-  dynamic otherMaterialValue;
+  dynamic sub_base;
+  dynamic water_bound;
+  dynamic other_material;
+  dynamic other_material_value;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -16,10 +16,10 @@ class NewMaterialModel{
     this.sand,
     this.soil,
     this.base,
-    this.subBase,
-    this.waterBound,
-    this.otherMaterial,
-    this.otherMaterialValue,
+    this.sub_base,
+    this.water_bound,
+    this.other_material,
+    this.other_material_value,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -33,10 +33,10 @@ class NewMaterialModel{
       sand: json['sand'],
       soil: json['soil'],
       base: json['base'],
-      subBase: json['subBase'],
-      waterBound: json['waterBound'],
-      otherMaterial: json['otherMaterial'],
-        otherMaterialValue: json['otherMaterialValue'],
+      sub_base: json['sub_base'],
+      water_bound: json['water_bound'],
+      other_material: json['other_material'],
+        other_material_value: json['other_material_value'],
         date:  json['new_material_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
@@ -51,10 +51,10 @@ class NewMaterialModel{
       'sand':sand,
       'soil':soil,
       'base':base,
-      'subBase':subBase,
-      'waterBound':waterBound,
-      'otherMaterial':otherMaterial,
-      'otherMaterialValue':otherMaterialValue,
+      'sub_base':sub_base,
+      'water_bound':water_bound,
+      'other_material':other_material,
+      'other_material_value':other_material_value,
       'new_material_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

@@ -15,10 +15,10 @@ class StreetRoadsWaterChannels extends StatefulWidget {
 
 class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
   StreetRoadWaterChannelViewModel streetRoadWaterChannelViewModel = Get.put(StreetRoadWaterChannelViewModel());
-  TextEditingController roadNoController = TextEditingController();
+  TextEditingController road_noController = TextEditingController();
   TextEditingController noOfWaterChannelsController = TextEditingController();
   String? selectedBlock;
-  String? selectedRoadSide;
+  String? selectedroad_side;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
 
@@ -113,11 +113,11 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
               });
             }),
               SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), roadNoController),
+            buildTextFieldRow('road_no'.tr(), road_noController),
               SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedRoadSide, ['left'.tr(), 'right'.tr()], (value) {
+            buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) {
               setState(() {
-                selectedRoadSide = value;
+                selectedroad_side = value;
               });
             }),
               SizedBox(height: 16),
@@ -140,16 +140,16 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (roadNoController.text.isNotEmpty &&
+                  if (road_noController.text.isNotEmpty &&
                       noOfWaterChannelsController.text.isNotEmpty &&
                       selectedBlock != null &&
-                      selectedRoadSide != null && // Check if Road Side is selected
+                      selectedroad_side != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     await streetRoadWaterChannelViewModel.addStreetRoad(StreetRoadWaterChannelModel(
                         block_no: selectedBlock,
-                        roadNo: roadNoController.text,
-                        roadSide: selectedRoadSide,
-                        noOfWaterChannels: noOfWaterChannelsController.text,
+                        road_no: road_noController.text,
+                        road_side: selectedroad_side,
+                        no_of_water_channels:  noOfWaterChannelsController.text,
                         waterChCompStatus: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

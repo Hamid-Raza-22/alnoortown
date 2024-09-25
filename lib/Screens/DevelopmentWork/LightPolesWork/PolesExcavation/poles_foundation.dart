@@ -160,7 +160,7 @@ class PolesFoundationState extends State<PolesFoundation> {
                     id: exId,
                     block_no: selectedBlock,
                     street_no: selectedStreet,
-                    noOfExcavation: polesExcavation,
+                    no_of_excavation: polesExcavation,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));

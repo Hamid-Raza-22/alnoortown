@@ -15,7 +15,7 @@ class MudFillingWork extends StatefulWidget {
 
 class MudFillingWorkState extends State<MudFillingWork> {
   MudFillingWorkViewModel mudFillingWorkViewModel = Get.put(MudFillingWorkViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController dumpersController = TextEditingController();
   String? selectedStatus;
@@ -109,8 +109,8 @@ class MudFillingWorkState extends State<MudFillingWork> {
           children: [
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 16),
             buildDatePickerRow(
@@ -138,15 +138,15 @@ class MudFillingWorkState extends State<MudFillingWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       dumpersController.text.isNotEmpty &&
                       selectedStatus != null) {
                     await mudFillingWorkViewModel.addMud(MudFillingWorkModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        totalDumpers: dumpersController.text,
-                        mudFillingCompStatus: selectedStatus,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                        total_dumpers: dumpersController.text,
+                        mud_filling_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

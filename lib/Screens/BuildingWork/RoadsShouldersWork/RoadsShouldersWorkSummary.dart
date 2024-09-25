@@ -17,7 +17,7 @@ class RoadsShouldersSummary extends StatefulWidget {
 class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
   final RoadsShoulderWorkViewModel roadsShoulderWorkViewModel = Get.put(RoadsShoulderWorkViewModel());
   String? _block_no;
-  String? _roadSide;
+  String? _road_side;
   String? _status;
 
   @override
@@ -48,10 +48,10 @@ class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
           children: [
             // Add the FilterWidget here
             FilterWidget(
-              onFilter: (block_no, roadSide, status) {
+              onFilter: (block_no, road_side, status) {
                 setState(() {
                   _block_no = block_no as String?;
-                  _roadSide = roadSide as String?;
+                  _road_side = road_side as String?;
                   _status = status;
                 });
               },
@@ -88,10 +88,10 @@ class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
               // Filter the data
               final filteredData = roadsShoulderWorkViewModel.allRoadShoulder.where((entry) {
                 final block_noMatch = _block_no == null || (entry.block_no != null && entry.block_no!.contains(_block_no!));
-                final roadSideMatch = _roadSide == null || (entry.roadSide != null && entry.roadSide!.contains(_roadSide!));
-                final statusMatch = _status == null || (entry.roadsShoulderCompStatus != null && entry.roadsShoulderCompStatus!.toLowerCase().contains(_status!.toLowerCase()));
+                final road_sideMatch = _road_side == null || (entry.road_side != null && entry.road_side!.contains(_road_side!));
+                final statusMatch = _status == null || (entry.roads_shoulder_comp_status != null && entry.roads_shoulder_comp_status!.toLowerCase().contains(_status!.toLowerCase()));
 
-                return block_noMatch && roadSideMatch && statusMatch;
+                return block_noMatch && road_sideMatch && statusMatch;
               }).toList();
 
               if (filteredData.isEmpty) {
@@ -140,17 +140,17 @@ class _RoadsShouldersSummaryState extends State<RoadsShouldersSummary> {
                     const DataColumn(label: Text('time', style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
                   rows: filteredData.map((entry) {
-                    String startDate = entry.startDate != null ? DateFormat('d MMM yyyy').format(entry.startDate!) : '';
-                    String expectedCompDate = entry.expectedCompDate != null ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!) : '';
+                    String start_date = entry.start_date != null ? DateFormat('d MMM yyyy').format(entry.start_date!) : '';
+                    String expected_comp_date = entry.expected_comp_date != null ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!) : '';
 
                     return DataRow(cells: [
                       DataCell(Text(entry.block_no ?? '')),
-                      DataCell(Text(entry.roadSide ?? '')),
-                      DataCell(Text(entry.roadNo ?? '')),
-                      DataCell(Text(entry.totalLength ?? '')),
-                      DataCell(Text(startDate)),
-                      DataCell(Text(expectedCompDate)),
-                      DataCell(Text(entry.roadsShoulderCompStatus ?? '')),
+                      DataCell(Text(entry.road_side ?? '')),
+                      DataCell(Text(entry.road_no ?? '')),
+                      DataCell(Text(entry.total_length ?? '')),
+                      DataCell(Text(start_date)),
+                      DataCell(Text(expected_comp_date)),
+                      DataCell(Text(entry.roads_shoulder_comp_status ?? '')),
                       DataCell(Text(entry.date ?? '')),
                       DataCell(Text(entry.time ?? '')),
                     ]);

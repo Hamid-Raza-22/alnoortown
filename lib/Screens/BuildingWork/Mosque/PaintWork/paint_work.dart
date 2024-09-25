@@ -141,7 +141,7 @@ class PaintWorkState extends State<PaintWork>{
                   if (selectedBlock != null && selectedStatus != null) {
                     await paintWorkViewModel.addPaint(PaintWorkModel(
                       block_no: selectedBlock,
-                      paintWorkStatus: selectedStatus,
+                      paint_work_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

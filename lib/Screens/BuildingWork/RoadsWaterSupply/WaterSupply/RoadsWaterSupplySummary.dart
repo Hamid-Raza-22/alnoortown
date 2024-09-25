@@ -74,22 +74,22 @@ class _RoadsWaterSupplySummaryState extends State<RoadsWaterSupplySummary> {
                 ],
                 rows: waterFirstViewModel.allWaterFirst.map((entry) {
                   // Format the DateTime objects to a readable string format
-                  String startDate = entry.startDate != null
-                      ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                  String start_date = entry.start_date != null
+                      ? DateFormat('d MMM yyyy').format(entry.start_date!)
                       : ''; // Show empty string if null
 
-                  String expectedCompDate = entry.expectedCompDate != null
-                      ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                  String expected_comp_date = entry.expected_comp_date != null
+                      ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
                       : ''; // Show empty string if null
                   return DataRow(cells: [
                     // Formatted start date
                     DataCell(Text(entry.block_no ?? '')),
-                    DataCell(Text(entry.roadNo ?? '')),
-                    DataCell(Text(entry.roadSide ?? '')),
-                    DataCell(Text(entry.totalLength ?? '')),
-                    DataCell(Text(startDate)),
-                    DataCell(Text(expectedCompDate)),
-                    DataCell(Text(entry.waterSupplyCompStatus ?? '')),
+                    DataCell(Text(entry.road_no ?? '')),
+                    DataCell(Text(entry.road_side ?? '')),
+                    DataCell(Text(entry.total_length ?? '')),
+                    DataCell(Text(start_date)),
+                    DataCell(Text(expected_comp_date)),
+                    DataCell(Text(entry.roads_water_supply_comp_status ?? '')),
                     // Null check for status
                     DataCell(Text(entry.date ?? '')),
                     // Display date as-is (assuming it's already formatted)

@@ -27,7 +27,7 @@ class MainGatePlasterWorkState extends State<MainGatePlasterWork> {
   List<Map<String, dynamic>> containerDataList = [];
 
   String? selectedBlock;
-  String? workStatus;
+  String? work_status;
 
   @override
   void initState() {
@@ -122,10 +122,10 @@ class MainGatePlasterWorkState extends State<MainGatePlasterWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedBlock != null && workStatus != null) {
+                  if (selectedBlock != null && work_status != null) {
                     await mgPlasterWorkViewModel.addMgPlaster(MgPlasterWorkModel(
                       block_no: selectedBlock,
-                      workStatus: workStatus,
+                      work_status: work_status,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
 
@@ -198,7 +198,7 @@ class MainGatePlasterWorkState extends State<MainGatePlasterWork> {
         TextField(
           onChanged: (value) {
             setState(() {
-              workStatus = value;
+              work_status = value;
             });
           },
           maxLines: 3,

@@ -133,7 +133,7 @@ class _PolesExcavationSummaryState extends State<PolesExcavationSummary> {
                           children: [
                             buildDataCell(entry.block_no ?? 'N/A'),
                             buildDataCell(entry.street_no ?? 'N/A'),
-                            buildDataCell(entry.noOfExcavation ?? 'N/A'),
+                            buildDataCell(entry.no_of_excavation ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),
                           ],

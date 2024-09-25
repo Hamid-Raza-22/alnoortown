@@ -137,8 +137,8 @@ class _MachinesSummaryState extends State<MachinesSummary> {
                             buildDataCell(entry.street_no ?? 'N/A'),
                             buildDataCell(entry.machine ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
-                            buildDataCell(entry.timeIn ?? 'N/A'),
-                            buildDataCell(entry.timeOut ?? 'N/A'),
+                            buildDataCell(entry.time_in ?? 'N/A'),
+                            buildDataCell(entry.time_out ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),
                           ],
                         );

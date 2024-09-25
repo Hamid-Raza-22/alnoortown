@@ -131,9 +131,9 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
                   if (selectedBlock != null && selectedBrickWorkStatus != null && selectedMudFillingStatus != null && selectedPlasterWorkStatus != null) {
                     await firstFloorViewModel.addFirstFloor(FirstFloorModel(
                       block_no: selectedBlock,
-                      brickWork: selectedBrickWorkStatus,
-                      mudFiling: selectedMudFillingStatus,
-                      plasterWork: selectedPlasterWorkStatus,
+                      brick_work: selectedBrickWorkStatus,
+                      mud_filling: selectedMudFillingStatus,
+                      plaster_work: selectedPlasterWorkStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

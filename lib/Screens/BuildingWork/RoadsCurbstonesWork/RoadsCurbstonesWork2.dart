@@ -17,8 +17,8 @@ class RoadsCurbstonesWork extends StatefulWidget {
 
 class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
   RoadCurbStonesWorkViewModel roadCurbStonesWorkViewModel = Get.put(RoadCurbStonesWorkViewModel());
-  TextEditingController roadNoController = TextEditingController();
-  TextEditingController totalLengthController = TextEditingController();
+  TextEditingController road_noController = TextEditingController();
+  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -113,9 +113,9 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
               });
             }),
               SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), roadNoController),
+            buildTextFieldRow('road_no'.tr(), road_noController),
               SizedBox(height: 16),
-            buildTextFieldRow('total_length'.tr(), totalLengthController),
+            buildTextFieldRow('total_length'.tr(), total_lengthController),
               SizedBox(height: 16),
               Text(
               'roads_edging_work_completion_status'.tr(),
@@ -131,15 +131,15 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (roadNoController.text.isNotEmpty &&
-                      totalLengthController.text.isNotEmpty &&
+                  if (road_noController.text.isNotEmpty &&
+                      total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
                     await roadCurbStonesWorkViewModel.addRoadCurb(RoadCurbStonesWorkModel(
                         block_no: selectedBlock,
-                        roadNo: roadNoController.text,
-                        totalLength: totalLengthController.text,
-                        compStatus: selectedStatus,
+                        road_no: road_noController.text,
+                        total_length: total_lengthController.text,
+                        comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

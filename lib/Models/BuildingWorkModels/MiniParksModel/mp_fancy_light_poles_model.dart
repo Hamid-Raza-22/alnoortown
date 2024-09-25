@@ -1,17 +1,17 @@
 class MpFancyLightPolesModel{
   int? id;
-  DateTime? startDate;
-  DateTime? expectedCompDate;
-  String? mpLCompStatus;
+  DateTime? start_date;
+  DateTime? expected_comp_date;
+  String? mini_park_fancy_light_comp_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
 
   MpFancyLightPolesModel({
     this.id,
-    this.startDate,
-    this.expectedCompDate,
-    this.mpLCompStatus,
+    this.start_date,
+    this.expected_comp_date,
+    this.mini_park_fancy_light_comp_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -22,10 +22,10 @@ class MpFancyLightPolesModel{
   {
     return MpFancyLightPolesModel(
         id: json['id'],
-        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
-        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
-        mpLCompStatus:json['mpLCompStatus'],
-        date:  json['mp_fancy_light_poles_date'],
+        start_date: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
+        expected_comp_date: json['expected_comp_date'] != null ? DateTime.parse(json['expected_comp_date']) : null,
+        mini_park_fancy_light_comp_status:json['mini_park_fancy_light_comp_status'],
+        date:  json['mini_park_fancy_light_poles_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
 
@@ -35,10 +35,10 @@ class MpFancyLightPolesModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'startDate': startDate?.toString(),
-      'expectedCompDate': expectedCompDate?.toString(),
-      'mpLCompStatus':mpLCompStatus,
-      'mp_fancy_light_poles_date':date,
+      'start_date': start_date?.toString(),
+      'expected_comp_date': expected_comp_date?.toString(),
+      'mini_park_fancy_light_comp_status':mini_park_fancy_light_comp_status,
+      'mini_park_fancy_light_poles_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

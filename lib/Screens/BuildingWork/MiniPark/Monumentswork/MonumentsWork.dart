@@ -16,7 +16,7 @@ class MonumentsWork extends StatefulWidget {
 
 class _MonumentsWorkState extends State<MonumentsWork> {
   MonumentsWorkViewModel monumentsWorkViewModel = Get.put(MonumentsWorkViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -109,8 +109,8 @@ class _MonumentsWorkState extends State<MonumentsWork> {
           children: [
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 4),
             buildDatePickerRow(
@@ -136,13 +136,13 @@ class _MonumentsWorkState extends State<MonumentsWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
                     await monumentsWorkViewModel .addMonument(MonumentsWorkModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        monumentsWorkCompStatus: selectedStatus,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                        monuments_work_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

@@ -1,9 +1,9 @@
 class RoadCurbStonesWorkModel{
   int? id;
   dynamic block_no;
-  dynamic roadNo;
-  dynamic totalLength;
-  dynamic compStatus;
+  dynamic road_no;
+  dynamic total_length;
+  dynamic comp_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -11,9 +11,9 @@ class RoadCurbStonesWorkModel{
   RoadCurbStonesWorkModel({
     this.id,
     this.block_no,
-    this.roadNo,
-    this.totalLength,
-    this.compStatus,
+    this.road_no,
+    this.total_length,
+    this.comp_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -26,10 +26,10 @@ class RoadCurbStonesWorkModel{
     return RoadCurbStonesWorkModel(
         id: json['id'],
         block_no: json['block_no'],
-        roadNo: json['roadNo'],
-        totalLength: json['totalLength'],
-        compStatus: json['compStatus'],
-        date:  json['roads_curbStone_date'],
+        road_no: json['road_no'],
+        total_length: json['total_length'],
+        comp_status: json['comp_status'],
+        date:  json['roads_curbstone_date'],
         time:  json['time'],
       posted: json['posted'],  // Get the posted status from the database
 
@@ -40,10 +40,10 @@ class RoadCurbStonesWorkModel{
     return {
       'id':id,
       'block_no':block_no,
-      'roadNo':roadNo,
-      'totalLength':totalLength,
-      'compStatus':compStatus,
-      'roads_curbStone_date':date,
+      'road_no':road_no,
+      'total_length':total_length,
+      'comp_status':comp_status,
+      'roads_curbstone_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 
