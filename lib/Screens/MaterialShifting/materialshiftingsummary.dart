@@ -5,10 +5,10 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 class MaterialShiftingSummaryPage extends StatelessWidget {
   final MaterialShiftingViewModel materialShiftingViewModel= Get.put(MaterialShiftingViewModel());
   final List<Map<String, String>> machineDataList = [
-    {"fromBlock": "Block A", "toBlock": "Block B", "numOfShift": "5"},
-    {"fromBlock": "Block C", "toBlock": "Block D", "numOfShift": "3"},
-    {"fromBlock": "Block E", "toBlock": "Block F", "numOfShift": "7"},
-    {"fromBlock": "Block G", "toBlock": "Block H", "numOfShift": "2"},
+    {"from_block": "Block A", "to_block": "Block B", "no_of_shift": "5"},
+    {"from_block": "Block C", "to_block": "Block D", "no_of_shift": "3"},
+    {"from_block": "Block E", "to_block": "Block F", "no_of_shift": "7"},
+    {"from_block": "Block G", "to_block": "Block H", "no_of_shift": "2"},
   ];
 
   MaterialShiftingSummaryPage({super.key});
@@ -92,9 +92,9 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
                 if (entryIndex < materialShiftingViewModel.allShifting.length) {
                   final entry = materialShiftingViewModel.allShifting[entryIndex];
                   final data = [
-                    entry.fromBlock ?? 'N/A',
-                    entry.toBlock ?? 'N/A',
-                    entry.numOfShift ?? 'N/A',
+                    entry.from_block ?? 'N/A',
+                    entry.to_block ?? 'N/A',
+                    entry.no_of_shift ?? 'N/A',
                     entry.date ?? 'N/A',
                     entry.time ?? 'N/A'
                   ];

@@ -15,7 +15,7 @@ class MiniParkMudFilling extends StatefulWidget {
 
 class MiniParkMudFillingState extends State<MiniParkMudFilling> {
   MiniParkMudFillingViewModel miniParkMudFillingViewModel = Get.put(MiniParkMudFillingViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController dumpersController = TextEditingController();
   String? selectedStatus;
@@ -109,8 +109,8 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
           children: [
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 16),
             buildDatePickerRow(
@@ -138,15 +138,15 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       dumpersController.text.isNotEmpty &&
                       selectedStatus != null) {
                     await miniParkMudFillingViewModel .addMpMud(MiniParkMudFillingModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        totalDumpers: dumpersController.text,
-                        mpMudFillingCompStatus: selectedStatus,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                        total_dumpers: dumpersController.text,
+                        mini_park_mud_filling_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

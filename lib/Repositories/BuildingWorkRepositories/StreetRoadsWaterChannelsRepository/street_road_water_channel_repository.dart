@@ -18,7 +18,7 @@ class StreetRoadWaterChannelRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameStreetRoadWaterChannels,
-        columns: ['id', 'block_no', 'roadNo','roadSide','noOfWaterChannels','waterChCompStatus','street_roads_water_channel_date','time','posted']
+        columns: ['id', 'block_no', 'road_no','road_side','no_of_water_channels','water_channels_comp_status','street_roads_water_channel_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

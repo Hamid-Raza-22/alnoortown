@@ -15,7 +15,7 @@ class FancyLightPoles extends StatefulWidget {
 
 class _FancyLightPolesState extends State<FancyLightPoles> {
   MpFancyLightPolesViewModel mpFancyLightPolesViewModel = Get.put(MpFancyLightPolesViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -108,8 +108,8 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
           children: [
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 4),
             buildDatePickerRow(
@@ -135,13 +135,13 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
                     await mpFancyLightPolesViewModel .addMpFancy(MpFancyLightPolesModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        mpLCompStatus: selectedStatus,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                        mini_park_fancy_light_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

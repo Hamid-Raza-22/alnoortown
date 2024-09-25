@@ -2,7 +2,7 @@ class IronWorksModel{
   int? id;
   dynamic block_no;
   dynamic street_no;
-  dynamic completedLength;
+  dynamic completed_length;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -11,7 +11,7 @@ class IronWorksModel{
     this.id,
     this.block_no,
     this.street_no,
-    this.completedLength,
+    this.completed_length,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -24,7 +24,7 @@ class IronWorksModel{
       id: json['id'],
       block_no: json['block_no'],
       street_no: json['street_no'],
-      completedLength: json['completedLength'],
+      completed_length: json['completed_length'],
         date:  json['iron_works_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
@@ -38,7 +38,7 @@ class IronWorksModel{
       'id':id,
       'block_no':block_no,
       'street_no':street_no,
-      'completedLength':completedLength,
+      'completed_length':completed_length,
       'iron_works_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

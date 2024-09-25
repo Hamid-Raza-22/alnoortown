@@ -1,8 +1,8 @@
 class CubStonesWorkModel{
   int? id;
-  dynamic startDate;
-  dynamic expectedCompDate;
-  String?  cubStonesCompStatus;
+  dynamic start_date;
+  dynamic expected_comp_date;
+  String?  curbstones_comp_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -10,9 +10,9 @@ class CubStonesWorkModel{
 
   CubStonesWorkModel({
     this.id,
-    this.startDate,
-    this.expectedCompDate,
-    this.cubStonesCompStatus,
+    this.start_date,
+    this.expected_comp_date,
+    this.curbstones_comp_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -24,10 +24,10 @@ class CubStonesWorkModel{
   {
     return CubStonesWorkModel(
         id: json['id'],
-        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
-        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
-        cubStonesCompStatus:json['cubStonesCompStatus'],
-        date:  json['curbStone_Work_date'],
+        start_date: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
+        expected_comp_date: json['expected_comp_date'] != null ? DateTime.parse(json['expected_comp_date']) : null,
+        curbstones_comp_status:json['curbstones_comp_status'],
+        date:  json['curbstones_work_date'],
         time:  json['time'],
         posted: json['posted']?? 0
     );
@@ -36,10 +36,10 @@ class CubStonesWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'startDate': startDate?.toString(),
-      'expectedCompDate': expectedCompDate?.toString(),
-      'cubStonesCompStatus':cubStonesCompStatus,
-      'curbStone_Work_date':date,
+      'start_date': start_date?.toString(),
+      'expected_comp_date': expected_comp_date?.toString(),
+      'curbstones_comp_status':curbstones_comp_status,
+      'curbstones_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
     };

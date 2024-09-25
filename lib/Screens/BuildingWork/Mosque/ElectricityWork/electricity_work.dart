@@ -142,7 +142,7 @@ class ElectricityWorkState extends State<ElectricityWork> {
                   if (selectedBlock != null && selectedStatus != null) {
                     await electricityWorkViewModel.addElectricity(ElectricityWorkModel(
                       block_no: selectedBlock,
-                      electricityWorkStatus: selectedStatus,
+                      electricity_work_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                       // date:

@@ -1,17 +1,17 @@
 class AttendanceOutModel{
   int? id;
-  dynamic timeOut;
+  dynamic time_out;
   dynamic latitude;
   dynamic longitude;
-  dynamic addressOut;
+  dynamic address_out;
   dynamic date;
 
   AttendanceOutModel({
     this.id,
-    this.timeOut,
+    this.time_out,
     this.latitude,
     this.longitude,
-    this.addressOut,
+    this.address_out,
     this.date
   });
 
@@ -19,10 +19,10 @@ class AttendanceOutModel{
   {
     return AttendanceOutModel(
         id: json['id'],
-        timeOut: json['timeOut'],
+        time_out: json['time_out'],
         latitude: json['latitude'],
         longitude: json['longitude'],
-        addressOut: json['addressOut'],
+        address_out: json['address_out'],
         date:  json['date']
     );
   }
@@ -30,10 +30,10 @@ class AttendanceOutModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'timeIn':timeOut,
+      'time_in':time_out,
       'latitude':latitude,
       'longitude':longitude,
-      'liveAddress':addressOut,
+      'live_address':address_out,
       'date':date
 
     };

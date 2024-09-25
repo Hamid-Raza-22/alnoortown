@@ -27,7 +27,7 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
   List<Map<String, dynamic>> containerDataList = [];
 
   String? selectedBlock;
-  String? workStatus;
+  String? work_status;
 
   @override
   void initState() {
@@ -123,10 +123,10 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedBlock != null && workStatus != null) {
+                  if (selectedBlock != null && work_status != null) {
                     await mainGatePillarWorkViewModel.addMainPillar(MainGatePillarWorkModel(
                       block_no: selectedBlock,
-                      workStatus: workStatus,
+                      work_status: work_status,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                       // date:
@@ -199,7 +199,7 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
         TextField(
           onChanged: (value) {
             setState(() {
-              workStatus = value;
+              work_status = value;
             });
           },
           maxLines: 3,

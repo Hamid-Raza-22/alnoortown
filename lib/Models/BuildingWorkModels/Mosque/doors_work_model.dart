@@ -1,7 +1,7 @@
 class DoorsWorkModel{
   int? id;
   dynamic block_no;
-  dynamic doorsWorkStatus;
+  dynamic doors_work_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -9,7 +9,7 @@ class DoorsWorkModel{
   DoorsWorkModel({
     this.id,
     this.block_no,
-    this.doorsWorkStatus,
+    this.doors_work_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -21,7 +21,7 @@ class DoorsWorkModel{
     return DoorsWorkModel(
         id: json['id'],
         block_no: json['block_no'],
-        doorsWorkStatus: json['doorsWorkStatus'],
+        doors_work_status: json['doors_work_status'],
         date:  json['doors_work_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
@@ -33,7 +33,7 @@ class DoorsWorkModel{
     return {
       'id':id,
       'block_no':block_no,
-      'doorsWorkStatus':doorsWorkStatus,
+      'doors_work_status':doors_work_status,
       'doors_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

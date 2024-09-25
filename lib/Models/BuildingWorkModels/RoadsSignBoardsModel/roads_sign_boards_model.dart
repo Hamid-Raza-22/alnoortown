@@ -1,11 +1,11 @@
 class RoadsSignBoardsModel{
   int? id;
   String? block_no;
-  String? roadNo;
-  String? fromPlotNo;
-  String? toPlotNo;
-  String? roadSide;
-  String? compStatus;
+  String? road_no;
+  String? from_plot_no;
+  String? to_plot_no;
+  String? road_side;
+  String? comp_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -13,11 +13,11 @@ class RoadsSignBoardsModel{
   RoadsSignBoardsModel({
     this.id,
     this.block_no,
-    this.roadNo,
-    this.fromPlotNo,
-    this.toPlotNo,
-    this.roadSide,
-    this.compStatus,
+    this.road_no,
+    this.from_plot_no,
+    this.to_plot_no,
+    this.road_side,
+    this.comp_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -29,11 +29,11 @@ class RoadsSignBoardsModel{
     return RoadsSignBoardsModel(
         id: json['id'],
         block_no: json['block_no'],
-        roadNo: json['roadNo'],
-        fromPlotNo: json['fromPlotNo'],
-        toPlotNo: json['toPlotNo'],
-        roadSide: json['roadSide'],
-        compStatus:json['compStatus'],
+        road_no: json['road_no'],
+        from_plot_no: json['from_plot_no'],
+        to_plot_no: json['to_plot_no'],
+        road_side: json['road_side'],
+        comp_status:json['comp_status'],
         date:  json['roads_sign_boards_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
@@ -45,11 +45,11 @@ class RoadsSignBoardsModel{
     return {
       'id':id,
       'block_no':block_no,
-      'roadNo':roadNo,
-      'fromPlotNo':fromPlotNo,
-      'toPlotNo':toPlotNo,
-      'roadSide':roadSide,
-      'compStatus':compStatus,
+      'road_no':road_no,
+      'from_plot_no':from_plot_no,
+      'to_plot_no':to_plot_no,
+      'road_side':road_side,
+      'comp_status':comp_status,
       'roads_sign_boards_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

@@ -18,7 +18,7 @@ class MpPlantationWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePlantationWorkMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','mpPCompStatus','mp_plantation_date','time','posted']
+        columns: ['id', 'start_date', 'expected_comp_date','mini_park_plantation_comp_status','mini_park_plantation_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

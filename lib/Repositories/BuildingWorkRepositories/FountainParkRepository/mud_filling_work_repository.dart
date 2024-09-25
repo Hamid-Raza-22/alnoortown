@@ -19,7 +19,7 @@ class MudFillingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMudFillingWorkFountainPark,
-        columns: ['id', 'startDate', 'expectedCompDate','totalDumpers','mudFillingCompStatus','mud_filling_date','time','posted']
+        columns: ['id', 'start_date', 'expected_comp_date','total_dumpers','mud_filling_comp_status','mud_filling_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

@@ -13,11 +13,11 @@ class RoadsSignBoards extends StatefulWidget {
 }
 class _RoadsSignBoardsState extends State<RoadsSignBoards> {
   RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
-  TextEditingController roadNoController = TextEditingController();
+  TextEditingController road_noController = TextEditingController();
   TextEditingController fromPlotController = TextEditingController();
   TextEditingController toPlotController = TextEditingController();
   String? selectedBlock;
-  String? selectedRoadSide;
+  String? selectedroad_side;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
 
@@ -111,13 +111,13 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
               });
             }),
               SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), roadNoController),
+            buildTextFieldRow('road_no'.tr(), road_noController),
               SizedBox(height: 16),
             buildPlotNumberRow(),
               SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedRoadSide, ['left'.tr(), 'right'.tr()], (value) {
+            buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) {
               setState(() {
-                selectedRoadSide = value;
+                selectedroad_side = value;
               });
             }),
               SizedBox(height: 16),
@@ -136,18 +136,18 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null &&
-                      roadNoController.text.isNotEmpty &&
+                      road_noController.text.isNotEmpty &&
                       fromPlotController.text.isNotEmpty &&
                       toPlotController.text.isNotEmpty &&
-                      selectedRoadSide != null &&
+                      selectedroad_side != null &&
                       selectedStatus != null) {
                     await roadsSignBoardsViewModel.addRoadsSignBoard(RoadsSignBoardsModel(
                        block_no: selectedBlock,
-                       roadNo: roadNoController.text,
-                       fromPlotNo:fromPlotController.text,
-                       toPlotNo: toPlotController.text,
-                        roadSide: selectedRoadSide,
-                        compStatus: selectedStatus,
+                       road_no: road_noController.text,
+                       from_plot_no:fromPlotController.text,
+                       to_plot_no: toPlotController.text,
+                        road_side: selectedroad_side,
+                        comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

@@ -131,7 +131,7 @@ class ManholesSlabsState extends State<ManholesSlabs> {
                       id: manId,
                       block_no: selectedBlock,
                       street_no: selectedStreet,
-                      numOfCompSlab: numTankers,
+                      no_of_comp_slabs: numTankers,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()
                   ));

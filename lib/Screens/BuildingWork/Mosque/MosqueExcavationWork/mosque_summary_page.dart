@@ -87,7 +87,7 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
                   final data = filteredData[index];
                   return _buildDataRow({
                     "selectedBlock": data.block_no,
-                    "status": data.completionStatus,
+                    "status": data.completion_status,
                     "date": data.date,
                     "time": data.time
                   });

@@ -2,7 +2,6 @@ import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenace
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
-
 import '../../../ReusableDesigns/filter_widget.dart';
 
 class WaterTankerSummary extends StatefulWidget {
@@ -11,7 +10,7 @@ class WaterTankerSummary extends StatefulWidget {
 }
 
 class _WaterTankerSummaryState extends State<WaterTankerSummary> {
-  final WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
+ WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
   DateTime? _fromDate;
   DateTime? _toDate;
   String? _block;
@@ -27,17 +26,19 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
 
+   // waterTankerViewModel.fetchAndSaveTankerData();
+    waterTankerViewModel.fetchAllTanker();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title: Text(
           'Water Tanker Summary',
           style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),

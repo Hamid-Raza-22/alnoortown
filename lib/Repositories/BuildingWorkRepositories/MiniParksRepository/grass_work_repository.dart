@@ -18,7 +18,7 @@ class GrassWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGrassWorkMiniPark,
-        columns: ['id', 'startDate', 'expectedCompDate','grassWorkCompStatus','grass_work_date','time','posted']
+        columns: ['id', 'start_date', 'expected_comp_date','grass_work_comp_status','grass_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

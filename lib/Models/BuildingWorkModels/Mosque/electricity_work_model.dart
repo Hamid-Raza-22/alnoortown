@@ -1,7 +1,7 @@
 class ElectricityWorkModel{
   int? id;
   dynamic block_no;
-  dynamic electricityWorkStatus;
+  dynamic electricity_work_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -9,7 +9,7 @@ class ElectricityWorkModel{
   ElectricityWorkModel({
     this.id,
     this.block_no,
-    this.electricityWorkStatus,
+    this.electricity_work_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -21,7 +21,7 @@ class ElectricityWorkModel{
     return ElectricityWorkModel(
         id: json['id'],
         block_no: json['block_no'],
-        electricityWorkStatus: json['electricityWorkStatus'],
+        electricity_work_status: json['electricity_work_status'],
         date:  json['electricity_work_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
@@ -33,7 +33,7 @@ class ElectricityWorkModel{
     return {
       'id':id,
       'block_no':block_no,
-      'electricityWorkStatus':electricityWorkStatus,
+      'electricity_work_status':electricity_work_status,
       'electricity_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

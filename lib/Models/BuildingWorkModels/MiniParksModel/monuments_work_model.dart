@@ -1,16 +1,16 @@
 class MonumentsWorkModel{
   int? id;
-  DateTime? startDate;
-  DateTime? expectedCompDate;
-  String?  monumentsWorkCompStatus;
+  DateTime? start_date;
+  DateTime? expected_comp_date;
+  String?  monuments_work_comp_status;
   dynamic date;
   dynamic time;
   int posted;
   MonumentsWorkModel({
     this.id,
-    this.startDate,
-    this.expectedCompDate,
-    this.monumentsWorkCompStatus,
+    this.start_date,
+    this.expected_comp_date,
+    this.monuments_work_comp_status,
     this.date,
     this.time,
     this.posted = 0,
@@ -20,9 +20,9 @@ class MonumentsWorkModel{
   {
     return MonumentsWorkModel(
         id: json['id'],
-        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
-        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
-        monumentsWorkCompStatus:json['monumentsWorkCompStatus'],
+        start_date: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
+        expected_comp_date: json['expected_comp_date'] != null ? DateTime.parse(json['expected_comp_date']) : null,
+        monuments_work_comp_status:json['monuments_work_comp_status'],
         date:  json['monuments_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
@@ -33,9 +33,9 @@ class MonumentsWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'startDate': startDate?.toString(),
-      'expectedCompDate': expectedCompDate?.toString(),
-      'monumentsWorkCompStatus':monumentsWorkCompStatus,
+      'start_date': start_date?.toString(),
+      'expected_comp_date': expected_comp_date?.toString(),
+      'monuments_work_comp_status':monuments_work_comp_status,
       'monuments_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

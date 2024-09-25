@@ -16,7 +16,7 @@ class ShiftingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameShiftingWork,
-        columns: ['id', 'fromBlock', 'toBlock', 'numOfShift','material_shifting_date','time','posted']
+        columns: ['id', 'from_block', 'to_block', 'no_of_shift','shifting_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

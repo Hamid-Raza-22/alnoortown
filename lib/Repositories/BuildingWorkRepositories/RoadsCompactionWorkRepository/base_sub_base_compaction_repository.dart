@@ -18,7 +18,7 @@ class BaseSubBaseCompactionRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBaseSubBaseCompaction,
-        columns: ['id', 'block_no', 'roadNo','totalLength','startDate','expectedCompDate','baseSubBaseCompStatus','base_subBase_compaction_date','time','posted']
+        columns: ['id', 'block_no', 'road_no','total_length','start_date','expected_comp_date','base_sub_base_comp_status','base_sub_base_compaction_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

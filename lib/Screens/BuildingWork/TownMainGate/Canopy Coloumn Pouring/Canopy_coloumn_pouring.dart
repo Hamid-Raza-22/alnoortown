@@ -27,7 +27,7 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
   List<Map<String, dynamic>> containerDataList = [];
 
   String? selectedBlock;
-  String? workStatus;
+  String? work_status;
 
   @override
   void initState() {
@@ -124,10 +124,10 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedBlock != null && workStatus != null && workStatus!.isNotEmpty) {
+                  if (selectedBlock != null && work_status != null && work_status!.isNotEmpty) {
                     await canopyColumnPouringViewModel.addCanopy(CanopyColumnPouringModel(
                       block_no: selectedBlock,
-                      workStatus:workStatus,
+                      work_status:work_status,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                       // date:
@@ -199,7 +199,7 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
         TextField(
           onChanged: (value) {
             setState(() {
-              workStatus = value;
+              work_status = value;
             });
           },
           maxLines: 3,

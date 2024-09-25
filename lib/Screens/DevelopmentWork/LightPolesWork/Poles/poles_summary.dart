@@ -133,7 +133,7 @@ class _PolesSummaryState extends State<PolesSummary> {
                           children: [
                             buildDataCell(entry.block_no ?? 'N/A'),
                             buildDataCell(entry.street_no ?? 'N/A'),
-                            buildDataCell(entry.noOfPoles ?? 'N/A'),
+                            buildDataCell(entry.no_of_poles ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),
                           ],

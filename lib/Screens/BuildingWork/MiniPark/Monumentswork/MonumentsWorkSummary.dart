@@ -69,19 +69,19 @@ class _MonumentsWorkSummaryState extends State<MonumentsWorkSummary> {
                 ],
                 rows: monumentsWorkViewModel.allMonument.map((entry) {
                   // Format the DateTime objects to a readable string format
-                  String startDate = entry.startDate != null
-                      ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                  String start_date = entry.start_date != null
+                      ? DateFormat('d MMM yyyy').format(entry.start_date!)
                       : ''; // Show empty string if null
 
-                  String expectedCompDate = entry.expectedCompDate != null
-                      ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                  String expected_comp_date = entry.expected_comp_date != null
+                      ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
                       : ''; // Show empty string if null
                   return DataRow(cells: [
-                    DataCell(Text(startDate)),
+                    DataCell(Text(start_date)),
                     // Formatted start date
-                    DataCell(Text(expectedCompDate)),
+                    DataCell(Text(expected_comp_date)),
                     // Formatted expected completion date
-                    DataCell(Text(entry.monumentsWorkCompStatus ?? '')),
+                    DataCell(Text(entry.monuments_work_comp_status ?? '')),
                     // Null check for status
                     DataCell(Text(entry.date ?? '')),
                     // Display date as-is (assuming it's already formatted)

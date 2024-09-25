@@ -128,7 +128,7 @@ class _ManholesState extends State<Manholes> {
                       id: holeId,
                       block_no: selectedBlock,
                       street_no: selectedStreet,
-                      noOfManholes: numTankers,
+                      no_of_manholes: numTankers,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()
                   ));

@@ -156,7 +156,7 @@ class _PolesState extends State<Poles> {
                     id: poleId,
                     block_no: selectedBlock,
                     street_no: selectedStreet,
-                    noOfPoles: selectedPoles,
+                    no_of_poles: selectedPoles,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));

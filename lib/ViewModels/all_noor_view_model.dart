@@ -166,10 +166,10 @@ final attendanceInViewModel = Get.put(AttendanceInViewModel());
       formattedDurationString.value = '00:00:00';
     } else {
       await attendanceInViewModel.addAttend(AttendanceInModel(
-        timeIn: _getFormattedtime(),
+        time_in: _getFormattedtime(),
         latitude: "71.33",
         longitude: "32.44",
-        liveAddress: "Prem Nagar",
+        live_address: "Prem Nagar",
       ));
       await attendanceInViewModel.fetchAllAttend();
       _saveCurrentTime();

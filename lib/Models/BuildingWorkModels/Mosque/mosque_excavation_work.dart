@@ -1,7 +1,7 @@
 class MosqueExcavationWorkModel{
   int? id;
   dynamic block_no;
-  dynamic completionStatus;
+  dynamic completion_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -9,7 +9,7 @@ class MosqueExcavationWorkModel{
   MosqueExcavationWorkModel({
     this.id,
     this.block_no,
-    this.completionStatus,
+    this.completion_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -21,8 +21,8 @@ class MosqueExcavationWorkModel{
     return MosqueExcavationWorkModel(
       id: json['id'],
       block_no: json['block_no'],
-      completionStatus: json['completionStatus'],
-        date:  json['mosque_excavation_date'],
+      completion_status: json['completion_status'],
+        date:  json['mosque_excavation_work_date'],
         time: json['time'],
       posted: json['posted']??0  // Get the posted status from the database
 
@@ -34,8 +34,8 @@ class MosqueExcavationWorkModel{
     return {
       'id':id,
       'block_no':block_no,
-      'completionStatus':completionStatus,
-      'mosque_excavation_date':date,
+      'completion_status':completion_status,
+      'mosque_excavation_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

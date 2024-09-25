@@ -70,20 +70,20 @@ class _MPMudFillingSummaryState extends State<MPMudFillingSummary> {
                 ],
                 rows: miniParkMudFillingViewModel.allMpMud.map((entry) {
                   // Format the DateTime objects to a readable string format
-                  String startDate = entry.startDate != null
-                      ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                  String start_date = entry.start_date != null
+                      ? DateFormat('d MMM yyyy').format(entry.start_date!)
                       : ''; // Show empty string if null
 
-                  String expectedCompDate = entry.expectedCompDate != null
-                      ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                  String expected_comp_date = entry.expected_comp_date != null
+                      ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
                       : ''; // Show empty string if null
                   return DataRow(cells: [
-                    DataCell(Text(startDate)),
+                    DataCell(Text(start_date)),
                     // Formatted start date
-                    DataCell(Text(expectedCompDate)),
-                    DataCell(Text(entry.totalDumpers ?? '')),
+                    DataCell(Text(expected_comp_date)),
+                    DataCell(Text(entry.total_dumpers ?? '')),
                     // Formatted expected completion date
-                    DataCell(Text(entry.mpMudFillingCompStatus ?? '')),
+                    DataCell(Text(entry.mini_park_mud_filling_comp_status ?? '')),
                     DataCell(Text(entry.date ?? '')),
                     // Display date as-is (assuming it's already formatted)
                     DataCell(Text(entry.time ?? '')),

@@ -15,10 +15,10 @@ class BaseSubBase extends StatefulWidget {
 
 class _BaseSubBaseState extends State<BaseSubBase> {
   BaseSubBaseCompactionViewModel baseSubBaseCompactionViewModel = Get.put(BaseSubBaseCompactionViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-  TextEditingController roadNoController = TextEditingController();
-  TextEditingController totalLengthController = TextEditingController();
+  TextEditingController road_noController = TextEditingController();
+  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -45,14 +45,14 @@ class _BaseSubBaseState extends State<BaseSubBase> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon:   const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -66,7 +66,7 @@ class _BaseSubBaseState extends State<BaseSubBase> {
         ],
         title:   Text(
           'base_sub_base_compaction'.tr(),
-          style: const TextStyle(
+          style: TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
@@ -83,12 +83,12 @@ class _BaseSubBaseState extends State<BaseSubBase> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding:   const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -100,12 +100,12 @@ class _BaseSubBaseState extends State<BaseSubBase> {
 
   Widget buildContainer() {
     return Card(
-      margin:   const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding:   const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -114,96 +114,85 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                 selectedBlock = value;
               });
             }),
-              const SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), roadNoController),
-              const SizedBox(height: 16),
-            buildTextFieldRow('total_length'.tr(), totalLengthController),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
+            buildTextFieldRow('road_no'.tr(), road_noController),
+              SizedBox(height: 16),
+            buildTextFieldRow('total_length'.tr(), total_lengthController),
+              SizedBox(height: 16),
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
             buildDatePickerRow(
               'expected_completion_date'.tr(),
               selectedEndDate,
                   (date) => setState(() => selectedEndDate = date),
             ),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
               Text(
               'sand_compaction_completion_status'.tr(),
-              style: const TextStyle(
+              style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
-                      roadNoController.text.isNotEmpty &&
-                      totalLengthController.text.isNotEmpty &&
+                      road_noController.text.isNotEmpty &&
+                      total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
-
-                    // Submit data
                     await baseSubBaseCompactionViewModel.addSubBase(BaseSubBaseCompactionModel(
-                      block_no: selectedBlock,
-                      startDate: selectedStartDate,
-                      expectedCompDate: selectedEndDate,
-                      roadNo: roadNoController.text,
-                      totalLength: totalLengthController.text,
-                      baseSubBaseCompStatus: selectedStatus,
-                      date: _getFormattedDate(),
-                      time: _getFormattedTime(),
+                        block_no: selectedBlock,
+                        start_date: selectedstart_date ,
+                        expected_comp_date: selectedEndDate,
+                        road_no: road_noController.text,
+                        total_length: total_lengthController.text,
+                        base_sub_base_comp_status:selectedStatus,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime()
+
                     ));
 
                     await baseSubBaseCompactionViewModel.fetchAllSubBase();
 
-                    // Clear fields after submission
-                    setState(() {
-                      roadNoController.clear();
-                      totalLengthController.clear();
-                      selectedBlock = null;
-                      selectedStartDate = null;
-                      selectedEndDate = null;
-                      selectedStatus = null;
-                    });
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                        SnackBar(
                         content: Text('entry_added_successfully'.tr()),
                       ),
                     );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                        SnackBar(
                         content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
-
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:   const Color(0xFFF3F4F6),
+                  backgroundColor:   Color(0xFFF3F4F6),
                   padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle:   const TextStyle(fontSize: 14),
+                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
                 child:   Text('submit'.tr().tr(),
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
@@ -219,15 +208,15 @@ class _BaseSubBaseState extends State<BaseSubBase> {
       children: [
         Text(
           label,
-          style:   const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: selectedValue,
-          decoration:   const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -249,12 +238,12 @@ class _BaseSubBaseState extends State<BaseSubBase> {
       children: [
         Text(
           label,
-          style:   const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
         GestureDetector(
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -267,16 +256,16 @@ class _BaseSubBaseState extends State<BaseSubBase> {
           },
           child: Container(
             width: double.infinity,
-            padding:   const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding:   EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              border: Border.all(color:   const Color(0xFFC69840)),
+              border: Border.all(color:   Color(0xFFC69840)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               selectedDate != null
                   ? DateFormat('d MMM yyyy').format(selectedDate)
                   : 'select_date'.tr(),
-              style:   const TextStyle(
+              style:   TextStyle(
                 fontSize: 14,
                 color: Color(0xFFC69840),
               ),
@@ -293,15 +282,15 @@ class _BaseSubBaseState extends State<BaseSubBase> {
         children: [
           Text(
             label,
-            style:   const TextStyle(
+            style:   TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFC69840)),
           ),
-            const SizedBox(height: 8),
+            SizedBox(height: 8),
           TextField(
             controller: controller,
-            decoration:   const InputDecoration(
+            decoration:   InputDecoration(
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.symmetric(horizontal: 8),
             ),

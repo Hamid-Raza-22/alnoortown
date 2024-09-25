@@ -3,7 +3,7 @@ class ManholesModel{
   int? id;
   dynamic block_no;
   dynamic street_no;
-  dynamic noOfManholes;
+  dynamic no_of_manholes;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -13,7 +13,7 @@ class ManholesModel{
     this.id,
     this.block_no,
     this.street_no,
-    this.noOfManholes,
+    this.no_of_manholes,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -27,7 +27,7 @@ class ManholesModel{
       id: json['id'],
       block_no: json['block_no'],
       street_no: json['street_no'],
-        noOfManholes: json['noOfManholes'],
+        no_of_manholes: json['no_of_manholes'],
         date:  json['manholes_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
@@ -40,7 +40,7 @@ class ManholesModel{
       'id':id,
       'block_no':block_no,
       'street_no':street_no,
-      'noOfManholes':noOfManholes,
+      'no_of_manholes':no_of_manholes,
       'manholes_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

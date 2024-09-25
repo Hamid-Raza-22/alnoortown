@@ -15,7 +15,7 @@ class SandCompactionSummary extends StatefulWidget {
 class _SandCompactionSummaryState extends State<SandCompactionSummary> {
   final SandCompactionViewModel sandCompactionViewModel = Get.put(SandCompactionViewModel());
   String? _block_no;
-  String? _roadNo;
+  String? _road_no;
   String? _status;
 
   @override
@@ -46,10 +46,10 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
           children: [
             // Add the FilterWidget here
             FilterWidget(
-              onFilter: (block_no, roadNo, status) {
+              onFilter: (block_no, road_no, status) {
                 setState(() {
                   _block_no = block_no as String?;
-                  _roadNo = roadNo as String?;
+                  _road_no = road_no as String?;
                   _status = status;
                 });
               },
@@ -86,10 +86,10 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
               // Filter the data
               final filteredData = sandCompactionViewModel.allSand.where((entry) {
                 final block_noMatch = _block_no == null || entry.block_no.contains(_block_no!);
-                final roadNoMatch = _roadNo == null || entry.roadNo.contains(_roadNo!);
-                final statusMatch = _status == null || entry.sandCompStatus.toLowerCase().contains(_status!.toLowerCase());
+                final road_noMatch = _road_no == null || entry.road_no.contains(_road_no!);
+                final statusMatch = _status == null || entry.sand_comp_status.toLowerCase().contains(_status!.toLowerCase());
 
-                return block_noMatch && roadNoMatch && statusMatch;
+                return block_noMatch && road_noMatch && statusMatch;
               }).toList();
 
               if (filteredData.isEmpty) {
@@ -137,20 +137,20 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                     const DataColumn(label: Text('time', style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
                   rows: filteredData.map((entry) {
-                    String startDate = entry.startDate != null
-                        ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                    String start_date = entry.start_date != null
+                        ? DateFormat('d MMM yyyy').format(entry.start_date!)
                         : ''; // Show empty string if null
-                    String expectedCompDate = entry.expectedCompDate != null
-                        ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                    String expected_comp_date = entry.expected_comp_date != null
+                        ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
                         : '';
 
                     return DataRow(cells: [
                       DataCell(Text(entry.block_no)),
-                      DataCell(Text(entry.roadNo)),
-                      DataCell(Text(entry.totalLength)),
-                      DataCell(Text(startDate)),
-                      DataCell(Text(expectedCompDate)),
-                      DataCell(Text(entry.sandCompStatus)),
+                      DataCell(Text(entry.road_no)),
+                      DataCell(Text(entry.total_length)),
+                      DataCell(Text(start_date)),
+                      DataCell(Text(expected_comp_date)),
+                      DataCell(Text(entry.sand_comp_status)),
                       DataCell(Text(entry.date)),
                       DataCell(Text(entry.time)),
                     ]);

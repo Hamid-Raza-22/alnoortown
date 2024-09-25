@@ -166,7 +166,7 @@ class PlasterWorkState extends State<PlasterWork> {
                       id: plasterId,
                       block_no: selectedBlock,
                       street_no: selectedStreet,
-                      completedLength: numTankers,
+                      completed_length: numTankers,
                       date: _getFormattedDate(),
                       time: _getFormattedTime()
                   ));
