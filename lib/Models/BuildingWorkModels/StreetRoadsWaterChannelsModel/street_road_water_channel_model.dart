@@ -1,9 +1,9 @@
 class StreetRoadWaterChannelModel{
   int? id;
   String?  block_no;
-  String? roadNo;
-  String? roadSide;
-  String? noOfWaterChannels;
+  String? road_no;
+  String? road_side;
+  String? no_of_water_channels;
   String? waterChCompStatus;
   dynamic date;
   dynamic time;
@@ -12,9 +12,9 @@ class StreetRoadWaterChannelModel{
   StreetRoadWaterChannelModel({
     this.id,
     this.block_no,
-    this.roadNo,
-    this.roadSide,
-    this.noOfWaterChannels,
+    this.road_no,
+    this.road_side,
+    this.no_of_water_channels,
     this.waterChCompStatus,
     this.date,
     this.time,
@@ -27,9 +27,9 @@ class StreetRoadWaterChannelModel{
     return StreetRoadWaterChannelModel(
       id: json['id'],
       block_no: json['block_no'],
-      roadNo: json['roadNo'],
-      roadSide: json['roadSide'],
-      noOfWaterChannels: json['noOfWaterChannels'],
+      road_no: json['road_no'],
+      road_side: json['road_side'],
+      no_of_water_channels: json['no_of_water_channels'],
       waterChCompStatus: json['waterChCompStatus'],
         date:  json['street_roads_water_channel_date'],
         time:  json['time'],
@@ -42,9 +42,9 @@ class StreetRoadWaterChannelModel{
     return {
       'id':id,
       'block_no':block_no,
-      'roadNo':roadNo,
-      'roadSide':roadSide,
-      'noOfWaterChannels':noOfWaterChannels,
+      'road_no':road_no,
+      'road_side':road_side,
+      'no_of_water_channels':no_of_water_channels,
       'waterChCompStatus':waterChCompStatus,
       'street_roads_water_channel_date':date,
       'time':time,

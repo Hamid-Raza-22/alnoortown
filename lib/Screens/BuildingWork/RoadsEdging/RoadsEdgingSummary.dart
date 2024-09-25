@@ -91,13 +91,13 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
 
                 // Filter data based on the selected criteria
                 var filteredData = roadsEdgingWorkViewModel.allRoadEdging.where((entry) {
-                  final entryStartDate = entry.startDate != null ? DateTime.tryParse(entry.startDate! as String) : null;
-                  final entryEndDate = entry.expectedCompDate != null ? DateTime.tryParse(entry.expectedCompDate! as String) : null;
+                  final entrystart_date = entry.start_date != null ? DateTime.tryParse(entry.start_date! as String) : null;
+                  final entryEndDate = entry.expected_comp_date != null ? DateTime.tryParse(entry.expected_comp_date! as String) : null;
 
                   bool matchesDate = true;
                   if (selectedFromDate != null && selectedToDate != null) {
-                    if (entryStartDate != null && entryEndDate != null) {
-                      matchesDate = (entryStartDate.isAfter(selectedFromDate!) || entryStartDate.isAtSameMomentAs(selectedFromDate!))
+                    if (entrystart_date != null && entryEndDate != null) {
+                      matchesDate = (entrystart_date.isAfter(selectedFromDate!) || entrystart_date.isAtSameMomentAs(selectedFromDate!))
                           && (entryEndDate.isBefore(selectedToDate!) || entryEndDate.isAtSameMomentAs(selectedToDate!));
                     } else {
                       matchesDate = false;
@@ -130,22 +130,22 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
                     ],
                     rows: filteredData.map((entry) {
                       // Format the DateTime objects to a readable string format
-                      String startDate = entry.startDate != null
-                          ? DateFormat('d MMM yyyy').format(DateTime.parse(entry.startDate! as String))
+                      String start_date = entry.start_date != null
+                          ? DateFormat('d MMM yyyy').format(DateTime.parse(entry.start_date! as String))
                           : ''; // Show empty string if null
 
-                      String expectedCompDate = entry.expectedCompDate != null
-                          ? DateFormat('d MMM yyyy').format(DateTime.parse(entry.expectedCompDate! as String))
+                      String expected_comp_date = entry.expected_comp_date != null
+                          ? DateFormat('d MMM yyyy').format(DateTime.parse(entry.expected_comp_date! as String))
                           : ''; // Show empty string if null
 
                       return DataRow(cells: [
-                        DataCell(Text(startDate)),
+                        DataCell(Text(start_date)),
                         DataCell(Text(entry.block_no ?? '')),
-                        DataCell(Text(entry.roadNo ?? '')),
-                        DataCell(Text(entry.roadSide ?? '')),
-                        DataCell(Text(entry.totalLength ?? '')),
-                        DataCell(Text(expectedCompDate)),
-                        DataCell(Text(entry.roadsEdgingCompStatus ?? '')),
+                        DataCell(Text(entry.road_no ?? '')),
+                        DataCell(Text(entry.road_side ?? '')),
+                        DataCell(Text(entry.total_length ?? '')),
+                        DataCell(Text(expected_comp_date)),
+                        DataCell(Text(entry.roads_edging_comp_status ?? '')),
                         DataCell(Text(entry.date ?? '')),
                         DataCell(Text(entry.time ?? '')),
                       ]);

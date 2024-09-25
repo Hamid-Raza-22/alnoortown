@@ -1,19 +1,19 @@
 class MiniParkMudFillingModel{
   int? id;
-  DateTime? startDate;
-  DateTime? expectedCompDate;
-  String? totalDumpers;
-  String? mpMudFillingCompStatus;
+  DateTime? start_date;
+  DateTime? expected_comp_date;
+  String? total_dumpers;
+  String? mini_park_mud_filling_comp_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
 
   MiniParkMudFillingModel({
     this.id,
-    this.startDate,
-    this.expectedCompDate,
-    this.totalDumpers,
-    this.mpMudFillingCompStatus,
+    this.start_date,
+    this.expected_comp_date,
+    this.total_dumpers,
+    this.mini_park_mud_filling_comp_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -24,10 +24,10 @@ class MiniParkMudFillingModel{
   {
     return MiniParkMudFillingModel(
         id: json['id'],
-        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
-        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
-        totalDumpers: json['totalDumpers'],
-        mpMudFillingCompStatus:json['mpMudFillingCompStatus'],
+        start_date: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
+        expected_comp_date: json['expected_comp_date'] != null ? DateTime.parse(json['expected_comp_date']) : null,
+        total_dumpers: json['total_dumpers'],
+        mini_park_mud_filling_comp_status:json['mini_park_mud_filling_comp_status'],
         date:  json['mini_park_mud_filling_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
@@ -38,10 +38,10 @@ class MiniParkMudFillingModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'startDate': startDate?.toString(),
-      'expectedCompDate': expectedCompDate?.toString(),
-      'totalDumpers':totalDumpers,
-      'mpMudFillingCompStatus':mpMudFillingCompStatus,
+      'start_date': start_date?.toString(),
+      'expected_comp_date': expected_comp_date?.toString(),
+      'total_dumpers':total_dumpers,
+      'mini_park_mud_filling_comp_status':mini_park_mud_filling_comp_status,
       'mini_park_mud_filling_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

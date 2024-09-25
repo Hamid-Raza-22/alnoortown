@@ -1,9 +1,9 @@
 class WalkingTracksWorkModel{
   int? id;
   String? typeOfWork;
-  DateTime? startDate;
-  DateTime? expectedCompDate;
-  String? walkingTracksCompStatus;
+  DateTime? start_date;
+  DateTime? expected_comp_date;
+  String? walking_tracks_comp_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -11,9 +11,9 @@ class WalkingTracksWorkModel{
   WalkingTracksWorkModel({
     this.id,
     this.typeOfWork,
-    this.startDate,
-    this.expectedCompDate,
-    this.walkingTracksCompStatus,
+    this.start_date,
+    this.expected_comp_date,
+    this.walking_tracks_comp_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -25,9 +25,9 @@ class WalkingTracksWorkModel{
     return WalkingTracksWorkModel(
         id: json['id'],
         typeOfWork: json['typeOfWork'],
-        startDate: json['startDate'] != null ? DateTime.parse(json['startDate']) : null,
-        expectedCompDate: json['expectedCompDate'] != null ? DateTime.parse(json['expectedCompDate']) : null,
-        walkingTracksCompStatus:json['walkingTracksCompStatus'],
+        start_date: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
+        expected_comp_date: json['expected_comp_date'] != null ? DateTime.parse(json['expected_comp_date']) : null,
+        walking_tracks_comp_status:json['walking_tracks_comp_status'],
         date:  json['walking_tracks_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
@@ -40,9 +40,9 @@ class WalkingTracksWorkModel{
     return {
       'id':id,
       'typeOfWork':typeOfWork,
-      'startDate': startDate?.toString(),
-      'expectedCompDate': expectedCompDate?.toString(),
-      'walkingTracksCompStatus':walkingTracksCompStatus,
+      'start_date': start_date?.toString(),
+      'expected_comp_date': expected_comp_date?.toString(),
+      'walking_tracks_comp_status':walking_tracks_comp_status,
       'walking_tracks_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

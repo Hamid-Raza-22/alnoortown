@@ -15,7 +15,7 @@ class PlantationWork extends StatefulWidget {
 
 class _PlantationWorkState extends State<PlantationWork> {
   PlantationWorkViewModel plantationWorkViewModel = Get.put(PlantationWorkViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -107,8 +107,8 @@ class _PlantationWorkState extends State<PlantationWork> {
           children: [
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 10),
             buildDatePickerRow(
@@ -134,13 +134,13 @@ class _PlantationWorkState extends State<PlantationWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
                     await plantationWorkViewModel.addPlant(PlantationWorkModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        plantationCompStatus: selectedStatus,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                        plantation_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

@@ -26,7 +26,7 @@ class ExcavationModel{
       block_no: json['block_no'],
       street_no: json['street_no'],
       length: json['length'],
-        date:  json['excavation_work_date'],
+        date:  json['excavation_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
 
@@ -39,7 +39,7 @@ class ExcavationModel{
       'block_no':block_no,
       'street_no':street_no,
       'length':length,
-      'excavation_work_date':date,
+      'excavation_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

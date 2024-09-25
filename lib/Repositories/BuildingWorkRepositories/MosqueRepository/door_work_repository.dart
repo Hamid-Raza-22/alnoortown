@@ -18,7 +18,7 @@ class DoorWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameDoorsWorkMosque,
-        columns: ['id', 'block_no', 'doorsWorkStatus','doors_work_date','time','posted']
+        columns: ['id', 'block_no', 'doors_work_status','doors_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

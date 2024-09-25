@@ -134,8 +134,8 @@ class _LightWorkSummaryState extends State<LightWorkSummary> {
                           children: [
                             buildDataCell(entry.block_no ?? 'N/A'),
                             buildDataCell(entry.street_no ?? 'N/A'),
-                            buildDataCell(entry.totalLength ?? 'N/A'),
-                            buildDataCell(entry.lightWireWorkStatus ?? 'N/A'),
+                            buildDataCell(entry.total_length ?? 'N/A'),
+                            buildDataCell(entry.light_wire_work_status ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),
                           ],

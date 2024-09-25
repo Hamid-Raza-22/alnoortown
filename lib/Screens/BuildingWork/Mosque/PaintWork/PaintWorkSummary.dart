@@ -105,7 +105,7 @@ class _PaintWorkSummaryState extends State<PaintWorkSummary> {
                     final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.block_no,
-                      "status": data.paintWorkStatus,
+                      "status": data.paint_work_status,
                       "date": data.date,
                       "time": data.time,
                     });

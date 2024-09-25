@@ -105,15 +105,15 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  final fromBlock = containerData["selectedBlock"];
-                  final toBlock = containerData["selectedStreet"];
-                  final numOfShift = containerData["selectedShifting"];
+                  final from_block = containerData["selectedBlock"];
+                  final to_block = containerData["selectedStreet"];
+                  final no_of_shift = containerData["selectedShifting"];
 
                   await materialShiftingViewModel.addShift(ShiftingWorkModel(
                     id: shiftId,
-                    fromBlock: fromBlock,
-                    toBlock: toBlock,
-                    numOfShift: numOfShift,
+                    from_block: from_block,
+                    to_block: to_block,
+                    no_of_shift: no_of_shift,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));

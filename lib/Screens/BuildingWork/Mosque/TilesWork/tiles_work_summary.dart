@@ -107,7 +107,7 @@ class _TilesWorkSummaryState extends State<TilesWorkSummary> {
                     final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.block_no,
-                      "status": data.tilesWorkStatus,
+                      "status": data.tiles_work_status,
                       "date": data.date,
                       "time": data.time,
                     });

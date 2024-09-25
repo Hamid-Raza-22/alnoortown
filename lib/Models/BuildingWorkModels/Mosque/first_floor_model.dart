@@ -1,9 +1,9 @@
 class FirstFloorModel{
   int? id;
   dynamic block_no;
-  dynamic brickWork;
-  dynamic mudFiling;
-  dynamic plasterWork;
+  dynamic brick_work;
+  dynamic mud_filling;
+  dynamic plaster_work;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -11,9 +11,9 @@ class FirstFloorModel{
   FirstFloorModel({
     this.id,
     this.block_no,
-    this.brickWork,
-    this.mudFiling,
-    this.plasterWork,
+    this.brick_work,
+    this.mud_filling,
+    this.plaster_work,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -25,9 +25,9 @@ class FirstFloorModel{
     return FirstFloorModel(
         id: json['id'],
         block_no: json['block_no'],
-        brickWork: json['brickWork'],
-        mudFiling: json['mudFiling'],
-        plasterWork: json['plasterWork'],
+        brick_work: json['brick_work'],
+        mud_filling: json['mud_filling'],
+        plaster_work: json['plaster_work'],
         date:  json['first_floor_work_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
@@ -39,9 +39,9 @@ class FirstFloorModel{
     return {
       'id':id,
       'block_no':block_no,
-      'brickWork':brickWork,
-      'mudFiling':mudFiling,
-      'plasterWork':plasterWork,
+      'brick_work':brick_work,
+      'mud_filling':mud_filling,
+      'plaster_work':plaster_work,
       'first_floor_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

@@ -15,8 +15,8 @@ class MainDrainExcavationRepository{
 
     // Query the database
     List<Map> maps = await dbClient.query(
-        tableNameDrainExcavation,
-        columns: ['id', 'block_no', 'street_no', 'completedLength','main_drain_excavation_date','time','posted']
+        tableNameMainDrainExcavation,
+        columns: ['id', 'block_no', 'street_no', 'completed_length','main_drain_excavation_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
@@ -50,13 +50,13 @@ class MainDrainExcavationRepository{
     for (var item in data) {
       item['posted'] = 1; // Set posted to 1
       MainDrainExcavationModel model = MainDrainExcavationModel.fromMap(item);
-      await dbClient.insert(tableNameDrainExcavation, model.toMap());
+      await dbClient.insert(tableNameMainDrainExcavation, model.toMap());
     }
   }
   Future<List<MainDrainExcavationModel>> getUnPostedMainDrainExcavation() async {
     var dbClient = await dbHelper.db;
     List<Map> maps = await dbClient.query(
-      tableNameDrainExcavation,
+      tableNameMainDrainExcavation,
       where: 'posted = ?',
       whereArgs: [0],  // Fetch machines that have not been posted
     );
@@ -66,19 +66,19 @@ class MainDrainExcavationRepository{
   }
   Future<int>add(MainDrainExcavationModel mainDrainExcavationModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.insert(tableNameDrainExcavation,mainDrainExcavationModel.toMap());
+    return await dbClient.insert(tableNameMainDrainExcavation,mainDrainExcavationModel.toMap());
   }
 
   Future<int>update(MainDrainExcavationModel mainDrainExcavationModel) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.update(tableNameDrainExcavation,mainDrainExcavationModel.toMap(),
+    return await dbClient.update(tableNameMainDrainExcavation,mainDrainExcavationModel.toMap(),
         where: 'id = ?', whereArgs: [mainDrainExcavationModel.id]);
 
   }
 
   Future<int>delete(int id) async{
     var dbClient = await dbHelper.db;
-    return await dbClient.delete(tableNameDrainExcavation,
+    return await dbClient.delete(tableNameMainDrainExcavation,
         where: 'id = ?', whereArgs: [id]);
   }
 }

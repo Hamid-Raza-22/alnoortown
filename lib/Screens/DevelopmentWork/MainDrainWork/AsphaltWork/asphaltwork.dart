@@ -162,8 +162,8 @@ class _AsphaltWorkState extends State<AsphaltWork> {
                       id: asphaltId,
                       block_no: selectedBlock,
                       street_no: selectedStreet,
-                      numOfTons: numTankers,
-                      backFillingStatus: status,
+                      no_of_tons: numTankers,
+                      back_filling_status: status,
                       date: _getFormattedDate(),
                       time: _getFormattedTime(),
                     ));

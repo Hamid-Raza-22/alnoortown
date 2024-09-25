@@ -139,7 +139,7 @@ class TilesWorkState extends State<TilesWork> {
                   if (selectedBlock != null && selectedStatus != null) {
                     await tilesWorkViewModel.addTiles(TilesWorkModel(
                       block_no: selectedBlock,
-                      tilesWorkStatus: selectedStatus,
+                      tiles_work_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

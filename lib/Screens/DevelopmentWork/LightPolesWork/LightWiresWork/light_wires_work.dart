@@ -34,7 +34,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "totalLength": null,
+      "total_length": null,
       "status": null,
     };
   }
@@ -136,10 +136,10 @@ class LightWiresWorkState extends State<LightWiresWork> {
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["totalLength"],
+              initialValue: containerData["total_length"],
               onChanged: (value) {
                 setState(() {
-                  containerData["totalLength"] = value;
+                  containerData["total_length"] = value;
                 });
               },
               keyboardType: TextInputType.number,
@@ -163,14 +163,14 @@ class LightWiresWorkState extends State<LightWiresWork> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final totalLength = containerData["totalLength"];
+                  final total_length = containerData["total_length"];
                   final status = containerData["status"];
                   await lightWiresViewModel.addLight(LightWiresModel(
                     id: wireId,
                     block_no: selectedBlock,
                     street_no: selectedStreet,
-                    totalLength: totalLength,
-                    lightWireWorkStatus: status,
+                    total_length: total_length,
+                    light_wire_work_status: status,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));
@@ -184,7 +184,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, Total Length: $totalLength, Status: $status',
+                        'Selected: $selectedBlock, $selectedStreet, Total Length: $total_length, Status: $status',
                       ),
                     ),
                   );

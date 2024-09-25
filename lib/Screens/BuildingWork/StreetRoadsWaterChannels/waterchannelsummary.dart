@@ -14,7 +14,7 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
   final StreetRoadWaterChannelViewModel streetRoadWaterChannelViewModel = Get.put(StreetRoadWaterChannelViewModel());
 
   String? _block_no;
-  String? _roadNo;
+  String? _road_no;
   String? _status;
 
   @override
@@ -50,10 +50,10 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
         child: Column(
           children: [
             FilterWidget(
-              onFilter: (block_no, roadNo, status) {
+              onFilter: (block_no, road_no, status) {
                 setState(() {
                   _block_no = block_no as String?;
-                  _roadNo = roadNo as String?;
+                  _road_no = road_no as String?;
                   _status = status;
                 });
               },
@@ -84,10 +84,10 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
                 }
                 final filteredData = streetRoadWaterChannelViewModel.allStreetRoad.where((entry) {
                   final block_noMatch = _block_no == null || _block_no!.isEmpty || entry.block_no == _block_no;
-                  final roadNoMatch = _roadNo == null || _roadNo!.isEmpty || entry.roadNo == _roadNo;
+                  final road_noMatch = _road_no == null || _road_no!.isEmpty || entry.road_no == _road_no;
                   final statusMatch = _status == null || _status!.isEmpty || entry.waterChCompStatus == _status;
 
-                  return block_noMatch && roadNoMatch && statusMatch;
+                  return block_noMatch && road_noMatch && statusMatch;
                 }).toList();
 
                 if (filteredData.isEmpty) {
@@ -145,9 +145,9 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
                             final entry = filteredData[entryIndex];
                             final data = [
                               entry.block_no ?? 'N/A',
-                              entry.roadNo ?? 'N/A',
-                              entry.roadSide ?? 'N/A',
-                              entry.noOfWaterChannels ?? 'N/A',
+                              entry.road_no ?? 'N/A',
+                              entry.road_side ?? 'N/A',
+                              entry.no_of_water_channels ?? 'N/A',
                               entry.waterChCompStatus ?? 'N/A',
                               entry.date ?? 'N/A',
                               entry.time ?? 'N/A'

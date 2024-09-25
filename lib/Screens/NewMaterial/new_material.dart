@@ -30,10 +30,10 @@ class _NewMaterialState extends State<NewMaterial> {
       "sand": 0,
       "soil": 0,
       "base": 0,
-      "subBase": 0,
-      "waterBound": 0,
-      "otherMaterial": "",
-      "otherMaterialValue": 0,
+      "sub_base": 0,
+      "water_bound": 0,
+      "other_material": "",
+      "other_material_value": 0,
     };
   }
 
@@ -137,19 +137,19 @@ class _NewMaterialState extends State<NewMaterial> {
                   final sand = containerData["sand"];
                   final soil = containerData["soil"];
                   final base = containerData["base"];
-                  final subBase = containerData["subBase"];
-                  final waterBound = containerData["waterBound"];
-                  final otherMaterial = containerData["otherMaterial"];
-                  final otherMaterialValue = containerData["otherMaterialValue"];
+                  final sub_base = containerData["sub_base"];
+                  final water_bound = containerData["water_bound"];
+                  final other_material = containerData["other_material"];
+                  final other_material_value = containerData["other_material_value"];
                   await newMaterialViewModel.addNewMaterial(
                     NewMaterialModel(
                       sand: sand,
                       soil: soil,
-                      subBase: subBase,
+                      sub_base: sub_base,
                       base: base,
-                      waterBound: waterBound,
-                      otherMaterial: otherMaterial,
-                      otherMaterialValue:otherMaterialValue ,
+                      water_bound: water_bound,
+                      other_material: other_material,
+                      other_material_value:other_material_value ,
                       date: _getFormattedDate(),
                       time: _getFormattedTime(),
                     ),
@@ -244,7 +244,7 @@ class _NewMaterialState extends State<NewMaterial> {
               TextField(
                 onChanged: (value) {
                   setState(() {
-                    containerData["otherMaterial"] = value;
+                    containerData["other_material"] = value;
                   });
                 },
                 decoration: InputDecoration(
@@ -273,7 +273,7 @@ class _NewMaterialState extends State<NewMaterial> {
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   setState(() {
-                    containerData["otherMaterialValue"] = int.tryParse(value) ?? 0;
+                    containerData["other_material_value"] = int.tryParse(value) ?? 0;
                   });
                 },
                 decoration: InputDecoration(
@@ -301,9 +301,9 @@ class _NewMaterialState extends State<NewMaterial> {
       case 'Base':
         return 'base';
       case 'Sub Base':
-        return 'subBase';
+        return 'sub_base';
       case 'Water Bound':
-        return 'waterBound';
+        return 'water_bound';
       default:
         return '';
     }

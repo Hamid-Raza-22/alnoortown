@@ -1,7 +1,7 @@
 class TilesWorkModel{
   int? id;
   dynamic block_no;
-  dynamic tilesWorkStatus;
+  dynamic tiles_work_status;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -9,7 +9,7 @@ class TilesWorkModel{
   TilesWorkModel({
     this.id,
     this.block_no,
-    this.tilesWorkStatus,
+    this.tiles_work_status,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -21,7 +21,7 @@ class TilesWorkModel{
     return TilesWorkModel(
         id: json['id'],
         block_no: json['block_no'],
-        tilesWorkStatus: json['tilesWorkStatus'],
+        tiles_work_status: json['tiles_work_status'],
         date:  json['tiles_work_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
@@ -33,7 +33,7 @@ class TilesWorkModel{
     return {
       'id':id,
       'block_no':block_no,
-      'tilesWorkStatus':tilesWorkStatus,
+      'tiles_work_status':tiles_work_status,
       'tiles_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

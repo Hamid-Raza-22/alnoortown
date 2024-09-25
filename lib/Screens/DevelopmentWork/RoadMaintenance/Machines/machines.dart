@@ -149,8 +149,8 @@ class MachinesState extends State<Machines> {
                     block_no: selectedBlock,
                     street_no: selectedStreet,
                     machine: selectedMachine,
-                    timeIn: clockInTime,
-                    timeOut: clockOutTime,
+                    time_in: clockInTime,
+                    time_out: clockOutTime,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   );

@@ -154,7 +154,7 @@ class _BrickWorkState extends State<BrickWork> {
                     id: brickId,
                     block_no: selectedBlock,
                     street_no: selectedStreet,
-                    completedLength: numTankers,
+                    completed_length: numTankers,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                   ));
@@ -173,7 +173,7 @@ class _BrickWorkState extends State<BrickWork> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, completedLength: $numTankers',
+                        'Selected: $selectedBlock, $selectedStreet, completed_length: $numTankers',
                       ),
                     ),
                   );

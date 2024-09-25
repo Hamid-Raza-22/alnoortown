@@ -16,7 +16,7 @@ class SittingAreaWork extends StatefulWidget {
 
 class SittingAreaWorkState extends State<SittingAreaWork> {
   SittingAreaWorkViewModel sittingAreaWorkViewModel = Get.put(SittingAreaWorkViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController typeofwork = TextEditingController();
   String? selectedStatus;
@@ -111,8 +111,8 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
             buildTextFieldRow('type_of_work'.tr(), typeofwork),
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 10),
             buildDatePickerRow(
@@ -138,15 +138,15 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       typeofwork.text.isNotEmpty &&
                       selectedStatus != null) {
                     await sittingAreaWorkViewModel .addSitting(SittingAreaWorkModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
                         typeOfWork: typeofwork.text,
-                        sittingAreaCompStatus: selectedStatus,
+                        sitting_area_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

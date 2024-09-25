@@ -129,7 +129,7 @@ class _ManholesSummaryState extends State<ManholesSummary> {
                           children: [
                             buildDataCell(entry.block_no ?? 'N/A'),
                             buildDataCell(entry.street_no ?? 'N/A'),
-                            buildDataCell(entry.noOfManholes ?? 'N/A'),
+                            buildDataCell(entry.no_of_manholes ?? 'N/A'),
                             buildDataCell(entry.date ?? 'N/A'),
                             buildDataCell(entry.time ?? 'N/A'),
                           ],

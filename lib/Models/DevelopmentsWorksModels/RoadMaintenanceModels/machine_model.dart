@@ -3,8 +3,8 @@ class MachineModel {
   dynamic block_no;
   dynamic street_no;
   dynamic machine;
-  dynamic timeIn;
-  dynamic timeOut;
+  dynamic time_in;
+  dynamic time_out;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -14,8 +14,8 @@ class MachineModel {
     this.block_no,
     this.street_no,
     this.machine,
-    this.timeIn,
-    this.timeOut,
+    this.time_in,
+    this.time_out,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -27,8 +27,8 @@ class MachineModel {
       block_no: json['block_no'],
       street_no: json['street_no'],
       machine: json['machine'],
-      timeIn: json['timeIn'],
-      timeOut: json['timeOut'],
+      time_in: json['time_in'],
+      time_out: json['time_out'],
       date: json['machine_date'],
       time: json['time'],
       posted: json['posted']??0  // Get the posted status from the database
@@ -41,8 +41,8 @@ class MachineModel {
       'block_no': block_no,
       'street_no': street_no,
       'machine': machine,
-      'timeIn': timeIn,
-      'timeOut': timeOut,
+      'time_in': time_in,
+      'time_out': time_out,
       'machine_date': date,
       'time': time,
       'posted': posted,  // Include the posted status

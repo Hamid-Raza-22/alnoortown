@@ -15,10 +15,10 @@ class SandCompaction extends StatefulWidget {
 
 class _SandCompactionState extends State<SandCompaction> {
   SandCompactionViewModel sandCompactionViewModel = Get.put(SandCompactionViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-  TextEditingController roadNoController = TextEditingController();
-  TextEditingController totalLengthController = TextEditingController();
+  TextEditingController road_noController = TextEditingController();
+  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -114,14 +114,14 @@ class _SandCompactionState extends State<SandCompaction> {
               });
             }),
               SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), roadNoController),
+            buildTextFieldRow('road_no'.tr(), road_noController),
               SizedBox(height: 16),
-            buildTextFieldRow('total_length'.tr(), totalLengthController),
+            buildTextFieldRow('total_length'.tr(), total_lengthController),
               SizedBox(height: 16),
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 16),
             buildDatePickerRow(
@@ -147,21 +147,21 @@ class _SandCompactionState extends State<SandCompaction> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
-                      roadNoController.text.isNotEmpty &&
-                      totalLengthController.text.isNotEmpty &&
+                      road_noController.text.isNotEmpty &&
+                      total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
 
                     // Add the sand compaction entry
                     await sandCompactionViewModel.addSand(SandCompactionModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
                         block_no: selectedBlock,
-                        roadNo: roadNoController.text,
-                        totalLength: totalLengthController.text,
-                        sandCompStatus: selectedStatus,
+                        road_no: road_noController.text,
+                        total_length: total_lengthController.text,
+                        sand_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));
@@ -178,11 +178,11 @@ class _SandCompactionState extends State<SandCompaction> {
 
                     // Clear the fields after successful submission
                     setState(() {
-                      roadNoController.clear();
-                      totalLengthController.clear();
+                      road_noController.clear();
+                      total_lengthController.clear();
                       selectedBlock = null;
                       selectedStatus = null;
-                      selectedStartDate = null;
+                      selectedstart_date = null;
                       selectedEndDate = null;
                     });
                   } else {

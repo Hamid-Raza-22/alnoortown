@@ -132,9 +132,9 @@ class FoundationWorkState extends State<FoundationWork> {
                   if (selectedBlock != null && selectedBrickWorkStatus != null && selectedMudFillingStatus != null && selectedPlasterWorkStatus != null) {
                       await foundationWorkViewModel.addFoundation(FoundationWorkModel(
                         block_no: selectedBlock,
-                        brickWork: selectedBrickWorkStatus,
-                        mudFiling: selectedMudFillingStatus,
-                        plasterWork: selectedPlasterWorkStatus,
+                        brick_work: selectedBrickWorkStatus,
+                        mud_filling: selectedMudFillingStatus,
+                        plaster_work: selectedPlasterWorkStatus,
                           date: _getFormattedDate(),
                           time: _getFormattedTime()
                       ));

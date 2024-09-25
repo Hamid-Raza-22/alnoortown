@@ -13,7 +13,7 @@ class WalkingTracksSummaryPage extends StatefulWidget {
 
 class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
   final WalkingTracksWorkViewModel walkingTracksWorkViewModel = Get.put(WalkingTracksWorkViewModel());
-  DateTime? _startDate;
+  DateTime? _start_date;
   DateTime? _endDate;
   String? _status;
 
@@ -45,9 +45,9 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
           children: [
             // Add the FilterWidget here
             FilterWidget(
-              onFilter: (startDate, endDate, status) {
+              onFilter: (start_date, endDate, status) {
                 setState(() {
-                  _startDate = startDate;
+                  _start_date = start_date;
                   _endDate = endDate;
                   _status = status;
                 });
@@ -85,19 +85,19 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
               // Filter the data
               final filteredData = walkingTracksWorkViewModel.allWalking.where((entry) {
                 // Filter by start date
-                final startDateMatch = _startDate == null ||
-                    (entry.startDate != null && entry.startDate!.isAfter(_startDate!));
+                final start_dateMatch = _start_date == null ||
+                    (entry.start_date != null && entry.start_date!.isAfter(_start_date!));
 
                 // Filter by end date
                 final endDateMatch = _endDate == null ||
-                    (entry.expectedCompDate != null && entry.expectedCompDate!.isBefore(_endDate!));
+                    (entry.expected_comp_date != null && entry.expected_comp_date!.isBefore(_endDate!));
 
                 // Filter by status
                 final statusMatch = _status == null ||
-                    (entry.walkingTracksCompStatus != null &&
-                        entry.walkingTracksCompStatus!.toLowerCase().contains(_status!.toLowerCase()));
+                    (entry.walking_tracks_comp_status != null &&
+                        entry.walking_tracks_comp_status!.toLowerCase().contains(_status!.toLowerCase()));
 
-                return startDateMatch && endDateMatch && statusMatch;
+                return start_dateMatch && endDateMatch && statusMatch;
               }).toList();
 
               // Show "No data available" if the list is empty
@@ -175,19 +175,19 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
                   ],
                   rows: filteredData.map((entry) {
                     // Format the DateTime objects to a readable string format
-                    String startDate = entry.startDate != null
-                        ? DateFormat('d MMM yyyy').format(entry.startDate!)
+                    String start_date = entry.start_date != null
+                        ? DateFormat('d MMM yyyy').format(entry.start_date!)
                         : ''; // Show empty string if null
 
-                    String expectedCompDate = entry.expectedCompDate != null
-                        ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
+                    String expected_comp_date = entry.expected_comp_date != null
+                        ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
                         : ''; // Show empty string if null
 
                     return DataRow(cells: [
                       DataCell(Text(entry.typeOfWork ?? '')),
-                      DataCell(Text(startDate)),
-                      DataCell(Text(expectedCompDate)),
-                      DataCell(Text(entry.walkingTracksCompStatus ?? '')),
+                      DataCell(Text(start_date)),
+                      DataCell(Text(expected_comp_date)),
+                      DataCell(Text(entry.walking_tracks_comp_status ?? '')),
                       DataCell(Text(entry.date ?? '')),
                       DataCell(Text(entry.time ?? '')),
                     ]);

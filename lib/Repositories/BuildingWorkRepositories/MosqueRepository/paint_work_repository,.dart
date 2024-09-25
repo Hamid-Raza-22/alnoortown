@@ -16,7 +16,7 @@ class PaintWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePaintWorkMosque,
-        columns: ['id', 'block_no', 'paintWorkStatus','paint_work_date','time','posted']
+        columns: ['id', 'block_no', 'paint_work_status','paint_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

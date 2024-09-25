@@ -19,7 +19,7 @@ class ShutteringWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameShutteringWork,
-        columns: ['id', 'block_no', 'street_no', 'completedLength','shuttering_work_date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'completed_length','shuttering_work_date','time','posted']
     );
 
     if (kDebugMode) {

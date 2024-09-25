@@ -1,17 +1,17 @@
 class AttendanceInModel{
   int? id;
-  dynamic timeIn;
+  dynamic time_in;
   dynamic latitude;
   dynamic longitude;
-  dynamic liveAddress;
+  dynamic live_address;
   dynamic date;
 
   AttendanceInModel({
     this.id,
-    this.timeIn,
+    this.time_in,
     this.latitude,
     this.longitude,
-    this. liveAddress,
+    this. live_address,
     this.date
 
   });
@@ -20,10 +20,10 @@ class AttendanceInModel{
   {
     return AttendanceInModel(
         id: json['id'],
-        timeIn: json['timeIn'],
+        time_in: json['time_in'],
         latitude: json['latitude'],
         longitude: json['longitude'],
-        liveAddress: json['liveAddress'],
+        live_address: json['live_address'],
         date:  json['date']
     );
   }
@@ -31,10 +31,10 @@ class AttendanceInModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'timeIn':timeIn,
+      'time_in':time_in,
       'latitude':latitude,
       'longitude':longitude,
-      'liveAddress':liveAddress,
+      'live_address':live_address,
       'date':date
 
     };

@@ -25,7 +25,7 @@ class PipelineModel{
       block_no: json['block_no'],
       street_no: json['street_no'],
       length: json['length'],
-        date:  json['pipeline_date'],
+        date:  json['pipe_laying_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
 
@@ -38,7 +38,7 @@ class PipelineModel{
       'block_no':block_no,
       'street_no':street_no,
       'length':length,
-      'pipeline_date':date,
+      'pipe_laying_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
 

@@ -53,11 +53,11 @@ RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewM
             return DataRow(
               cells: [
                 DataCell(Text(entry.block_no ?? 'N/A')),
-                DataCell(Text(entry.roadNo?? 'N/A')),
-                DataCell(Text(entry.fromPlotNo?? 'N/A')),
-                DataCell(Text(entry.toPlotNo?? 'N/A')),
-                DataCell(Text(entry.roadSide ?? 'N/A')),
-                DataCell(Text(entry.compStatus ?? 'N/A')),
+                DataCell(Text(entry.road_no?? 'N/A')),
+                DataCell(Text(entry.from_plot_no?? 'N/A')),
+                DataCell(Text(entry.to_plot_no?? 'N/A')),
+                DataCell(Text(entry.road_side ?? 'N/A')),
+                DataCell(Text(entry.comp_status ?? 'N/A')),
                 DataCell(Text(entry.date ?? 'N/A')),
                 DataCell(Text(entry.time ?? 'N/A')),
               ],
@@ -77,11 +77,11 @@ RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewM
                         content: SingleChildScrollView(
                           child: ListBody(
                             children: [
-                              Text('road_no ${entry.roadNo?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('From Plot: ${entry.fromPlotNo ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('To Plot:' '${entry.toPlotNo?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('Road Side: ${entry.roadSide?? 'N/A'}', style:   TextStyle(fontSize: 16)),
-                              Text('Status: ${entry.compStatus ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('road_no ${entry.road_no?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('From Plot: ${entry.from_plot_no ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('To Plot:' '${entry.to_plot_no?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('Road Side: ${entry.road_side?? 'N/A'}', style:   TextStyle(fontSize: 16)),
+                              Text('Status: ${entry.comp_status ?? 'N/A'}', style:   TextStyle(fontSize: 16)),
                               Text('Date: ${entry.date}', style:   TextStyle(fontSize: 16)),
                               Text('Time: ${entry.time}', style:   TextStyle(fontSize: 16)),
                             ],

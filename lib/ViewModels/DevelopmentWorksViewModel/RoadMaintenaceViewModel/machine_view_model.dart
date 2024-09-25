@@ -142,17 +142,17 @@ class MachineViewModel extends GetxController {
   void applyFilters({
     String? blockNumber,
     String? streetNumber,
-    DateTime? startDate,
+    DateTime? start_date,
     DateTime? endDate,
   }) {
     filteredMachines.value = allMachines.where((machine) {
       final matchesBlockNumber = blockNumber == null || blockNumber.isEmpty || machine.block_no?.contains(blockNumber) == true;
       final matchesStreetNumber = streetNumber == null || streetNumber.isEmpty || machine.street_no?.contains(streetNumber) == true;
 
-      final matchesStartDate = startDate == null || (machine.date != null && (machine.date!.isAfter(startDate) || machine.date!.isAtSameMomentAs(startDate)));
+      final matchesstart_date = start_date == null || (machine.date != null && (machine.date!.isAfter(start_date) || machine.date!.isAtSameMomentAs(start_date)));
       final matchesEndDate = endDate == null || (machine.date != null && (machine.date!.isBefore(endDate) || machine.date!.isAtSameMomentAs(endDate)));
 
-      return matchesBlockNumber && matchesStreetNumber && matchesStartDate && matchesEndDate;
+      return matchesBlockNumber && matchesStreetNumber && matchesstart_date && matchesEndDate;
     }).toList();
   }
 }

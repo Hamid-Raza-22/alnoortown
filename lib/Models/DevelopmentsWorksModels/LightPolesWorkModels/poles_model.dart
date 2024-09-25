@@ -2,7 +2,7 @@ class PolesModel{
   int? id;
   dynamic block_no;
   dynamic street_no;
-  dynamic noOfPoles;
+  dynamic no_of_poles;
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
@@ -11,7 +11,7 @@ class PolesModel{
     this.id,
     this.block_no,
     this.street_no,
-    this.noOfPoles,
+    this.no_of_poles,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -24,7 +24,7 @@ class PolesModel{
       id: json['id'],
       block_no: json['block_no'],
       street_no: json['street_no'],
-        noOfPoles: json['noOfPoles'],
+        no_of_poles: json['no_of_poles'],
         date:  json['poles_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
@@ -38,7 +38,7 @@ class PolesModel{
       'id':id,
       'block_no':block_no,
       'street_no':street_no,
-      'noOfPoles':noOfPoles,
+      'no_of_poles':no_of_poles,
       'poles_date':date,
       'time':time,
       'posted': posted,  // Include the posted status

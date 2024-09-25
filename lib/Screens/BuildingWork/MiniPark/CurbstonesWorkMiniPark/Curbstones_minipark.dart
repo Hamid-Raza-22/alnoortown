@@ -15,7 +15,7 @@ class MiniParkCurbstonesWork extends StatefulWidget {
 
 class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
   MiniParkCurbStoneViewModel miniParkCurbStoneViewModel = Get.put(MiniParkCurbStoneViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -109,8 +109,8 @@ class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
           children: [
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-              (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+              (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 4),
             buildDatePickerRow(
@@ -136,13 +136,13 @@ class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       selectedStatus != null) {
                     await miniParkCurbStoneViewModel .addMpCurb (MiniParkCurbStoneModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        mpCurbStoneCompStatus: selectedStatus,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                        mini_park_curbstone_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

@@ -13,14 +13,15 @@ class RoadsWaterSupplyWork extends StatefulWidget {
   _RoadsWaterSupplyWorkState createState() => _RoadsWaterSupplyWorkState();
 }
 
+
 class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
-  RoadsWaterSupplyViewModel roadsWaterSupplyViewModel = Get.put(RoadsWaterSupplyViewModel());
-  DateTime? selectedStartDate;
+  RoadsWaterSupplyViewModel waterFirstViewModel = Get.put(RoadsWaterSupplyViewModel());
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-  TextEditingController roadNoController = TextEditingController();
-  TextEditingController totalLengthController = TextEditingController();
+  TextEditingController road_noController = TextEditingController();
+  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
-  String? selectedRoadSide; // New variable for Road Side
+  String? selectedroad_side; // New variable for Road Side
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
 
@@ -117,20 +118,20 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
               });
             }),
               SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), roadNoController),
+            buildTextFieldRow('road_no'.tr(), road_noController),
               SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedRoadSide, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
+            buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {
-                selectedRoadSide = value;
+                selectedroad_side = value;
               });
             }),
               SizedBox(height: 16),
-            buildTextFieldRow('total_length'.tr(), totalLengthController),
+            buildTextFieldRow('total_length'.tr(), total_lengthController),
               SizedBox(height: 16),
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 16),
             buildDatePickerRow(
@@ -156,25 +157,25 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
-                      roadNoController.text.isNotEmpty &&
-                      totalLengthController.text.isNotEmpty &&
+                      road_noController.text.isNotEmpty &&
+                      total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
-                      selectedRoadSide != null && // Check if Road Side is selected
+                      selectedroad_side != null && // Check if Road Side is selected
                       selectedStatus != null) {
-                    await roadsWaterSupplyViewModel.addRoadsWaterSupply(RoadsWaterSupplyModel(
+                    await waterFirstViewModel.addRoadsWaterSupply(RoadsWaterSupplyModel(
                         block_no: selectedBlock,
-                        roadNo: roadNoController.text,
-                        totalLength: totalLengthController.text,
-                        roadSide:selectedRoadSide,
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                       waterSupplyCompStatus: selectedStatus,
+                        road_no: road_noController.text,
+                        total_length: total_lengthController.text,
+                        road_side:selectedroad_side,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
+                       roads_water_supply_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));
-                    await roadsWaterSupplyViewModel.fetchAllRoadWaterSupply();
+                    await waterFirstViewModel.fetchAllRoadWaterSupply();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

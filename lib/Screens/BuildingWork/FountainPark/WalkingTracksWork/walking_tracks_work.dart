@@ -16,7 +16,7 @@ class WalkingTracksWork extends StatefulWidget {
 
 class _WalkingTracksWorkState extends State<WalkingTracksWork> {
   WalkingTracksWorkViewModel walkingTracksWorkViewModel = Get.put(WalkingTracksWorkViewModel());
-  DateTime? selectedStartDate;
+  DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController typeofwork = TextEditingController();
   String? selectedStatus;
@@ -110,8 +110,8 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
             buildTextFieldRow("type_of_work".tr(), typeofwork),
             buildDatePickerRow(
               'start_date'.tr(),
-              selectedStartDate,
-                  (date) => setState(() => selectedStartDate = date),
+              selectedstart_date,
+                  (date) => setState(() => selectedstart_date = date),
             ),
               SizedBox(height: 4),
             buildDatePickerRow(
@@ -138,15 +138,15 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedStartDate != null &&
+                  if (selectedstart_date != null &&
                       selectedEndDate != null &&
                       typeofwork.text.isNotEmpty &&
                       selectedStatus != null) {
                     await walkingTracksWorkViewModel .addWalking(WalkingTracksWorkModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
+                        start_date: selectedstart_date,
+                        expected_comp_date: selectedEndDate,
                         typeOfWork: typeofwork.text,
-                        walkingTracksCompStatus: selectedStatus,
+                        walking_tracks_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));

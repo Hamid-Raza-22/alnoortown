@@ -17,7 +17,7 @@ class SanitaryWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameSanitaryWorkMosque,
-        columns: ['id', 'block_no', 'sanitaryWorkStatus','sanitary_work_date','time','posted']
+        columns: ['id', 'block_no', 'sanitary_work_status','sanitary_work_date','time','posted']
     );
 
     // Print the raw data retrieved from the database

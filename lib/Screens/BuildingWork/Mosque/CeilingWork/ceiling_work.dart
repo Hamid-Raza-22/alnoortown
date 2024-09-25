@@ -145,7 +145,7 @@ class CeilingWorkState extends State<CeilingWork> {
                     // Create a new entry
                     await ceilingWorkWorkViewModel.addCeiling(CeilingWorkModel(
                       block_no: selectedBlock,
-                      ceilingWorkStatus: selectedStatus,
+                      ceiling_work_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                       // date:

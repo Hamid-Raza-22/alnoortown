@@ -1,8 +1,9 @@
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mp_fancy_light_poles_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../../ReusableDesigns/DateFilter.dart';
+import '../../../ReusableDesigns/filter_widget.dart';
 
 class FancyLightPolesSummary extends StatefulWidget {
   FancyLightPolesSummary({super.key});
@@ -12,28 +13,10 @@ class FancyLightPolesSummary extends StatefulWidget {
 }
 
 class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
-  MpFancyLightPolesViewModel mpFancyLightPolesViewModel = Get.put(MpFancyLightPolesViewModel());
-
-  DateTime? fromDate;
-  DateTime? toDate;
-
-  // Filter the data based on the selected date range
-  List<dynamic> getFilteredData() {
-    if (fromDate == null && toDate == null) {
-      return mpFancyLightPolesViewModel.allMpFancy;
-    }
-
-    return mpFancyLightPolesViewModel.allMpFancy.where((entry) {
-      DateTime entryDate = entry.startDate ?? DateTime.now(); // Adjust to your actual date field
-      if (fromDate != null && entryDate.isBefore(fromDate!)) {
-        return false;
-      }
-      if (toDate != null && entryDate.isAfter(toDate!)) {
-        return false;
-      }
-      return true;
-    }).toList();
-  }
+  final MpFancyLightPolesViewModel mpFancyLightPolesViewModel = Get.put(MpFancyLightPolesViewModel());
+  DateTime? _start_date;
+  DateTime? _endDate;
+  String? _status;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +30,13 @@ class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
             Navigator.pop(context);
           },
         ),
-        title: Text(
-          'fancy_light_poles_summary'.tr,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+        title: const Text(
+          'fancy_light_poles_summary',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFC69840),
+          ),
         ),
         centerTitle: true,
       ),
@@ -57,133 +44,121 @@ class _FancyLightPolesSummaryState extends State<FancyLightPolesSummary> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Date filter widget
-            SearchByDate(
-              onFilter: (from, to) {
+            FilterWidget(
+              onFilter: (start_date, endDate, status) {
                 setState(() {
-                  fromDate = from;
-                  toDate = to;
+                  _start_date = start_date;
+                  _endDate = endDate;
+                  _status = status;
                 });
               },
             ),
             const SizedBox(height: 16),
-
-            // Scrollable table view for filtered data
-            Expanded(
-              child: Obx(() {
-                List<dynamic> filteredData = getFilteredData();
-                if (filteredData.isEmpty) {
-                  return Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          'assets/images/nodata.png',
-                          width: 200,
-                          height: 200,
-                          fit: BoxFit.cover,
-                        ),
-                        const SizedBox(height: 16),
-                        const Text(
-                          'No data available',
-                          style: TextStyle(
-                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                      ],
-                    ),
-                  );
-                }
-
-                return SingleChildScrollView(
-                  scrollDirection: Axis.vertical,  // For vertical scrolling
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,  // For horizontal scrolling
-                    child: DataTable(
-                      columnSpacing: 10.0,
-                      headingRowColor: MaterialStateProperty.all(const Color(0xFFC69840)),
-                      border: const TableBorder(
-                        horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
-                        verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
+            Obx(() {
+              if (mpFancyLightPolesViewModel.allMpFancy.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/nodata.png',
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
                       ),
-                      columns: [
-                        DataColumn(
-                          label: Text(
-                            'start_date'.tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),  // Smaller font size
-                          ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'No data available',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
                         ),
-                        DataColumn(
-                          label: Text(
-                            'end_date'.tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'status'.tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'date'.tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                          ),
-                        ),
-                        DataColumn(
-                          label: Text(
-                            'time'.tr,
-                            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-                          ),
-                        ),
-                      ],
-                      rows: filteredData.map((entry) {
-                        String startDate = entry.startDate != null
-                            ? DateFormat('d MMM yyyy').format(entry.startDate!)
-                            : '';
-                        String expectedCompDate = entry.expectedCompDate != null
-                            ? DateFormat('d MMM yyyy').format(entry.expectedCompDate!)
-                            : '';
-                        return DataRow(
-                          cells: [
-                            DataCell(
-                              Text(
-                                startDate,
-                                style: const TextStyle(fontSize: 12),  // Smaller font size
-                              ),
-                            ),
-                            DataCell(
-                              Text(
-                                expectedCompDate,
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ),
-                            DataCell(
-                              Text(
-                                entry.mpLCompStatus ?? '',
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ),
-                            DataCell(
-                              Text(
-                                entry.date ?? '',
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ),
-                            DataCell(
-                              Text(
-                                entry.time ?? '',
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ),
-                          ],
-                        );
-                      }).toList(),
-                    ),
+                      ),
+                    ],
                   ),
                 );
-              }),
-            ),
+              }
+
+              final filteredData = mpFancyLightPolesViewModel.allMpFancy.where((entry) {
+                // Filter by start date
+                final start_dateMatch = _start_date == null ||
+                    (entry.start_date != null && entry.start_date!.isAfter(_start_date!));
+
+                // Filter by end date
+                final endDateMatch = _endDate == null ||
+                    (entry.expected_comp_date != null && entry.expected_comp_date!.isBefore(_endDate!));
+
+                // Filter by status
+                final statusMatch = _status == null ||
+                    (entry.mini_park_fancy_light_comp_status != null &&
+                        entry.mini_park_fancy_light_comp_status!.toLowerCase().contains(_status!.toLowerCase()));
+
+                return start_dateMatch && endDateMatch && statusMatch;
+              }).toList();
+
+              if (filteredData.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/nodata.png',
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'No data available',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: DataTable(
+                  columnSpacing: 16.0,
+                  headingRowColor: MaterialStateProperty.all(const Color(0xFFC69840)),
+                  border: const TableBorder(
+                    horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
+                    verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
+                  ),
+                  columns: [
+                    const DataColumn(label: Text('start_date', style: TextStyle(fontWeight: FontWeight.bold))),
+                    const DataColumn(label: Text('end_date', style: TextStyle(fontWeight: FontWeight.bold))),
+                    const DataColumn(label: Text('status', style: TextStyle(fontWeight: FontWeight.bold))),
+                    const DataColumn(label: Text('date', style: TextStyle(fontWeight: FontWeight.bold))),
+                    const DataColumn(label: Text('time', style: TextStyle(fontWeight: FontWeight.bold))),
+                  ],
+                  rows: filteredData.map((entry) {
+                    // Format the DateTime objects to a readable string format
+                    String start_date = entry.start_date != null
+                        ? DateFormat('d MMM yyyy').format(entry.start_date!)
+                        : ''; // Show empty string if null
+
+                    String expected_comp_date = entry.expected_comp_date != null
+                        ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
+                        : ''; // Show empty string if null
+
+                    return DataRow(cells: [
+                      DataCell(Text(start_date)), // Formatted start date
+                      DataCell(Text(expected_comp_date)), // Formatted expected completion date
+                      DataCell(Text(entry.mini_park_fancy_light_comp_status ?? '')), // Null check for status
+                      DataCell(Text(entry.date ?? '')), // Display date as-is
+                      DataCell(Text(entry.time ?? '')), // Display time as-is
+                    ]);
+                  }).toList(),
+                ),
+              );
+            }),
           ],
         ),
       ),

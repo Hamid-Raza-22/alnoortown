@@ -108,7 +108,7 @@ class _ElectricityWorkSummaryState extends State<ElectricityWorkSummary> {
                     final data = filteredData[index];
                     return _buildDataRow({
                       "selectedBlock": data.block_no,
-                      "status": data.electricityWorkStatus,
+                      "status": data.electricity_work_status,
                       "date": data.date,
                       "time": data.time,
                     });

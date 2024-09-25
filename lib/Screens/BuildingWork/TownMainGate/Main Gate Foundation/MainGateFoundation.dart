@@ -27,7 +27,7 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
   List<Map<String, dynamic>> containerDataList = [];
 
   String? selectedBlock;
-  String? workStatus;
+  String? work_status;
 
   @override
   void initState() {
@@ -124,10 +124,10 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedBlock != null && workStatus != null) {
+                  if (selectedBlock != null && work_status != null) {
                     await mainGateFoundationWorkViewModel.addMainFoundation(MainGateFoundationWorkModel(
                       block_no: selectedBlock,
-                      workStatus: workStatus,
+                      work_status: work_status,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                       // date:
@@ -200,7 +200,7 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
         TextField(
           onChanged: (value) {
             setState(() {
-              workStatus = value;
+              work_status = value;
             });
           },
           maxLines: 3,

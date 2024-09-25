@@ -17,8 +17,8 @@ class RoadsCurbstonesWork extends StatefulWidget {
 
 class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
   RoadCurbStonesWorkViewModel roadCurbStonesWorkViewModel = Get.put(RoadCurbStonesWorkViewModel());
-  TextEditingController roadNoController = TextEditingController();
-  TextEditingController totalLengthController = TextEditingController();
+  TextEditingController road_noController = TextEditingController();
+  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -45,14 +45,14 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon:   const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -65,7 +65,7 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
         ],
         title:   Text(
           'roads_curbstones_work'.tr(),
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
@@ -81,12 +81,12 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding:   const EdgeInsets.all(16.0),
+              padding:   EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                    const SizedBox(height: 16),
+                    SizedBox(height: 16),
                 ],
               ),
             ),
@@ -98,12 +98,12 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
 
   Widget buildContainer() {
     return Card(
-      margin:   const EdgeInsets.only(bottom: 16),
+      margin:   EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding:   const EdgeInsets.all(20.0),
+        padding:   EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -112,73 +112,63 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
                 selectedBlock = value;
               });
             }),
-              const SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), roadNoController),
-              const SizedBox(height: 16),
-            buildTextFieldRow('total_length'.tr(), totalLengthController),
-              const SizedBox(height: 16),
+              SizedBox(height: 16),
+            buildTextFieldRow('road_no'.tr(), road_noController),
+              SizedBox(height: 16),
+            buildTextFieldRow('total_length'.tr(), total_lengthController),
+              SizedBox(height: 16),
               Text(
               'roads_edging_work_completion_status'.tr(),
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
-              const SizedBox(height: 8),
+              SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-              const SizedBox(height: 20),
+              SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (roadNoController.text.isNotEmpty &&
-                      totalLengthController.text.isNotEmpty &&
+                  if (road_noController.text.isNotEmpty &&
+                      total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
                     await roadCurbStonesWorkViewModel.addRoadCurb(RoadCurbStonesWorkModel(
                         block_no: selectedBlock,
-                        roadNo: roadNoController.text,
-                        totalLength: totalLengthController.text,
-                        compStatus: selectedStatus,
+                        road_no: road_noController.text,
+                        total_length: total_lengthController.text,
+                        comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));
                     await roadCurbStonesWorkViewModel.fetchAllRoadCurb();
 
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                        SnackBar(
                         content: Text('entry_added_successfully'.tr()),
                       ),
                     );
-                    roadNoController.clear();
-                    totalLengthController.clear();
-                    setState(() {
-                      selectedBlock = null;
-                      selectedStatus = null;
-                    });
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
+                        SnackBar(
                         content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
+                  backgroundColor:   Color(0xFFF3F4F6),
+                  padding:   EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child: Text(
-                  'submit'.tr(),
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFC69840),
-                  ),
-                ),
+                child:   Text('submit'.tr().tr(),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -193,15 +183,15 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
       children: [
         Text(
           label,
-          style:   const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: selectedValue,
-          decoration:   const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -223,15 +213,15 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
       children: [
         Text(
           label,
-          style:   const TextStyle(
+          style:   TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-          const SizedBox(height: 8),
+          SizedBox(height: 8),
         TextField(
           controller: controller,
-          decoration:   const InputDecoration(
+          decoration:   InputDecoration(
             border: OutlineInputBorder(),
           ),
         ),
