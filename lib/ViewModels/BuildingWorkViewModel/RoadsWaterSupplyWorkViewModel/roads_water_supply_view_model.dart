@@ -1,16 +1,16 @@
 
-import 'package:al_noor_town/Models/BuildingWorkModels/RoadsWaterSupplyWorkModel/water_first_model.dart';
-import 'package:al_noor_town/Repositories/BuildingWorkRepositories/RoadsWaterSupplyWorkRepository/water_first_repository.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/RoadsWaterSupplyWorkModel/roads_water_supply_model.dart';
+import 'package:al_noor_town/Repositories/BuildingWorkRepositories/RoadsWaterSupplyWorkRepository/roads_water_supply_repository.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
 
-class WaterFirstViewModel extends GetxController {
+class RoadsWaterSupplyViewModel extends GetxController {
 
-  var allWaterFirst = <WaterFirstModel>[].obs;
-  WaterFirstRepository waterFirstRepository = WaterFirstRepository();
+  var allRoadWaterSupply = <RoadsWaterSupplyModel>[].obs;
+  RoadsWaterSupplyRepository roadsWaterSupplyRepository = RoadsWaterSupplyRepository();
 
   @override
   void onInit(){
@@ -21,7 +21,7 @@ class WaterFirstViewModel extends GetxController {
   Future<void> postDataFromDatabaseToAPI() async {
     try {
       // Step 1: Fetch machines that haven't been posted yet
-      var unPostedRoadsWaterSupplyWork = await waterFirstRepository.getUnPostedRoadsWaterSupplyWork();
+      var unPostedRoadsWaterSupplyWork = await roadsWaterSupplyRepository.getUnPostedRoadsWaterSupplyWork();
 
       for (var roadsWaterSupplyWork  in unPostedRoadsWaterSupplyWork) {
         try {
@@ -30,7 +30,7 @@ class WaterFirstViewModel extends GetxController {
 
           // Step 3: If successful, update the posted status in the local database
           roadsWaterSupplyWork.posted = 1;
-          await waterFirstRepository.update(roadsWaterSupplyWork);
+          await roadsWaterSupplyRepository.update(roadsWaterSupplyWork);
 
           // Optionally, delete the machine from the local database after posting
           // await machineRepository.delete(machine.id);
@@ -53,22 +53,22 @@ class WaterFirstViewModel extends GetxController {
   }
 
   // Function to post data to the API
-  Future<void> postRoadsWaterSupplyWorkToAPI(WaterFirstModel waterFirstModel) async {
+  Future<void> postRoadsWaterSupplyWorkToAPI(RoadsWaterSupplyModel roadsWaterSupplyModel) async {
     try {
       await Config.fetchLatestConfig();
       print('Updated RoadsWaterSupplyWork Post API: ${Config.postApiUrlRoadsWaterSupplyWork}');
-      var waterFirstModelData = waterFirstModel.toMap(); // Converts MachineModel to JSON
+      var roadsWaterSupplyModelData = roadsWaterSupplyModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
         Uri.parse(Config.postApiUrlRoadsWaterSupplyWork),
         headers: {
           "Content-Type": "application/json",  // Set the request content type to JSON
           "Accept": "application/json",
         },
-        body: jsonEncode(waterFirstModelData),  // Encode the map as JSON
+        body: jsonEncode(roadsWaterSupplyModelData),  // Encode the map as JSON
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print('RoadsWaterSupplyWork data posted successfully: $waterFirstModelData');
+        print('RoadsWaterSupplyWork data posted successfully: $roadsWaterSupplyModelData');
       } else {
         throw Exception('Server error: ${response.statusCode}, ${response.body}');
       }
@@ -78,27 +78,28 @@ class WaterFirstViewModel extends GetxController {
     }
   }
 
-  fetchAllWaterFirst() async{
-    var waterFirst = await waterFirstRepository.getWaterFirst();
-    allWaterFirst.value = waterFirst;
+  fetchAllRoadWaterSupply() async{
+    var roadsWaterSupply = await roadsWaterSupplyRepository.getRoadsWaterSupply();
+    allRoadWaterSupply.value = roadsWaterSupply;
 
   }
   fetchAndSaveRoadsWaterSupplyData() async {
-    await waterFirstRepository.fetchAndSaveRoadsWaterSupplyData();
+    await roadsWaterSupplyRepository.fetchAndSaveRoadsWaterSupplyData();
   }
-  addWaterFirst(WaterFirstModel waterFirstModel){
-    waterFirstRepository.add(waterFirstModel);
+
+  addRoadsWaterSupply(RoadsWaterSupplyModel roadsWaterSupplyModel){
+    roadsWaterSupplyRepository.add(roadsWaterSupplyModel);
 
   }
 
-  updateWaterFirst(WaterFirstModel waterFirstModel){
-    waterFirstRepository.update(waterFirstModel);
-    fetchAllWaterFirst();
+  updateRoadsWaterSupply(RoadsWaterSupplyModel roadsWaterSupplyModel){
+    roadsWaterSupplyRepository.update(roadsWaterSupplyModel);
+    fetchAllRoadWaterSupply();
   }
 
-  deleteWaterFirst(int id){
-    waterFirstRepository.delete(id);
-    fetchAllWaterFirst();
+  deleteRoadsWaterSupply(int id){
+    roadsWaterSupplyRepository.delete(id);
+    fetchAllRoadWaterSupply();
   }
 
 }

@@ -34,8 +34,8 @@ class BoundaryGrillWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'start_date':startDate?.toString(),
-      'expected_compDate':expectedCompDate?.toString(),
+      'startDate':startDate?.toString(),
+      'expectedCompDate':expectedCompDate?.toString(),
       'boundaryWorkCompStatus':boundaryWorkCompStatus,
       'boundary_grill_work_date':date,
       'time':time,
