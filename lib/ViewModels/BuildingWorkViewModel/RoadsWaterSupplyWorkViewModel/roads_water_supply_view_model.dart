@@ -9,7 +9,7 @@ import 'dart:convert';
 
 class RoadsWaterSupplyViewModel extends GetxController {
 
-  var allWaterFirst = <RoadsWaterSupplyModel>[].obs;
+  var allRoadWaterSupply = <RoadsWaterSupplyModel>[].obs;
   RoadsWaterSupplyRepository roadsWaterSupplyRepository = RoadsWaterSupplyRepository();
 
   @override
@@ -78,27 +78,28 @@ class RoadsWaterSupplyViewModel extends GetxController {
     }
   }
 
-  fetchAllWaterFirst() async{
-    var waterFirst = await roadsWaterSupplyRepository.getWaterFirst();
-    allWaterFirst.value = waterFirst;
+  fetchAllRoadWaterSupply() async{
+    var roadsWaterSupply = await roadsWaterSupplyRepository.getRoadsWaterSupply();
+    allRoadWaterSupply.value = roadsWaterSupply;
 
   }
   fetchAndSaveRoadsWaterSupplyData() async {
     await roadsWaterSupplyRepository.fetchAndSaveRoadsWaterSupplyData();
   }
-  addWaterFirst(RoadsWaterSupplyModel roadsWaterSupplyModel){
+
+  addRoadsWaterSupply(RoadsWaterSupplyModel roadsWaterSupplyModel){
     roadsWaterSupplyRepository.add(roadsWaterSupplyModel);
 
   }
 
-  updateWaterFirst(RoadsWaterSupplyModel roadsWaterSupplyModel){
+  updateRoadsWaterSupply(RoadsWaterSupplyModel roadsWaterSupplyModel){
     roadsWaterSupplyRepository.update(roadsWaterSupplyModel);
-    fetchAllWaterFirst();
+    fetchAllRoadWaterSupply();
   }
 
-  deleteWaterFirst(int id){
+  deleteRoadsWaterSupply(int id){
     roadsWaterSupplyRepository.delete(id);
-    fetchAllWaterFirst();
+    fetchAllRoadWaterSupply();
   }
 
 }

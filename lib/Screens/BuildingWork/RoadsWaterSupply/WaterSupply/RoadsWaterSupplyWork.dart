@@ -163,7 +163,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                       selectedBlock != null &&
                       selectedRoadSide != null && // Check if Road Side is selected
                       selectedStatus != null) {
-                    await roadsWaterSupplyViewModel.addWaterFirst(RoadsWaterSupplyModel(
+                    await roadsWaterSupplyViewModel.addRoadsWaterSupply(RoadsWaterSupplyModel(
                         block_no: selectedBlock,
                         roadNo: roadNoController.text,
                         totalLength: totalLengthController.text,
@@ -174,7 +174,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));
-                    await roadsWaterSupplyViewModel.fetchAllWaterFirst();
+                    await roadsWaterSupplyViewModel.fetchAllRoadWaterSupply();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

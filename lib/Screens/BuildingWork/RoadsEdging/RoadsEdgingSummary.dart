@@ -6,13 +6,17 @@ import '../../ReusableDesigns/filter_widget.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 
 class RoadsEdgingSummary extends StatefulWidget {
+
     RoadsEdgingSummary({super.key});
+
   @override
   State<RoadsEdgingSummary> createState() => _RoadsEdgingSummaryState();
+
 }
 
 class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
   final RoadsEdgingWorkViewModel roadsEdgingWorkViewModel = Get.put(RoadsEdgingWorkViewModel());
+
   DateTime? selectedFromDate;
   DateTime? selectedToDate;
   String? selectedBlock;
@@ -30,6 +34,7 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
       selectedBlock = block;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,6 +88,8 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
                     ),
                   );
                 }
+
+                // Filter data based on the selected criteria
                 var filteredData = roadsEdgingWorkViewModel.allRoadEdging.where((entry) {
                   final entryStartDate = entry.startDate != null ? DateTime.tryParse(entry.startDate! as String) : null;
                   final entryEndDate = entry.expectedCompDate != null ? DateTime.tryParse(entry.expectedCompDate! as String) : null;
@@ -96,6 +103,7 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
                       matchesDate = false;
                     }
                   }
+
                   bool matchesBlock = selectedBlock == null || (entry.block_no?.toLowerCase().contains(selectedBlock!.toLowerCase()) ?? false);
                   return matchesDate && matchesBlock;
                 }).toList();
@@ -126,11 +134,9 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
                           ? DateFormat('d MMM yyyy').format(DateTime.parse(entry.startDate! as String))
                           : ''; // Show empty string if null
 
-
                       String expectedCompDate = entry.expectedCompDate != null
                           ? DateFormat('d MMM yyyy').format(DateTime.parse(entry.expectedCompDate! as String))
                           : ''; // Show empty string if null
-
 
                       return DataRow(cells: [
                         DataCell(Text(startDate)),
@@ -151,7 +157,6 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
           ],
         ),
       ),
-
     );
   }
 }
