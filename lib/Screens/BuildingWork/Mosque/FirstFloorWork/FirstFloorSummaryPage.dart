@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
 class FirstFloorSummaryPage extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
 
-  FirstFloorSummaryPage({super.key, required this.containerDataList});
+
+  FirstFloorSummaryPage({super.key});
 
   @override
   State<FirstFloorSummaryPage> createState() => _FirstFloorSummaryPageState();

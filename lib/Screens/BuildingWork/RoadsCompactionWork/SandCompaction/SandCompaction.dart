@@ -153,6 +153,8 @@ class _SandCompactionState extends State<SandCompaction> {
                       totalLengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
+
+                    // Add the sand compaction entry
                     await sandCompactionViewModel.addSand(SandCompactionModel(
                         startDate: selectedStartDate,
                         expectedCompDate: selectedEndDate,
@@ -164,21 +166,35 @@ class _SandCompactionState extends State<SandCompaction> {
                         time: _getFormattedTime()
                     ));
 
+                    // Fetch all sand data
                     await sandCompactionViewModel.fetchAllSand();
 
+                    // Show a success message
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                      SnackBar(
                         content: Text('entry_added_successfully'.tr()),
                       ),
                     );
+
+                    // Clear the fields after successful submission
+                    setState(() {
+                      roadNoController.clear();
+                      totalLengthController.clear();
+                      selectedBlock = null;
+                      selectedStatus = null;
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+                    });
                   } else {
+                    // Show an error message if fields are not filled
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
+                      SnackBar(
                         content: Text('please_fill_in_all_fields'.tr()),
                       ),
                     );
                   }
                 },
+
                 style: ElevatedButton.styleFrom(
                   backgroundColor:   Color(0xFFF3F4F6),
                   padding:

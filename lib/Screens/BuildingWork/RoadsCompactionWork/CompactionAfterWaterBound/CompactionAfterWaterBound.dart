@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 import 'WaterBoundSummary.dart';
 
 class CompactionAfterWaterBound extends StatefulWidget {
-    CompactionAfterWaterBound({super.key});
+  CompactionAfterWaterBound({super.key});
 
   @override
   _CompactionAfterWaterBoundState createState() => _CompactionAfterWaterBoundState();
@@ -44,14 +44,14 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:   const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
           IconButton(
-            icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
+            icon:   const Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
               Navigator.push(
                 context,
@@ -65,7 +65,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
         ],
         title:   Text(
           'compaction_after_water_bound'.tr(),
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
@@ -82,12 +82,12 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              padding:   EdgeInsets.all(16.0),
+              padding:   const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   buildContainer(),
-                    SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ],
               ),
             ),
@@ -99,12 +99,12 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
 
   Widget buildContainer() {
     return Card(
-      margin:   EdgeInsets.only(bottom: 16),
+      margin:   const EdgeInsets.only(bottom: 16),
       elevation: 5,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
       child: Padding(
-        padding:   EdgeInsets.all(20.0),
+        padding:   const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -113,83 +113,97 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
                 selectedBlock = value;
               });
             }),
-              SizedBox(height: 16),
+            const SizedBox(height: 16),
             buildTextFieldRow('road_no'.tr(), roadNoController),
-              SizedBox(height: 16),
+            const SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), totalLengthController),
-              SizedBox(height: 16),
+            const SizedBox(height: 16),
             buildDatePickerRow(
               'start_date'.tr(),
               selectedStartDate,
                   (date) => setState(() => selectedStartDate = date),
             ),
-              SizedBox(height: 16),
+            const SizedBox(height: 16),
             buildDatePickerRow(
               'expected_completion_date'.tr(),
               selectedEndDate,
                   (date) => setState(() => selectedEndDate = date),
             ),
-              SizedBox(height: 16),
-              Text(
+            const SizedBox(height: 16),
+            Text(
               'sand_compaction_completion_status'.tr(),
-              style: TextStyle(
+              style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFFC69840)),
             ),
-              SizedBox(height: 8),
+            const SizedBox(height: 8),
             buildStatusRadioButtons((value) {
               setState(() {
                 selectedStatus = value;
               });
             }),
-              SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () async {
-                  if (selectedStartDate != null &&
-                      selectedEndDate != null &&
-                      roadNoController.text.isNotEmpty &&
-                      totalLengthController.text.isNotEmpty &&
-                      selectedBlock != null &&
-                      selectedStatus != null) {
-                    await compactionWaterBoundViewModel.addWaterBound(CompactionWaterBoundModel(
-                        startDate: selectedStartDate,
-                        expectedCompDate: selectedEndDate,
-                        roadNo: roadNoController.text,
-                        totalLength: totalLengthController.text,
-                        block_no: selectedBlock,
-                        waterBoundCompStatus: selectedStatus,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime()
-                    ));
+                  onPressed: () async {
+                    if (selectedStartDate != null &&
+                        selectedEndDate != null &&
+                        roadNoController.text.isNotEmpty &&
+                        totalLengthController.text.isNotEmpty &&
+                        selectedBlock != null &&
+                        selectedStatus != null) {
 
-                    await compactionWaterBoundViewModel.fetchAllWaterBound();
+                      // Create and add the model
+                      await compactionWaterBoundViewModel.addWaterBound(CompactionWaterBoundModel(
+                          startDate: selectedStartDate,
+                          expectedCompDate: selectedEndDate,
+                          roadNo: roadNoController.text,
+                          totalLength: totalLengthController.text,
+                          block_no: selectedBlock,
+                          waterBoundCompStatus: selectedStatus,
+                          date: _getFormattedDate(),
+                          time: _getFormattedTime()
+                      ));
 
-                    ScaffoldMessenger.of(context).showSnackBar(
+                      await compactionWaterBoundViewModel.fetchAllWaterBound();
+
+                      // Show success message
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
+                          content: Text('entry_added_successfully'.tr()),
+                        ),
+                      );
+
+                      // Clear the fields after successful submission
+                      roadNoController.clear();
+                      totalLengthController.clear();
+                      selectedBlock = null;
+                      selectedStatus = null;
+                      selectedStartDate = null;
+                      selectedEndDate = null;
+
+                      // Optionally, you may want to set the dropdown and radio button states
+                      setState(() {}); // This will trigger a rebuild to update the UI
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
-                  }
-                },
+                          content: Text('please_fill_in_all_fields'.tr()),
+                        ),
+                      );
+                    }
+                  },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:   Color(0xFFF3F4F6),
+                  backgroundColor:   const Color(0xFFF3F4F6),
                   padding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle:   TextStyle(fontSize: 14),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle:   const TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
                 child:   Text('submit'.tr().tr(),
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
@@ -205,15 +219,15 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
       children: [
         Text(
           label,
-          style:   TextStyle(
+          style:   const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-          SizedBox(height: 8),
+        const SizedBox(height: 8),
         DropdownButtonFormField<String>(
           value: selectedValue,
-          decoration:   InputDecoration(
+          decoration:   const InputDecoration(
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
@@ -235,12 +249,12 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
       children: [
         Text(
           label,
-          style:   TextStyle(
+          style:   const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.bold,
               color: Color(0xFFC69840)),
         ),
-          SizedBox(height: 8),
+        const SizedBox(height: 8),
         GestureDetector(
           onTap: () async {
             DateTime? pickedDate = await showDatePicker(
@@ -253,16 +267,16 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
           },
           child: Container(
             width: double.infinity,
-            padding:   EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            padding:   const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
             decoration: BoxDecoration(
-              border: Border.all(color: Color(0xFFC69840)),
+              border: Border.all(color: const Color(0xFFC69840)),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
               selectedDate != null
                   ? DateFormat('d MMM yyyy').format(selectedDate)
                   : 'select_date'.tr(),
-              style:   TextStyle(
+              style:   const TextStyle(
                 fontSize: 14,
                 color: Color(0xFFC69840),
               ),
@@ -279,15 +293,15 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
         children: [
           Text(
             label,
-            style:   TextStyle(
+            style:   const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 color: Color(0xFFC69840)),
           ),
-            SizedBox(height: 8),
+          const SizedBox(height: 8),
           TextField(
             controller: controller,
-            decoration:   InputDecoration(
+            decoration:   const InputDecoration(
               border: OutlineInputBorder(),
               contentPadding: EdgeInsets.symmetric(horizontal: 8),
             ),
@@ -315,4 +329,3 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
     );
   }
 }
-
