@@ -156,6 +156,9 @@ class Config {
   static String get getApiUrlPillarsBrickWorkMainGate => remoteConfig.getString('Pillars_Brick_Work_Main_Gate_get_url');
   static String get getApiUrlGreyStructureMainGate => remoteConfig.getString('Grey_Structure_Main_Gate_get_url');
   static String get getApiUrlPlasterWorkMainGate => remoteConfig.getString('Plaster_Work_Main_Gate_get_url');
+  static String get getApiUrlBlocksDetails => remoteConfig.getString('Blocks_Details_get_url');
+  static String get getApiUrlRoadsDetails => remoteConfig.getString('Roads_Details_get_url');
+  static String get getApiUrlLogin => remoteConfig.getString('Login_get_url');
 
   }
 

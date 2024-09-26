@@ -67,6 +67,7 @@ class LightWiresRepository{
     List<LightWiresModel> lightWires = maps.map((map) => LightWiresModel.fromMap(map)).toList();
     return lightWires;
   }
+
   Future<int>add(LightWiresModel lightWiresModel) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameLightWires,lightWiresModel.toMap());

@@ -109,7 +109,7 @@ class SittingAreaSummaryPage extends StatelessWidget {
                 return DataRow(cells: [
                   // Formatted start date
 
-                  DataCell(Text(entry.typeOfWork ?? '')),
+                  DataCell(Text(entry.type_of_work ?? '')),
                   DataCell(Text(start_date)),
                   DataCell(Text(expected_comp_date)),
                   DataCell(Text(entry.sitting_area_comp_status ?? '')),

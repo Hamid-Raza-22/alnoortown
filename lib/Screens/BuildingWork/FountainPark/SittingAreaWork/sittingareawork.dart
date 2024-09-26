@@ -18,7 +18,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
   SittingAreaWorkViewModel sittingAreaWorkViewModel = Get.put(SittingAreaWorkViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-  TextEditingController typeofwork = TextEditingController();
+  TextEditingController type_of_work = TextEditingController();
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
 
@@ -108,7 +108,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildTextFieldRow('type_of_work'.tr(), typeofwork),
+            buildTextFieldRow('type_of_work'.tr(), type_of_work),
             buildDatePickerRow(
               'start_date'.tr(),
               selectedstart_date,
@@ -140,12 +140,12 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
                 onPressed: () async {
                   if (selectedstart_date != null &&
                       selectedEndDate != null &&
-                      typeofwork.text.isNotEmpty &&
+                      type_of_work.text.isNotEmpty &&
                       selectedStatus != null) {
                     await sittingAreaWorkViewModel .addSitting(SittingAreaWorkModel(
                         start_date: selectedstart_date,
                         expected_comp_date: selectedEndDate,
-                        typeOfWork: typeofwork.text,
+                        type_of_work: type_of_work.text,
                         sitting_area_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()

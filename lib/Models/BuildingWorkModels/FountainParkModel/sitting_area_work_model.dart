@@ -1,6 +1,6 @@
 class SittingAreaWorkModel{
   int? id;
-  String?  typeOfWork;
+  String?  type_of_work;
   DateTime? start_date;
   DateTime? expected_comp_date;
   String? sitting_area_comp_status;
@@ -10,7 +10,7 @@ class SittingAreaWorkModel{
 
   SittingAreaWorkModel({
     this.id,
-    this.typeOfWork,
+    this.type_of_work,
     this.start_date,
     this.expected_comp_date,
     this.sitting_area_comp_status,
@@ -24,7 +24,7 @@ class SittingAreaWorkModel{
   {
     return SittingAreaWorkModel(
         id: json['id'],
-        typeOfWork: json['typeOfWork'],
+        type_of_work: json['type_of_work'],
         start_date: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
         expected_comp_date: json['expected_comp_date'] != null ? DateTime.parse(json['expected_comp_date']) : null,
         sitting_area_comp_status:json['sitting_area_comp_status'],
@@ -38,7 +38,7 @@ class SittingAreaWorkModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'typeOfWork':typeOfWork,
+      'type_of_work':type_of_work,
       'start_date': start_date?.toString(),
       'expected_comp_date': expected_comp_date?.toString(),
       'sitting_area_comp_status':sitting_area_comp_status,

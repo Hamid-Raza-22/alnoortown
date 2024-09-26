@@ -184,7 +184,7 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
                         : ''; // Show empty string if null
 
                     return DataRow(cells: [
-                      DataCell(Text(entry.typeOfWork ?? '')),
+                      DataCell(Text(entry.type_of_work ?? '')),
                       DataCell(Text(start_date)),
                       DataCell(Text(expected_comp_date)),
                       DataCell(Text(entry.walking_tracks_comp_status ?? '')),
