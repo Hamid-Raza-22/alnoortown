@@ -85,6 +85,8 @@ class DBHelper {
       "CREATE TABLE IF NOT EXISTS $tableNamePillarsBrickWorkMainGate(id INTEGER PRIMARY KEY,block_no TEXT, work_status TEXT,main_gate_pillar_date TEXT,time TEXT, posted INTEGER DEFAULT 0)",
       "CREATE TABLE IF NOT EXISTS $tableNameGreyStructureMainGate(id INTEGER PRIMARY KEY,block_no TEXT, work_status TEXT,main_gate_grey_structure_date TEXT,time TEXT, posted INTEGER DEFAULT 0)",
       "CREATE TABLE IF NOT EXISTS $tableNamePlasterWorkMainGate(id INTEGER PRIMARY KEY,block_no TEXT, work_status TEXT,main_gate_plaster_work_date TEXT,time TEXT, posted INTEGER DEFAULT 0)"
+      "CREATE TABLE IF NOT EXISTS roadsDetails(id INTEGER PRIMARY KEY,phase TEXT, block TEXT,street TEXT,length TEXT, road_type TEXT)"
+      "CREATE TABLE IF NOT EXISTS blocksDetails(id INTEGER PRIMARY KEY, block TEXT,marla TEXT,plot_no TEXT)"
     ];
     for (var query in tableQueries) {
       await db.execute(query);
