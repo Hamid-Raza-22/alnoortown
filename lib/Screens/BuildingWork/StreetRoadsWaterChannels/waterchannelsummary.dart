@@ -85,7 +85,7 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
                 final filteredData = streetRoadWaterChannelViewModel.allStreetRoad.where((entry) {
                   final block_noMatch = _block_no == null || _block_no!.isEmpty || entry.block_no == _block_no;
                   final road_noMatch = _road_no == null || _road_no!.isEmpty || entry.road_no == _road_no;
-                  final statusMatch = _status == null || _status!.isEmpty || entry.waterChCompStatus == _status;
+                  final statusMatch = _status == null || _status!.isEmpty || entry.water_channels_comp_status == _status;
 
                   return block_noMatch && road_noMatch && statusMatch;
                 }).toList();
@@ -148,7 +148,7 @@ class _WaterChannelsSummaryState extends State<WaterChannelsSummary> {
                               entry.road_no ?? 'N/A',
                               entry.road_side ?? 'N/A',
                               entry.no_of_water_channels ?? 'N/A',
-                              entry.waterChCompStatus ?? 'N/A',
+                              entry.water_channels_comp_status ?? 'N/A',
                               entry.date ?? 'N/A',
                               entry.time ?? 'N/A'
                             ];

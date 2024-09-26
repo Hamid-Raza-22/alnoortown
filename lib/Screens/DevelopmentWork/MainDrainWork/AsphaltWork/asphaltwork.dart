@@ -169,6 +169,7 @@ class _AsphaltWorkState extends State<AsphaltWork> {
                     ));
 
                     await asphaltWorkViewModel.fetchAllAsphalt();
+                    await asphaltWorkViewModel.postDataFromDatabaseToAPI();
                   }
 
                   // Clear the fields after submission

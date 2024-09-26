@@ -35,7 +35,7 @@ class BoundaryGrillWorkModel{
     return {
       'id':id,
       'start_date':start_date?.toString(),
-      'expected_compDate':expected_comp_date?.toString(),
+      'expected_comp_date':expected_comp_date?.toString(),
       'boundary_work_comp_status':boundary_work_comp_status,
       'boundary_grill_work_date':date,
       'time':time,
