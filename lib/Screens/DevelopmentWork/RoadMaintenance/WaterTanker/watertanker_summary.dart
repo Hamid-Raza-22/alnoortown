@@ -108,14 +108,14 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
 
                 return GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
+                    crossAxisCount: 5,
                     crossAxisSpacing: 1.0,
                     mainAxisSpacing: 1.0,
                     childAspectRatio: 3.0,
                   ),
-                  itemCount: filteredData.length * 3 + 3,
+                  itemCount: filteredData.length * 5 + 5,
                   itemBuilder: (context, index) {
-                    if (index < 3) {
+                    if (index < 5) {
                       return Container(
                         color: const Color(0xFFC69840),
                         alignment: Alignment.center,
@@ -132,8 +132,8 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
                         ),
                       );
                     } else {
-                      final entryIndex = (index - 3) ~/ 3;
-                      final column = (index - 3) % 3;
+                      final entryIndex = (index - 5) ~/ 5;
+                      final column = (index - 5) % 5;
                       if (entryIndex < filteredData.length) {
                         final entry = filteredData[entryIndex];
                         final data = [

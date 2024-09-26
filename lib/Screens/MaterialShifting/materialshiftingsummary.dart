@@ -65,15 +65,15 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
 
           return GridView.builder(
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3, // 3 columns for headers + data
+              crossAxisCount: 5, // 3 columns for headers + data
               crossAxisSpacing: 8.0,
               mainAxisSpacing: 8.0,
               childAspectRatio: 3.0, // Adjust aspect ratio for better visibility
             ),
-            itemCount: materialShiftingViewModel.allShifting.length * 3 + 3,
+            itemCount: materialShiftingViewModel.allShifting.length * 5 + 5,
             // Number of data items + headers
             itemBuilder: (context, index) {
-              if (index < 3) {
+              if (index < 5) {
                 // Header Row
                 return Container(
                   color: const Color(0xFFC69840),
@@ -86,8 +86,8 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
                   ),
                 );
               } else {
-                final entryIndex = (index - 3) ~/ 3;
-                final columnIndex = (index - 3) % 3;
+                final entryIndex = (index - 5) ~/ 5;
+                final columnIndex = (index - 5) % 5;
 
                 if (entryIndex < materialShiftingViewModel.allShifting.length) {
                   final entry = materialShiftingViewModel.allShifting[entryIndex];
@@ -121,4 +121,3 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
     );
   }
 }
-
