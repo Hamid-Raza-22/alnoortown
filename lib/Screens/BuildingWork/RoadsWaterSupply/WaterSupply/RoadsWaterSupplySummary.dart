@@ -37,7 +37,24 @@ class _RoadsWaterSupplySummaryState extends State<RoadsWaterSupplySummary> {
             // Use Obx to rebuild when the data changes
             if (roadsWaterSupplyViewModel.allRoadWaterSupply.isEmpty) {
               return Center(
-                  child: CircularProgressIndicator()); // Show loading indicator
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/images/nodata.png',
+                      width: 200,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      'No data available',
+                      style: TextStyle(
+                          color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+              );
             }
 
             return SingleChildScrollView(
