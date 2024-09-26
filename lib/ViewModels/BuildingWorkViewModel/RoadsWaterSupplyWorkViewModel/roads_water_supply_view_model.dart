@@ -1,4 +1,3 @@
-
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsWaterSupplyWorkModel/roads_water_supply_model.dart';
 import 'package:al_noor_town/Repositories/BuildingWorkRepositories/RoadsWaterSupplyWorkRepository/roads_water_supply_repository.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
@@ -10,30 +9,24 @@ import 'dart:convert';
 class RoadsWaterSupplyViewModel extends GetxController {
 
   var allRoadWaterSupply = <RoadsWaterSupplyModel>[].obs;
+  var filteredRoadWaterSupply = <RoadsWaterSupplyModel>[].obs;  // New observable for filtered data
   RoadsWaterSupplyRepository roadsWaterSupplyRepository = RoadsWaterSupplyRepository();
 
   @override
-  void onInit(){
-    // TODO: implement onInit
+  void onInit() {
     super.onInit();
-
+    fetchAllRoadWaterSupply();
   }
+
   Future<void> postDataFromDatabaseToAPI() async {
     try {
-      // Step 1: Fetch machines that haven't been posted yet
       var unPostedRoadsWaterSupplyWork = await roadsWaterSupplyRepository.getUnPostedRoadsWaterSupplyWork();
 
-      for (var roadsWaterSupplyWork  in unPostedRoadsWaterSupplyWork) {
+      for (var roadsWaterSupplyWork in unPostedRoadsWaterSupplyWork) {
         try {
-          // Step 2: Attempt to post the data to the API
           await postRoadsWaterSupplyWorkToAPI(roadsWaterSupplyWork);
-
-          // Step 3: If successful, update the posted status in the local database
           roadsWaterSupplyWork.posted = 1;
           await roadsWaterSupplyRepository.update(roadsWaterSupplyWork);
-
-          // Optionally, delete the machine from the local database after posting
-          // await machineRepository.delete(machine.id);
 
           if (kDebugMode) {
             print('RoadsWaterSupplyWork with id ${roadsWaterSupplyWork.id} posted and updated in local database.');
@@ -42,7 +35,6 @@ class RoadsWaterSupplyViewModel extends GetxController {
           if (kDebugMode) {
             print('Failed to post RoadsWaterSupplyWork with id ${roadsWaterSupplyWork.id}: $e');
           }
-          // Handle any errors (e.g., server down, network issues)
         }
       }
     } catch (e) {
@@ -52,19 +44,17 @@ class RoadsWaterSupplyViewModel extends GetxController {
     }
   }
 
-  // Function to post data to the API
   Future<void> postRoadsWaterSupplyWorkToAPI(RoadsWaterSupplyModel roadsWaterSupplyModel) async {
     try {
       await Config.fetchLatestConfig();
-      print('Updated RoadsWaterSupplyWork Post API: ${Config.postApiUrlRoadsWaterSupplyWork}');
-      var roadsWaterSupplyModelData = roadsWaterSupplyModel.toMap(); // Converts MachineModel to JSON
+      var roadsWaterSupplyModelData = roadsWaterSupplyModel.toMap();
       final response = await http.post(
         Uri.parse(Config.postApiUrlRoadsWaterSupplyWork),
         headers: {
-          "Content-Type": "application/json",  // Set the request content type to JSON
+          "Content-Type": "application/json",
           "Accept": "application/json",
         },
-        body: jsonEncode(roadsWaterSupplyModelData),  // Encode the map as JSON
+        body: jsonEncode(roadsWaterSupplyModelData),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -78,29 +68,52 @@ class RoadsWaterSupplyViewModel extends GetxController {
     }
   }
 
-  fetchAllRoadWaterSupply() async{
+  // Fetch all road water supply data
+  fetchAllRoadWaterSupply() async {
     var roadsWaterSupply = await roadsWaterSupplyRepository.getRoadsWaterSupply();
     allRoadWaterSupply.value = roadsWaterSupply;
-
+    filteredRoadWaterSupply.value = roadsWaterSupply;  // Initially show all data
   }
+
   fetchAndSaveRoadsWaterSupplyData() async {
     await roadsWaterSupplyRepository.fetchAndSaveRoadsWaterSupplyData();
   }
 
-  addRoadsWaterSupply(RoadsWaterSupplyModel roadsWaterSupplyModel){
+  addRoadsWaterSupply(RoadsWaterSupplyModel roadsWaterSupplyModel) {
     roadsWaterSupplyRepository.add(roadsWaterSupplyModel);
-
+    fetchAllRoadWaterSupply();
   }
 
-  updateRoadsWaterSupply(RoadsWaterSupplyModel roadsWaterSupplyModel){
+  updateRoadsWaterSupply(RoadsWaterSupplyModel roadsWaterSupplyModel) {
     roadsWaterSupplyRepository.update(roadsWaterSupplyModel);
     fetchAllRoadWaterSupply();
   }
 
-  deleteRoadsWaterSupply(int id){
+  deleteRoadsWaterSupply(int id) {
     roadsWaterSupplyRepository.delete(id);
     fetchAllRoadWaterSupply();
   }
 
-}
+  // New method for filtering data based on date and block
+  void filterData(DateTime? fromDate, DateTime? toDate, String? block) {
+    List<RoadsWaterSupplyModel> filteredList = allRoadWaterSupply.where((entry) {
+      bool matchesDateRange = true;
+      bool matchesBlock = true;
 
+      if (fromDate != null && toDate != null) {
+        matchesDateRange = entry.start_date != null &&
+            entry.start_date!.isAfter(fromDate) &&
+            entry.start_date!.isBefore(toDate);
+      }
+
+      if (block != null && block.isNotEmpty) {
+        matchesBlock = entry.block_no != null &&
+            entry.block_no!.toLowerCase().contains(block.toLowerCase());
+      }
+
+      return matchesDateRange && matchesBlock;
+    }).toList();
+
+    filteredRoadWaterSupply.value = filteredList;
+  }
+}
