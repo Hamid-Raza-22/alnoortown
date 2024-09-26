@@ -27,32 +27,6 @@ final attendanceInViewModel = Get.put(AttendanceInViewModel());
     Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   void _saveCurrentTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     DateTime currentTime = DateTime.now();

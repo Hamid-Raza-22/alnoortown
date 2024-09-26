@@ -150,7 +150,7 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
                         road_no: road_noController.text,
                         road_side: selectedroad_side,
                         no_of_water_channels:  noOfWaterChannelsController.text,
-                        waterChCompStatus: selectedStatus,
+                        water_channels_comp_status: selectedStatus,
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
 

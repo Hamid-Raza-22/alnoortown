@@ -162,6 +162,7 @@ class _PolesState extends State<Poles> {
                   ));
 
                   await polesViewModel.fetchAllPole();
+                  await polesViewModel.postDataFromDatabaseToAPI();
 
                   // Clear form after submission
                   setState(() {
