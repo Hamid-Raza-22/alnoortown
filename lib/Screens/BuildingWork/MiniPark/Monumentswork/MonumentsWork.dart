@@ -148,6 +148,7 @@ class _MonumentsWorkState extends State<MonumentsWork> {
                     ));
 
                     await monumentsWorkViewModel.fetchAllMonument();
+                    await monumentsWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

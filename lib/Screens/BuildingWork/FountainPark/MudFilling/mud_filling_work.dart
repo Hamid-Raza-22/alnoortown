@@ -151,6 +151,7 @@ class MudFillingWorkState extends State<MudFillingWork> {
                         time: _getFormattedTime()
                     ));
                     await mudFillingWorkViewModel.fetchAllMud();
+                    await mudFillingWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(

@@ -144,6 +144,7 @@ class _GazeboWorkState extends State<GazeboWork> {
                         time: _getFormattedTime()
                     ));
                     await gazeboWorkViewModel.fetchAllGazebo();
+                    await gazeboWorkViewModel.postDataFromDatabaseToAPI();
 
 
                     ScaffoldMessenger.of(context).showSnackBar(

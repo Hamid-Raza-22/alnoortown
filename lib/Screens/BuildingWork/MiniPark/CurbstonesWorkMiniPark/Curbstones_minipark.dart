@@ -148,6 +148,7 @@ class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
                     ));
 
                     await miniParkCurbStoneViewModel.fetchAllMpCurb();
+                    await miniParkCurbStoneViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

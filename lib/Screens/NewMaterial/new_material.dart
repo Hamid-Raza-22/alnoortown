@@ -156,6 +156,7 @@ class _NewMaterialState extends State<NewMaterial> {
                   );
 
                   await newMaterialViewModel.fetchAllNewMaterial();
+                  await newMaterialViewModel.postDataFromDatabaseToAPI();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

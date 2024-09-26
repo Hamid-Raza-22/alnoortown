@@ -175,6 +175,7 @@ class _BackfilingState extends State<Backfiling> {
                     time: _getFormattedTime(),
                   ));
                   await backFillingViewModel.fetchAllFill();
+                  await backFillingViewModel.postDataFromDatabaseToAPI();
 
                   // Clear fields after submission
                   setState(() {

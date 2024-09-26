@@ -146,6 +146,7 @@ class _MainStageWorkState extends State<MainStageWork> {
                         time: _getFormattedTime()
                     ));
                     await mainStageWorkViewModel.fetchAllStage();
+                    await mainStageWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                        SnackBar(

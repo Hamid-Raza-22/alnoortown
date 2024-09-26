@@ -175,6 +175,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
                     time: _getFormattedTime(),
                   ));
                   await lightWiresViewModel.fetchAllLight();
+                  await lightWiresViewModel.postDataFromDatabaseToAPI();
 
                   // Clear fields after submission
                   setState(() {

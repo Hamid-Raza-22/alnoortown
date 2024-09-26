@@ -142,6 +142,7 @@ class _SanitaryWorkState extends State<SanitaryWork> {
                         time: _getFormattedTime()
                     ));
                     await sanitaryWorkViewModel.fetchAllSanitary();
+                    await sanitaryWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('entry_added_successfully'.tr())),

@@ -134,6 +134,7 @@ class _MainGateGreyStructureState extends State<MainGateGreyStructure> {
                     ));
 
                     await mgGreyStructureViewModel.fetchAllMainGrey();
+                    await mgGreyStructureViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

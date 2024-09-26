@@ -168,6 +168,7 @@ class _SandCompactionState extends State<SandCompaction> {
 
                     // Fetch all sand data
                     await sandCompactionViewModel.fetchAllSand();
+                    await sandCompactionViewModel.postDataFromDatabaseToAPI();
 
                     // Show a success message
                     ScaffoldMessenger.of(context).showSnackBar(

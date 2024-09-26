@@ -132,6 +132,7 @@ class MainGatePlasterWorkState extends State<MainGatePlasterWork> {
                     ));
 
                     await mgPlasterWorkViewModel.fetchAllMgPlaster();
+                    await mgPlasterWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

@@ -139,7 +139,9 @@ class FoundationWorkState extends State<FoundationWork> {
                           time: _getFormattedTime()
                       ));
                       await foundationWorkViewModel.fetchAllFoundation();
-                    void showSnackBar(String message) {
+                      await foundationWorkViewModel.postDataFromDatabaseToAPI();
+
+                      void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                           content: Text(message),

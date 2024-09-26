@@ -91,9 +91,9 @@ class _RoadsEdgingSummaryState extends State<RoadsEdgingSummary> {
 
                 // Filter data based on the selected criteria
                 var filteredData = roadsEdgingWorkViewModel.allRoadEdging.where((entry) {
-                  final entrystart_date = entry.start_date != null ? DateTime.tryParse(entry.start_date! as String) : null;
-                  final entryEndDate = entry.expected_comp_date != null ? DateTime.tryParse(entry.expected_comp_date! as String) : null;
-
+                  // final entrystart_date = entry.start_date != null ? DateTime.tryParse(entry.start_date! as String) : null;
+                  final entrystart_date = entry.start_date;
+                  final entryEndDate = entry.expected_comp_date ;
                   bool matchesDate = true;
                   if (selectedFromDate != null && selectedToDate != null) {
                     if (entrystart_date != null && entryEndDate != null) {

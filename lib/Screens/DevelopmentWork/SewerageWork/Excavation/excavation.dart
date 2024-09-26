@@ -182,6 +182,7 @@ class ExcavationState extends State<Excavation> {
                     time: _getFormattedTime(),
                   ));
                   await excavationViewModel.fetchAllExa();
+                  await excavationViewModel.postDataFromDatabaseToAPI();
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

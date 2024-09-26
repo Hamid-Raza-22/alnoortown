@@ -152,6 +152,7 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
                     ));
 
                     await walkingTracksWorkViewModel.fetchAllWalking();
+                    await walkingTracksWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

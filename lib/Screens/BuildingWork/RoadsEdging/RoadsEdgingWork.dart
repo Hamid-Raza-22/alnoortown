@@ -174,6 +174,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
                     ));
 
                     await roadsEdgingWorkViewModel.fetchAllRoadEdging();
+                    await roadsEdgingWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

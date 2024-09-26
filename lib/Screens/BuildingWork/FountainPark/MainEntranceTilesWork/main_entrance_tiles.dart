@@ -145,6 +145,7 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
                         time: _getFormattedTime()
                     ));
                     await mainEntranceTilesWorkViewModel.fetchAllEntrance();
+                    await mainEntranceTilesWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                        SnackBar(

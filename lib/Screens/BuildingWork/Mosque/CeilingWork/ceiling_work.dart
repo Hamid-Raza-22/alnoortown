@@ -151,6 +151,8 @@ class CeilingWorkState extends State<CeilingWork> {
                       // date:
                     ));
                     await ceilingWorkWorkViewModel.fetchAllCeiling();
+                    await ceilingWorkWorkViewModel.postDataFromDatabaseToAPI();
+
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

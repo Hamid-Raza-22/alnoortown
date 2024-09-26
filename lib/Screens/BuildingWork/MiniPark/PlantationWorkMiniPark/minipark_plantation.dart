@@ -148,6 +148,7 @@ class _PlantationWorkmpState extends State<PlantationWorkmp> {
                     ));
 
                     await mpPlantationWorkViewModel.fetchAllMpPlant();
+                    await mpPlantationWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

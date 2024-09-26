@@ -145,6 +145,8 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
                         time: _getFormattedTime()
                     ));
                     await cubStonesWorkViewModel.fetchAllCubStones();
+                    await cubStonesWorkViewModel.postDataFromDatabaseToAPI();
+
                     // Define a callback to show the SnackBar
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(

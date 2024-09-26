@@ -160,6 +160,7 @@ class _BrickWorkState extends State<BrickWork> {
                   ));
 
                   await brickWorkViewModel.fetchAllBrick();
+                  await brickWorkViewModel.postDataFromDatabaseToAPI();
 
                   // Clear the fields after submission
                   setState(() {

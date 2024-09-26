@@ -145,6 +145,8 @@ class _PlantationWorkState extends State<PlantationWork> {
                         time: _getFormattedTime()
                     ));
                     await plantationWorkViewModel.fetchAllPlant();
+                    await plantationWorkViewModel.postDataFromDatabaseToAPI();
+
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
                         content: Text('entry_added_successfully'.tr()),

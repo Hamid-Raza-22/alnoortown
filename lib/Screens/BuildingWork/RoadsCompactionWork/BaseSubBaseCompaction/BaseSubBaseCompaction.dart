@@ -167,7 +167,7 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                     ));
 
                     await baseSubBaseCompactionViewModel.fetchAllSubBase();
-
+                    await baseSubBaseCompactionViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

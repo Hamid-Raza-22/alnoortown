@@ -144,6 +144,8 @@ class TilesWorkState extends State<TilesWork> {
                         time: _getFormattedTime()
                     ));
                     await tilesWorkViewModel.fetchAllTiles();
+                    await tilesWorkViewModel.postDataFromDatabaseToAPI();
+
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

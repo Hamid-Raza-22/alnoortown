@@ -133,6 +133,7 @@ class _CanopyColoumnPouringState extends State<CanopyColoumnPouring> {
                       // date:
                     ));
                     await canopyColumnPouringViewModel.fetchAllCanopy();
+                    await canopyColumnPouringViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

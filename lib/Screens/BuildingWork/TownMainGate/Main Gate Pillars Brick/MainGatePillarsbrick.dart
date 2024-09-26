@@ -133,6 +133,7 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
                     ));
 
                     await mainGatePillarWorkViewModel.fetchAllMainPillar();
+                    await mainGatePillarWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

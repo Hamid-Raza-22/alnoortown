@@ -119,6 +119,8 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                     time: _getFormattedTime(),
                   ));
 
+                   materialShiftingViewModel.fetchAllShifting();
+                   materialShiftingViewModel.postDataFromDatabaseToAPI();
                   // Fetch all shifting data after adding
                   materialShiftingViewModel.fetchAllShifting();
 
@@ -148,7 +150,6 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                 child: Text('submit'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
-
           ],
         ),
       ),

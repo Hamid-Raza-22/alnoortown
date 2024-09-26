@@ -146,6 +146,7 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                       time: _getFormattedTime()
                     ));
                     await mosqueExcavationViewModel.fetchAllMosque();
+                    await mosqueExcavationViewModel.postDataFromDatabaseToAPI();
 
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(

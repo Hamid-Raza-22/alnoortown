@@ -165,6 +165,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
                         time: _getFormattedTime()
                     ));
                     await soilCompactionViewModel.fetchAllSoil();
+                    await soilCompactionViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

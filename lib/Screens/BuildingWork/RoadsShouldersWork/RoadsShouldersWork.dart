@@ -175,6 +175,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                     ));
 
                     await roadsShoulderWorkViewModel.fetchAllRoadShoulder();
+                    await roadsShoulderWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

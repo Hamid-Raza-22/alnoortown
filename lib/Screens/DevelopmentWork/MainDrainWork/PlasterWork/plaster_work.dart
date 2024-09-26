@@ -171,6 +171,7 @@ class PlasterWorkState extends State<PlasterWork> {
                       time: _getFormattedTime()
                   ));
                   await plasterWorkViewModel.fetchAllPlaster();
+                  await plasterWorkViewModel.postDataFromDatabaseToAPI();
 
                   setState(() {
                     containerData = createInitialContainerData(); // Clear the fields

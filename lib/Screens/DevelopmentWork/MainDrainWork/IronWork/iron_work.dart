@@ -160,6 +160,7 @@ class _IronWorkState extends State<IronWork> {
 
                   // Fetch updated works
                   await ironWorkViewModel.fetchAllWorks();
+                  await ironWorkViewModel.postDataFromDatabaseToAPI();
 
                   // Clear the fields after submission
                   setState(() {
