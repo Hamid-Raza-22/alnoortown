@@ -26,7 +26,7 @@ class BlocksDetailsModels{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'block_no':block,
+      'block':block,
       'marla':marla,
       'plot_no':plot_no,
 

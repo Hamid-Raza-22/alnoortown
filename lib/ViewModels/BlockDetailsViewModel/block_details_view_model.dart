@@ -79,6 +79,7 @@ class BlockDetailsViewModel extends GetxController {
   }
   fetchAndSaveBlockDetailsData() async {
     await blockDetailsRepository.fetchAndSaveBlockDetails();
+    fetchAllBlockDetails();
   }
   addBlockDetails(BlocksDetailsModels blocksDetailsModels){
     blockDetailsRepository.add(blocksDetailsModels);

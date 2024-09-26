@@ -80,6 +80,7 @@ class RoadDetailsViewModel extends GetxController {
   }
   fetchAndSaveRoadDetailsData() async {
     await roadDetailsRepository.fetchAndSaveRoadDetails();
+    fetchAllRoadDetails();
   }
   addRoadDetails(RoadsDetailModels roadsDetailModels){
     roadDetailsRepository.add(roadsDetailModels);

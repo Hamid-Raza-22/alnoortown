@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:al_noor_town/ViewModels/LoginViewModel/login_view_model.dart';
+import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:get/get.dart' show Get, Inst;
 import 'package:http/http.dart' as http;
 import 'package:al_noor_town/Screens/signup_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,6 +23,9 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  LoginViewModel loginViewModel =Get.put(LoginViewModel());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   bool _obscureText = true;
 
   void _togglePasswordVisibility() {
@@ -26,7 +33,13 @@ class LoginPageState extends State<LoginPage> {
       _obscureText = !_obscureText;
     });
   }
-
+  @override
+  void initState() {
+    super.initState();
+    loginViewModel.fetchAndSaveLoginData();
+    roadDetailsViewModel.fetchAndSaveRoadDetailsData();
+    blockDetailsViewModel.fetchAndSaveBlockDetailsData();
+  }
 
   final storage =   FlutterSecureStorage();
 

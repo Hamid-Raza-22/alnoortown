@@ -80,6 +80,7 @@ class LoginViewModel extends GetxController {
   }
   fetchAndSaveLoginData() async {
     await loginRepository.fetchAndSaveLogin();
+    fetchAllLogin();
   }
   addLogin(LoginModels loginModels){
     loginRepository.add(loginModels);

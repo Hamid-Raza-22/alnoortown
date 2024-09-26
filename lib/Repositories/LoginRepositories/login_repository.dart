@@ -44,6 +44,7 @@ class LoginRepository{
     return login;
   }
   Future<void> fetchAndSaveLogin() async {
+   await Config.fetchLatestConfig();
     List<dynamic> data = await ApiService.getData(Config.getApiUrlLogin);
     var dbClient = await dbHelper.db;
 
