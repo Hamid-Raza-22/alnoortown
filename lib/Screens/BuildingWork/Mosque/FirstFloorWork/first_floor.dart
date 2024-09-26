@@ -138,6 +138,8 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
                         time: _getFormattedTime()
                     ));
                     await firstFloorViewModel.fetchAllFirstFloor();
+                    await firstFloorViewModel.postDataFromDatabaseToAPI();
+
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

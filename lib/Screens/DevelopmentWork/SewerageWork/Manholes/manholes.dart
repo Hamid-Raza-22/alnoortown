@@ -133,6 +133,8 @@ class _ManholesState extends State<Manholes> {
                       time: _getFormattedTime()
                   ));
                   await manholesViewModel.fetchAllWorker();
+                  await manholesViewModel.postDataFromDatabaseToAPI();
+
                   // await dbHelper.showAsphaltData();
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

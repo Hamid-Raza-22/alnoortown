@@ -157,6 +157,7 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
                     ));
 
                     await streetRoadWaterChannelViewModel.fetchAllStreetRoad();
+                    await streetRoadWaterChannelViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

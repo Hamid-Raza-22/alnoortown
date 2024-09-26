@@ -152,6 +152,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
                     ));
 
                     await sittingAreaWorkViewModel.fetchAllSitting();
+                    await sittingAreaWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

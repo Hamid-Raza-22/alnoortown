@@ -147,6 +147,7 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
                     ));
 
                     await mpFancyLightPolesViewModel.fetchAllMpFancy();
+                    await mpFancyLightPolesViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

@@ -145,6 +145,8 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
                       time: _getFormattedTime()
                     ));
                     await boundaryGrillWorkViewModel.fetchAllBoundary();
+                    await boundaryGrillWorkViewModel.postDataFromDatabaseToAPI();
+
                     // Define a callback to show the SnackBar
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(

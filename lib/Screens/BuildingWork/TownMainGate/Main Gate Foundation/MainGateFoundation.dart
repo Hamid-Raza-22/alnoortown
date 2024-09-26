@@ -134,6 +134,7 @@ class _MainGateFoundationWorkState extends State<MainGateFoundationWork> {
                     ));
 
                     await mainGateFoundationWorkViewModel.fetchAllMainFoundation();
+                    await mainGateFoundationWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

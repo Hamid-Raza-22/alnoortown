@@ -146,6 +146,7 @@ class GrassWorkState extends State<GrassWork> {
                         time: _getFormattedTime()
                     ));
                     await grassWorkViewModel.fetchAllGrass();
+                    await grassWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

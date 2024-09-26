@@ -165,6 +165,7 @@ class _CompactionAfterWaterBoundState extends State<CompactionAfterWaterBound> {
                     ));
 
                     await compactionWaterBoundViewModel.fetchAllWaterBound();
+                    await compactionWaterBoundViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

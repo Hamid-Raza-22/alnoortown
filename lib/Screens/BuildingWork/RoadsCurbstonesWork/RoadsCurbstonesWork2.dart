@@ -144,6 +144,7 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
                         time: _getFormattedTime()
                     ));
                     await roadCurbStonesWorkViewModel.fetchAllRoadCurb();
+                    await roadCurbStonesWorkViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

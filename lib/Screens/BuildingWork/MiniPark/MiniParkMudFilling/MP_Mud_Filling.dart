@@ -151,8 +151,7 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
                         time: _getFormattedTime()
                     ));
                     await miniParkMudFillingViewModel.fetchAllMpMud();
-
-
+                    await miniParkMudFillingViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

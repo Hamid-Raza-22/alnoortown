@@ -159,6 +159,8 @@ class ShutteringWorkState extends State<ShutteringWork> {
                     time: _getFormattedTime(),
                   ));
                   await shutteringWorkViewModel.fetchAllShutter();
+                  await shutteringWorkViewModel.postDataFromDatabaseToAPI();
+
                   _clearFields(); // Clear fields after submission
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(

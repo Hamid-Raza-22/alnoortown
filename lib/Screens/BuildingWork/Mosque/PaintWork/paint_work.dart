@@ -146,6 +146,8 @@ class PaintWorkState extends State<PaintWork>{
                         time: _getFormattedTime()
                     ));
                     await paintWorkViewModel.fetchAllPaint();
+                    await paintWorkViewModel.postDataFromDatabaseToAPI();
+
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

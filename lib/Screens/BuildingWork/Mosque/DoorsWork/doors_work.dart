@@ -45,32 +45,6 @@ class DoorsWorkState extends State<DoorsWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  // Load data with a unique key for Doors Work
-  // Future<void> _loadData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   String? savedData = prefs.getString('doorsWorkDataList'); // Unique key
-  //   if (savedData != null) {
-  //     setState(() {
-  //       containerDataList =
-  //       List<Map<String, dynamic>>.from(json.decode(savedData));
-  //     });
-  //   }
-  // }
-  //
-  // // Save data with a unique key for Doors Work
-  // Future<void> _saveData() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('doorsWorkDataList', json.encode(containerDataList)); // Unique key
-  // }
-  //
-  // Map<String, dynamic> createNewEntry(String? selectedBlock, String? status) {
-  //   return {
-  //     "selectedBlock": selectedBlock,
-  //     "status": status,
-  //     "timestamp": DateTime.now().toIso8601String(),
-  //   };
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -174,6 +148,8 @@ class DoorsWorkState extends State<DoorsWork> {
                       // date:
                     ));
                     await doorWorkViewModel.fetchAllDoor();
+                    await doorWorkViewModel.postDataFromDatabaseToAPI();
+
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

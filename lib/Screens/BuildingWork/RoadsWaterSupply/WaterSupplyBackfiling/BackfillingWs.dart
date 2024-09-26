@@ -173,6 +173,7 @@ class BackFillingWsState extends State<BackFillingWs> {
                         time: _getFormattedTime()
                     ));
                     await backFillingWsViewModel.fetchAllWsBackFilling();
+                    await backFillingWsViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

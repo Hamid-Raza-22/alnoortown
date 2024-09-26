@@ -148,6 +148,8 @@ class ElectricityWorkState extends State<ElectricityWork> {
                       // date:
                     ));
                     await electricityWorkViewModel.fetchAllElectricity();
+                    await electricityWorkViewModel.postDataFromDatabaseToAPI();
+
                     void showSnackBar(String message) {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

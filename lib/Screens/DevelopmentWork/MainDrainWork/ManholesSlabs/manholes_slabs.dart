@@ -136,6 +136,7 @@ class ManholesSlabsState extends State<ManholesSlabs> {
                       time: _getFormattedTime()
                   ));
                   await manHolesSlabViewModel.fetchAllMan();
+                  await manHolesSlabViewModel.postDataFromDatabaseToAPI();
 
                   // Clear the fields after submission
                   setState(() {

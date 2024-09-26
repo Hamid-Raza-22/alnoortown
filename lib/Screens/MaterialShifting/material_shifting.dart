@@ -119,6 +119,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                   ));
 
                   await materialShiftingViewModel.fetchAllShifting();
+                  await materialShiftingViewModel.postDataFromDatabaseToAPI();
 
                   setState(() {
                     // Clear the data container after submission

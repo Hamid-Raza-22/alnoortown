@@ -132,6 +132,8 @@ class _DrainExcavationState extends State<DrainExcavation> {
                         ));
 
                     await mainDrainExcavationViewModel.fetchAllDrain();
+                    await mainDrainExcavationViewModel.postDataFromDatabaseToAPI();
+
                   }
 
                   // Clear all fields

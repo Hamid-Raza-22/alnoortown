@@ -127,6 +127,8 @@ class _PipelyingState extends State<Pipelying> {
                       time: _getFormattedTime()
                   ));
                   await pipelineViewModel.fetchAllPipe();
+                  await pipelineViewModel.postDataFromDatabaseToAPI();
+
                   // await dbHelper.showAsphaltData();
 
                   ScaffoldMessenger.of(context).showSnackBar(

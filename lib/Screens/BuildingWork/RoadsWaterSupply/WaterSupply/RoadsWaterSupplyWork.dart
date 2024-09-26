@@ -15,7 +15,7 @@ class RoadsWaterSupplyWork extends StatefulWidget {
 
 
 class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
-  RoadsWaterSupplyViewModel waterFirstViewModel = Get.put(RoadsWaterSupplyViewModel());
+  RoadsWaterSupplyViewModel roadsWaterSupplyViewModel = Get.put(RoadsWaterSupplyViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController road_noController = TextEditingController();
@@ -164,7 +164,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                       selectedBlock != null &&
                       selectedroad_side != null && // Check if Road Side is selected
                       selectedStatus != null) {
-                    await waterFirstViewModel.addRoadsWaterSupply(RoadsWaterSupplyModel(
+                    await roadsWaterSupplyViewModel.addRoadsWaterSupply(RoadsWaterSupplyModel(
                         block_no: selectedBlock,
                         road_no: road_noController.text,
                         total_length: total_lengthController.text,
@@ -175,7 +175,8 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                         date: _getFormattedDate(),
                         time: _getFormattedTime()
                     ));
-                    await waterFirstViewModel.fetchAllRoadWaterSupply();
+                    await roadsWaterSupplyViewModel.fetchAllRoadWaterSupply();
+                    await roadsWaterSupplyViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

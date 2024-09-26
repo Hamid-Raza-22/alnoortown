@@ -153,6 +153,7 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
                     ));
 
                     await roadsSignBoardsViewModel.fetchAllRoadsSignBoard();
+                    await roadsSignBoardsViewModel.postDataFromDatabaseToAPI();
 
                     ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
