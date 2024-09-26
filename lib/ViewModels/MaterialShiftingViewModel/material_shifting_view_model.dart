@@ -1,4 +1,3 @@
-
 import 'package:al_noor_town/Models/MaterialShiftingModels/shifting_work_model.dart';
 import 'package:al_noor_town/Repositories/MaterialShiftingRepositories/shifting_work_repository.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
@@ -6,33 +5,28 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'dart:convert';
-class MaterialShiftingViewModel extends GetxController {
 
+class MaterialShiftingViewModel extends GetxController {
   var allShifting = <ShiftingWorkModel>[].obs;
+  var filteredShifting = <ShiftingWorkModel>[].obs; // For filtered results
   ShiftingWorkRepository shiftingWorkRepository = ShiftingWorkRepository();
 
   @override
-  void onInit(){
-    // TODO: implement onInit
+  void onInit() {
     super.onInit();
-    //fetchAllShifting ();
+    fetchAllShifting();
   }
+
   Future<void> postDataFromDatabaseToAPI() async {
     try {
-      // Step 1: Fetch machines that haven't been posted yet
       var unPostedMaterialShifting = await shiftingWorkRepository.getUnPostedShiftingWork();
 
       for (var materialShifting in unPostedMaterialShifting) {
         try {
-          // Step 2: Attempt to post the data to the API
           await postMaterialShiftingToAPI(materialShifting);
 
-          // Step 3: If successful, update the posted status in the local database
           materialShifting.posted = 1;
           await shiftingWorkRepository.update(materialShifting);
-
-          // Optionally, delete the machine from the local database after posting
-          // await machineRepository.delete(machine.id);
 
           if (kDebugMode) {
             print('MaterialShifting with id ${materialShifting.id} posted and updated in local database.');
@@ -41,7 +35,6 @@ class MaterialShiftingViewModel extends GetxController {
           if (kDebugMode) {
             print('Failed to post MaterialShifting with id ${materialShifting.id}: $e');
           }
-          // Handle any errors (e.g., server down, network issues)
         }
       }
     } catch (e) {
@@ -51,19 +44,18 @@ class MaterialShiftingViewModel extends GetxController {
     }
   }
 
-  // Function to post data to the API
   Future<void> postMaterialShiftingToAPI(ShiftingWorkModel shiftingWorkModel) async {
     try {
       await Config.fetchLatestConfig();
       print('Updated MaterialShifting Post API: ${Config.postApiUrlShiftingWork}');
-      var shiftingWorkModelData = shiftingWorkModel.toMap(); // Converts MachineModel to JSON
+      var shiftingWorkModelData = shiftingWorkModel.toMap();
       final response = await http.post(
         Uri.parse(Config.postApiUrlShiftingWork),
         headers: {
-          "Content-Type": "application/json",  // Set the request content type to JSON
+          "Content-Type": "application/json",
           "Accept": "application/json",
         },
-        body: jsonEncode(shiftingWorkModelData),  // Encode the map as JSON
+        body: jsonEncode(shiftingWorkModelData),
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
@@ -77,28 +69,49 @@ class MaterialShiftingViewModel extends GetxController {
     }
   }
 
-  fetchAllShifting() async{
+  Future<void> fetchAllShifting() async {
     var shift = await shiftingWorkRepository.getShiftingWork();
-    allShifting .value = shift;
-
+    allShifting.value = shift;
+    filteredShifting.value = shift; // Initially, both lists are the same
   }
-  fetchAndSaveMaterialShiftingData() async {
+
+  Future<void> fetchAndSaveMaterialShiftingData() async {
     await shiftingWorkRepository.fetchAndSaveShiftingWorkData();
   }
-  addShift(ShiftingWorkModel shiftingWorkModel){
+
+  void addShift(ShiftingWorkModel shiftingWorkModel) {
     shiftingWorkRepository.add(shiftingWorkModel);
-    //fetchAllShifting();
   }
 
-  updateShift(ShiftingWorkModel shiftingWorkModel){
+  void updateShift(ShiftingWorkModel shiftingWorkModel) {
     shiftingWorkRepository.update(shiftingWorkModel);
     fetchAllShifting();
   }
 
-  deleteShift(int id){
+  void deleteShift(int id) {
     shiftingWorkRepository.delete(id);
     fetchAllShifting();
   }
 
-}
+  // New method to filter data
+  void filterData(DateTime? fromDate, DateTime? toDate, String? block) {
+    filteredShifting.clear();
 
+    // Filter logic
+    filteredShifting.addAll(allShifting.where((entry) {
+      bool matchesDate = true;
+      if (fromDate != null) {
+        matchesDate = matchesDate && entry.date!.isAfter(fromDate.subtract(Duration(days: 1)));
+      }
+      if (toDate != null) {
+        matchesDate = matchesDate && entry.date!.isBefore(toDate.add(Duration(days: 1)));
+      }
+
+      bool matchesBlock = block == null ||
+          entry.from_block!.contains(block) ||
+          entry.to_block!.contains(block);
+
+      return matchesDate && matchesBlock;
+    }));
+  }
+}

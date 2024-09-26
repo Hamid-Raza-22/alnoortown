@@ -1,21 +1,15 @@
 import 'package:al_noor_town/ViewModels/MaterialShiftingViewModel/material_shifting_view_model.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart';
+import '../ReusableDesigns/filter_widget.dart';
 
 class MaterialShiftingSummaryPage extends StatelessWidget {
-  final MaterialShiftingViewModel materialShiftingViewModel= Get.put(MaterialShiftingViewModel());
-  final List<Map<String, String>> machineDataList = [
-    {"from_block": "Block A", "to_block": "Block B", "no_of_shift": "5"},
-    {"from_block": "Block C", "to_block": "Block D", "no_of_shift": "3"},
-    {"from_block": "Block E", "to_block": "Block F", "no_of_shift": "7"},
-    {"from_block": "Block G", "to_block": "Block H", "no_of_shift": "2"},
-  ];
+  final MaterialShiftingViewModel materialShiftingViewModel = Get.put(MaterialShiftingViewModel());
 
   MaterialShiftingSummaryPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -36,87 +30,115 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Obx(() {
-          if (materialShiftingViewModel.allShifting.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/nodata.png', // Replace with your image path
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                  const SizedBox(height: 16),
-                  const Text(
-                    'No data available',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          return GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5, // 3 columns for headers + data
-              crossAxisSpacing: 8.0,
-              mainAxisSpacing: 8.0,
-              childAspectRatio: 3.0, // Adjust aspect ratio for better visibility
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            // Filter Widget
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                // Call the filter method in your ViewModel
+                materialShiftingViewModel.filterData(fromDate, toDate, block);
+              },
             ),
-            itemCount: materialShiftingViewModel.allShifting.length * 5 + 5,
-            // Number of data items + headers
-            itemBuilder: (context, index) {
-              if (index < 5) {
-                // Header Row
-                return Container(
-                  color: const Color(0xFFC69840),
-                  alignment: Alignment.center,
-                  child: Text(
-                    ['From Block', 'To Block', 'Shifts','date','time'][index],
-                    style: const TextStyle(color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 14.0),
+            const SizedBox(height: 16), // Spacing between filter and grid
+            Obx(() {
+              // Use filteredShifting for displaying results
+              var displayList = materialShiftingViewModel.filteredShifting.isNotEmpty
+                  ? materialShiftingViewModel.filteredShifting
+                  : materialShiftingViewModel.allShifting;
+
+              if (displayList.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/nodata.png', // Replace with your image path
+                        width: 200,
+                        height: 200,
+                        fit: BoxFit.cover,
+                      ),
+                      const SizedBox(height: 16),
+                      const Text(
+                        'No data available',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 );
-              } else {
-                final entryIndex = (index - 5) ~/ 5;
-                final columnIndex = (index - 5) % 5;
-
-                if (entryIndex < materialShiftingViewModel.allShifting.length) {
-                  final entry = materialShiftingViewModel.allShifting[entryIndex];
-                  final data = [
-                    entry.from_block ?? 'N/A',
-                    entry.to_block ?? 'N/A',
-                    entry.no_of_shift ?? 'N/A',
-                    entry.date ?? 'N/A',
-                    entry.time ?? 'N/A'
-                  ];
-
-                  return Container(
-                    padding: const EdgeInsets.all(8.0),
-                    color: columnIndex % 2 == 0 ? Colors.white : const Color(
-                        0xFFEFEFEF),
-                    alignment: Alignment.center,
-                    child: Text(
-                      data[columnIndex],
-                      style: const TextStyle(fontSize: 14.0),
-                      overflow: TextOverflow.ellipsis, // Handle overflow
-                      maxLines: 1, // Limit to one line
-                    ),
-                  );
-                }
-                return Container(); // Empty container for extra items
               }
-            },
-          );
-        }),
+
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Column(
+                  children: [
+                    // Header Row
+                    Row(
+                      children: [
+                        buildHeaderCell('From Block'),
+                        buildHeaderCell('To Block'),
+                        buildHeaderCell('Shifts'),
+                        buildHeaderCell('Date'),
+                        buildHeaderCell('Time'),
+                      ],
+                    ),
+                    const SizedBox(height: 10),
+                    // Data Rows
+                    ...displayList.map((entry) {
+                      return Row(
+                        children: [
+                          buildDataCell(entry.from_block ?? 'N/A'),
+                          buildDataCell(entry.to_block ?? 'N/A'),
+                          buildDataCell(entry.no_of_shift ?? 'N/A'),
+                          buildDataCell(entry.date ?? 'N/A'),
+                          buildDataCell(entry.time ?? 'N/A'),
+                        ],
+                      );
+                    }),
+                  ],
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Helper to build header cells
+  Widget buildHeaderCell(String text) {
+    return Container(
+      width: 120, // Adjust as needed
+      padding: const EdgeInsets.all(8.0),
+      color: const Color(0xFFC69840),
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: const TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+          fontSize: 14,
+        ),
+      ),
+    );
+  }
+
+  // Helper to build data cells
+  Widget buildDataCell(String text) {
+    return Container(
+      width: 120,
+      padding: const EdgeInsets.all(8.0),
+      color: Colors.white,
+      alignment: Alignment.center,
+      child: Text(
+        text,
+        style: const TextStyle(fontSize: 14.0),
+        overflow: TextOverflow.ellipsis,
+        maxLines: 1,
       ),
     );
   }

@@ -104,12 +104,13 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
-                onPressed: () async {
+                onPressed: () {
                   final from_block = containerData["selectedBlock"];
                   final to_block = containerData["selectedStreet"];
                   final no_of_shift = containerData["selectedShifting"];
 
-                  await materialShiftingViewModel.addShift(ShiftingWorkModel(
+                  // Call addShift without await since it's a void function
+                  materialShiftingViewModel.addShift(ShiftingWorkModel(
                     id: shiftId,
                     from_block: from_block,
                     to_block: to_block,
@@ -118,7 +119,8 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                     time: _getFormattedTime(),
                   ));
 
-                  await materialShiftingViewModel.fetchAllShifting();
+                  // Fetch all shifting data after adding
+                  materialShiftingViewModel.fetchAllShifting();
 
                   setState(() {
                     // Clear the data container after submission
@@ -146,6 +148,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                 child: Text('submit'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
+
           ],
         ),
       ),
