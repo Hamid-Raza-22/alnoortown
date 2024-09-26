@@ -18,7 +18,7 @@ class MainGatePillarWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePillarsBrickWorkMainGate,
-        columns:  ['id', 'block_no', 'workStatus','main_gate_pillar_date','time','posted']
+        columns:  ['id', 'block_no', 'work_status','main_gate_pillar_date','time','posted']
     );
 
     // Print the raw data retrieved from the database
