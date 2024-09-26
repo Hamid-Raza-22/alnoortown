@@ -18,6 +18,34 @@ class SanitaryWorkViewModel extends GetxController {
     super.onInit();
 
   }
+  void applyFilter(DateTime? fromDate, DateTime? toDate, String? block) {
+    var filteredList = <SanitaryWorkModel>[];
+
+    for (var sanitary in allSanitary) {
+      bool matches = true;
+
+      // Filter by date range
+      if (fromDate != null && sanitary.date.isBefore(fromDate)) {
+        matches = false;
+      }
+      if (toDate != null && sanitary.date.isAfter(toDate)) {
+        matches = false;
+      }
+
+      // Filter by block if specified
+      if (block != null && block.isNotEmpty && sanitary.block_no != block) {
+        matches = false;
+      }
+
+      if (matches) {
+        filteredList.add(sanitary);
+      }
+    }
+
+    // Update the observable list with the filtered results
+    allSanitary.value = filteredList;
+  }
+
   Future<void> postDataFromDatabaseToAPI() async {
     try {
       // Step 1: Fetch machines that haven't been posted yet

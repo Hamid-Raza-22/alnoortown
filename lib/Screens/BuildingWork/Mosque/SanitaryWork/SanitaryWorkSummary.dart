@@ -4,11 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 
+import '../../../ReusableDesigns/filter_widget.dart';
+
 class SanitaryWorkSummary extends StatelessWidget {
   final SanitaryWorkViewModel sanitaryWorkViewModel = Get.put(SanitaryWorkViewModel());
-  // final List<Map<String, dynamic>> containerDataList;
-  //
-  // SanitaryWorkSummary({super.key, required this.containerDataList});
+
+  // Callback function for filtering
+  void _applyFilter(DateTime? fromDate, DateTime? toDate, String? block) {
+    // You can implement your filter logic here
+    sanitaryWorkViewModel.applyFilter(fromDate, toDate, block);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +22,12 @@ class SanitaryWorkSummary extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon:   Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon: Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title:   Text(
+        title: Text(
           'sanitary_work_summary'.tr(),
           style: TextStyle(
             fontSize: 18,
@@ -33,15 +38,18 @@ class SanitaryWorkSummary extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding:   EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+            // Add the FilterWidget here
+            FilterWidget(onFilter: _applyFilter),  // Add this line
+
             // Table Header
             Container(
-              color:   Color(0xFFC69840),
+              color: Color(0xFFC69840),
               child: Padding(
-                padding:   EdgeInsets.symmetric(vertical: 12.0),
+                padding: EdgeInsets.symmetric(vertical: 12.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -53,7 +61,7 @@ class SanitaryWorkSummary extends StatelessWidget {
                 ),
               ),
             ),
-              SizedBox(height: 8),
+            SizedBox(height: 8),
             // Data Grid
             Expanded(
               child: Obx(() {
@@ -81,7 +89,7 @@ class SanitaryWorkSummary extends StatelessWidget {
     return Center(
       child: Text(
         title,
-        style:   TextStyle(
+        style: TextStyle(
           color: Colors.white,
           fontWeight: FontWeight.bold,
           fontSize: 16,
@@ -92,14 +100,14 @@ class SanitaryWorkSummary extends StatelessWidget {
 
   Widget _buildDataRow(Map<String, dynamic> data) {
     return Container(
-      margin:   EdgeInsets.only(bottom: 8.0),
+      margin: EdgeInsets.only(bottom: 8.0),
       decoration: BoxDecoration(
-        border: Border.all(color:   Color(0xFFC69840), width: 1.0),
+        border: Border.all(color: Color(0xFFC69840), width: 1.0),
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
       ),
       child: Padding(
-        padding:   EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
+        padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
@@ -117,12 +125,11 @@ class SanitaryWorkSummary extends StatelessWidget {
     return Center(
       child: Text(
         text ?? "N/A",
-        style:   TextStyle(
+        style: TextStyle(
           fontSize: 14,
           color: Color(0xFFC69840),
         ),
       ),
     );
   }
-
 }
