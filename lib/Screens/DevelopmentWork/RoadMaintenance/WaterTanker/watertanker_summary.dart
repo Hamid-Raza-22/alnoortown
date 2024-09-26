@@ -10,7 +10,7 @@ class WaterTankerSummary extends StatefulWidget {
 }
 
 class _WaterTankerSummaryState extends State<WaterTankerSummary> {
- WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
+  WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
   DateTime? _fromDate;
   DateTime? _toDate;
   String? _block;
@@ -26,8 +26,6 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
     final mediaQuery = MediaQuery.of(context);
     final isPortrait = mediaQuery.orientation == Orientation.portrait;
 
-   // waterTankerViewModel.fetchAndSaveTankerData();
-    waterTankerViewModel.fetchAllTanker();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -41,15 +39,16 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
         title: Text(
           'Water Tanker Summary',
           style: TextStyle(
-              fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+              fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // Add the FilterWidget here
+            // Filter Widget
             FilterWidget(
               onFilter: (fromDate, toDate, block) {
                 setState(() {
@@ -61,12 +60,34 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
             ),
             const SizedBox(height: 16),
 
+            // Data headers
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+              decoration: BoxDecoration(
+                color: const Color(0xFFC69840),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(flex: 2, child: _buildHeaderText('block_no'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('street_no'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('no_of_tankers'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('date'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('time'.tr())),
+                ],
+              ),
+            ),
+            const SizedBox(height: 8),
+
+            // Filtered Data List
             Expanded(
               child: Obx(() {
                 // Filter data based on selected criteria
                 final filteredData = waterTankerViewModel.allTanker.where((entry) {
-                  // Filter by block
-                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
+                  // Filter by block with null safety
+                  final blockMatch = _block == null ||
+                      (entry.block_no?.toLowerCase() ?? '').contains(_block!.toLowerCase());
 
                   // Parse date and check if it falls in the range
                   DateTime? entryDate;
@@ -106,107 +127,35 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
                   );
                 }
 
-                return GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 5,
-                    crossAxisSpacing: 1.0,
-                    mainAxisSpacing: 1.0,
-                    childAspectRatio: 3.0,
-                  ),
-                  itemCount: filteredData.length * 5 + 5,
+                // Scrollable list of filtered data
+                return ListView.builder(
+                  itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    if (index < 5) {
-                      return Container(
-                        color: const Color(0xFFC69840),
-                        alignment: Alignment.center,
-                        child: Text(
-                          [
-                            'block_no'.tr(),
-                            'street_no'.tr(),
-                            'no_of_tankers'.tr(),
-                            'date'.tr(),
-                            'time'.tr()
-                          ][index],
-                          style: const TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                    final entry = filteredData[index];
+                    return GestureDetector(
+                      onTap: () {
+                        _showTankerDetailsDialog(context, entry);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+                        margin: const EdgeInsets.only(bottom: 8.0),
+                        decoration: BoxDecoration(
+                          color: index % 2 == 0 ? Colors.white : const Color(0xFFF5F5F5),
+                          borderRadius: BorderRadius.circular(8.0),
+                          border: Border.all(color: Colors.grey.shade300),
                         ),
-                      );
-                    } else {
-                      final entryIndex = (index - 5) ~/ 5;
-                      final column = (index - 5) % 5;
-                      if (entryIndex < filteredData.length) {
-                        final entry = filteredData[entryIndex];
-                        final data = [
-                          entry.block_no ?? 'N/A',
-                          entry.street_no ?? 'N/A',
-                          entry.tanker_no ?? 'N/A',
-                          entry.date ?? 'N/A',
-                          entry.time ?? 'N/A'
-                        ];
-                        return GestureDetector(
-                          onTap: () {
-                            if (column == 0) {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    title: Text(
-                                      'Tanker Details | ${data[0]}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold, fontSize: 18),
-                                    ),
-                                    content: SingleChildScrollView(
-                                      child: ListBody(
-                                        children: [
-                                          Text(
-                                            'Street No.: ${data[1]}',
-                                            style: const TextStyle(fontSize: 16),
-                                          ),
-                                          Text(
-                                            'No. of Tankers: ${data[2]}',
-                                            style: const TextStyle(fontSize: 16),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    actions: [
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          foregroundColor: Colors.white,
-                                          backgroundColor: const Color(0xFFC69840),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(10),
-                                          ),
-                                        ),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text('close'.tr()),
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(8.0),
-                            color: column % 2 == 0 ? Colors.white : const Color(0xFFEFEFEF),
-                            alignment: Alignment.center,
-                            child: Text(
-                              data[column],
-                              style: const TextStyle(fontSize: 12.0),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                          ),
-                        );
-                      }
-                      return Container(); // Empty container for extra items
-                    }
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(flex: 2, child: _buildDataText(entry.block_no ?? 'N/A')),
+                            Expanded(flex: 2, child: _buildDataText(entry.street_no ?? 'N/A')),
+                            Expanded(flex: 2, child: _buildDataText(entry.tanker_no ?? 'N/A')),
+                            Expanded(flex: 2, child: _buildDataText(entry.date ?? 'N/A')),
+                            Expanded(flex: 2, child: _buildDataText(entry.time ?? 'N/A')),
+                          ],
+                        ),
+                      ),
+                    );
                   },
                 );
               }),
@@ -216,4 +165,61 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
       ),
     );
   }
+
+  Widget _buildHeaderText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Widget _buildDataText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 14),
+      textAlign: TextAlign.center,
+    );
+  }
+
+  void _showTankerDetailsDialog(BuildContext context, var entry) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          title: Text(
+            'Tanker Details | ${entry.block_no ?? 'N/A'}',
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text('Street No.: ${entry.street_no ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
+                Text('No. of Tankers: ${entry.tanker_no ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: const Color(0xFFC69840),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('close'.tr()),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 }
