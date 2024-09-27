@@ -102,4 +102,3 @@ class RoadsSignBoardsViewModel extends GetxController {
   }
 
 }
-

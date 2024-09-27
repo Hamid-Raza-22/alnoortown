@@ -5,8 +5,8 @@ import 'package:get/get.dart' show Get,Inst ,Obx;
 
 
 class RoadSignBoardSummary extends StatelessWidget {
-RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
-    RoadSignBoardSummary({super.key});
+  RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
+  RoadSignBoardSummary({super.key});
 
   @override
   Widget build(BuildContext context) {
