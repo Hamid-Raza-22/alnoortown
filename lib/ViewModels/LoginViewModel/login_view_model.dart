@@ -76,7 +76,6 @@ class LoginViewModel extends GetxController {
   fetchAllLogin() async{
     var login = await loginRepository.getLogin();
     allLogin.value = login;
-
   }
   fetchAndSaveLoginData() async {
     await loginRepository.fetchAndSaveLogin();
@@ -84,7 +83,6 @@ class LoginViewModel extends GetxController {
   }
   addLogin(LoginModels loginModels){
     loginRepository.add(loginModels);
-    //fetchAllLight();
   }
 
   updateLogin(LoginModels loginModels){

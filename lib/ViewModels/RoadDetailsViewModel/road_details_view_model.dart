@@ -1,4 +1,3 @@
-import 'package:al_noor_town/Models/BlocksDetailsModels/blocks_details_models.dart';
 import 'package:al_noor_town/Models/RoadsDetailModels/roads_detail_models.dart';
 import 'package:al_noor_town/Repositories/RoadDetailsRepositories/road_details_repository.dart';
 import 'package:get/get.dart';
