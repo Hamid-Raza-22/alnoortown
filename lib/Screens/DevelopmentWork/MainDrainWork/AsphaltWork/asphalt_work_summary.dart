@@ -1,20 +1,29 @@
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/asphalt_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get,Inst ,Obx;
+import 'package:get/get.dart' show Get, Inst, Obx;
 
-class AsphaltWorkSummary extends StatelessWidget {
-  final AsphaltWorkViewModel asphaltWorkViewModel = Get.put(AsphaltWorkViewModel());
-  void initState() => asphaltWorkViewModel.fetchAllAsphalt();
+import '../../../ReusableDesigns/filter_widget.dart';
 
-  final List<Map<String, dynamic>> backfillingDataList = [
-    {"block_no": "Block A", "street_no": "Street 1", "Ton No.": "2", "Status": "Done", "date": "01 Sep 2024", "time": "10:00 AM"},
-    {"block_no": "Block B", "street_no": "Street 2", "Ton No.": "7","Status": "In Process", "date": "03 Sep 2024", "time": "11:00 AM"},
-    {"block_no": "Block C", "street_no": "Street 3", "Ton No.": "2", "Status": "Done","date": "07 Sep 2024", "time": "12:00 PM"},
-    {"block_no": "Block D", "street_no": "Street 4", "Ton No.": "1", "Status": "In Process","date": "09 Sep 2024", "time": "01:00 PM"},
-  ];
-
+class AsphaltWorkSummary extends StatefulWidget {
   AsphaltWorkSummary({super.key});
+
+  @override
+  _AsphaltWorkSummaryState createState() => _AsphaltWorkSummaryState();
+}
+
+class _AsphaltWorkSummaryState extends State<AsphaltWorkSummary> {
+  final AsphaltWorkViewModel asphaltWorkViewModel = Get.put(AsphaltWorkViewModel());
+
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
+
+  @override
+  void initState() {
+    super.initState();
+    asphaltWorkViewModel.fetchAllAsphalt();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,63 +52,102 @@ class AsphaltWorkSummary extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.all(isPortrait ? 16.0 : 24.0),
-        child: Obx(() {
-          // Use Obx to rebuild when the data changes
-          if (asphaltWorkViewModel.allAsphalt.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/nodata.png',
-                    width: 200,
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(height: 16),
-                  Text(
-                    'No data available',
-                    style: TextStyle(
-                        color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Column(
-              children: [
-                // Header row
-                Row(
-                  children: [
-                    buildHeaderCell('Block No.'),
-                    buildHeaderCell('Street No.'),
-                    buildHeaderCell('Ton No.'),
-                    buildHeaderCell('Status'),
-                    buildHeaderCell('Date'),
-                    buildHeaderCell('Time'),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                // Data rows
-                ...asphaltWorkViewModel.allAsphalt.map((entry) {
-                  return Row(
-                    children: [
-                      buildDataCell(entry.block_no ?? 'N/A'),
-                      buildDataCell(entry.street_no ?? 'N/A'),
-                      buildDataCell(entry.no_of_tons ?? 'N/A'),
-                      buildDataCell(entry.back_filling_status ?? 'N/A'),
-                      buildDataCell(entry.date ?? 'N/A'),
-                      buildDataCell(entry.time ?? 'N/A'),
-                    ],
-                  );
-                }),
-              ],
+        child: Column(
+          children: [
+            // Add the FilterWidget here
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
             ),
-          );
-        }),
+            const SizedBox(height: 16),
+
+            // Data grid
+            Expanded(
+              child: Obx(() {
+                // Filter data based on selected criteria
+                final filteredData = asphaltWorkViewModel.allAsphalt.where((entry) {
+                  // Filter by block
+                  final blockMatch = _block == null || entry.block_no.toLowerCase().contains(_block!.toLowerCase());
+
+                  // Parse date and check if it falls in the range
+                  DateTime? entryDate;
+                  try {
+                    entryDate = DateTime.parse(entry.date); // Assuming date is a string
+                  } catch (e) {
+                    entryDate = null;
+                  }
+
+                  final dateMatch = (entryDate == null) ||
+                      (_fromDate == null || entryDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || entryDate.isBefore(_toDate!));
+
+                  return blockMatch && dateMatch;
+                }).toList();
+
+                // Show "No data available" if the list is empty
+                if (filteredData.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Column(
+                    children: [
+                      // Header row
+                      Row(
+                        children: [
+                          buildHeaderCell('Block No.'),
+                          buildHeaderCell('Street No.'),
+                          buildHeaderCell('Ton No.'),
+                          buildHeaderCell('Status'),
+                          buildHeaderCell('Date'),
+                          buildHeaderCell('Time'),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      // Data rows
+                      ...filteredData.map((entry) {
+                        return Row(
+                          children: [
+                            buildDataCell(entry.block_no ?? 'N/A'),
+                            buildDataCell(entry.street_no ?? 'N/A'),
+                            buildDataCell(entry.no_of_tons ?? 'N/A'),
+                            buildDataCell(entry.back_filling_status ?? 'N/A'),
+                            buildDataCell(entry.date ?? 'N/A'),
+                            buildDataCell(entry.time ?? 'N/A'),
+                          ],
+                        );
+                      }),
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
       ),
     );
   }

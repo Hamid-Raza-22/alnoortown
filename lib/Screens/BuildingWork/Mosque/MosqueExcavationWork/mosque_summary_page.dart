@@ -16,8 +16,6 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
   DateTime? toDate;
   String? block;
 
-  String? errorMessage; // For showing no data available
-
   void _applyFilter(DateTime? fromDate, DateTime? toDate, String? block) {
     setState(() {
       this.fromDate = fromDate;
@@ -51,6 +49,48 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
       body: Column(
         children: [
           FilterWidget(onFilter: _applyFilter),
+          const SizedBox(height: 10), // Add spacing
+          // Column headers
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Text(
+                  'Block No.',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0xFFC69840),
+                  ),
+                ),
+                Text(
+                  'Status',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0xFFC69840),
+                  ),
+                ),
+                Text(
+                  'Date',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0xFFC69840),
+                  ),
+                ),
+                Text(
+                  'Time',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: Color(0xFFC69840),
+                  ),
+                ),
+              ],
+            ),
+          ),
           Expanded(
             child: Obx(() {
               final filteredData = mosqueViewModel.allMosque.where((data) {
@@ -71,8 +111,8 @@ class _MosqueSummaryPageState extends State<MosqueSummaryPage> {
                         height: 200,
                         fit: BoxFit.cover,
                       ),
-                      SizedBox(height: 16),
-                      Text(
+                      const SizedBox(height: 16),
+                      const Text(
                         'No data available',
                         style: TextStyle(
                             color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
