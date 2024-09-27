@@ -100,5 +100,4 @@ class RoadsSignBoardsViewModel extends GetxController {
     roadsSignBoardsRepository.delete(id);
     fetchAllRoadsSignBoard();
   }
-
 }
