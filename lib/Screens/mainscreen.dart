@@ -10,8 +10,8 @@ class MainScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Menu(), // Replace with your actual DrawerScreen
-          HomePage(), // Replace with your actual HomeScreen
+          Menu(),
+          HomePage(),
         ],
       ),
     );

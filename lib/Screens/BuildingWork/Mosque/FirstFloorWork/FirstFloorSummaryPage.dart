@@ -2,18 +2,18 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/first_floor
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
+import '../../../ReusableDesigns/filter_widget.dart';
 
 class FirstFloorSummaryPage extends StatefulWidget {
-
-
-  FirstFloorSummaryPage({super.key});
-
   @override
-  State<FirstFloorSummaryPage> createState() => _FirstFloorSummaryPageState();
+  _FirstFloorSummaryPageState createState() => _FirstFloorSummaryPageState();
 }
 
 class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
   final FirstFloorViewModel firstFloorViewModel = Get.put(FirstFloorViewModel());
+  DateTime? _fromDate;
+  DateTime? _toDate;
+  String? _block;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
         title: Text(
           'first_floor_summary'.tr(),
           style: TextStyle(
-            fontSize: 18,
+            fontSize: 16,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
           ),
@@ -38,33 +38,76 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 4),
-            // Data Grid
+            // Filter Widget
+            FilterWidget(
+              onFilter: (fromDate, toDate, block) {
+                setState(() {
+                  _fromDate = fromDate;
+                  _toDate = toDate;
+                  _block = block;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+
+            // Data headers
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+              decoration: BoxDecoration(
+                color: const Color(0xFFC69840),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(flex: 2, child: _buildHeaderText('block_no'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('brick_work'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('mud_filling_work'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('plaster_work'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('date'.tr())),
+                  Expanded(flex: 2, child: _buildHeaderText('time'.tr())),
+                ],
+              ),
+            ),
+            const SizedBox(height: 4),
             Expanded(
               child: Obx(() {
-                if (firstFloorViewModel.allFirstFloor.isEmpty) {
+                final filteredData = firstFloorViewModel.allFirstFloor.where((entry) {
+                  // Filter logic for block and date range
+                  final blockMatch = _block == null ||
+                      (entry.block_no?.toLowerCase() ?? '').contains(_block!.toLowerCase());
+                  DateTime? entryDate;
+                  try {
+                    entryDate = DateTime.parse(entry.date);
+                  } catch (e) {
+                    entryDate = null;
+                  }
+                  final dateMatch = (entryDate == null) ||
+                      (_fromDate == null || entryDate.isAfter(_fromDate!)) &&
+                          (_toDate == null || entryDate.isBefore(_toDate!));
+                  return blockMatch && dateMatch;
+                }).toList();
+
+                if (filteredData.isEmpty) {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                          'assets/images/nodata.png', // Replace with your image path
+                          'assets/images/nodata.png',
                           width: 200,
                           height: 200,
                           fit: BoxFit.cover,
                         ),
-                        SizedBox(height: 16),
-                        Text(
+                        const SizedBox(height: 16),
+                        const Text(
                           'No data available',
                           style: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Colors.grey, fontSize: 16, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -72,17 +115,29 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
                 }
 
                 return ListView.builder(
-                  itemCount: firstFloorViewModel.allFirstFloor.length,
+                  itemCount: filteredData.length,
                   itemBuilder: (context, index) {
-                    final data = firstFloorViewModel.allFirstFloor[index];
-                    return _buildDataRow({
-                      "selectedBlock": data.block_no,
-                      "brickWorkStatus": data.brick_work,
-                      "mudFillingStatus": data.mud_filling,
-                      "plasterWorkStatus": data.plaster_work,
-                      "date": data.date,
-                      "time": data.time
-                    });
+                    final data = filteredData[index];
+                    return Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+                      margin: const EdgeInsets.only(bottom: 8.0),
+                      decoration: BoxDecoration(
+                        color: index % 2 == 0 ? Colors.white : const Color(0xFFF5F5F5),
+                        borderRadius: BorderRadius.circular(8.0),
+                        border: Border.all(color: Colors.grey.shade300),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(flex: 2, child: _buildDataText(data.block_no ?? 'N/A')),
+                          Expanded(flex: 2, child: _buildDataText(data.brick_work ?? 'N/A')),
+                          Expanded(flex: 2, child: _buildDataText(data.mud_filling ?? 'N/A')),
+                          Expanded(flex: 2, child: _buildDataText(data.plaster_work ?? 'N/A')),
+                          Expanded(flex: 2, child: _buildDataText(data.date ?? 'N/A')),
+                          Expanded(flex: 2, child: _buildDataText(data.time ?? 'N/A')),
+                        ],
+                      ),
+                    );
                   },
                 );
               }),
@@ -93,74 +148,19 @@ class _FirstFloorSummaryPageState extends State<FirstFloorSummaryPage> {
     );
   }
 
-  Widget _buildHeaderCell(String title) {
-    return Center(
-      child: Text(
-        title,
-        style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-          fontSize: 14,
-        ),
-      ),
+  Widget _buildHeaderText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11),
+      textAlign: TextAlign.center,
     );
   }
 
-  Widget _buildDataRow(Map<String, dynamic> data) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 8.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Color(0xFFC69840), width: 1.0),
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
-      ),
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
-        child: Column(
-          children: [
-            _buildDataCell('block_no'.tr(), data["selectedBlock"] ?? "N/A"),
-            Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell('brick_work'.tr(), data["brickWorkStatus"] ?? "N/A"),
-            Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell('mud_filling_work'.tr(), data["mudFillingStatus"] ?? "N/A"),
-            Divider(color: Color(0xFFC69840), thickness: 1.0),
-            _buildDataCell('plaster_work'.tr(), data["plasterWorkStatus"] ?? "N/A"),
-            Divider(color: Color(0xFFC69840), thickness: 1.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(child: _buildDataCell('date'.tr(), data["date"])),
-                Expanded(child: _buildDataCell('time'.tr(), data["time"])),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDataCell(String label, String? text) {
-    return Row(
-      children: [
-        Text(
-          "$label: ",
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFC69840),
-          ),
-        ),
-        Expanded(
-          child: Text(
-            text ?? "N/A",
-            style: TextStyle(
-              fontSize: 12,
-              color: Color(0xFF000000),
-            ),
-            textAlign: TextAlign.left,
-          ),
-        ),
-      ],
+  Widget _buildDataText(String text) {
+    return Text(
+      text,
+      style: const TextStyle(fontSize: 10),
+      textAlign: TextAlign.center,
     );
   }
 }

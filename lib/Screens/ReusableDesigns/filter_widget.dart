@@ -30,7 +30,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                   });
                 }, "From"),
               ),
-              const SizedBox(width: 8),
+              const SizedBox(width: 7),
               Expanded(
                 child: _buildDateField(context, selectedToDate, (date) {
                   setState(() {
