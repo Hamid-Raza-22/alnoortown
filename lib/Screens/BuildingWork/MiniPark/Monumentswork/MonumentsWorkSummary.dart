@@ -19,16 +19,13 @@ class _MonumentsWorkSummaryState extends State<MonumentsWorkSummary> {
   @override
   void initState() {
     super.initState();
-    // Initially, set the filteredData to all data
     filteredData = monumentsWorkViewModel.allMonument;
   }
 
   void filterData(DateTime? fromDate, DateTime? toDate) {
     if (fromDate == null && toDate == null) {
-      // If no date is selected, show all data
       filteredData = monumentsWorkViewModel.allMonument;
     } else {
-      // Filter data based on selected date range
       filteredData = monumentsWorkViewModel.allMonument.where((entry) {
         DateTime entryDate = entry.start_date ?? DateTime.now();
         if (fromDate != null && toDate != null) {
@@ -68,13 +65,11 @@ class _MonumentsWorkSummaryState extends State<MonumentsWorkSummary> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Add the SearchByDate widget here
             SearchByDate(
               onFilter: filterData,
             ),
             const SizedBox(height: 10),
             Obx(() {
-              // Use Obx to rebuild when the data changes
               if (monumentsWorkViewModel.allMonument.isEmpty) {
                 return Center(
                   child: Column(
@@ -128,7 +123,7 @@ class _MonumentsWorkSummaryState extends State<MonumentsWorkSummary> {
 
                     String expected_comp_date = entry.expected_comp_date != null
                         ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
-                        : ''; // Show empty string if null
+                        : '';
 
                     return DataRow(cells: [
                       DataCell(Text(start_date)),
