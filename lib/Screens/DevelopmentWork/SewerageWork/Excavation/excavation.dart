@@ -1,12 +1,13 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/excavation_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/excavation_view_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
+import 'package:get/get.dart' show Get, Inst, Obx;
+import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'excavation_summary.dart';
 
 class Excavation extends StatefulWidget {
@@ -18,6 +19,8 @@ class Excavation extends StatefulWidget {
 
 class ExcavationState extends State<Excavation> {
   ExcavationViewModel excavationViewModel = Get.put(ExcavationViewModel());
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   int? exaId;
   final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
@@ -111,7 +114,7 @@ class ExcavationState extends State<Excavation> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'excavation',
+                  'excavation'.tr(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -147,7 +150,7 @@ class ExcavationState extends State<Excavation> {
             buildBlockStreetRow(containerData),
             SizedBox(height: 16),
             Text(
-              'total_length_completed',
+              'total_length_completed'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             SizedBox(height: 8),
@@ -203,7 +206,7 @@ class ExcavationState extends State<Excavation> {
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: Text('submit', style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: Text('submit'.tr(), style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],
@@ -213,17 +216,32 @@ class ExcavationState extends State<Excavation> {
   }
 
   Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
-    return Row(
-      children: [
-        Expanded(
-          child: buildDropdownField('block_no', containerData, "selectedBlock", blocks),
-        ),
-        SizedBox(width: 16),
-        Expanded(
-          child: buildDropdownField('street_no', containerData, "selectedStreet", streets),
-        ),
-      ],
-    );
+    return Obx(() {
+      // Dynamically get the blocks list from the BlockDetailsViewModel
+      final List<String> blocks = blockDetailsViewModel.allBlockDetails
+          .map((blockDetail) => blockDetail.block.toString())
+          .toSet()
+          .toList();
+      // Dynamically get the streets list from the BlockDetailsViewModel
+      final List<String> streets = roadDetailsViewModel.allRoadDetails
+          .map((streetDetail) => streetDetail.street.toString())
+          .toSet()
+          .toList();
+
+      return Row(
+        children: [
+          Expanded(
+            child: buildDropdownField(
+                "block_no".tr(),containerData,  "selectedBlock", blocks),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: buildDropdownField(
+                "street_no".tr(),containerData,  "selectedStreet", streets),
+          ),
+        ],
+      );
+    });
   }
 
   Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
@@ -235,25 +253,35 @@ class ExcavationState extends State<Excavation> {
           style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          value: containerData[key],
-          items: items.map((item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
+        DropdownSearch<String>(
+          items: items,
+          selectedItem: containerData[key],
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(color: Color(0xFF4A4A4A)),
+                borderRadius: BorderRadius.circular(8), // Slightly larger border radius
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // More padding for a cleaner look
+            ),
+          ),
+          popupProps: PopupProps.menu(
+            showSearchBox: true, // Enables the search feature
+            itemBuilder: (context, item, isSelected) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Text(
+                  item,
+                  style: const TextStyle(fontSize: 11), // Slightly larger font for dropdown items
+                ),
+              );
+            },
+          ),
           onChanged: (value) {
             setState(() {
               containerData[key] = value;
             });
           },
-          decoration: InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFC69840)),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 8),
-          ),
         ),
       ],
     );

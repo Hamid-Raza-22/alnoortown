@@ -1,9 +1,12 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
+import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import '../../../../Models/DevelopmentsWorksModels/RoadMaintenanceModels/machine_model.dart';
+import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'MachinesSummary.dart';
 
 class Machines extends StatefulWidget {
@@ -15,6 +18,8 @@ class Machines extends StatefulWidget {
 
 class MachinesState extends State<Machines> {
   MachineViewModel machineViewModel = Get.put(MachineViewModel());
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   int? machineId;
   final List<String> machines = [
@@ -30,8 +35,8 @@ class MachinesState extends State<Machines> {
     const Icon(Icons.add_box, color: Color(0xFFC69840)),
     const Icon(Icons.edit, color: Color(0xFFC69840)),
   ];
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
+
+
 
   Map<String, dynamic> containerData = {
     "selectedMachine": null,
@@ -214,17 +219,31 @@ class MachinesState extends State<Machines> {
   }
 
   Widget buildBlockStreetRow() {
-    return Row(
-      children: [
-        Expanded(
-          child: buildDropdownField("block_no".tr(), "selectedBlock", blocks),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: buildDropdownField("street_no".tr(), "selectedStreet", streets),
-        ),
-      ],
-    );
+    return Obx(() {
+      // Dynamically get the blocks list from the BlockDetailsViewModel
+      final List<String> blocks = blockDetailsViewModel.allBlockDetails
+          .map((blockDetail) => blockDetail.block.toString())
+          .toSet()
+          .toList();
+      // Dynamically get the streets list from the BlockDetailsViewModel
+      final List<String> streets = roadDetailsViewModel.allRoadDetails
+          .map((streetDetail) => streetDetail.street.toString())
+          .toSet()
+          .toList();
+
+      return Row(
+        children: [
+          Expanded(
+            child: buildDropdownField("block_no".tr(), "selectedBlock", blocks),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: buildDropdownField(
+                "street_no".tr(), "selectedStreet", streets),
+          ),
+        ],
+      );
+    });
   }
 
   Widget buildDropdownField(String title, String key, List<String> items) {
@@ -234,30 +253,41 @@ class MachinesState extends State<Machines> {
         Text(
           title,
           style: const TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFFC69840)),
+            fontSize: 14, // Slightly larger font size for the title
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFC69840), // More neutral color for a professional look
+          ),
         ),
-        const SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          value: containerData[key],
-          items: items.map((item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
+        const SizedBox(height: 8), // Increased vertical space for better readability
+        DropdownSearch<String>(
+          items: items,
+          selectedItem: containerData[key],
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(color: Color(0xFF4A4A4A)),
+                borderRadius: BorderRadius.circular(8), // Slightly larger border radius
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // More padding for a cleaner look
+            ),
+          ),
+          popupProps: PopupProps.menu(
+            showSearchBox: true, // Enables the search feature
+            itemBuilder: (context, item, isSelected) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Text(
+                  item,
+                  style: const TextStyle(fontSize: 14), // Slightly larger font for dropdown items
+                ),
+              );
+            },
+          ),
           onChanged: (value) {
             setState(() {
               containerData[key] = value;
             });
           },
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFC69840)),
-            ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 8),
-          ),
         ),
       ],
     );
