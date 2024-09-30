@@ -17,7 +17,6 @@ class SittingAreaWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory SittingAreaWorkModel.fromMap(Map<dynamic,dynamic>json)

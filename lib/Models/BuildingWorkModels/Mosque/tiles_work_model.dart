@@ -13,7 +13,6 @@ class TilesWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory TilesWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -25,7 +24,6 @@ class TilesWorkModel{
         date:  json['tiles_work_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
-
     );
   }
 
@@ -37,7 +35,6 @@ class TilesWorkModel{
       'tiles_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
     };
   }
 }

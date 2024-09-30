@@ -8,7 +8,6 @@ class ManholesModel{
   dynamic time;
   int posted;  // New field to track whether data has been posted
 
-
   ManholesModel({
     this.id,
     this.block_no,
@@ -17,8 +16,6 @@ class ManholesModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
-
   });
 
   factory ManholesModel.fromMap(Map<dynamic,dynamic>json)

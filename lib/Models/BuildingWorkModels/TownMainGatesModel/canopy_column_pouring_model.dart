@@ -13,8 +13,6 @@ class CanopyColumnPouringModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
-
   });
 
   factory CanopyColumnPouringModel.fromMap(Map<dynamic,dynamic>json)
@@ -26,8 +24,6 @@ class CanopyColumnPouringModel{
         date:  json['canopy_column_pouring_main_gate_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
-
-
     );
   }
 

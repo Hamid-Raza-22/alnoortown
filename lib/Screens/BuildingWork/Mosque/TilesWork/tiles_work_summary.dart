@@ -5,9 +5,8 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import '../../../ReusableDesigns/filter_widget.dart';
 
 class TilesWorkSummary extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
 
-  TilesWorkSummary({super.key, required this.containerDataList});
+  TilesWorkSummary({super.key});
 
   @override
   State<TilesWorkSummary> createState() => _TilesWorkSummaryState();

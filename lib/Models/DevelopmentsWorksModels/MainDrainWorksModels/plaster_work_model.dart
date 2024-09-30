@@ -15,7 +15,6 @@ class PlasterWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory PlasterWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -41,8 +40,6 @@ class PlasterWorkModel{
       'plaster_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
-
     };
   }
 }

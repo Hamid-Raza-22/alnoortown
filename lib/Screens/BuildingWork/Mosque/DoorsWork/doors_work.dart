@@ -1,3 +1,5 @@
+import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/doors_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/door_work_view_model.dart';
@@ -14,19 +16,8 @@ class DoorsWork extends StatefulWidget {
 }
 
 class DoorsWorkState extends State<DoorsWork> {
-  //CeilingWorkViewModel ceilingWorkWorkViewModel=Get.put(CeilingWorkViewModel());
-
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   DoorWorkViewModel doorWorkViewModel = Get.put(DoorWorkViewModel());
-  final List<String> blocks = [
-    "Block A",
-    "Block B",
-    "Block C",
-    "Block D",
-    "Block E",
-    "Block F",
-    "Block G"
-  ];
-  List<Map<String, dynamic>> containerDataList = [];
 
   String? selectedBlock;
   String? selectedStatus;
@@ -190,30 +181,36 @@ class DoorsWorkState extends State<DoorsWork> {
   }
 
   Widget buildBlockRow(ValueChanged<String?> onChanged) {
+    final List<String> blocks = blockDetailsViewModel.allBlockDetails
+        .map((blockDetail) => blockDetail.block.toString())
+        .toSet()
+        .toList();
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Text('block_no'.tr(),
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFFC69840))),
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFC69840))),
           SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          items: blocks.map((item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          onChanged: onChanged,
-          decoration:   InputDecoration(
-            border: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFC69840))),
-            contentPadding: EdgeInsets.symmetric(horizontal: 8),
-          ),
-        ),
-      ],
+
+          DropdownSearch<String>(
+            items: blocks,
+            onChanged: onChanged,
+            dropdownDecoratorProps: DropDownDecoratorProps(
+              dropdownSearchDecoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFC69840)),
+                ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+              ),
+            ),
+            popupProps: PopupProps.menu(
+              showSearchBox: true,
+            ),
+          )
+        ]
     );
   }
 

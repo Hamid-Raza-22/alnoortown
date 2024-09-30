@@ -15,7 +15,6 @@ class MainEntranceTilesWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory MainEntranceTilesWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -28,7 +27,6 @@ class MainEntranceTilesWorkModel{
         date:  json['main_entrance_tiles_date'],
         time:  json['time'],
       posted: json['posted']?? 0  // Get the posted status from the database
-
     );
   }
 
@@ -41,8 +39,6 @@ class MainEntranceTilesWorkModel{
       'main_entrance_tiles_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
-
     };
   }
 }

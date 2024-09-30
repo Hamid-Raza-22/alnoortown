@@ -13,7 +13,6 @@ class CeilingWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory CeilingWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -25,7 +24,6 @@ class CeilingWorkModel{
         date:  json['ceiling_work_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
-
     );
   }
 
@@ -37,8 +35,6 @@ class CeilingWorkModel{
       'ceiling_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
-
     };
   }
 }

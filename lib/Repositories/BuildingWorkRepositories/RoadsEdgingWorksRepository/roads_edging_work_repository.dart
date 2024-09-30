@@ -75,7 +75,6 @@ class RoadsEdgingWorkRepository{
     var dbClient = await dbHelper.db;
     return await dbClient.update(tableNameRoadsEdging,roadsEdgingWorkModel.toMap(),
         where: 'id = ?', whereArgs: [roadsEdgingWorkModel.id]);
-
   }
 
   Future<int>delete(int id) async{

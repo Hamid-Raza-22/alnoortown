@@ -75,7 +75,6 @@ class MonumentsWorkRepository{
     var dbClient = await dbHelper.db;
     return await dbClient.update(tableNameMonumentWork,monumentsWorkModel.toMap(),
         where: 'id = ?', whereArgs: [monumentsWorkModel.id]);
-
   }
 
   Future<int>delete(int id) async{

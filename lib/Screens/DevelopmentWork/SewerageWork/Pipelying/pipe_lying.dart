@@ -201,35 +201,6 @@ Map<String, dynamic> containerData = {};
     );
   }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
-    return Obx(() {
-      // Dynamically get the blocks list from the BlockDetailsViewModel
-      final List<String> blocks = blockDetailsViewModel.allBlockDetails
-          .map((blockDetail) => blockDetail.block.toString())
-          .toSet()
-          .toList();
-      // Dynamically get the streets list from the BlockDetailsViewModel
-      final List<String> streets = roadDetailsViewModel.allRoadDetails
-          .map((streetDetail) => streetDetail.street.toString())
-          .toSet()
-          .toList();
-
-      return Row(
-        children: [
-          Expanded(
-            child: buildDropdownField(
-                "block_no".tr(),containerData,  "selectedBlock", blocks),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: buildDropdownField(
-                "street_no".tr(),containerData,  "selectedStreet", streets),
-          ),
-        ],
-      );
-    });
-  }
-
   Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -271,5 +242,34 @@ Map<String, dynamic> containerData = {};
         ),
       ],
     );
+  }
+
+  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
+    return Obx(() {
+      // Dynamically get the blocks list from the BlockDetailsViewModel
+      final List<String> blocks = blockDetailsViewModel.allBlockDetails
+          .map((blockDetail) => blockDetail.block.toString())
+          .toSet()
+          .toList();
+      // Dynamically get the streets list from the BlockDetailsViewModel
+      final List<String> streets = roadDetailsViewModel.allRoadDetails
+          .map((streetDetail) => streetDetail.street.toString())
+          .toSet()
+          .toList();
+
+      return Row(
+        children: [
+          Expanded(
+            child: buildDropdownField(
+                "block_no".tr(),containerData,  "selectedBlock", blocks),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: buildDropdownField(
+                "street_no".tr(),containerData,  "selectedStreet", streets),
+          ),
+        ],
+      );
+    });
   }
 }

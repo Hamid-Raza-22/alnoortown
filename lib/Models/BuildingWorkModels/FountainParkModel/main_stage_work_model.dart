@@ -15,7 +15,6 @@ class MainStageWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory MainStageWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -28,7 +27,6 @@ class MainStageWorkModel{
         date:  json['main_stage_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
-
     );
   }
 

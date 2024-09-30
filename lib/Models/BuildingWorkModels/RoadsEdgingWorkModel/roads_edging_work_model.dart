@@ -23,7 +23,6 @@ class RoadsEdgingWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory RoadsEdgingWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -40,7 +39,6 @@ class RoadsEdgingWorkModel{
         date:  json['roads_edging_date'],
         time:  json['time'],
       posted: json['posted']??0// Get the posted status from the database
-
     );
   }
 
@@ -57,7 +55,6 @@ class RoadsEdgingWorkModel{
       'roads_edging_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
     };
   }
 }

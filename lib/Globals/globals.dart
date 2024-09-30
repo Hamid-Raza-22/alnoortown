@@ -63,7 +63,6 @@ String tableNamePlasterWorkMainGate='plasterWorkMainGate';
 String tableNameBlocksDetails='blocksDetails';
 String tableNameLogin='login';
 String tableNameRoadsDetail='roadsDetail';
-
 const Color customColor = Color(0xFFC69840);
 bool isClockedIn = false;
 late Timer timer;

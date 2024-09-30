@@ -16,8 +16,6 @@ class BackFilingModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
-
   });
 
   factory BackFilingModel.fromMap(Map<dynamic,dynamic>json)
@@ -30,8 +28,6 @@ class BackFilingModel{
         date:  json['back_filling_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
-
-
     );
   }
 
