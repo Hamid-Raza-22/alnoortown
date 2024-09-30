@@ -147,6 +147,7 @@ class _MenuState extends State<Menu> {
                 );
               }).toList(),
             ),
+
             InkWell( // Wrapping with InkWell for onTap functionality
               onTap: () {
                 // Call the logout functionality here
