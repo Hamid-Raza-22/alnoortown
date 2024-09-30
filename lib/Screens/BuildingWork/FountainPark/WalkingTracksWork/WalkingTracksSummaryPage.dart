@@ -2,7 +2,7 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewMo
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
-import '../../../ReusableDesigns/filter_widget.dart';
+import '../../../ReusableDesigns/DateFilter.dart';
 
 class WalkingTracksSummaryPage extends StatefulWidget {
   WalkingTracksSummaryPage({super.key});
@@ -13,9 +13,8 @@ class WalkingTracksSummaryPage extends StatefulWidget {
 
 class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
   final WalkingTracksWorkViewModel walkingTracksWorkViewModel = Get.put(WalkingTracksWorkViewModel());
-  DateTime? _start_date;
+  DateTime? _startDate;
   DateTime? _endDate;
-  String? _status;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +42,12 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Add the FilterWidget here
-            FilterWidget(
-              onFilter: (start_date, endDate, status) {
+            // Add the SearchByDate widget here
+            SearchByDate(
+              onFilter: (fromDate, toDate) {
                 setState(() {
-                  _start_date = start_date;
-                  _endDate = endDate;
-                  _status = status;
+                  _startDate = fromDate;
+                  _endDate = toDate;
                 });
               },
             ),
@@ -81,26 +79,16 @@ class _WalkingTracksSummaryPageState extends State<WalkingTracksSummaryPage> {
                   ),
                 );
               }
-
-              // Filter the data
               final filteredData = walkingTracksWorkViewModel.allWalking.where((entry) {
-                // Filter by start date
-                final start_dateMatch = _start_date == null ||
-                    (entry.start_date != null && entry.start_date!.isAfter(_start_date!));
-
-                // Filter by end date
-                final endDateMatch = _endDate == null ||
-                    (entry.expected_comp_date != null && entry.expected_comp_date!.isBefore(_endDate!));
-
-                // Filter by status
-                final statusMatch = _status == null ||
-                    (entry.walking_tracks_comp_status != null &&
-                        entry.walking_tracks_comp_status!.toLowerCase().contains(_status!.toLowerCase()));
-
-                return start_dateMatch && endDateMatch && statusMatch;
+                final entryStartDate = entry.start_date;
+                final entryEndDate = entry.expected_comp_date;
+                if (_startDate == null && _endDate == null) {
+                  return true;
+                }
+                final isAfterStartDate = _startDate == null || (entryStartDate != null && entryStartDate.isAfter(_startDate!));
+                final isBeforeEndDate = _endDate == null || (entryEndDate != null && entryEndDate.isBefore(_endDate!));
+                return isAfterStartDate && isBeforeEndDate;
               }).toList();
-
-              // Show "No data available" if the list is empty
               if (filteredData.isEmpty) {
                 return Center(
                   child: Column(
