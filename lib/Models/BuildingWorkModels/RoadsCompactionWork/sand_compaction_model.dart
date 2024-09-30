@@ -8,6 +8,7 @@ class SandCompactionModel{
   dynamic sand_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   SandCompactionModel({
@@ -20,6 +21,7 @@ class SandCompactionModel{
     this.sand_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -36,6 +38,7 @@ class SandCompactionModel{
         sand_comp_status:json['sand_comp_status'],
         date:  json['sand_compaction_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
 
     );
@@ -52,6 +55,7 @@ class SandCompactionModel{
       'sand_comp_status':sand_comp_status,
       'sand_compaction_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

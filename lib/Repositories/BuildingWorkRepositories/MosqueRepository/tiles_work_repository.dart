@@ -18,7 +18,7 @@ class TilesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameTilesWorkMosque,
-        columns: ['id', 'block_no', 'tiles_work_status','tiles_work_date','time','posted']
+        columns: ['id', 'block_no', 'tiles_work_status','tiles_work_date','time','posted','user_id']
     );
 
     // Print the raw data retrieved from the database

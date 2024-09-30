@@ -6,6 +6,7 @@ class FoundationWorkModel{
   dynamic plaster_work;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   FoundationWorkModel({
@@ -16,6 +17,7 @@ class FoundationWorkModel{
     this.plaster_work,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
 
@@ -31,6 +33,7 @@ class FoundationWorkModel{
         plaster_work: json['plaster_work'],
         date:  json['foundation_work_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
 
     );
@@ -45,6 +48,7 @@ class FoundationWorkModel{
       'plaster_work':plaster_work,
       'foundation_work_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
 

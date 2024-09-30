@@ -18,7 +18,7 @@ class CeilingWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCeilingWorkMosque,
-        columns: ['id', 'block_no', 'ceiling_work_status','ceiling_work_date','time','posted']
+        columns: ['id', 'block_no', 'ceiling_work_status','ceiling_work_date','time','posted','user_id']
     );
 
     // Print the raw data retrieved from the database

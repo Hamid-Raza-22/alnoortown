@@ -19,7 +19,7 @@ class BackFillingRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBackFiling,
-        columns: ['id', 'block_no', 'street_no', 'status','back_filling_date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'status','back_filling_date','time','posted','user_id']
     );
 
     // Print the raw data retrieved from the database

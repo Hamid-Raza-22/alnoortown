@@ -7,6 +7,7 @@ class MachineModel {
   dynamic time_out;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   MachineModel({
@@ -18,6 +19,7 @@ class MachineModel {
     this.time_out,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -31,6 +33,7 @@ class MachineModel {
       time_out: json['time_out'],
       date: json['machine_date'],
       time: json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
     );
   }
@@ -45,6 +48,7 @@ class MachineModel {
       'time_out': time_out,
       'machine_date': date,
       'time': time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }

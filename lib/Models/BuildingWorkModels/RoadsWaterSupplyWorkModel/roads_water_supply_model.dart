@@ -9,6 +9,7 @@ class RoadsWaterSupplyModel{
   String? roads_water_supply_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   RoadsWaterSupplyModel({
@@ -22,6 +23,7 @@ class RoadsWaterSupplyModel{
     this.roads_water_supply_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -39,6 +41,7 @@ class RoadsWaterSupplyModel{
         roads_water_supply_comp_status:json['roads_water_supply_comp_status'],
         date:  json['roads_water_supply_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
 
     );
@@ -56,6 +59,7 @@ class RoadsWaterSupplyModel{
       'roads_water_supply_comp_status':roads_water_supply_comp_status,
       'roads_water_supply_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

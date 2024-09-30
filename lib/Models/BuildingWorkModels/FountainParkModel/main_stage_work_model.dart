@@ -5,6 +5,7 @@ class MainStageWorkModel{
   String? main_stage_work_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   MainStageWorkModel({
@@ -14,6 +15,7 @@ class MainStageWorkModel{
     this.main_stage_work_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -26,6 +28,7 @@ class MainStageWorkModel{
         main_stage_work_comp_status:json['main_stage_work_comp_status'],
         date:  json['main_stage_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
     );
   }
@@ -38,6 +41,7 @@ class MainStageWorkModel{
       'main_stage_work_comp_status':main_stage_work_comp_status,
       'main_stage_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

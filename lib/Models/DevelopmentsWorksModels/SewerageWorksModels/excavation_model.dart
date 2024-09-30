@@ -6,6 +6,7 @@ class ExcavationModel{
   dynamic length;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   ExcavationModel({
@@ -15,6 +16,7 @@ class ExcavationModel{
     this.length,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -28,6 +30,7 @@ class ExcavationModel{
       length: json['length'],
         date:  json['excavation_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
 
     );
@@ -41,6 +44,7 @@ class ExcavationModel{
       'length':length,
       'excavation_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

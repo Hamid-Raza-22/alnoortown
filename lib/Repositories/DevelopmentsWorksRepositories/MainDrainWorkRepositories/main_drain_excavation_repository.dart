@@ -16,7 +16,7 @@ class MainDrainExcavationRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameMainDrainExcavation,
-        columns: ['id', 'block_no', 'street_no', 'completed_length','main_drain_excavation_date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'completed_length','main_drain_excavation_date','time','posted','user_id']
     );
 
     // Print the raw data retrieved from the database

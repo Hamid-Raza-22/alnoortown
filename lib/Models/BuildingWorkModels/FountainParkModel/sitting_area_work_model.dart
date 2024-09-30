@@ -7,6 +7,7 @@ class SittingAreaWorkModel {
   String? block;  // New field for block
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   SittingAreaWorkModel({
@@ -18,6 +19,7 @@ class SittingAreaWorkModel {
     this.block,  // Include block in constructor
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -31,6 +33,7 @@ class SittingAreaWorkModel {
       block: json['block'],  // Fetch block from JSON
       date: json['sitting_area_date'],
       time: json['time'],
+      user_id: json['user_id'],
       posted: json['posted'] ?? 0,  // Get the posted status from the database
     );
   }
@@ -45,6 +48,7 @@ class SittingAreaWorkModel {
       'block': block,  // Include block in the map
       'sitting_area_date': date,
       'time': time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }

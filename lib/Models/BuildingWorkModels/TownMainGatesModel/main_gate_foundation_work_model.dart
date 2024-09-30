@@ -4,6 +4,7 @@ class MainGateFoundationWorkModel{
   dynamic work_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   MainGateFoundationWorkModel ({
@@ -12,6 +13,7 @@ class MainGateFoundationWorkModel{
     this.work_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -23,6 +25,7 @@ class MainGateFoundationWorkModel{
         work_status: json['work_status'],
         date:  json['main_gate_foundation_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
     );
   }
@@ -34,6 +37,7 @@ class MainGateFoundationWorkModel{
       'work_status':work_status,
       'main_gate_foundation_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

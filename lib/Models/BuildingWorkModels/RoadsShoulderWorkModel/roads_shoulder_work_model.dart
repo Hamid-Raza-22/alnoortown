@@ -9,6 +9,7 @@ class RoadsShoulderWorkModel{
   String? roads_shoulder_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   RoadsShoulderWorkModel({
@@ -22,6 +23,7 @@ class RoadsShoulderWorkModel{
     this.roads_shoulder_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -39,6 +41,7 @@ class RoadsShoulderWorkModel{
         roads_shoulder_comp_status:json['roads_shoulder_comp_status'],
         date:  json['roads_shoulder_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
 
     );
@@ -56,6 +59,7 @@ class RoadsShoulderWorkModel{
       'roads_shoulder_comp_status':roads_shoulder_comp_status,
       'roads_shoulder_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

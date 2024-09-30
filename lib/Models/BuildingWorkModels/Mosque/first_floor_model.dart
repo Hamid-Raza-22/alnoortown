@@ -6,6 +6,7 @@ class FirstFloorModel{
   dynamic plaster_work;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   FirstFloorModel({
@@ -16,6 +17,7 @@ class FirstFloorModel{
     this.plaster_work,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -30,6 +32,7 @@ class FirstFloorModel{
         plaster_work: json['plaster_work'],
         date:  json['first_floor_work_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0 // Get the posted status from the database
 
     );
@@ -44,6 +47,7 @@ class FirstFloorModel{
       'plaster_work':plaster_work,
       'first_floor_work_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

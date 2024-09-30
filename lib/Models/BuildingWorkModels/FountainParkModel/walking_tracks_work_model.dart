@@ -6,6 +6,7 @@ class WalkingTracksWorkModel{
   String? walking_tracks_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   WalkingTracksWorkModel({
@@ -16,6 +17,7 @@ class WalkingTracksWorkModel{
     this.walking_tracks_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -30,6 +32,7 @@ class WalkingTracksWorkModel{
         walking_tracks_comp_status:json['walking_tracks_comp_status'],
         date:  json['walking_tracks_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
     );
   }
@@ -43,6 +46,7 @@ class WalkingTracksWorkModel{
       'walking_tracks_comp_status':walking_tracks_comp_status,
       'walking_tracks_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }

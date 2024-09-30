@@ -5,6 +5,7 @@ class IronWorksModel{
   dynamic completed_length;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   IronWorksModel({
@@ -14,6 +15,7 @@ class IronWorksModel{
     this.completed_length,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -26,6 +28,7 @@ class IronWorksModel{
       completed_length: json['completed_length'],
         date:  json['iron_works_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
     );
   }
@@ -38,6 +41,7 @@ class IronWorksModel{
       'completed_length':completed_length,
       'iron_works_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }

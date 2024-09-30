@@ -17,7 +17,7 @@ class PlasterWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNamePlasterWork,
-        columns: ['id', 'block_no', 'street_no', 'completed_length','plaster_work_date','time','posted']
+        columns: ['id', 'block_no', 'street_no', 'completed_length','plaster_work_date','time','posted','user_id']
     );
 
     if (kDebugMode) {

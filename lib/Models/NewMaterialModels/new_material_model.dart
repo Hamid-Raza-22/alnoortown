@@ -9,6 +9,7 @@ class NewMaterialModel{
   dynamic other_material_value;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   NewMaterialModel({
@@ -22,6 +23,7 @@ class NewMaterialModel{
     this.other_material_value,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -39,6 +41,7 @@ class NewMaterialModel{
         other_material_value: json['other_material_value'],
         date:  json['new_material_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0 // Get the posted status from the database
     );
   }
@@ -55,6 +58,7 @@ class NewMaterialModel{
       'other_material_value':other_material_value,
       'new_material_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

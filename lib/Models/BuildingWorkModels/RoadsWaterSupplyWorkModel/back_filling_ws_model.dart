@@ -9,6 +9,7 @@ class BackFillingWsModel{
   String? water_supply_back_filling_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;
 
   BackFillingWsModel({
@@ -22,6 +23,7 @@ class BackFillingWsModel{
     this.water_supply_back_filling_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,
 
   });
@@ -39,6 +41,7 @@ class BackFillingWsModel{
         water_supply_back_filling_comp_status:json['water_supply_back_filling_comp_status'],
         date:  json['back_filling_water_supply_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0
 
     );
@@ -56,6 +59,7 @@ class BackFillingWsModel{
       'water_supply_back_filling_comp_status':water_supply_back_filling_comp_status,
       'back_filling_water_supply_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,
 
     };

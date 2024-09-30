@@ -5,6 +5,7 @@ class GazeboWorkModel{
   String?  gazebo_work_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   GazeboWorkModel({
@@ -14,6 +15,7 @@ class GazeboWorkModel{
     this.gazebo_work_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -26,6 +28,7 @@ class GazeboWorkModel{
         gazebo_work_comp_status:json['gazebo_work_comp_status'],
         date:  json['gazebo_work_date'],
         time:  json['time'],
+        user_id: json['user_id'],
         posted: json['posted']?? 0
     );
   }
@@ -38,6 +41,7 @@ class GazeboWorkModel{
       'gazebo_work_comp_status':gazebo_work_comp_status,
       'gazebo_work_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }

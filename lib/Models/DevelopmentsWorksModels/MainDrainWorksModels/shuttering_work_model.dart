@@ -5,6 +5,7 @@ class ShutteringWorkModel{
   dynamic completed_length;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   ShutteringWorkModel({
@@ -14,6 +15,7 @@ class ShutteringWorkModel{
     this.completed_length,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -27,6 +29,7 @@ class ShutteringWorkModel{
       completed_length: json['completed_length'],
         date:  json['shuttering_work_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0 // Get the posted status from the database
     );
   }
@@ -39,6 +42,7 @@ class ShutteringWorkModel{
       'completed_length':completed_length,
       'shuttering_work_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

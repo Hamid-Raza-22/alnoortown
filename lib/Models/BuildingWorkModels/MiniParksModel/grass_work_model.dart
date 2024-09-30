@@ -5,6 +5,7 @@ class GrassWorkModel{
   String? grass_work_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   GrassWorkModel({
@@ -14,6 +15,7 @@ class GrassWorkModel{
     this.grass_work_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -27,6 +29,7 @@ class GrassWorkModel{
         grass_work_comp_status:json['grass_work_comp_status'],
         date:  json['grass_work_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
     );
   }
@@ -39,6 +42,7 @@ class GrassWorkModel{
       'grass_work_comp_status':grass_work_comp_status,
       'grass_work_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

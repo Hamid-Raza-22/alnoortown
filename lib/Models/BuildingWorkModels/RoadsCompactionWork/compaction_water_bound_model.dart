@@ -7,6 +7,7 @@ class CompactionWaterBoundModel{
   DateTime? expected_comp_date;
   String? water_bound_comp_status;
   dynamic date;
+  dynamic user_id;
   dynamic time;
   int posted;  // New field to track whether data has been posted
 
@@ -19,6 +20,7 @@ class CompactionWaterBoundModel{
     this.expected_comp_date,
     this.water_bound_comp_status,
     this.date,
+    this.user_id,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
 
@@ -36,6 +38,7 @@ class CompactionWaterBoundModel{
         water_bound_comp_status:json['water_bound_comp_status'],
         date:  json['compaction_water_bound_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
     );
   }
@@ -51,6 +54,7 @@ class CompactionWaterBoundModel{
       'water_bound_comp_status':water_bound_comp_status,
       'compaction_water_bound_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

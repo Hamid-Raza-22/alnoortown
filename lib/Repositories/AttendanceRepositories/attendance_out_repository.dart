@@ -16,7 +16,7 @@ class AttendanceOutRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameAttendanceOut,
-        columns: ['id', 'time_out', 'latitude', 'longitude','address_out','attendance_out_date']
+        columns: ['id', 'time_out', 'latitude', 'longitude','address_out','attendance_out_date','user_id']
     );
 
     // Print the raw data retrieved from the database

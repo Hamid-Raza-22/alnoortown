@@ -8,6 +8,7 @@ class RoadsSignBoardsModel{
   String? comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   RoadsSignBoardsModel({
@@ -18,6 +19,7 @@ class RoadsSignBoardsModel{
     this.to_plot_no,
     this.road_side,
     this.comp_status,
+    this.user_id,
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
@@ -33,6 +35,7 @@ class RoadsSignBoardsModel{
         from_plot_no: json['from_plot_no'],
         to_plot_no: json['to_plot_no'],
         road_side: json['road_side'],
+        user_id: json['user_id'],
         comp_status:json['comp_status'],
         date:  json['roads_sign_boards_date'],
         time:  json['time'],
@@ -52,6 +55,7 @@ class RoadsSignBoardsModel{
       'comp_status':comp_status,
       'roads_sign_boards_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

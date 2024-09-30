@@ -19,7 +19,7 @@ class CubStonesWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCurbStonesWork,
-        columns: ['id', 'start_date', 'expected_comp_date','curbstones_comp_status','curbstones_work_date','time','posted']
+        columns: ['id', 'start_date', 'expected_comp_date','curbstones_comp_status','curbstones_work_date','time','posted','user_id']
     );
 
     // Print the raw data retrieved from the database

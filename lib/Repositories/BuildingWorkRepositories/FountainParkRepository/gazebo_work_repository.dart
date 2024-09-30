@@ -18,7 +18,7 @@ class GazeboWorkRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameGazeboWork,
-        columns: ['id', 'start_date', 'expected_comp_date','gazebo_work_comp_status','gazebo_work_date','time','posted']
+        columns: ['id', 'start_date', 'expected_comp_date','gazebo_work_comp_status','gazebo_work_date','time','posted','user_id']
     );
 
     // Print the raw data retrieved from the database

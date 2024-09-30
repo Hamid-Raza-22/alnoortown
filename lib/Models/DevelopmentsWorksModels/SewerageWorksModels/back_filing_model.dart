@@ -6,6 +6,7 @@ class BackFilingModel{
   dynamic status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   BackFilingModel({
@@ -14,6 +15,7 @@ class BackFilingModel{
     this.street_no,
     this.status,
     this.date,
+    this.user_id,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
   });
@@ -27,6 +29,7 @@ class BackFilingModel{
         status: json['status'],
         date:  json['back_filling_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0 // Get the posted status from the database
     );
   }
@@ -39,6 +42,7 @@ class BackFilingModel{
       'status':status,
       'back_filling_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

@@ -5,6 +5,7 @@ class PlantationWorkModel{
   String? plantation_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
   PlantationWorkModel({
     this.id,
@@ -13,6 +14,7 @@ class PlantationWorkModel{
     this.plantation_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -25,6 +27,7 @@ class PlantationWorkModel{
         plantation_comp_status:json['plantation_comp_status'],
         date:  json['plantation_work_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
 
     );
@@ -38,6 +41,7 @@ class PlantationWorkModel{
       'plantation_comp_status':plantation_comp_status,
       'plantation_work_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
 
     };

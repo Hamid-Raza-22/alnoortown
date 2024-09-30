@@ -5,6 +5,7 @@ class PolesModel{
   dynamic no_of_poles;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
 
   PolesModel({
@@ -14,6 +15,7 @@ class PolesModel{
     this.no_of_poles,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -26,6 +28,7 @@ class PolesModel{
         no_of_poles: json['no_of_poles'],
         date:  json['poles_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
     );
   }
@@ -38,6 +41,7 @@ class PolesModel{
       'no_of_poles':no_of_poles,
       'poles_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }

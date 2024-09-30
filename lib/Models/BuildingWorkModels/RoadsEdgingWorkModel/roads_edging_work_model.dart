@@ -8,6 +8,7 @@ class RoadsEdgingWorkModel{
   DateTime? expected_comp_date;
   String?  roads_edging_comp_status;
   dynamic date;
+  dynamic user_id;
   dynamic time;
   int posted;  // New field to track whether data has been posted
 
@@ -21,6 +22,7 @@ class RoadsEdgingWorkModel{
     this.expected_comp_date,
     this.roads_edging_comp_status,
     this.date,
+    this.user_id,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
   });
@@ -38,6 +40,7 @@ class RoadsEdgingWorkModel{
         roads_edging_comp_status:json['roads_edging_comp_status'],
         date:  json['roads_edging_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0// Get the posted status from the database
     );
   }
@@ -54,6 +57,7 @@ class RoadsEdgingWorkModel{
       'roads_edging_comp_status':roads_edging_comp_status,
       'roads_edging_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }

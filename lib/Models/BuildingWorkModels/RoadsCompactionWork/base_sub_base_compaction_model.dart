@@ -7,6 +7,7 @@ class BaseSubBaseCompactionModel{
   DateTime? expected_comp_date;
   String? base_sub_base_comp_status;
   dynamic date;
+  dynamic user_id;
   dynamic time;
   int posted;  // New field to track whether data has been posted
 
@@ -20,6 +21,7 @@ class BaseSubBaseCompactionModel{
     this.base_sub_base_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -36,6 +38,7 @@ class BaseSubBaseCompactionModel{
         base_sub_base_comp_status:json['base_sub_base_comp_status'],
         date:  json['base_sub_base_compaction_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
 
     );
@@ -52,6 +55,7 @@ class BaseSubBaseCompactionModel{
       'base_sub_base_comp_status':base_sub_base_comp_status,
       'base_sub_base_compaction_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }

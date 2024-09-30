@@ -18,7 +18,7 @@ class MpFancyLightPolesRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameFancyLightPolesMiniPark,
-        columns: ['id', 'start_date', 'expected_comp_date','mini_park_fancy_light_comp_status','mini_park_fancy_light_poles_date','time','posted']
+        columns: ['id', 'start_date', 'expected_comp_date','mini_park_fancy_light_comp_status','mini_park_fancy_light_poles_date','time','posted','user_id']
     );
 
     // Print the raw data retrieved from the database

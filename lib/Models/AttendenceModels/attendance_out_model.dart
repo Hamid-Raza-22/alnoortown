@@ -1,6 +1,7 @@
 class AttendanceOutModel{
   int? id;
   dynamic time_out;
+  dynamic user_id;
   dynamic latitude;
   dynamic longitude;
   dynamic address_out;
@@ -12,6 +13,7 @@ class AttendanceOutModel{
     this.latitude,
     this.longitude,
     this.address_out,
+    this.user_id,
     this.date
   });
 
@@ -23,6 +25,7 @@ class AttendanceOutModel{
         latitude: json['latitude'],
         longitude: json['longitude'],
         address_out: json['address_out'],
+        user_id: json['user_id'],
         date:  json['attendance_out_date']
     );
   }
@@ -34,6 +37,7 @@ class AttendanceOutModel{
       'latitude':latitude,
       'longitude':longitude,
       'live_address':address_out,
+      'user_id':user_id,
       'attendance_out_date':date
 
     };

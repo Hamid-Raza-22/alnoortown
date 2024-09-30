@@ -5,6 +5,7 @@ class AttendanceInModel{
   dynamic longitude;
   dynamic live_address;
   dynamic date;
+  dynamic user_id;
 
   AttendanceInModel({
     this.id,
@@ -12,7 +13,8 @@ class AttendanceInModel{
     this.latitude,
     this.longitude,
     this. live_address,
-    this.date
+    this.date,
+    this.user_id,
   });
 
   factory AttendanceInModel.fromMap(Map<dynamic,dynamic>json)
@@ -23,6 +25,7 @@ class AttendanceInModel{
         latitude: json['latitude'],
         longitude: json['longitude'],
         live_address: json['live_address'],
+        user_id: json['user_id'],
         date:  json['attendance_in_date']
     );
   }
@@ -34,6 +37,7 @@ class AttendanceInModel{
       'latitude':latitude,
       'longitude':longitude,
       'live_address':live_address,
+      'user_id':user_id,
       'attendance_in_date':date
 
     };

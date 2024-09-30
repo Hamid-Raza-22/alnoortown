@@ -6,6 +6,7 @@ class WaterTankerModel{
   dynamic date;
   dynamic time;
   int posted;
+  dynamic user_id;
   WaterTankerModel ({
     this.id,
     this.block_no,
@@ -13,6 +14,7 @@ class WaterTankerModel{
     this.tanker_no,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0
   });
 
@@ -25,6 +27,7 @@ class WaterTankerModel{
       tanker_no: json['tanker_no'],
         date:  json['water_tanker_date'],
         time:  json['time'],
+        user_id: json['user_id'],
       posted: json['posted']?? 0
     );
   }
@@ -37,6 +40,7 @@ class WaterTankerModel{
       'tanker_no':tanker_no,
       'water_tanker_date':date,
       'time':time,
+      'user_id':user_id,
        'posted':posted
     };
   }

@@ -5,6 +5,7 @@ class CubStonesWorkModel{
   String?  curbstones_comp_status;
   dynamic date;
   dynamic time;
+  dynamic user_id;
   int posted;  // New field to track whether data has been posted
   CubStonesWorkModel({
     this.id,
@@ -13,6 +14,7 @@ class CubStonesWorkModel{
     this.curbstones_comp_status,
     this.date,
     this.time,
+    this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
   });
 
@@ -25,6 +27,7 @@ class CubStonesWorkModel{
         curbstones_comp_status:json['curbstones_comp_status'],
         date:  json['curbstones_work_date'],
         time:  json['time'],
+        user_id: json['user_id'],
         posted: json['posted']?? 0
     );
   }
@@ -37,6 +40,7 @@ class CubStonesWorkModel{
       'curbstones_comp_status':curbstones_comp_status,
       'curbstones_work_date':date,
       'time':time,
+      'user_id':user_id,
       'posted': posted,  // Include the posted status
     };
   }
