@@ -36,73 +36,75 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
             // Filter Widget
             FilterWidget(
               onFilter: (fromDate, toDate, block) {
-                // Call the filter method in your ViewModel
                 materialShiftingViewModel.filterData(fromDate, toDate, block);
               },
             ),
-            const SizedBox(height: 16), // Spacing between filter and grid
-            Obx(() {
-              // Use filteredShifting for displaying results
-              var displayList = materialShiftingViewModel.filteredShifting.isNotEmpty
-                  ? materialShiftingViewModel.filteredShifting
-                  : materialShiftingViewModel.allShifting;
-
-              if (displayList.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/nodata.png', // Replace with your image path
-                        width: 200,
-                        height: 200,
-                        fit: BoxFit.cover,
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'No data available',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }
-
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Column(
-                  children: [
-                    // Header Row
-                    Row(
+            Expanded(
+              child: Obx(() {
+                var displayList = materialShiftingViewModel.filteredShifting.isNotEmpty
+                    ? materialShiftingViewModel.filteredShifting
+                    : materialShiftingViewModel.allShifting;
+                if (displayList.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        buildHeaderCell('From Block'),
-                        buildHeaderCell('To Block'),
-                        buildHeaderCell('Shifts'),
-                        buildHeaderCell('Date'),
-                        buildHeaderCell('Time'),
+                        Image.asset(
+                          'assets/images/nodata.png',
+                          width: 200,
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                        const SizedBox(height: 16),
+                        const Text(
+                          'No data available',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ],
                     ),
-                    const SizedBox(height: 10),
-                    // Data Rows
-                    ...displayList.map((entry) {
-                      return Row(
-                        children: [
-                          buildDataCell(entry.from_block ?? 'N/A'),
-                          buildDataCell(entry.to_block ?? 'N/A'),
-                          buildDataCell(entry.no_of_shift ?? 'N/A'),
-                          buildDataCell(entry.date ?? 'N/A'),
-                          buildDataCell(entry.time ?? 'N/A'),
-                        ],
-                      );
-                    }),
-                  ],
-                ),
-              );
-            }),
+                  );
+                }
+
+                return SingleChildScrollView(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Column(
+                      children: [
+                        // Header Row
+                        Row(
+                          children: [
+                            buildHeaderCell('From Block'),
+                            buildHeaderCell('To Block'),
+                            buildHeaderCell('Shifts'),
+                            buildHeaderCell('Date'),
+                            buildHeaderCell('Time'),
+                          ],
+                        ),
+                        const SizedBox(height: 10),
+                        // Data Rows
+                        Column(
+                          children: displayList.map((entry) {
+                            return Row(
+                              children: [
+                                buildDataCell(entry.from_block ?? 'N/A'),
+                                buildDataCell(entry.to_block ?? 'N/A'),
+                                buildDataCell(entry.no_of_shift ?? 'N/A'),
+                                buildDataCell(entry.date ?? 'N/A'),
+                                buildDataCell(entry.time ?? 'N/A'),
+                              ],
+                            );
+                          }).toList(),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+            ),
           ],
         ),
       ),
