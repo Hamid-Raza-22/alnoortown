@@ -2,7 +2,8 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewMo
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
-import '../../../ReusableDesigns/filter_widget.dart';
+import '../../../ReusableDesigns/DateFilter.dart';
+
 
 class SittingAreaSummaryPage extends StatelessWidget {
   final SittingAreaWorkViewModel sittingAreaWorkViewModel = Get.put(SittingAreaWorkViewModel());
@@ -32,13 +33,13 @@ class SittingAreaSummaryPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0), // Consistent padding with Mudfilling
+        padding: const EdgeInsets.all(12.0), // Consistent padding
         child: Column(
           children: [
-            // Integrate the FilterWidget
-            FilterWidget(
-              onFilter: (fromDate, toDate, block) {
-                // Call a method to apply the filter
+            SearchByDate(
+              onFilter: (fromDate, toDate) {
+                String block = ""; // Define your block value here
+                // Call a method to apply the filter with the selected dates
                 sittingAreaWorkViewModel.applyFilters(fromDate, toDate, block);
               },
             ),
@@ -74,35 +75,47 @@ class SittingAreaSummaryPage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
                   columnSpacing: 12.0,
-                  headingRowColor: WidgetStateProperty.all(const Color(0xFFC69840)),
+                  headingRowColor: MaterialStateProperty.all(const Color(0xFFC69840)),
                   border: const TableBorder(
                     horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
                     verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
                   ),
                   columns: [
                     DataColumn(
-                      label: Text('type_of_work'.tr,
-                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                      label: Text(
+                        'type_of_work'.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
                     DataColumn(
-                      label: Text('start_date'.tr,
-                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                      label: Text(
+                        'start_date'.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
                     DataColumn(
-                      label: Text('end_date'.tr,
-                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                      label: Text(
+                        'end_date'.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
                     DataColumn(
-                      label: Text('status'.tr,
-                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                      label: Text(
+                        'status'.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
                     DataColumn(
-                      label: Text('date'.tr,
-                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                      label: Text(
+                        'date'.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
                     DataColumn(
-                      label: Text('time'.tr,
-                          style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white)),
+                      label: Text(
+                        'time'.tr,
+                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                      ),
                     ),
                   ],
                   rows: sittingAreaWorkViewModel.allSitting.map((entry) {
