@@ -10,6 +10,22 @@ import 'package:flutter/foundation.dart';
 class LoginRepository{
 
   DBHelper dbHelper = DBHelper();
+  // Fetch a specific user by user_id and password
+  Future<LoginModels?> getUserByCredentials(String userId, String password) async {
+    var dbClient = await dbHelper.db;
+
+    List<Map> maps = await dbClient.query(
+        tableNameLogin,
+        where: 'user_id = ? AND password = ?',
+        whereArgs: [userId, password],
+        columns: ['id', 'user_id', 'user_name', 'contact', 'cnic', 'image', 'address', 'city', 'password']
+    );
+
+    if (maps.isNotEmpty) {
+      return LoginModels.fromMap(maps.first); // Return the first matching user
+    }
+    return null; // No user found
+  }
 
   Future<List<LoginModels>> getLogin() async {
     // Get the database client

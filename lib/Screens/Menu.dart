@@ -4,6 +4,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
 
+import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, SnackPosition;
+
+import '../ViewModels/LoginViewModel/login_view_model.dart';
+
 class Menu extends StatefulWidget {
   @override
   _MenuState createState() => _MenuState();
@@ -143,18 +147,28 @@ class _MenuState extends State<Menu> {
                 );
               }).toList(),
             ),
-            Row(
-              children: <Widget>[
-                Icon(
-                  Icons.logout,
-                  color: Colors.white.withOpacity(0.5),
-                ),
-                SizedBox(width: 10),
-                Text(
-                  'log_out'.tr(),
-                  style: TextStyle(color: Colors.white.withOpacity(0.5)),
-                ),
-              ],
+            InkWell( // Wrapping with InkWell for onTap functionality
+              onTap: () {
+                // Call the logout functionality here
+                // You may need to call your logout method in your LoginViewModel
+                // Example:
+                Get.put(LoginViewModel()).logout();
+                // Navigate to the login screen
+                Get.offNamed('/login'); // Replace with your actual login route
+              },
+              child: Row(
+                children: <Widget>[
+                  Icon(
+                    Icons.logout,
+                    color: Colors.white.withOpacity(0.5),
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    'log_out'.tr(),
+                    style: TextStyle(color: Colors.white.withOpacity(0.5)),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

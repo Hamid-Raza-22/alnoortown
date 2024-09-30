@@ -1,5 +1,10 @@
 import 'dart:async';
 import 'dart:ui';
+
+// String userId="";
+// String password="";
+
+
 String tableNameMachine= 'machine';
 String tableNameWaterTanker='waterTanker';
 String tableNameExcavation='excavation';
@@ -63,6 +68,9 @@ String tableNamePlasterWorkMainGate='plasterWorkMainGate';
 String tableNameBlocksDetails='blocksDetails';
 String tableNameLogin='login';
 String tableNameRoadsDetail='roadsDetail';
+
+
+
 
 const Color customColor = Color(0xFFC69840);
 bool isClockedIn = false;

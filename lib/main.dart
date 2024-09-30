@@ -20,6 +20,8 @@ import 'Services/FirebaseServices/firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  bool isAuthenticated = prefs.getBool('isAuthenticated') ?? false;
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -43,7 +45,7 @@ Future<void> main() async {
       ],
       path: 'assets/langs', // Path to your language files
       fallbackLocale: const Locale('en'), // Default language
-      child: MyApp(), // Separate widget to keep the code clean
+      child: MyApp(isAuthenticated), // Separate widget to keep the code clean
     ),
   )
   );
@@ -66,6 +68,9 @@ void callbackDispatcher() {
 }
 
 class MyApp extends StatelessWidget {
+  final bool isAuthenticated;
+
+  MyApp(this.isAuthenticated);
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -73,7 +78,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: '/',
+      initialRoute: isAuthenticated ? '/home' : '/login',
+     // initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),
         GetPage(name: '/login', page: () => LoginPage()),
