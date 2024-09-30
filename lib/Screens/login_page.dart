@@ -98,10 +98,10 @@ class LoginPageState extends State<LoginPage> {
 
 
   void _login() async {
-   // context.setLocale(Locale('en')); // English set karne ke liye
-    // String email = _emailController.text.trim();
-    // String password = _passwordController.text.trim();
-    //
+  // context.setLocale(Locale('en')); // English set karne ke liye
+  //   String email = _emailController.text.trim();
+  //   String password = _passwordController.text.trim();
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) =>   HomePage()),
@@ -114,7 +114,7 @@ class LoginPageState extends State<LoginPage> {
     //   // Login successful, navigate to the HomePage
     //   Navigator.pushReplacement(
     //     context,
-    //     MaterialPageRoute(builder: (context) =>   HomePage()),
+    //     MaterialPageRoute(builder: (context) => HomePage()),
     //   );
     // } on FirebaseAuthException catch (e) {
     //   String errorMessage;
@@ -222,7 +222,7 @@ class LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 Container(
-                                  padding:   EdgeInsets.all(8.0),
+                                  padding: EdgeInsets.all(8.0),
                                   child: TextField(
                                     controller: _passwordController,
                                     obscureText: _obscureText,

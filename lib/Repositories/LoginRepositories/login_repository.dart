@@ -4,6 +4,7 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/LoginModels/login_models.dart';
 import 'package:al_noor_town/Services/ApiServices/api_service.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 
 class LoginRepository{
@@ -43,18 +44,39 @@ class LoginRepository{
 
     return login;
   }
+  // Future<void> fetchAndSaveLogin() async {
+  //  await Config.fetchLatestConfig();
+  //   List<dynamic> data = await ApiService.getData(Config.getApiUrlLogin);
+  //   var dbClient = await dbHelper.db;
+  //
+  //   // Save data to database
+  //   for (var item in data) {
+  //     item['posted'] = 1; // Set posted to 1
+  //     LoginModels model = LoginModels.fromMap(item);
+  //     await dbClient.insert(tableNameLogin, model.toMap());
+  //   }
+  // }
+
+
   Future<void> fetchAndSaveLogin() async {
-   await Config.fetchLatestConfig();
+    await Config.fetchLatestConfig();
     List<dynamic> data = await ApiService.getData(Config.getApiUrlLogin);
     var dbClient = await dbHelper.db;
 
-    // Save data to database
+    // Save data to local database
     for (var item in data) {
-      item['posted'] = 1; // Set posted to 1
       LoginModels model = LoginModels.fromMap(item);
       await dbClient.insert(tableNameLogin, model.toMap());
+
+      // Save data to Firebase Firestore
+      await FirebaseFirestore.instance
+          .collection('login')
+          .doc(model.id?.toString()) // Convert int? to String?
+          .set(model.toMap());
     }
   }
+
+
 
   Future<int>add(LoginModels loginModels) async{
     var dbClient = await dbHelper.db;
