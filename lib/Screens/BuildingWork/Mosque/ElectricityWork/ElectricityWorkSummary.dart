@@ -7,9 +7,8 @@ import '../../../ReusableDesigns/filter_widget.dart';
 
 
 class ElectricityWorkSummary extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
 
-  ElectricityWorkSummary({super.key, required this.containerDataList});
+  ElectricityWorkSummary({super.key});
 
   @override
   State<ElectricityWorkSummary> createState() => _ElectricityWorkSummaryState();

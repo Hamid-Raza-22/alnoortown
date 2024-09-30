@@ -17,8 +17,6 @@ class RoadCurbStonesWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
-
   });
 
   factory RoadCurbStonesWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -32,7 +30,6 @@ class RoadCurbStonesWorkModel{
         date:  json['roads_curbstone_date'],
         time:  json['time'],
       posted: json['posted'],  // Get the posted status from the database
-
     );
   }
 

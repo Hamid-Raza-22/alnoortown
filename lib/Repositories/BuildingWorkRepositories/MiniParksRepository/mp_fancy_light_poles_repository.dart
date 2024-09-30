@@ -75,7 +75,6 @@ class MpFancyLightPolesRepository{
     var dbClient = await dbHelper.db;
     return await dbClient.update(tableNameFancyLightPolesMiniPark,mpFancyLightPolesModel.toMap(),
         where: 'id = ?', whereArgs: [mpFancyLightPolesModel.id]);
-
   }
 
   Future<int>delete(int id) async{

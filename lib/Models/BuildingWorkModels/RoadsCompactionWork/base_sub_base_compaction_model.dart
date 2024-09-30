@@ -53,8 +53,6 @@ class BaseSubBaseCompactionModel{
       'base_sub_base_compaction_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
-
     };
   }
 }

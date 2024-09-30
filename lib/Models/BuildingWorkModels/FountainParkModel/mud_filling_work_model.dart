@@ -17,7 +17,6 @@ class MudFillingWorkModel {
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory MudFillingWorkModel.fromMap(Map<dynamic, dynamic> json) {

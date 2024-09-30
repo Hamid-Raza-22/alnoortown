@@ -1,9 +1,10 @@
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/main_stage_work_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart' show Get, Inst, Obx;
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../../ReusableDesigns/filter_widget.dart';
+
+import '../../../ReusableDesigns/DateFilter.dart';
 
 class MainStageWorkSummary extends StatefulWidget {
   MainStageWorkSummary({super.key});
@@ -16,7 +17,6 @@ class _MainStageWorkSummaryState extends State<MainStageWorkSummary> {
   final MainStageWorkViewModel mainStageWorkViewModel = Get.put(MainStageWorkViewModel());
   DateTime? _start_date;
   DateTime? _endDate;
-  String? _status;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +30,9 @@ class _MainStageWorkSummaryState extends State<MainStageWorkSummary> {
             Navigator.pop(context);
           },
         ),
-        title: Text(
-          'main_stage_work_summary'.tr(),
-          style: const TextStyle(
+        title: const Text(
+          'main_stage_work_summary',
+          style: TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
             color: Color(0xFFC69840),
@@ -44,13 +44,11 @@ class _MainStageWorkSummaryState extends State<MainStageWorkSummary> {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Add the FilterWidget here
-            FilterWidget(
-              onFilter: (start_date, endDate, status) {
+            SearchByDate(
+              onFilter: (fromDate, toDate) {
                 setState(() {
-                  _start_date = start_date;
-                  _endDate = endDate;
-                  _status = status;
+                  _start_date = fromDate;
+                  _endDate = toDate;
                 });
               },
             ),
@@ -93,12 +91,7 @@ class _MainStageWorkSummaryState extends State<MainStageWorkSummary> {
                 final endDateMatch = _endDate == null ||
                     (entry.expected_comp_date != null && entry.expected_comp_date!.isBefore(_endDate!));
 
-                // Filter by status
-                final statusMatch = _status == null ||
-                    (entry.main_stage_work_comp_status != null &&
-                        entry.main_stage_work_comp_status!.toLowerCase().contains(_status!.toLowerCase()));
-
-                return start_dateMatch && endDateMatch && statusMatch;
+                return start_dateMatch && endDateMatch;
               }).toList();
 
               // Show "No data available" if the list is empty
@@ -131,17 +124,17 @@ class _MainStageWorkSummaryState extends State<MainStageWorkSummary> {
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
                   columnSpacing: 16.0,
-                  headingRowColor: MaterialStateProperty.all(const Color(0xFFC69840)),
+                  headingRowColor: WidgetStateProperty.all(const Color(0xFFC69840)),
                   border: const TableBorder(
                     horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
                     verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
                   ),
-                  columns: [
-                    DataColumn(label: Text('start_date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('end_date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('status'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('date'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
-                    DataColumn(label: Text('time'.tr(), style: const TextStyle(fontWeight: FontWeight.bold))),
+                  columns: const [
+                    DataColumn(label: Text('start_date', style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text('end_date', style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text('status', style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text('date', style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text('time', style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
                   rows: filteredData.map((entry) {
                     // Format the DateTime objects to a readable string format

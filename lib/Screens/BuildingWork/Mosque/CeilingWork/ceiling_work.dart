@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'package:get/get.dart' show Get, Inst;
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
 import 'CeilingWorkSummary.dart';
 
 class CeilingWork extends StatefulWidget {
@@ -23,8 +21,6 @@ class CeilingWork extends StatefulWidget {
 class CeilingWorkState extends State<CeilingWork> {
   CeilingWorkViewModel ceilingWorkWorkViewModel=Get.put(CeilingWorkViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
-
-
 
   String? selectedBlock;
   String? selectedStatus;

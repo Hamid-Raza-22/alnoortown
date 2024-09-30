@@ -15,7 +15,6 @@ class MainDrainExcavationModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory MainDrainExcavationModel.fromMap(Map<dynamic,dynamic>json)
@@ -28,9 +27,6 @@ class MainDrainExcavationModel{
         date:  json['main_drain_excavation_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
-
-
-
     );
   }
 

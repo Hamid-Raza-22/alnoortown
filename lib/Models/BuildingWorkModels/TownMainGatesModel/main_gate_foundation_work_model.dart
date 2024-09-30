@@ -13,8 +13,6 @@ class MainGateFoundationWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
-
   });
 
   factory MainGateFoundationWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -26,8 +24,6 @@ class MainGateFoundationWorkModel{
         date:  json['main_gate_foundation_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
-
-
     );
   }
 

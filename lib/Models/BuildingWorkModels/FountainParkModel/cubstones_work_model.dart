@@ -6,8 +6,6 @@ class CubStonesWorkModel{
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
-
-
   CubStonesWorkModel({
     this.id,
     this.start_date,
@@ -16,8 +14,6 @@ class CubStonesWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
-
   });
 
   factory CubStonesWorkModel.fromMap(Map<dynamic,dynamic>json)

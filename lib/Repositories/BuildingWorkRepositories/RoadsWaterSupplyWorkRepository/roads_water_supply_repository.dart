@@ -1,5 +1,3 @@
-
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsWaterSupplyWorkModel/roads_water_supply_model.dart';
@@ -75,7 +73,6 @@ class RoadsWaterSupplyRepository{
     var dbClient = await dbHelper.db;
     return await dbClient.update(tableNameRoadsWaterSupplyWork,roadsWaterSupplyModel.toMap(),
         where: 'id = ?', whereArgs: [roadsWaterSupplyModel.id]);
-
   }
 
   Future<int>delete(int id) async{
