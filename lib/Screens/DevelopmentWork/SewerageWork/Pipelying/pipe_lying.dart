@@ -7,8 +7,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
-
 import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 
@@ -25,9 +23,7 @@ class _PipelyingState extends State<Pipelying> {
   PipelineViewModel pipelineViewModel=Get.put(PipelineViewModel());
   DBHelper dbHelper = DBHelper();
   int? pipeId;
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
-  Map<String, dynamic> containerData = {};
+Map<String, dynamic> containerData = {};
 
   @override
   void initState() {
