@@ -1,16 +1,25 @@
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsSignBoardsViewModel/roads_sign_boards_view_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../../../ViewModels/BuildingWorkViewModel/RoadsSignBoardsViewModel/roads_sign_boards_view_model.dart';
+import 'package:get/get.dart' show Get, Inst, Obx;
+import '../../ReusableDesigns/filter_widget.dart';
 
-class RoadSignBoardSummary extends StatelessWidget {
-  final RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
-
+class RoadSignBoardSummary extends StatefulWidget {
   RoadSignBoardSummary({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
+  _RoadSignBoardSummaryState createState() => _RoadSignBoardSummaryState();
+}
 
+class _RoadSignBoardSummaryState extends State<RoadSignBoardSummary> {
+  RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
+
+  DateTime? fromDate;
+  DateTime? toDate;
+  String? block;
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -21,124 +30,112 @@ class RoadSignBoardSummary extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
-          'road_sign_board_summary',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+        title: Text(
+          'road_sign_board_summary'.tr(),
+          style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         centerTitle: true,
       ),
-      body: roadsSignBoardsViewModel.allRoadsSignBoard.isEmpty
-          ? const Center(child: Text('No data available', style: TextStyle(fontSize: 18)))
-          : Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Scrollbar(
-          thumbVisibility: true,
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: SizedBox(
-              width: mediaQuery.size.width * 1.5,
-              child: GridView.builder(
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 8, // We have 8 columns now
-                  crossAxisSpacing: 5.0,
-                  mainAxisSpacing: 5.0,
-                  childAspectRatio: 2.0,
-                ),
-                itemCount: roadsSignBoardsViewModel.allRoadsSignBoard.length * 8 + 8,
-                itemBuilder: (context, index) {
-                  // Header row
-                  if (index < 8) {
-                    return Container(
-                      color: const Color(0xFFC69840),
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text(
-                        ['block_no', 'road_no', 'from_plot', 'to_plot', 'road_side', 'status', 'date', 'time'][index],
-                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
-                      ),
-                    );
-                  } else {
-                    // Data rows
-                    final entryIndex = (index - 8) ~/ 8;
-                    if (entryIndex < roadsSignBoardsViewModel.allRoadsSignBoard.length) {
-                      final entry = roadsSignBoardsViewModel.allRoadsSignBoard[entryIndex];
-                      final data = [
-                        entry.block_no ?? 'N/A',
-                        entry.road_no ?? 'N/A',
-                        entry.from_plot_no ?? 'N/A',
-                        entry.to_plot_no ?? 'N/A',
-                        entry.road_side ?? 'N/A',
-                        entry.comp_status ?? 'N/A',
-                        entry.date ?? 'N/A',
-                        entry.time ?? 'N/A'
-                      ];
-
-                      return GestureDetector(
-                        onTap: () {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
+      body: Column(
+        children: [
+          // Add the FilterWidget above the grid
+          FilterWidget(
+            onFilter: (DateTime? fromDate, DateTime? toDate, String? block) {
+              setState(() {
+                this.fromDate = fromDate;
+                this.toDate = toDate;
+                this.block = block;
+              });
+            },
+          ),
+          Expanded(
+            child: roadsSignBoardsViewModel.allRoadsSignBoard.isEmpty
+                ? const Center(child: Text('No data available', style: TextStyle(fontSize: 18)))
+                : SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: DataTable(
+                columns: [
+                  DataColumn(label: Text('block_no'.tr())),
+                  DataColumn(label: Text('road_no'.tr())),
+                  DataColumn(label: Text('from_plot'.tr())),
+                  DataColumn(label: Text('to_plot'.tr())),
+                  DataColumn(label: Text('road_side'.tr())),
+                  DataColumn(label: Text('status'.tr())),
+                  DataColumn(label: Text('date'.tr())),
+                  DataColumn(label: Text('time'.tr())),
+                ],
+                rows: roadsSignBoardsViewModel.allRoadsSignBoard
+                    .where((entry) {
+                  // Apply filtering logic based on the user's input
+                  bool matchesBlock = block == null || block!.isEmpty || entry.block_no?.contains(block as Pattern) == true;
+                  bool matchesDateRange = (fromDate == null || DateTime.parse(entry.date ?? "").isAfter(fromDate!)) &&
+                      (toDate == null || DateTime.parse(entry.date ?? "").isBefore(toDate!));
+                  return matchesBlock && matchesDateRange;
+                })
+                    .map((entry) {
+                  return DataRow(
+                    cells: [
+                      DataCell(Text(entry.block_no ?? 'N/A')),
+                      DataCell(Text(entry.road_no ?? 'N/A')),
+                      DataCell(Text(entry.from_plot_no ?? 'N/A')),
+                      DataCell(Text(entry.to_plot_no ?? 'N/A')),
+                      DataCell(Text(entry.road_side ?? 'N/A')),
+                      DataCell(Text(entry.comp_status ?? 'N/A')),
+                      DataCell(Text(entry.date ?? 'N/A')),
+                      DataCell(Text(entry.time ?? 'N/A')),
+                    ],
+                    onSelectChanged: (selected) {
+                      if (selected ?? false) {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              title: Text(
+                                'Details | ${entry.block_no ?? 'N/A'}',
+                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                              ),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: [
+                                    Text('road_no ${entry.road_no ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
+                                    Text('From Plot: ${entry.from_plot_no ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
+                                    Text('To Plot: ${entry.to_plot_no ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
+                                    Text('Road Side: ${entry.road_side ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
+                                    Text('Status: ${entry.comp_status ?? 'N/A'}', style: const TextStyle(fontSize: 16)),
+                                    Text('Date: ${entry.date}', style: const TextStyle(fontSize: 16)),
+                                    Text('Time: ${entry.time}', style: const TextStyle(fontSize: 16)),
+                                  ],
                                 ),
-                                title: Text(
-                                  'Details | ${data[0]}',
-                                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                                ),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: [
-                                      Text('Road No: ${data[1]}', style: const TextStyle(fontSize: 16)),
-                                      Text('From Plot: ${data[2]}', style: const TextStyle(fontSize: 16)),
-                                      Text('To Plot: ${data[3]}', style: const TextStyle(fontSize: 16)),
-                                      Text('Road Side: ${data[4]}', style: const TextStyle(fontSize: 16)),
-                                      Text('Status: ${data[5]}', style: const TextStyle(fontSize: 16)),
-                                      Text('Date: ${data[6]}', style: const TextStyle(fontSize: 16)),
-                                      Text('Time: ${data[7]}', style: const TextStyle(fontSize: 16)),
-                                    ],
-                                  ),
-                                ),
-                                actions: [
-                                  TextButton(
-                                    style: TextButton.styleFrom(
-                                      foregroundColor: Colors.white,
-                                      backgroundColor: const Color(0xFFC69840),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
+                              ),
+                              actions: [
+                                TextButton(
+                                  style: TextButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: const Color(0xFFC69840),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('close'),
                                   ),
-                                ],
-                              );
-                            },
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(4.0),
-                          color: index % 8 == 0 ? Colors.white : const Color(0xFFEFEFEF),
-                          alignment: Alignment.center,
-                          child: Text(
-                            data[index % 8],
-                            style: const TextStyle(fontSize: 11.0),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 1,
-                          ),
-                        ),
-                      );
-                    }
-                    return Container();
-                  }
-                },
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('close'.tr()),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      }
+                    },
+                  );
+                }).toList(),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
