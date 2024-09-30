@@ -10,7 +10,6 @@ class CurbstonesWorkSummary extends StatefulWidget {
   @override
   State<CurbstonesWorkSummary> createState() => CubstonesWorkSummaryState();
 }
-
 class CubstonesWorkSummaryState extends State<CurbstonesWorkSummary> {
   final CubStonesWorkViewModel cubStonesWorkViewModel = Get.put(CubStonesWorkViewModel());
   DateTime? _start_date;
