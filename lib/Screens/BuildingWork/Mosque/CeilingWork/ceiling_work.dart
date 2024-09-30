@@ -1,6 +1,8 @@
 
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/ceiling_work_model.dart';
+import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/ceiling_work_view_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
@@ -20,16 +22,9 @@ class CeilingWork extends StatefulWidget {
 
 class CeilingWorkState extends State<CeilingWork> {
   CeilingWorkViewModel ceilingWorkWorkViewModel=Get.put(CeilingWorkViewModel());
-  final List<String> blocks = [
-    "Block A",
-    "Block B",
-    "Block C",
-    "Block D",
-    "Block E",
-    "Block F",
-    "Block G"
-  ];
-  List<Map<String, dynamic>> containerDataList = [];
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+
+
 
   String? selectedBlock;
   String? selectedStatus;
@@ -192,33 +187,38 @@ class CeilingWorkState extends State<CeilingWork> {
   }
 
   Widget buildBlockRow(ValueChanged<String?> onChanged) {
+    final List<String> blocks = blockDetailsViewModel.allBlockDetails
+        .map((blockDetail) => blockDetail.block.toString())
+        .toSet()
+        .toList();
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Text('block_no'.tr(),
-            style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFFC69840))),
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFFC69840))),
           SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          items: blocks.map((item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          onChanged: onChanged,
-          decoration:   InputDecoration(
-            border: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFFC69840))),
-            contentPadding: EdgeInsets.symmetric(horizontal: 8),
-          ),
-        ),
-      ],
+
+          DropdownSearch<String>(
+            items: blocks,
+            onChanged: onChanged,
+            dropdownDecoratorProps: DropDownDecoratorProps(
+              dropdownSearchDecoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Color(0xFFC69840)),
+                ),
+                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+              ),
+            ),
+            popupProps: PopupProps.menu(
+              showSearchBox: true,
+            ),
+          )
+        ]
     );
   }
-
   Widget buildStatusRadioButtons(ValueChanged<String?> onChanged) {
     return Column(
       children: [
