@@ -31,8 +31,6 @@ class WalkingTracksWorkModel{
         date:  json['walking_tracks_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
-
-
     );
   }
 
@@ -46,7 +44,6 @@ class WalkingTracksWorkModel{
       'walking_tracks_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
     };
   }
 }

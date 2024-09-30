@@ -5,9 +5,8 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import '../../../ReusableDesigns/filter_widget.dart';
 
 class FoundationSummaryPage extends StatefulWidget {
-  final List<Map<String, dynamic>> containerDataList;
 
-  FoundationSummaryPage({super.key, required this.containerDataList});
+  FoundationSummaryPage({super.key});
 
   @override
   State<FoundationSummaryPage> createState() => _FoundationSummaryPageState();

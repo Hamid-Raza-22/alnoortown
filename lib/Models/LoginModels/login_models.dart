@@ -8,6 +8,7 @@ class LoginModels{
   dynamic address;
   dynamic city;
   dynamic password;
+
   LoginModels({
     this.id,
     this.user_id,
@@ -18,8 +19,6 @@ class LoginModels{
     this.address,
     this.city,
     this.password,
-
-
   });
 
   factory LoginModels.fromMap(Map<dynamic,dynamic>json)
@@ -49,8 +48,6 @@ class LoginModels{
       'address':address,
       'city':city,
       'password':password,
-
-
     };
   }
 }

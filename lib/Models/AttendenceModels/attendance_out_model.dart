@@ -23,7 +23,7 @@ class AttendanceOutModel{
         latitude: json['latitude'],
         longitude: json['longitude'],
         address_out: json['address_out'],
-        date:  json['date']
+        date:  json['attendance_out_date']
     );
   }
 
@@ -34,7 +34,7 @@ class AttendanceOutModel{
       'latitude':latitude,
       'longitude':longitude,
       'live_address':address_out,
-      'date':date
+      'attendance_out_date':date
 
     };
   }

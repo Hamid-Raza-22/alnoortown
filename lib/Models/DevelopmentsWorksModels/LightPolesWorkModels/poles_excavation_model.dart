@@ -28,7 +28,6 @@ class PolesExcavationModel{
         date:  json['poles_excavation_date'],
         time:  json['time'],
       posted: json['posted']??0  // Get the posted status from the database
-
     );
   }
 

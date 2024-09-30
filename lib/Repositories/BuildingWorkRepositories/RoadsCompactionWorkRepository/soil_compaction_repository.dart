@@ -75,7 +75,6 @@ class SoilCompactionRepository{
     var dbClient = await dbHelper.db;
     return await dbClient.update(tableNameSoilCompaction,soilCompactionModel.toMap(),
         where: 'id = ?', whereArgs: [soilCompactionModel.id]);
-
   }
 
   Future<int>delete(int id) async{

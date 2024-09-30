@@ -1,5 +1,3 @@
-
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/AttendenceModels/attendance_in_model.dart';
@@ -16,7 +14,7 @@ class AttendanceInRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameAttendanceIn,
-        columns: ['id', 'time_in', 'latitude', 'longitude','live_address','date']
+        columns: ['id', 'time_in', 'latitude', 'longitude','live_address','attendance_in_date']
     );
 
     // Print the raw data retrieved from the database

@@ -6,7 +6,6 @@ class PlantationWorkModel{
   dynamic date;
   dynamic time;
   int posted;  // New field to track whether data has been posted
-
   PlantationWorkModel({
     this.id,
     this.start_date,
@@ -15,7 +14,6 @@ class PlantationWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
   });
 
   factory PlantationWorkModel.fromMap(Map<dynamic,dynamic>json)

@@ -28,8 +28,6 @@ class ShutteringWorkModel{
         date:  json['shuttering_work_date'],
         time:  json['time'],
       posted: json['posted']??0 // Get the posted status from the database
-
-
     );
   }
 

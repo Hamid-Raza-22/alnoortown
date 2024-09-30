@@ -15,8 +15,6 @@ class GazeboWorkModel{
     this.date,
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
-
-
   });
 
   factory GazeboWorkModel.fromMap(Map<dynamic,dynamic>json)
@@ -41,8 +39,6 @@ class GazeboWorkModel{
       'gazebo_work_date':date,
       'time':time,
       'posted': posted,  // Include the posted status
-
-
     };
   }
 }

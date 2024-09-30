@@ -20,7 +20,6 @@ class RoadsSignBoardsRepository{
         tableNameRoadsSignBoards,
         columns: ['id', 'block_no', 'road_no','from_plot_no','to_plot_no','road_side','comp_status','roads_sign_boards_date','time','posted']
     );
-
     // Print the raw data retrieved from the database
     if (kDebugMode) {
       print('Raw data from database:');
