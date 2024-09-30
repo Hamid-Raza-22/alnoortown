@@ -142,7 +142,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
                       selectedEndDate != null &&
                       type_of_work.text.isNotEmpty &&
                       selectedStatus != null) {
-                    await sittingAreaWorkViewModel .addSitting(SittingAreaWorkModel(
+                     sittingAreaWorkViewModel .addSitting(SittingAreaWorkModel(
                         start_date: selectedstart_date,
                         expected_comp_date: selectedEndDate,
                         type_of_work: type_of_work.text,
