@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -128,7 +129,8 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
                       mud_filling: selectedMudFillingStatus,
                       plaster_work: selectedPlasterWorkStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await firstFloorViewModel.fetchAllFirstFloor();
                     await firstFloorViewModel.postDataFromDatabaseToAPI();

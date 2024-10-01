@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/manholes_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/manholes_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -136,7 +137,8 @@ class _ManholesState extends State<Manholes> {
                       street_no: selectedStreet,
                       no_of_manholes: numTankers,
                       date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                      time: _getFormattedTime(),
+                    user_id: userId
                   ));
                   await manholesViewModel.fetchAllWorker();
                   await manholesViewModel.postDataFromDatabaseToAPI();

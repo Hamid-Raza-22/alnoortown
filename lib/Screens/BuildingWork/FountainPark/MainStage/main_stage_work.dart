@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/main_stage_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/main_stage_work_view_model.dart';
@@ -143,7 +144,8 @@ class _MainStageWorkState extends State<MainStageWork> {
                         expected_comp_date: selectedEndDate,
                         main_stage_work_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await mainStageWorkViewModel.fetchAllStage();
                     await mainStageWorkViewModel.postDataFromDatabaseToAPI();

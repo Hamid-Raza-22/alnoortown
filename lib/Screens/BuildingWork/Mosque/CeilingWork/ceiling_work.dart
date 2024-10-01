@@ -1,4 +1,5 @@
 
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/ceiling_work_model.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/ceiling_work_view_model.dart';
@@ -138,7 +139,8 @@ class CeilingWorkState extends State<CeilingWork> {
                       block_no: selectedBlock,
                       ceiling_work_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                       // date:
                     ));
                     await ceilingWorkWorkViewModel.fetchAllCeiling();

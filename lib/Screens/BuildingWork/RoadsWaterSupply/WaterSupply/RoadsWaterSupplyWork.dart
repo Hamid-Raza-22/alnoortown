@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsWaterSupplyWorkModel/roads_water_supply_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/roads_water_supply_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -173,7 +174,8 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                         expected_comp_date: selectedEndDate,
                        roads_water_supply_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await roadsWaterSupplyViewModel.fetchAllRoadWaterSupply();
                     await roadsWaterSupplyViewModel.postDataFromDatabaseToAPI();

@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCompactionWork/soil_compaction_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/soil_compaction_view_model.dart';
@@ -162,7 +163,8 @@ class _SoilCompactionState extends State<SoilCompaction> {
                         total_length: total_lengthController.text,
                         soil_comp_status:selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await soilCompactionViewModel.fetchAllSoil();
                     await soilCompactionViewModel.postDataFromDatabaseToAPI();

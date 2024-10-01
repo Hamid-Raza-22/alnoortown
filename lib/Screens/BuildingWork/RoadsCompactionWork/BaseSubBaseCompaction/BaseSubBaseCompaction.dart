@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsCompactionWork/base_sub_base_compaction_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/base_sub_base_compaction_view_model.dart';
@@ -162,7 +163,8 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                         total_length: total_lengthController.text,
                         base_sub_base_comp_status:selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
 
                     ));
 

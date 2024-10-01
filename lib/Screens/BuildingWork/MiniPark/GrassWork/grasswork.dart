@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/grass_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/grass_work_view_model.dart';
@@ -143,7 +144,8 @@ class GrassWorkState extends State<GrassWork> {
                         expected_comp_date: selectedEndDate,
                         grass_work_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await grassWorkViewModel.fetchAllGrass();
                     await grassWorkViewModel.postDataFromDatabaseToAPI();

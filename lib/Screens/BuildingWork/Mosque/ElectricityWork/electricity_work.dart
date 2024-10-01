@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -138,7 +139,8 @@ class ElectricityWorkState extends State<ElectricityWork> {
                       block_no: selectedBlock,
                       electricity_work_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                       // date:
                     ));
                     await electricityWorkViewModel.fetchAllElectricity();

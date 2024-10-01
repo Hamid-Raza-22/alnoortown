@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/plaster_work_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/PlasterWork/plaster_work_summary.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
@@ -173,7 +174,8 @@ class PlasterWorkState extends State<PlasterWork> {
                       street_no: selectedStreet,
                       completed_length: numTankers,
                       date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                      time: _getFormattedTime(),
+                    user_id: userId
                   ));
                   await plasterWorkViewModel.fetchAllPlaster();
                   await plasterWorkViewModel.postDataFromDatabaseToAPI();

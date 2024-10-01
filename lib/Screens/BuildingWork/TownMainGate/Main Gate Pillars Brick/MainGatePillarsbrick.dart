@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -121,7 +122,8 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
                       block_no: selectedBlock,
                       work_status: work_status,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                       // date:
                     ));
 

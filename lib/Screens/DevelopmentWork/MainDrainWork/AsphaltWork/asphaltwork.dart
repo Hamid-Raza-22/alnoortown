@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/asphalt_work_model.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/asphalt_work_view_model.dart';
@@ -172,6 +173,7 @@ class _AsphaltWorkState extends State<AsphaltWork> {
                       back_filling_status: status,
                       date: _getFormattedDate(),
                       time: _getFormattedTime(),
+                      user_id: userId
                     ));
 
                     await asphaltWorkViewModel.fetchAllAsphalt();

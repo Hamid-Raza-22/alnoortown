@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/shuttering_work_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/ShutteringWork/shuttering_work_summary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/shuttering_work_view_model.dart';
@@ -157,6 +158,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
                     completed_length: numTankers,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
+                    user_id: userId
                   ));
                   await shutteringWorkViewModel.fetchAllShutter();
                   await shutteringWorkViewModel.postDataFromDatabaseToAPI();

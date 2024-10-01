@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/gazebo_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/gazebo_work_view_model.dart';
@@ -141,7 +142,8 @@ class _GazeboWorkState extends State<GazeboWork> {
                         expected_comp_date: selectedEndDate,
                         gazebo_work_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await gazeboWorkViewModel.fetchAllGazebo();
                     await gazeboWorkViewModel.postDataFromDatabaseToAPI();

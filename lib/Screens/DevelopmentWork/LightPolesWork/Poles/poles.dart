@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_model.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_view_model.dart';
@@ -165,6 +166,7 @@ class _PolesState extends State<Poles> {
                     no_of_poles: selectedPoles,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
+                    user_id: userId
                   ));
 
                   await polesViewModel.fetchAllPole();

@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mp_fancy_light_poles_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mp_fancy_light_poles_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -143,7 +144,8 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
                         expected_comp_date: selectedEndDate,
                         mini_park_fancy_light_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
 
                     await mpFancyLightPolesViewModel.fetchAllMpFancy();

@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/main_entrance_tiles_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/main_entrance_tiles_work_view_model.dart';
@@ -142,7 +143,8 @@ class _MainEntranceTilesWorkState extends State<MainEntranceTilesWork> {
                         expected_comp_date: selectedEndDate,
                         main_entrance_tiles_work_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await mainEntranceTilesWorkViewModel.fetchAllEntrance();
                     await mainEntranceTilesWorkViewModel.postDataFromDatabaseToAPI();

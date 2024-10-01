@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/StreetRoadsWaterChannelsModel/street_road_water_channel_model.dart';
 import 'package:al_noor_town/Screens/BuildingWork/StreetRoadsWaterChannels/waterchannelsummary.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -152,7 +153,8 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
                         no_of_water_channels:  noOfWaterChannelsController.text,
                         water_channels_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
 
                     ));
 

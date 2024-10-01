@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/MaterialShiftingModels/shifting_work_model.dart';
 import 'package:al_noor_town/ViewModels/MaterialShiftingViewModel/material_shifting_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -117,6 +118,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                     no_of_shift: no_of_shift,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
+                    user_id: userId
                   ));
 
                    materialShiftingViewModel.fetchAllShifting();

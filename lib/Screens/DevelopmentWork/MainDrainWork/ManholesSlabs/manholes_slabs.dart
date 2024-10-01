@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/manholes_slab_model.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/man_holes_slab_view_model.dart';
@@ -138,7 +139,8 @@ class ManholesSlabsState extends State<ManholesSlabs> {
                       street_no: selectedStreet,
                       no_of_comp_slabs: numTankers,
                       date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                      time: _getFormattedTime(),
+                    user_id: userId
                   ));
                   await manHolesSlabViewModel.fetchAllMan();
                   await manHolesSlabViewModel.postDataFromDatabaseToAPI();

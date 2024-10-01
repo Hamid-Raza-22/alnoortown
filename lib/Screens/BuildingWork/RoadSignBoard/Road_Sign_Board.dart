@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
@@ -149,7 +150,8 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
                         road_side: selectedroad_side,
                         comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
 
                     await roadsSignBoardsViewModel.fetchAllRoadsSignBoard();

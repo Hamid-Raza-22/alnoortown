@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/light_wires_model.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/light_wires_view_model.dart';
@@ -178,6 +179,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
                     light_wire_work_status: status,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
+                    user_id: userId
                   ));
                   await lightWiresViewModel.fetchAllLight();
                   await lightWiresViewModel.postDataFromDatabaseToAPI();

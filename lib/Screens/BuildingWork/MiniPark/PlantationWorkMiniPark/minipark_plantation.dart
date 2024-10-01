@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mp_plantation_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mp_plantation_work_view_model.dart';
@@ -144,7 +145,8 @@ class _PlantationWorkmpState extends State<PlantationWorkmp> {
                         expected_comp_date: selectedEndDate,
                         mini_park_plantation_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
 
                     await mpPlantationWorkViewModel.fetchAllMpPlant();
