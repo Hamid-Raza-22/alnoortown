@@ -85,9 +85,9 @@ class DBHelper {
       "CREATE TABLE IF NOT EXISTS $tableNamePillarsBrickWorkMainGate(id INTEGER PRIMARY KEY,block_no TEXT, work_status TEXT,main_gate_pillar_date TEXT,time TEXT,user_id TEXT, posted INTEGER DEFAULT 0)",
       "CREATE TABLE IF NOT EXISTS $tableNameGreyStructureMainGate(id INTEGER PRIMARY KEY,block_no TEXT, work_status TEXT,main_gate_grey_structure_date TEXT,time TEXT,user_id TEXT, posted INTEGER DEFAULT 0)",
       "CREATE TABLE IF NOT EXISTS $tableNamePlasterWorkMainGate(id INTEGER PRIMARY KEY,block_no TEXT, work_status TEXT,main_gate_plaster_work_date TEXT,time TEXT,user_id TEXT, posted INTEGER DEFAULT 0)",
-      "CREATE TABLE IF NOT EXISTS $tableNameRoadsDetail(id INTEGER PRIMARY KEY,phase TEXT, block TEXT,street TEXT,length TEXT,user_id TEXT, road_type TEXT)",
-      "CREATE TABLE IF NOT EXISTS $tableNameBlocksDetails(id INTEGER PRIMARY KEY, block TEXT,marla TEXT,user_id TEXT,plot_no TEXT)",
-      "CREATE TABLE IF NOT EXISTS $tableNameLogin(id INTEGER PRIMARY KEY, user_id TEXT,user_name TEXT,contact TEXT,cnic TEXT,image TEXT,address TEXT,user_id TEXT,city TEXT,password TEXT)",
+      "CREATE TABLE IF NOT EXISTS $tableNameRoadsDetail(id INTEGER PRIMARY KEY,phase TEXT, block TEXT,street TEXT,length TEXT, road_type TEXT)",
+      "CREATE TABLE IF NOT EXISTS $tableNameBlocksDetails(id INTEGER PRIMARY KEY, block TEXT,marla TEXT,plot_no TEXT)",
+      "CREATE TABLE IF NOT EXISTS $tableNameLogin(id INTEGER PRIMARY KEY,user_name TEXT,contact TEXT,cnic TEXT,image TEXT,address TEXT,user_id TEXT,city TEXT,password TEXT)",
     ];
     for (var query in tableQueries) {
       await db.execute(query);

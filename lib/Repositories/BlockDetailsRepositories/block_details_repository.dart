@@ -17,7 +17,7 @@ class BlockDetailsRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameBlocksDetails,
-        columns: ['id', 'block', 'marla','plot_no','user_id']
+        columns: ['id', 'block', 'marla','plot_no']
     );
 
     // Print the raw data retrieved from the database

@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
 import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -158,6 +159,7 @@ class MachinesState extends State<Machines> {
                     time_out: clockOutTime,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
+                    user_id: userId
                   );
 
                   try {

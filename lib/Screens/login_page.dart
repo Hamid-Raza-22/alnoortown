@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/LoginViewModel/login_view_model.dart';
 import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
@@ -103,6 +104,7 @@ class LoginPageState extends State<LoginPage> {
       _passwordController.text,
     );
     if (success) {
+      _emailController.text= userId;
       // Navigate to the next screen
       Get.offNamed('/home'); // Replace with your home route
     } else {

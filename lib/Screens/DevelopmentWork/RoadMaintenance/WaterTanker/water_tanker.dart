@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/RoadMaintenance/WaterTanker/watertanker_summary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/water_tanker_view_model.dart';
@@ -150,7 +151,8 @@ RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
                     street_no: selectedStreet,
                     tanker_no: selectedTankers,
                       date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                      time: _getFormattedTime(),
+                      user_id: userId
                   ));
                  // await waterTankerViewModel.fetchAllTanker();
                   await waterTankerViewModel.postDataFromDatabaseToAPI();

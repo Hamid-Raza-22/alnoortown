@@ -145,6 +145,7 @@ final attendanceInViewModel = Get.put(AttendanceInViewModel());
         longitude: "32.44",
         live_address: "Prem Nagar",
       ));
+
       await attendanceInViewModel.fetchAllAttend();
       _saveCurrentTime();
       _saveClockStatus(true);
