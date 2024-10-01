@@ -45,6 +45,7 @@ class ShiftingWorkRepository{
     List<dynamic> data = await ApiService.getData('${Config.getApiUrlShiftingWork}$userId');
     var dbClient = await dbHelper.db;
 
+
     // Save data to database
     for (var item in data) {
       item['posted'] = 1; // Set posted to 1
