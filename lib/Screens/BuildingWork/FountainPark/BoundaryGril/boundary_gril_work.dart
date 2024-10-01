@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/boundary_grill_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/boundary_grill_work_view_model.dart';
@@ -142,7 +143,8 @@ class BoundaryGrillWorkState extends State<BoundaryGrillWork> {
                       expected_comp_date: selectedEndDate,
                       boundary_work_comp_status: selectedStatus,
                       date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                      time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await boundaryGrillWorkViewModel.fetchAllBoundary();
                     await boundaryGrillWorkViewModel.postDataFromDatabaseToAPI();

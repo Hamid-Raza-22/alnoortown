@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mini_park_curb_stone_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mini_park_curb_stone_view_model.dart';
@@ -144,7 +145,8 @@ class MiniParkCurbstonesWorkState extends State<MiniParkCurbstonesWork> {
                         expected_comp_date: selectedEndDate,
                         mini_park_curbstone_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
 
                     await miniParkCurbStoneViewModel.fetchAllMpCurb();

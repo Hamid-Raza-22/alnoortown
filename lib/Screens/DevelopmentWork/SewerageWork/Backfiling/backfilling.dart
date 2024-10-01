@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/back_filing_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/back_filling_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -176,6 +177,7 @@ class _BackfilingState extends State<Backfiling> {
                     status: status,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
+                    user_id: userId
                   ));
                   await backFillingViewModel.fetchAllFill();
                   await backFillingViewModel.postDataFromDatabaseToAPI();

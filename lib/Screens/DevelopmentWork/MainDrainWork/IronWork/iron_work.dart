@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/iron_works_model.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/iron_work_view_model.dart';
@@ -160,6 +161,7 @@ class _IronWorkState extends State<IronWork> {
                     completed_length: completed_length,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
+                    user_id: userId
                   ));
 
                   // Fetch updated works

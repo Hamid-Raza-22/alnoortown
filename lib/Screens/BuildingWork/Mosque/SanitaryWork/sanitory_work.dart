@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -133,7 +134,8 @@ class _SanitaryWorkState extends State<SanitaryWork> {
                         block_no: selectedBlock,
                         sanitary_work_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                        user_id: userId
                     ));
                     await sanitaryWorkViewModel.fetchAllSanitary();
                     await sanitaryWorkViewModel.postDataFromDatabaseToAPI();

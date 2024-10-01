@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/NewMaterialModels/new_material_model.dart';
 import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -152,6 +153,7 @@ class _NewMaterialState extends State<NewMaterial> {
                       other_material_value:other_material_value ,
                       date: _getFormattedDate(),
                       time: _getFormattedTime(),
+                      user_id: userId
                     ),
                   );
 

@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/main_drain_excavation_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/main_drain_excavation_view_model.dart';
 import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
@@ -134,7 +135,8 @@ class _DrainExcavationState extends State<DrainExcavation> {
                             street_no: selectedStreet,
                             completed_length: totalcompleted_length,
                             date: _getFormattedDate(),
-                            time: _getFormattedTime()
+                            time: _getFormattedTime(),
+                          user_id: userId
                         ));
 
                     await mainDrainExcavationViewModel.fetchAllDrain();

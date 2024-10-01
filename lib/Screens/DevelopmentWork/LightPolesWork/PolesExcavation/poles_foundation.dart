@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/LightPolesWorkModels/poles_excavation_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/LightPolesWork/PolesExcavation/poles_excavation_summary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_excavation_view_model.dart';
@@ -169,6 +170,7 @@ class PolesFoundationState extends State<PolesFoundation> {
                     no_of_excavation: polesExcavation,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
+                    user_id: userId
                   ));
                   await polesExcavationViewModel.fetchAllPoleExa();
 

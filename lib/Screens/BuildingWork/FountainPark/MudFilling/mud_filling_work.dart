@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/mud_filling_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/mud_filling_work_view_model.dart';
@@ -148,7 +149,8 @@ class MudFillingWorkState extends State<MudFillingWork> {
                         total_dumpers: dumpersController.text,
                         mud_filling_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await mudFillingWorkViewModel.fetchAllMud();
                     await mudFillingWorkViewModel.postDataFromDatabaseToAPI();

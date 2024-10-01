@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/Mosque/mosque_excavation_work.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -136,7 +137,8 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                       block_no: selectedBlock,
                       completion_status: selectedStatus,
                      date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                      time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await mosqueExcavationViewModel.fetchAllMosque();
                     await mosqueExcavationViewModel.postDataFromDatabaseToAPI();

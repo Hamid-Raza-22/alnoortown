@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/monuments_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/monuments_work_view_model.dart';
@@ -144,7 +145,8 @@ class _MonumentsWorkState extends State<MonumentsWork> {
                         expected_comp_date: selectedEndDate,
                         monuments_work_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
 
                     await monumentsWorkViewModel.fetchAllMonument();

@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mini_park_mud_filling_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mini_park_mud_filling_view_model.dart';
@@ -148,7 +149,8 @@ class MiniParkMudFillingState extends State<MiniParkMudFilling> {
                         total_dumpers: dumpersController.text,
                         mini_park_mud_filling_comp_status: selectedStatus,
                         date: _getFormattedDate(),
-                        time: _getFormattedTime()
+                        time: _getFormattedTime(),
+                      user_id: userId
                     ));
                     await miniParkMudFillingViewModel.fetchAllMpMud();
                     await miniParkMudFillingViewModel.postDataFromDatabaseToAPI();

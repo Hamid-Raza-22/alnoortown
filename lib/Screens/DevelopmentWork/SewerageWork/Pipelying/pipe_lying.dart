@@ -1,4 +1,5 @@
 import 'package:al_noor_town/Database/db_helper.dart';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/pipeline_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/SewerageWork/Pipelying/pipelying_summary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/pipeline_view_model.dart';
@@ -126,7 +127,8 @@ Map<String, dynamic> containerData = {};
                       street_no: selectedStreet,
                       length: numTankers,
                       date: _getFormattedDate(),
-                      time: _getFormattedTime()
+                      time: _getFormattedTime(),
+                    user_id: userId
                   ));
                   await pipelineViewModel.fetchAllPipe();
                   await pipelineViewModel.postDataFromDatabaseToAPI();
