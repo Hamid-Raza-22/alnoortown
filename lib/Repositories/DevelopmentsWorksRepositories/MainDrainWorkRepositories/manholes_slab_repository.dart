@@ -43,7 +43,7 @@ class ManholesSlabRepository{
     return manholesSlab;
   }
   Future<void> fetchAndSaveManholesSlabData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlManholesSlabs);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlManholesSlabs}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

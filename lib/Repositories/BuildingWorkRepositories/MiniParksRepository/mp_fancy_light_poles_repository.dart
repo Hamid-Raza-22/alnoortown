@@ -43,7 +43,7 @@ class MpFancyLightPolesRepository{
     return mpFancyLightPoles;
   }
   Future<void> fetchAndSaveMiniParkFancyWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlFancyLightPolesMiniPark);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlFancyLightPolesMiniPark}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

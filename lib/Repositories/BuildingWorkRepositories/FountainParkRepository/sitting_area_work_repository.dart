@@ -43,7 +43,7 @@ class SittingAreaWorkRepository{
     return sittingAreaWork;
   }
   Future<void> fetchAndSaveSittingAreaData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlSittingAreaWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlSittingAreaWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

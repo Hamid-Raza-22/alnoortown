@@ -45,7 +45,7 @@ class MgGreyStructureRepository{
     return mgGreyStructure;
   }
   Future<void> fetchAndSaveMainGateGreyStructureData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlGreyStructureMainGate);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlGreyStructureMainGate}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

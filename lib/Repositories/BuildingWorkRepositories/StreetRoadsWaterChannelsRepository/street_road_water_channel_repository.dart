@@ -45,7 +45,7 @@ class StreetRoadWaterChannelRepository{
     return streetRoadWaterChannel;
   }
   Future<void> fetchAndSaveStreetRoadsWaterChannelData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlStreetRoadWaterChannels);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlStreetRoadWaterChannels}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

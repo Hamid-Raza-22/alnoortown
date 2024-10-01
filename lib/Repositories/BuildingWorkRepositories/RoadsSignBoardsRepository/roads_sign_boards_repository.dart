@@ -44,7 +44,7 @@ class RoadsSignBoardsRepository{
     return roadsSignBoards;
   }
   Future<void> fetchAndSaveRoadsSignBoardsData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlRoadsSignBoards);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlRoadShoulder}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

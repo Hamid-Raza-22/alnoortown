@@ -43,7 +43,7 @@ class SandCompactionRepository{
     return sandCompaction;
   }
   Future<void> fetchAndSaveSandCompactionData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlSandCompaction);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlSandCompaction}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

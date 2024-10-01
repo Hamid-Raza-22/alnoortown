@@ -44,7 +44,7 @@ class PipelineRepository{
     return pipeline;
   }
   Future<void> fetchAndSavePipelineData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlPipeLaying);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlPipeLaying}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

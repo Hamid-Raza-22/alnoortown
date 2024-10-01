@@ -46,7 +46,7 @@ class BackFillingRepository{
     return backFiling;
   }
   Future<void> fetchAndSaveBackFillingData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlBackFiling);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlBackFiling}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

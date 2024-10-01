@@ -46,7 +46,7 @@ class AsphaltWorkRepository{
     return asphaltWork;
   }
   Future<void> fetchAndSaveAsphaltWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlAsphaltWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlAsphaltWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

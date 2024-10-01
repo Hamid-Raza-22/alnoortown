@@ -43,7 +43,7 @@ class GazeboWorkRepository{
     return gazeboWork;
   }
   Future<void> fetchAndSaveGazeboWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlGazeboWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlGazeboWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

@@ -45,7 +45,7 @@ class CanopyColumnPouringRepository{
     return canopyColumnPouring;
   }
   Future<void> fetchAndSaveCanopyColumnData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlMainGateCanopyColumnPouringWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlMainGateCanopyColumnPouringWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

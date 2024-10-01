@@ -43,7 +43,7 @@ class GrassWorkRepository{
     return grassWork;
   }
   Future<void> fetchAndSaveGrassWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlGrassWorkMiniPark);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlGrassWorkMiniPark}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

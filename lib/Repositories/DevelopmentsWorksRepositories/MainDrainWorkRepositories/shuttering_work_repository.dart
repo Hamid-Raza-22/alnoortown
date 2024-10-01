@@ -41,7 +41,7 @@ class ShutteringWorkRepository{
     return shutteringWork;
   }
   Future<void> fetchAndSaveShutteringWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlShutteringWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlShutteringWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

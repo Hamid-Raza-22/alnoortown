@@ -44,7 +44,7 @@ class MainGateFoundationWorkRepository{
     return mainGateFoundationWork;
   }
   Future<void> fetchAndSaveMainGateFoundationWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlFoundationWorkMainGate);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlFoundationWorkMainGate}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

@@ -43,7 +43,7 @@ class MiniParkMudFillingRepository{
     return miniParkMudFilling;
   }
   Future<void> fetchAndSaveMiniParkMudFillingData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlMudFillingMiniPark);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlMudFillingMiniPark}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

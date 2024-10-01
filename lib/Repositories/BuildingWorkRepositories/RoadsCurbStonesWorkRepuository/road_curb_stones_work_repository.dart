@@ -43,7 +43,7 @@ class RoadCurbStonesWorkRepository{
     return roadCurbStonesWork;
   }
   Future<void> fetchAndSaveRoadCompactionData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlRoadCurbStone);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlRoadCurbStone}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

@@ -39,7 +39,7 @@ class PolesRepository{
     return poles;
   }
   Future<void> fetchAndSavePolesWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlPoles);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlPoles}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

@@ -45,7 +45,7 @@ class BoundaryGrillWorkRepository{
     return boundaryGrillWork;
   }
   Future<void> fetchAndSaveBoundaryGrillWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlBoundaryGrillWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlBoundaryGrillWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

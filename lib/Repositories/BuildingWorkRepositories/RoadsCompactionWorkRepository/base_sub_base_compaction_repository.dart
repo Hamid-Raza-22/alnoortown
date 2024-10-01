@@ -42,7 +42,7 @@ class BaseSubBaseCompactionRepository{
     return baseSubBaseCompaction;
   }
   Future<void> fetchAndSaveBaseSubBaseCompactionData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlBaseSubBaseCompaction);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlBaseSubBaseCompaction}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

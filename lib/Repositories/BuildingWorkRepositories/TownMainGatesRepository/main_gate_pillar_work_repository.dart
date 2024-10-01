@@ -45,7 +45,7 @@ class MainGatePillarWorkRepository{
     return mainGatePillarWork;
   }
   Future<void> fetchAndSaveMainGatePillarData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlPillarsBrickWorkMainGate);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlPillarsBrickWorkMainGate}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

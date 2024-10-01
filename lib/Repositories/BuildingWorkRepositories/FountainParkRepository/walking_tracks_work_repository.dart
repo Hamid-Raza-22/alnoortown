@@ -43,7 +43,7 @@ class WalkingTracksWorkRepository{
     return walkingTracksWork;
   }
   Future<void> fetchAndSaveWalkingTracksData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlWalkingTracksWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlWalkingTracksWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

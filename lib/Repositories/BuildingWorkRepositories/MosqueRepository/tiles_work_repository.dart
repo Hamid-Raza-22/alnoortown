@@ -43,7 +43,7 @@ class TilesWorkRepository{
     return tilesWork;
   }
   Future<void> fetchAndSaveTilesWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlTilesWorkMosque);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlTilesWorkMosque}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

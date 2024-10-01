@@ -43,7 +43,7 @@ class CubStonesWorkRepository{
     return cubStonesWork;
   }
   Future<void> fetchAndSaveCurbStoneWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlCurbStonesWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlCurbStonesWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

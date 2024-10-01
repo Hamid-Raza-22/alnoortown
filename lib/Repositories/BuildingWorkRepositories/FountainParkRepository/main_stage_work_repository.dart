@@ -43,7 +43,7 @@ class MainStageWorkRepository{
     return mainStageWork;
   }
   Future<void> fetchAndSaveMainStageWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlMainStage);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlMainStage}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

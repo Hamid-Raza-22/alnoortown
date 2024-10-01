@@ -38,7 +38,7 @@ class PlasterWorkRepository{
     return plasterWork;
   }
   Future<void> fetchAndSavePlasterWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlPlasterWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlPlasterWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

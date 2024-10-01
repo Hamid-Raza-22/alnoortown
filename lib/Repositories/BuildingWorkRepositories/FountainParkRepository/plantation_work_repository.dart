@@ -43,7 +43,7 @@ class PlantationWorkRepository{
     return plantationWork;
   }
   Future<void> fetchAndSavePlantationWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlPlantationWorkFountainPark);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlPlantationWorkFountainPark}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

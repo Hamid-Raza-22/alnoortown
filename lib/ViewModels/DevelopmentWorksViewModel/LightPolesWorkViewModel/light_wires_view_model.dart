@@ -51,7 +51,6 @@ class LightWiresViewModel extends GetxController {
     }
   }
 
-  // Function to post data to the API
   Future<void> postLightWiresToAPI(LightWiresModel lightWiresModel) async {
     try {
       await Config.fetchLatestConfig();

@@ -43,7 +43,7 @@ class MainDrainExcavationRepository{
     return mainDrainExcavation;
   }
   Future<void> fetchAndSaveMainDrainExcavationData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlDrainExcavation);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlDrainExcavation}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

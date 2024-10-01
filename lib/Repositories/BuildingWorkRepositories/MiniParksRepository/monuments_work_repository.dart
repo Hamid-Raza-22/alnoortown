@@ -43,7 +43,7 @@ class MonumentsWorkRepository{
     return monumentsWork;
   }
   Future<void> fetchAndSaveMonumentWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlMonumentWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlMonumentWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

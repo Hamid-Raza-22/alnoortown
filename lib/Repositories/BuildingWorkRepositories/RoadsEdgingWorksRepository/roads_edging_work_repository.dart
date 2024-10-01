@@ -43,7 +43,7 @@ class RoadsEdgingWorkRepository{
     return roadsEdgingWork;
   }
   Future<void> fetchAndSaveRoadsEdgingWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlRoadsEdging);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlRoadsEdging}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

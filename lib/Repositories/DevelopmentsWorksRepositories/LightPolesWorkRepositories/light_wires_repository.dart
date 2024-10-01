@@ -46,7 +46,7 @@ class LightWiresRepository{
     return lightWires;
   }
   Future<void> fetchAndSaveLightWiresWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlLightWires);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlLightWires}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

@@ -43,7 +43,7 @@ class MiniParkCurbStoneRepository{
     return miniParkCurbStone;
   }
   Future<void> fetchAndSaveMiniParkCurbStoneData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlCurbStonesWorkMiniPark);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlCurbStonesWorkMiniPark}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

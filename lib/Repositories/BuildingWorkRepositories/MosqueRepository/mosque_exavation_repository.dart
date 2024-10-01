@@ -42,7 +42,7 @@ class MosqueExcavationRepository{
     return mosqueExavationWork;
   }
   Future<void> fetchAndSaveExcavationWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlMosqueExcavationWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlMosqueExcavationWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

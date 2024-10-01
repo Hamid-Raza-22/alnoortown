@@ -43,7 +43,7 @@ class DoorWorkRepository{
     return doorsWork;
   }
   Future<void> fetchAndSaveDoorsWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlDoorsWorkMosque);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlDoorsWorkMosque}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

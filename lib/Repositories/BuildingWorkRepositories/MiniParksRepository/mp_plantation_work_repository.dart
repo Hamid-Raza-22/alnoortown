@@ -43,7 +43,7 @@ class MpPlantationWorkRepository{
     return mpPlantationWork;
   }
   Future<void> fetchAndSaveMiniParkPlantationData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlPlantationWorkMiniPark);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlPlantationWorkMiniPark}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

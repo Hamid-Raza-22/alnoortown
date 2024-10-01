@@ -43,7 +43,7 @@ class IronWorksRepository{
     return ironWorks;
   }
   Future<void> fetchAndSaveIronsWorksData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlIronWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlIronWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

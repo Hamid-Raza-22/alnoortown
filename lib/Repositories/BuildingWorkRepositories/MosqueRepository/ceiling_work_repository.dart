@@ -43,7 +43,7 @@ class CeilingWorkRepository{
     return ceilingWork;
   }
   Future<void> fetchAndSaveCeilingWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlCeilingWorkMosque);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlCeilingWorkMosque}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

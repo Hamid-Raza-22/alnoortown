@@ -43,7 +43,7 @@ class NewMaterialRepository{
     return newMaterial;
   }
   Future<void> fetchAndSaveNewMaterialData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlNewMaterials);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlNewMaterials}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

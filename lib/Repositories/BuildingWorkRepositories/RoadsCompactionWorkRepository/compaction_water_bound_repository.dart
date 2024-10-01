@@ -43,7 +43,7 @@ class CompactionWaterBoundRepository{
     return compactionWaterBound;
   }
   Future<void> fetchAndSaveCompactionWaterBoundData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlCompactionAfterWaterBound);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlCompactionAfterWaterBound}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

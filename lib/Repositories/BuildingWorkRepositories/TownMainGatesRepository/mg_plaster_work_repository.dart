@@ -45,7 +45,7 @@ class MgPlasterWorkRepository{
     return mgPlasterWork;
   }
   Future<void> fetchAndSaveMainGatePlasterWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlPlasterWorkMainGate);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlPlasterWorkMainGate}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

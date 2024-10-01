@@ -42,24 +42,6 @@ class WaterTankerRepository{
 
     return waterTanker;
   }
-  // Future<void> fetchAndSaveTankerData() async {
-  //   try {
-  //     String userId = '12345'; // Replace with actual user ID
-  //     String apiUrl = '${Config.getApiUrlWaterTanker}?user_id=$userId';
-  //     print(apiUrl); // Print the constructed URL to verify
-  //     List<dynamic> data = await ApiService.getData(apiUrl);
-  //     var dbClient = await dbHelper.db;
-  //
-  //     // Save data to database
-  //     for (var item in data) {
-  //       item['posted'] = 1; // Set posted to 1
-  //       WaterTankerModel model = WaterTankerModel.fromMap(item);
-  //       await dbClient.insert(tableNameWaterTanker, model.toMap());
-  //     }
-  //   } catch (e) {
-  //     print('Failed to fetch and save data: $e');
-  //   }
-  // }
 
     Future<void> fetchAndSaveTankerData() async {
     print('${Config.getApiUrlWaterTanker}$userId');

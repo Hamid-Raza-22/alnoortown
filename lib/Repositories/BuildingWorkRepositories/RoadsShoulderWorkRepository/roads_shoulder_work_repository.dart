@@ -42,7 +42,7 @@ class RoadsShoulderWorkRepository{
     return roadsShoulderWork;
   }
   Future<void> fetchAndSaveRoadsShoulderWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlRoadShoulder);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlRoadShoulder}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

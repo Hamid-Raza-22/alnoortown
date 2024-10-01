@@ -43,7 +43,7 @@ class SanitaryWorkRepository{
     return sanitaryWork;
   }
   Future<void> fetchAndSaveSanitaryWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlSanitaryWorkMosque);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlSanitaryWorkMosque}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

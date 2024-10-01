@@ -42,7 +42,7 @@ class BrickWorkRepository{
     return brick_work;
   }
   Future<void> fetchAndSaveBrickWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlBrickWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlBrickWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

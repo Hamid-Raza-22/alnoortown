@@ -43,7 +43,7 @@ class ElectricityWorkRepository{
     return electricityWork;
   }
   Future<void> fetchAndSaveElectricityWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlElectricityWorkMosque);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlElectricityWorkMosque}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

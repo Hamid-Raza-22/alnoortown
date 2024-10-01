@@ -43,7 +43,7 @@ class MainEntranceTilesWorkRepository{
     return mainEntranceTilesWork;
   }
   Future<void> fetchAndSaveMainEntranceTilesWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlMainEntranceTilesWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlMainEntranceTilesWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

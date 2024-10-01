@@ -43,7 +43,7 @@ class SoilCompactionRepository{
     return soilCompaction;
   }
   Future<void> fetchAndSaveSoilCompactionData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlSoilCompaction);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlSoilCompaction}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

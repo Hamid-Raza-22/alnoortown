@@ -43,7 +43,7 @@ class FoundationWorkRepository{
     return foundationWork;
   }
   Future<void> fetchAndSaveFoundationWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlFoundationWorkMosque);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlFoundationWorkMosque}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

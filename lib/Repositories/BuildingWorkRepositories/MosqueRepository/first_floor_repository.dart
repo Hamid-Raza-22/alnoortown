@@ -42,7 +42,7 @@ class FirstFloorRepository{
     return firstFloor;
   }
   Future<void> fetchAndSaveFirstFloorData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlFirstFloorMosque);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlFirstFloorMosque}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

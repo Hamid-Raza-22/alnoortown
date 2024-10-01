@@ -44,7 +44,7 @@ class MudFillingWorkRepository{
     return mudFillingWork;
   }
   Future<void> fetchAndSaveMudFillingData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlMudFillingWorkFountainPark);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlMudFillingWorkFountainPark}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

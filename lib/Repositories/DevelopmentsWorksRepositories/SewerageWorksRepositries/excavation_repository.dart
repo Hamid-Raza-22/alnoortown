@@ -45,7 +45,7 @@ class ExcavationRepository{
     return excavation;
   }
   Future<void> fetchAndSaveExcavationWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlExcavation);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlExcavation}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

@@ -42,7 +42,7 @@ class PaintWorkRepository{
     return paintWork;
   }
   Future<void> fetchAndSavePaintWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlPaintWorkMosque);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlPaintWorkMosque}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

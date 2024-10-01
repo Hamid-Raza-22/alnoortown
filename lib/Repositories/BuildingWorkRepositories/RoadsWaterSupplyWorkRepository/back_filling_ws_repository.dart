@@ -45,7 +45,7 @@ class BackFillingWsRepository{
     return backFillingWs;
   }
   Future<void> fetchAndSaveBackFillingData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlWaterSupplyBackFilling);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlWaterSupplyBackFilling}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database
