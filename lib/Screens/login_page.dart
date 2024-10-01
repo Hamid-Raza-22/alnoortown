@@ -99,12 +99,15 @@ class LoginPageState extends State<LoginPage> {
 
 
   void _login()  async {
+    userId = _emailController.text.trim(); // Get the entered user ID
     bool success = await loginViewModel.login(
       _emailController.text,
       _passwordController.text,
     );
     if (success) {
-      _emailController.text= userId;
+
+     print("User id: $userId");
+     print("User id  C: ${_emailController.text}");
       // Navigate to the next screen
       Get.offNamed('/home'); // Replace with your home route
     } else {

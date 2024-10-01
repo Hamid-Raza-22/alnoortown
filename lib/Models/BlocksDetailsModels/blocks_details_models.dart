@@ -3,7 +3,7 @@ class BlocksDetailsModels{
   dynamic block;
   dynamic marla;
   dynamic plot_no;
-  dynamic user_id;
+ // dynamic user_id;
    // New field to track whether data has been posted
 
   BlocksDetailsModels({
@@ -11,7 +11,7 @@ class BlocksDetailsModels{
     this.block,
     this.marla,
     this.plot_no,
-    this.user_id,
+   // this.user_id,
   });
 
   factory BlocksDetailsModels.fromMap(Map<dynamic,dynamic>json)
@@ -20,7 +20,7 @@ class BlocksDetailsModels{
       id: json['id'],
       block: json['block'],
       marla: json['marla'],
-      user_id: json['user_id'],
+    //  user_id: json['user_id'],
       plot_no:  json['plot_no'],
     );
   }
@@ -30,7 +30,7 @@ class BlocksDetailsModels{
       'id':id,
       'block':block,
       'marla':marla,
-      'user_id':user_id,
+      //'user_id':user_id,
       'plot_no':plot_no,
 
     };

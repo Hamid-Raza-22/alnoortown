@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../../../Globals/globals.dart';
+
 class MachineViewModel extends GetxController {
   var allMachines = <MachineModel>[].obs;
   var filteredMachines = <MachineModel>[].obs;
@@ -42,13 +44,24 @@ class MachineViewModel extends GetxController {
     fetchAllMachines();
   }
 
-  // Method to fetch machine data from API and insert it into the database
-
+  // // Method to fetch machine data from API and insert it into the database
+  // Future<void> fetchAndInsertMachinesFromAPI() async {
+  //   print('${Config.getApiUrlMachine}$userId');
+  //   List<dynamic> data = await ApiService.getData('${Config.getApiUrlMachine}$userId');
+  //   var dbClient = await dbHelper.db;
+  //
+  //   // Save data to database
+  //   for (var item in data) {
+  //     item['posted'] = 1; // Set posted to 1
+  //     WaterTankerModel model = WaterTankerModel.fromMap(item);
+  //     await dbClient.insert(tableNameWaterTanker, model.toMap());
+  //   }
+  // }
 
   Future<void> fetchAndInsertMachinesFromAPI() async {
     try {
       // Fetch data from API
-      var response = await http.get(Uri.parse(Config.getApiUrlWaterTanker));
+      var response = await http.get(Uri.parse('${Config.getApiUrlMachine}$userId'));
 
       // Check if the response is successful
       if (response.statusCode == 200) {
@@ -59,6 +72,7 @@ class MachineViewModel extends GetxController {
         if (responseData != null && responseData is List) {
           // Iterate through the response and insert each machine into the database
           for (var machineData in responseData) {
+            machineData['posted'] = 1; // Set posted to 1
             MachineModel machineModel = MachineModel.fromMap(machineData);
             await machineRepository.add(machineModel);
           }

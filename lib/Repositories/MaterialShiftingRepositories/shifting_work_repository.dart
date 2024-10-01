@@ -42,7 +42,7 @@ class ShiftingWorkRepository{
     return shiftingWork;
   }
   Future<void> fetchAndSaveShiftingWorkData() async {
-    List<dynamic> data = await ApiService.getData(Config.getApiUrlShiftingWork);
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlShiftingWork}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

@@ -23,6 +23,7 @@ class _MachinesSummaryState extends State<MachinesSummary> {
   void initState() {
     super.initState();
     machineViewModel.fetchAllMachines();
+    machineViewModel.fetchAndInsertMachinesFromAPI();
   }
 
   @override
