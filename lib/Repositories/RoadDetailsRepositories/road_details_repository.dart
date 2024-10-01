@@ -17,7 +17,7 @@ class RoadDetailsRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameRoadsDetail,
-        columns: ['id', 'phase', 'block','street','road_type','length']
+        columns: ['id', 'phase', 'block','street','road_type','length','user_id']
     );
 
     // Print the raw data retrieved from the database
