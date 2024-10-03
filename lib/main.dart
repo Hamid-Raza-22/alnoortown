@@ -5,6 +5,7 @@ import 'package:al_noor_town/Screens/NewMaterial/new_material.dart';
 import 'package:al_noor_town/Screens/home_page.dart';
 import 'package:al_noor_town/Screens/splash_screen.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
+import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'Screens/login_page.dart';
 import 'Services/StripeServices/consts.dart';
+import 'ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'ViewModels/all_noor_view_model.dart';
 import 'Services/FirebaseServices/firebase_options.dart';
 
@@ -31,6 +33,10 @@ Future<void> main() async {
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 //  await dotenv.load();
   Stripe.publishableKey = stripePublishableKey;
+  // Initialize ViewModels for the app
+  // Get.lazyPut(() => BlockDetailsViewModel());  // Ensure HomeViewModel is lazily initialized
+  // Get.lazyPut(() => RoadDetailsViewModel());  // Ensure HomeViewModel is lazily initialized
+
   runApp(
     Phoenix(
     child:EasyLocalization(

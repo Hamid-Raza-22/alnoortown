@@ -38,8 +38,8 @@ class LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     loginViewModel.fetchAndSaveLoginData();
-    roadDetailsViewModel.fetchAndSaveRoadDetailsData();
-    blockDetailsViewModel.fetchAndSaveBlockDetailsData();
+    // roadDetailsViewModel.fetchAndSaveRoadDetailsData();
+    // blockDetailsViewModel.fetchAndSaveBlockDetailsData();
   }
 
   final storage =   FlutterSecureStorage();
@@ -108,6 +108,8 @@ class LoginPageState extends State<LoginPage> {
 
      print("User id: $userId");
      print("User id  C: ${_emailController.text}");
+     await blockDetailsViewModel.fetchAndSaveBlockDetailsData();
+     await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
       // Navigate to the next screen
       Get.offNamed('/home'); // Replace with your home route
     } else {

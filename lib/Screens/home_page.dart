@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
+import '../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import '../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import '../ViewModels/all_noor_view_model.dart';
 import 'Menu.dart'; // Import your drawer screen
 import 'dart:ui' as ui;
@@ -14,6 +16,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   final HomeController controller = Get.put(HomeController());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
 
   double xOffset = 0;
   double yOffset = 0;
@@ -25,6 +29,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    roadDetailsViewModel.fetchAllRoadDetails();
+    blockDetailsViewModel.fetchAllBlockDetails();
   }
 
   @override

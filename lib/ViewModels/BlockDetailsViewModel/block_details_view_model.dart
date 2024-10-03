@@ -10,6 +10,7 @@ class BlockDetailsViewModel extends GetxController {
   void onInit(){
     // TODO: implement onInit
     super.onInit();
+    fetchAllBlockDetails();
     //fetchAllLight();
   }
 
