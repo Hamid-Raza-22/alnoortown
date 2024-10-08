@@ -10,7 +10,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phoenix/flutter_phoenix.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
@@ -32,7 +32,7 @@ Future<void> main() async {
 
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 //  await dotenv.load();
-  Stripe.publishableKey = stripePublishableKey;
+//   Stripe.publishableKey = stripePublishableKey;
   // Initialize ViewModels for the app
   // Get.lazyPut(() => BlockDetailsViewModel());  // Ensure HomeViewModel is lazily initialized
   // Get.lazyPut(() => RoadDetailsViewModel());  // Ensure HomeViewModel is lazily initialized
@@ -84,8 +84,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: isAuthenticated ? '/home' : '/login',
-      //initialRoute: '/',
+      //initialRoute: isAuthenticated ? '/home' : '/login',
+      initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),
         GetPage(name: '/login', page: () => LoginPage()),

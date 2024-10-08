@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:ui';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/LoginViewModel/login_view_model.dart';
 import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, SnackPosition;
 import 'package:http/http.dart' as http;
@@ -12,6 +14,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+// import 'package:internet_speed_test/callbacks_enum.dart';
+// import 'package:internet_speed_test/internet_speed_test.dart';
+
 import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -28,6 +33,10 @@ class LoginPageState extends State<LoginPage> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   bool _obscureText = true;
+  bool _isLoading = false;
+  double _loadingPercentage = 0.0;
+
+  String _loadingMessage = '';
 
   void _togglePasswordVisibility() {
     setState(() {
@@ -97,26 +106,113 @@ class LoginPageState extends State<LoginPage> {
   //   }
   // }
 
+  void _login() async {
+    setState(() {
+      _isLoading = true;  // Start loading
+      _loadingMessage = 'Checking internet connection...';  // Initial message
+    });
 
-  void _login()  async {
-    userId = _emailController.text.trim(); // Get the entered user ID
+    // Introduce a delay of 20 seconds
+    bool isConnected = false;
+    for (int i = 0; i < 20; i++) {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult != ConnectivityResult.none) {
+        // Check if internet is actually working
+        try {
+          final result = await InternetAddress.lookup('example.com');
+          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+            isConnected = true;
+            break;
+          }
+        } catch (_) {
+          // Internet is not working
+        }
+      }
+      await Future.delayed(Duration(seconds: 1));
+    }
+
+    if (!isConnected) {
+      setState(() {
+        _isLoading = false;
+        _loadingMessage = '';
+      });
+      Get.snackbar('Error', 'No internet connection', snackPosition: SnackPosition.BOTTOM);
+      return;
+    }
+
+    setState(() {
+      _loadingMessage = 'Checking internet speed...';  // Update message
+    });
+
+    // final internetSpeedTest = InternetSpeedTest();
+    // double downloadSpeed = 0.0;
+    //
+    // await internetSpeedTest.startDownloadTesting(
+    //   onProgress: (double percent, double transferRate, SpeedUnit unit) {
+    //     // You can update the UI with the progress if needed
+    //   },
+    //   onDone: (double transferRate, SpeedUnit unit) {
+    //     downloadSpeed = transferRate;
+    //   },
+    //   onError: (String errorMessage, String speedTestError) {
+    //     setState(() {
+    //       _isLoading = false;
+    //       _loadingMessage = '';
+    //     });
+    //     Get.snackbar('Error', 'Internet speed test failed', snackPosition: SnackPosition.BOTTOM);
+    //     return;
+    //   },
+    // );
+    //
+    // if (downloadSpeed < 5.0) {  // Assuming 5 Mbps as the threshold for good speed
+    //   setState(() {
+    //     _isLoading = false;
+    //     _loadingMessage = '';
+    //   });
+    //   Get.snackbar('Error', 'Internet speed is too slow', snackPosition: SnackPosition.BOTTOM);
+    //   return;
+    // }
+
+    setState(() {
+      _loadingMessage = 'Logging in...';  // Update message
+    });
+
+    userId = _emailController.text.trim();  // Get the entered user ID
     bool success = await loginViewModel.login(
       _emailController.text,
       _passwordController.text,
     );
-    if (success) {
 
-     print("User id: $userId");
-     print("User id  C: ${_emailController.text}");
-     await blockDetailsViewModel.fetchAndSaveBlockDetailsData();
-     await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
+    if (success) {
+      setState(() {
+        _loadingMessage = 'Fetching Block details...';  // Update message
+      });
+      await blockDetailsViewModel.fetchAndSaveBlockDetailsData();
+
+      setState(() {
+        _loadingMessage = 'Fetching Road details...';  // Update message
+      });
+      await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
+
       // Navigate to the next screen
-      Get.offNamed('/home'); // Replace with your home route
+      Future.delayed(Duration(milliseconds: 300), () {
+        Get.offNamed('/home');
+      });
     } else {
-      Get.snackbar('Error', 'Invalid user ID or password',
-          snackPosition: SnackPosition.BOTTOM);
+      Get.snackbar('Error', 'Invalid user ID or password', snackPosition: SnackPosition.BOTTOM);
     }
+
+    setState(() {
+      _isLoading = false;  // Stop loading
+      _loadingMessage = '';  // Reset message
+    });
   }
+
+
+
+
+
+
   //   void _login() async {
   // // context.setLocale(Locale('en')); // English set karne ke liye
   //   String email = _emailController.text.trim();
@@ -166,9 +262,9 @@ class LoginPageState extends State<LoginPage> {
         children: <Widget>[
           // Background image with blur effect
           Container(
-            decoration:   BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/gate_view.png'), // Path to your image
+                image: AssetImage('assets/images/gate_view.png'),  // Path to your image
                 fit: BoxFit.cover,
               ),
             ),
@@ -177,7 +273,7 @@ class LoginPageState extends State<LoginPage> {
           BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
             child: Container(
-              color: Colors.black.withOpacity(0.3), // Optional: Adjust overlay color and opacity
+              color: Colors.black.withOpacity(0.3),  // Optional: Adjust overlay color and opacity
             ),
           ),
           // Main content
@@ -185,8 +281,8 @@ class LoginPageState extends State<LoginPage> {
             child: SingleChildScrollView(
               child: Padding(
                 padding: MediaQuery.of(context).size.width > 600
-                    ?   EdgeInsets.symmetric(horizontal: 50.0)
-                    :   EdgeInsets.all(30.0),
+                    ? EdgeInsets.symmetric(horizontal: 50.0)
+                    : EdgeInsets.all(30.0),
                 child: Center(
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
@@ -197,22 +293,22 @@ class LoginPageState extends State<LoginPage> {
                       children: <Widget>[
                         Text(
                           'login'.tr(),
-                          style:   TextStyle(
+                          style: TextStyle(
                             fontSize: 32,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFFC69840),
                           ),
                         ),
-                          SizedBox(height: 20),
+                        SizedBox(height: 20),
                         FadeInUp(
-                          duration:   Duration(milliseconds: 1800),
+                          duration: Duration(milliseconds: 1800),
                           child: Container(
-                            padding:   EdgeInsets.all(5),
+                            padding: EdgeInsets.all(5),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color:   Color(0xFFC69840)),
-                              boxShadow:   [
+                              border: Border.all(color: Color(0xFFC69840)),
+                              boxShadow: [
                                 BoxShadow(
                                   color: Color.fromRGBO(143, 148, 251, .2),
                                   blurRadius: 20.0,
@@ -223,8 +319,8 @@ class LoginPageState extends State<LoginPage> {
                             child: Column(
                               children: <Widget>[
                                 Container(
-                                  padding:   EdgeInsets.all(8.0),
-                                  decoration:   BoxDecoration(
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
                                     border: Border(
                                       bottom: BorderSide(color: Color(0xFFC69840)),
                                     ),
@@ -237,7 +333,7 @@ class LoginPageState extends State<LoginPage> {
                                       hintStyle: TextStyle(
                                           color: Colors.grey.withOpacity(0.5)),
                                       labelText: "user_id".tr(),
-                                      labelStyle:   TextStyle(color: Color(0xFFC69840)),
+                                      labelStyle: TextStyle(color: Color(0xFFC69840)),
                                     ),
                                   ),
                                 ),
@@ -252,13 +348,13 @@ class LoginPageState extends State<LoginPage> {
                                       hintStyle: TextStyle(
                                           color: Colors.grey.withOpacity(0.5)),
                                       labelText: "password".tr(),
-                                      labelStyle:   TextStyle(color: Color(0xFFC69840)),
+                                      labelStyle: TextStyle(color: Color(0xFFC69840)),
                                       suffixIcon: IconButton(
                                         icon: Icon(
                                           _obscureText
                                               ? Icons.visibility
                                               : Icons.visibility_off,
-                                          color:   Color(0xFFC69840),
+                                          color: Color(0xFFC69840),
                                         ),
                                         onPressed: _togglePasswordVisibility,
                                       ),
@@ -269,49 +365,76 @@ class LoginPageState extends State<LoginPage> {
                             ),
                           ),
                         ),
-                          SizedBox(height: 30),
+                        SizedBox(height: 30),
                         FadeInUp(
-                          duration:   Duration(milliseconds: 1900),
+                          duration: Duration(milliseconds: 1900),
                           child: GestureDetector(
-                            onTap: _login,
+                            onTap: _isLoading ? null : _login,  // Disable button when loading
                             child: Container(
                               height: 50,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color:   Color(0xFFC69840),
+                                color: _isLoading ? Colors.brown : Color(0xFFC69840),  // Change button color when loading
                               ),
-                              child:  Center(
-                                child: Text(
-                                  "login".tr(),
-                                  style:   TextStyle(
+                              child: Center(
+                                child: AnimatedSwitcher(
+                                  duration: Duration(milliseconds: 300),  // Smooth transition duration
+                                  child: _isLoading
+                                      ? Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CircularProgressIndicator(
+                                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),  // Spinner color
+                                        strokeWidth: 2.0,
+                                      ),
+                                      SizedBox(width: 10),  // Space between spinner and text
+                                      Text(
+                                        _loadingMessage,  // Dynamic loading message
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                      : Text(
+                                    "login".tr(),  // Original login text
+                                    style: TextStyle(
                                       color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                          SizedBox(height: 20),
-                        FadeInUp(
-                          duration:   Duration(milliseconds: 2000),
-                          child: GestureDetector(
-                            onTap: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>   SignUpPage()),
-                              );
-                            },
-                            child: Text(
-                              "dont_have_an_account".tr(),
-                              style:   TextStyle(
-                                color: Color(0xFFC69840),
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                        ),
+
+
+
+                        // SizedBox(height: 20),
+                        // FadeInUp(
+                        //   duration: Duration(milliseconds: 2000),
+                        //   child: GestureDetector(
+                        //     onTap: () {
+                        //       Navigator.pushReplacement(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => SignUpPage()),
+                        //       );
+                        //     },
+                        //     child: Text(
+                        //       "dont_have_an_account".tr(),
+                        //       style: TextStyle(
+                        //         color: Color(0xFFC69840),
+                        //         fontWeight: FontWeight.bold,
+                        //         decoration: TextDecoration.underline,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
@@ -323,4 +446,5 @@ class LoginPageState extends State<LoginPage> {
       ),
     );
   }
+
 }
