@@ -39,7 +39,7 @@ class MachineRepository{
     return machine;
   }
   Future<void> fetchAndSaveTankerData() async {
-    List<dynamic> data = await ApiService.getData('${Config.getApiUrlShiftingWork}$userId');
+    List<dynamic> data = await ApiService.getData('${Config.getApiUrlMachine}$userId');
     var dbClient = await dbHelper.db;
 
     // Save data to database

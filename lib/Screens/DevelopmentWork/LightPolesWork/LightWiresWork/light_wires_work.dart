@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 import 'package:intl/intl.dart';
-
 import 'light_wires_work_summary.dart';
 
 class LightWiresWork extends StatefulWidget {

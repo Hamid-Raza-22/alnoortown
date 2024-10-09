@@ -4,13 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import '../../../ReusableDesigns/DateFilter.dart';
 
-
 class SittingAreaSummaryPage extends StatelessWidget {
   final SittingAreaWorkViewModel sittingAreaWorkViewModel = Get.put(SittingAreaWorkViewModel());
 
   SittingAreaSummaryPage({super.key});
 
   @override
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -75,46 +75,55 @@ class SittingAreaSummaryPage extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
                   columnSpacing: 12.0,
-                  headingRowColor: MaterialStateProperty.all(const Color(0xFFC69840)),
+                  headingRowColor: MaterialStateProperty.all(
+                      const Color(0xFFC69840)),
                   border: const TableBorder(
-                    horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
-                    verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
+                    horizontalInside: BorderSide(
+                        color: Color(0xFFC69840), width: 1.0),
+                    verticalInside: BorderSide(
+                        color: Color(0xFFC69840), width: 1.0),
                   ),
                   columns: [
                     DataColumn(
                       label: Text(
                         'type_of_work'.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
                     DataColumn(
                       label: Text(
                         'start_date'.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
                     DataColumn(
                       label: Text(
                         'end_date'.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
                     DataColumn(
                       label: Text(
                         'status'.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
                     DataColumn(
                       label: Text(
                         'date'.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
                     DataColumn(
                       label: Text(
                         'time'.tr,
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                        style: const TextStyle(fontWeight: FontWeight.bold,
+                            color: Colors.white),
                       ),
                     ),
                   ],
@@ -124,7 +133,8 @@ class SittingAreaSummaryPage extends StatelessWidget {
                         : '';
 
                     String expected_comp_date = entry.expected_comp_date != null
-                        ? DateFormat('d MMM yyyy').format(entry.expected_comp_date!)
+                        ? DateFormat('d MMM yyyy').format(
+                        entry.expected_comp_date!)
                         : '';
 
                     return DataRow(cells: [
@@ -145,3 +155,4 @@ class SittingAreaSummaryPage extends StatelessWidget {
     );
   }
 }
+

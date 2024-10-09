@@ -3,15 +3,14 @@ class BlocksDetailsModels{
   dynamic block;
   dynamic marla;
   dynamic plot_no;
- // dynamic user_id;
-   // New field to track whether data has been posted
+
 
   BlocksDetailsModels({
     this.id,
     this.block,
     this.marla,
     this.plot_no,
-   // this.user_id,
+   
   });
 
   factory BlocksDetailsModels.fromMap(Map<dynamic,dynamic>json)
