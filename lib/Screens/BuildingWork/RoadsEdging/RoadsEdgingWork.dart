@@ -122,6 +122,12 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
                   .toSet()
                   .toList();
 
+              // Dynamically get the streets list from RoadDetailsViewModel
+              // final List<String> streets = roadDetailsViewModel.allRoadDetails
+              //     .map((streetDetail) => streetDetail.street.toString())
+              //     .toSet()
+              //     .toList();
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,7 +142,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
                       });
                     },
                   ),
-                  const SizedBox(height: 16), // Add spacing between dropdowns
+                  const SizedBox(height: 10), // Add spacing between dropdowns
 
                   // Street Dropdown
 
@@ -144,8 +150,37 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
               );
             }),
 
-              SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), road_noController),
+              SizedBox(height: 10),
+            Obx(() {
+
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              final List<String> streets = roadDetailsViewModel.allRoadDetails
+                  .map((streetDetail) => streetDetail.street.toString())
+                  .toSet()
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'road_no'.tr(),
+                    selectedBlock,
+                    streets,
+                        (value) {
+                      setState(() {
+                        selectedBlock = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
+            }),
               SizedBox(height: 16),
             buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {

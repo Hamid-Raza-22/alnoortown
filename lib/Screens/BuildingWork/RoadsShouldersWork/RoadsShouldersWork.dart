@@ -1,6 +1,4 @@
 import 'package:al_noor_town/Globals/globals.dart';
-import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
-import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsShoulderWorkModel/roads_shoulder_work_model.dart';
@@ -8,6 +6,8 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsShouldersWork
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import '../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import '../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'RoadsShouldersWorkSummary.dart';
 
 class RoadsShouldersWork extends StatefulWidget {
@@ -19,8 +19,6 @@ class RoadsShouldersWork extends StatefulWidget {
 
 class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
   RoadsShoulderWorkViewModel roadsShoulderWorkViewModel = Get.put(RoadsShoulderWorkViewModel());
-  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
-  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController road_noController = TextEditingController();
@@ -29,6 +27,8 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
   String? selectedroad_side;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
 
   @override
   void initState() {
@@ -122,6 +122,13 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                   .map((blockDetail) => blockDetail.block.toString())
                   .toSet()
                   .toList();
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              final List<String> streets = roadDetailsViewModel.allRoadDetails
+                  .map((streetDetail) => streetDetail.street.toString())
+                  .toSet()
+                  .toList();
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,7 +143,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                       });
                     },
                   ),
-                  const SizedBox(height: 16), // Add spacing between dropdowns
+                  const SizedBox(height: 10), // Add spacing between dropdowns
 
                   // Street Dropdown
 
@@ -144,8 +151,37 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
               );
             }),
 
-            SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), road_noController),
+            SizedBox(height: 10),
+            Obx(() {
+
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              final List<String> streets = roadDetailsViewModel.allRoadDetails
+                  .map((streetDetail) => streetDetail.street.toString())
+                  .toSet()
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'road_no'.tr(),
+                    selectedBlock,
+                    streets,
+                        (value) {
+                      setState(() {
+                        selectedBlock = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
+            }),
               SizedBox(height: 16),
             buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {
@@ -266,7 +302,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
               contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Adjust padding
             ),
           ),
-          popupProps: PopupProps.menu(
+          popupProps: PopupProps.dialog(
             showSearchBox: true, // Enables the search feature
             itemBuilder: (context, item, isSelected) {
               return Padding(
@@ -283,6 +319,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
       ],
     );
   }
+
 
   Widget buildDatePickerRow(String label, DateTime? selectedDate, ValueChanged<DateTime?> onChanged) {
     return Column(
