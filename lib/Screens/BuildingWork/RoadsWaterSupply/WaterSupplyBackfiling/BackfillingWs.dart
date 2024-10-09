@@ -1,4 +1,7 @@
 import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsWaterSupplyWorkModel/back_filling_ws_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/back_filling_ws_view_model.dart';
@@ -16,6 +19,8 @@ class BackFillingWs extends StatefulWidget {
 
 class BackFillingWsState extends State<BackFillingWs> {
   BackFillingWsViewModel backFillingWsViewModel = Get.put(BackFillingWsViewModel());
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController road_noController = TextEditingController();
@@ -110,18 +115,39 @@ class BackFillingWsState extends State<BackFillingWs> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildDropdownRow('block_no'.tr(), selectedBlock, ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"], (value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
-              SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), road_noController),
-              SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
-              setState(() {
-                selectedroad_side = value;
-              });
+            Obx(() {
+              // Dynamically get the blocks list from BlockDetailsViewModel
+              final List<String> blocks = blockDetailsViewModel.allBlockDetails
+                  .map((blockDetail) => blockDetail.block.toString())
+                  .toSet()
+                  .toList();
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              // final List<String> streets = roadDetailsViewModel.allRoadDetails
+              //     .map((streetDetail) => streetDetail.street.toString())
+              //     .toSet()
+              //     .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'block_no'.tr(),
+                    selectedBlock,
+                    blocks,
+                        (value) {
+                      setState(() {
+                        selectedBlock = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
             }),
               SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), total_lengthController),
@@ -210,36 +236,49 @@ class BackFillingWsState extends State<BackFillingWs> {
     );
   }
 
-  Widget buildDropdownRow(String label, String? selectedValue, List<String> items, ValueChanged<String?> onChanged) {
+  Widget buildDropdownRow(
+      String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          label,
-          style:   TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFFC69840)),
-        ),
-          SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          value: selectedValue,
-          decoration:   InputDecoration(
-            border: OutlineInputBorder(),
-            contentPadding: EdgeInsets.symmetric(horizontal: 8),
+          title,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFC69840),
           ),
-          items: items.map((item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          onChanged: onChanged,
+        ),
+        SizedBox(height: 8),
+        DropdownSearch<String>(
+          items: items,
+          selectedItem: selectedItem,
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF4A4A4A)),
+                borderRadius: BorderRadius.circular(8), // Adjust border radius
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Adjust padding
+            ),
+          ),
+          popupProps: PopupProps.menu(
+            showSearchBox: true, // Enables the search feature
+            itemBuilder: (context, item, isSelected) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Text(
+                  item,
+                  style: TextStyle(fontSize: 11), // Adjust font size for dropdown items
+                ),
+              );
+            },
+          ),
+          onChanged: onChanged, // Passes the selected value back to the caller
         ),
       ],
     );
   }
-
   Widget buildDatePickerRow(String label, DateTime? selectedDate, ValueChanged<DateTime?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

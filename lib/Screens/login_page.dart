@@ -218,7 +218,7 @@ class LoginPageState extends State<LoginPage> {
   //   String email = _emailController.text.trim();
   //   String password = _passwordController.text.trim();
       await blockDetailsViewModel.fetchAndSaveBlockDetailsData();
-      await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
+      // await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) =>   HomePage()),
