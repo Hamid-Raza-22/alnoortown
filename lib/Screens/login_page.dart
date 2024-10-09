@@ -217,7 +217,8 @@ class LoginPageState extends State<LoginPage> {
   // context.setLocale(Locale('en')); // English set karne ke liye
   //   String email = _emailController.text.trim();
   //   String password = _passwordController.text.trim();
-
+      await blockDetailsViewModel.fetchAndSaveBlockDetailsData();
+      await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) =>   HomePage()),
