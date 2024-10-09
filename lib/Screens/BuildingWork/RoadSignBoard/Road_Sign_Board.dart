@@ -1,4 +1,6 @@
 import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
@@ -14,6 +16,8 @@ class RoadsSignBoards extends StatefulWidget {
 }
 class _RoadsSignBoardsState extends State<RoadsSignBoards> {
   RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   TextEditingController road_noController = TextEditingController();
   TextEditingController fromPlotController = TextEditingController();
   TextEditingController toPlotController = TextEditingController();
@@ -106,10 +110,33 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildDropdownRow('block_no'.tr(), selectedBlock, ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"], (value) {
-              setState(() {
-                selectedBlock = value;
-              });
+            Obx(() {
+              // Dynamically get the blocks list from BlockDetailsViewModel
+              final List<String> blocks = blockDetailsViewModel.allBlockDetails
+                  .map((blockDetail) => blockDetail.block.toString())
+                  .toSet()
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'block_no'.tr(),
+                    selectedBlock,
+                    blocks,
+                        (value) {
+                      setState(() {
+                        selectedBlock = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
             }),
               SizedBox(height: 16),
             buildTextFieldRow('road_no'.tr(), road_noController),

@@ -115,11 +115,41 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildDropdownRow('block_no'.tr(), selectedBlock, ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"], (value) {
-              setState(() {
-                selectedBlock = value;
-              });
+            Obx(() {
+              // Dynamically get the blocks list from BlockDetailsViewModel
+              final List<String> blocks = blockDetailsViewModel.allBlockDetails
+                  .map((blockDetail) => blockDetail.block.toString())
+                  .toSet()
+                  .toList();
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              // final List<String> streets = roadDetailsViewModel.allRoadDetails
+              //     .map((streetDetail) => streetDetail.street.toString())
+              //     .toSet()
+              //     .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'block_no'.tr(),
+                    selectedBlock,
+                    blocks,
+                        (value) {
+                      setState(() {
+                        selectedBlock = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
             }),
+
               SizedBox(height: 16),
             buildTextFieldRow('road_no'.tr(), road_noController),
               SizedBox(height: 16),
@@ -215,6 +245,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
       ),
     );
   }
+
 
   Widget buildDropdownRow(
       String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {
