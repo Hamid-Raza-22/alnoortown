@@ -21,14 +21,10 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
   void initState() {
     super.initState();
     backFillingWsViewModel.fetchAllWsBackFilling();
-    ();
   }
 
   @override
   Widget build(BuildContext context) {
-    final mediaQuery = MediaQuery.of(context);
-    final isPortrait = mediaQuery.orientation == Orientation.portrait;
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -73,17 +69,16 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(flex: 2, child: _buildHeaderText('block_no'.tr())),
-                  Expanded(flex: 2, child: _buildHeaderText('road_no'.tr())),
-                  Expanded(flex: 2, child: _buildHeaderText('road_side'.tr())),
-                  Expanded(flex: 2, child: _buildHeaderText('total_length'.tr())),
-                  Expanded(flex: 2, child: _buildHeaderText('start_date'.tr())),
-                  Expanded(flex: 2, child: _buildHeaderText('expected_comp_date'.tr())),
-                  Expanded(flex: 2, child: _buildHeaderText('status'.tr())),
-                  Expanded(flex: 2, child: _buildHeaderText('date'.tr())),
-                  Expanded(flex: 2, child: _buildHeaderText('time'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('block_no'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('road_no'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('road_side'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('total_length'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('start_date'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('expected_comp_date'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('status'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('date'.tr())),
+                  Expanded(flex: 7, child: _buildHeaderText('time'.tr())),
                 ],
-
               ),
             ),
             const SizedBox(height: 8),
@@ -93,14 +88,12 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
               child: Obx(() {
                 // Filter data based on selected criteria
                 final filteredData = backFillingWsViewModel.allWsBackFilling.where((entry) {
-                  // Filter by block with null safety
                   final blockMatch = _block == null ||
                       (entry.block_no?.toLowerCase() ?? '').contains(_block!.toLowerCase());
 
-                  // Parse date and check if it falls in the range
                   DateTime? entryDate;
                   try {
-                    entryDate = DateTime.parse(entry.date); // Assuming date is a string
+                    entryDate = DateTime.parse(entry.date);
                   } catch (e) {
                     entryDate = null;
                   }
@@ -112,7 +105,6 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
                   return blockMatch && dateMatch;
                 }).toList();
 
-                // Show "No data available" if the list is empty
                 if (filteredData.isEmpty) {
                   return Center(
                     child: Column(
@@ -135,7 +127,6 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
                   );
                 }
 
-                // Scrollable list of filtered data
                 return ListView.builder(
                   itemCount: filteredData.length,
                   itemBuilder: (context, index) {
@@ -145,12 +136,18 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
                         _showDetailsDialog(context, entry);
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 8.0),
                         margin: const EdgeInsets.only(bottom: 8.0),
                         decoration: BoxDecoration(
                           color: index % 2 == 0 ? Colors.white : const Color(0xFFF5F5F5),
                           borderRadius: BorderRadius.circular(8.0),
-                          border: Border.all(color: Colors.grey.shade300),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.3),
+                              spreadRadius: 1,
+                              blurRadius: 3,
+                            ),
+                          ],
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -178,10 +175,11 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
     );
   }
 
+
   Widget _buildHeaderText(String text) {
     return Text(
       text,
-      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11),
+      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
       textAlign: TextAlign.center,
     );
   }
@@ -189,7 +187,7 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
   Widget _buildDataText(String text) {
     return Text(
       text,
-      style: const TextStyle(fontSize: 11),
+      style: const TextStyle(fontSize: 12),
       textAlign: TextAlign.center,
     );
   }
@@ -204,14 +202,14 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
           ),
           title: Text(
             'Details | ${entry.block_no ?? 'N/A'}',
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
           ),
           content: SingleChildScrollView(
             child: ListBody(
               children: [
-                Text('Road No.: ${entry.road_no ?? 'N/A'}', style: const TextStyle(fontSize: 11)),
-                Text('Road Side: ${entry.road_side ?? 'N/A'}', style: const TextStyle(fontSize: 11)),
-                Text('Total Length: ${entry.total_length ?? 'N/A'}', style: const TextStyle(fontSize: 11)),
+                Text('Road No.: ${entry.road_no ?? 'N/A'}', style: const TextStyle(fontSize: 12)),
+                Text('Road Side: ${entry.road_side ?? 'N/A'}', style: const TextStyle(fontSize: 12)),
+                Text('Total Length: ${entry.total_length ?? 'N/A'}', style: const TextStyle(fontSize: 12)),
               ],
             ),
           ),
@@ -221,13 +219,13 @@ class _BackFillingWaterSupplySummaryState extends State<BackFillingWaterSupplySu
                 foregroundColor: Colors.white,
                 backgroundColor: const Color(0xFFC69840),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('close'.tr()),
+              child: const Text('Close'),
             ),
           ],
         );

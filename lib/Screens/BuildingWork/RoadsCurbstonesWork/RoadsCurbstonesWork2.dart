@@ -23,8 +23,7 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
   RoadCurbStonesWorkViewModel roadCurbStonesWorkViewModel = Get.put(RoadCurbStonesWorkViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
-  TextEditingController road_noController = TextEditingController();
-  TextEditingController total_lengthController = TextEditingController();
+String? road_noController;  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -120,6 +119,12 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
                   .toSet()
                   .toList();
 
+              // Dynamically get the streets list from RoadDetailsViewModel
+              // final List<String> streets = roadDetailsViewModel.allRoadDetails
+              //     .map((streetDetail) => streetDetail.street.toString())
+              //     .toSet()
+              //     .toList();
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -134,7 +139,7 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
                       });
                     },
                   ),
-                  const SizedBox(height: 16), // Add spacing between dropdowns
+                  const SizedBox(height: 10), // Add spacing between dropdowns
 
                   // Street Dropdown
 
@@ -142,8 +147,37 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
               );
             }),
 
-            SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), road_noController),
+            SizedBox(height: 10),
+            Obx(() {
+
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              final List<String> streets = roadDetailsViewModel.allRoadDetails
+                  .map((streetDetail) => streetDetail.street.toString())
+                  .toSet()
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'road_no'.tr(),
+                    road_noController,
+                    streets,
+                        (value) {
+                      setState(() {
+                        road_noController = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
+            }),
               SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), total_lengthController),
               SizedBox(height: 16),
@@ -161,13 +195,13 @@ class _RoadsCurbstonesWorkState extends State<RoadsCurbstonesWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (road_noController.text.isNotEmpty &&
+                  if (road_noController !=null &&
                       total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
                     await roadCurbStonesWorkViewModel.addRoadCurb(RoadCurbStonesWorkModel(
                         block_no: selectedBlock,
-                        road_no: road_noController.text,
+                        road_no: road_noController,
                         total_length: total_lengthController.text,
                         comp_status: selectedStatus,
                         date: _getFormattedDate(),

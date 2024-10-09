@@ -24,8 +24,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-  TextEditingController road_noController = TextEditingController();
-  TextEditingController total_lengthController = TextEditingController();
+String? road_noController;  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedroad_side; // New variable for Road Side
   String? selectedStatus;
@@ -145,7 +144,7 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                       });
                     },
                   ),
-                  const SizedBox(height: 16), // Add spacing between dropdowns
+                  const SizedBox(height: 10), // Add spacing between dropdowns
 
                   // Street Dropdown
 
@@ -153,8 +152,37 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
               );
             }),
 
-            SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), road_noController),
+            SizedBox(height: 10),
+            Obx(() {
+
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              final List<String> streets = roadDetailsViewModel.allRoadDetails
+                  .map((streetDetail) => streetDetail.street.toString())
+                  .toSet()
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'road_no'.tr(),
+                    road_noController,
+                    streets,
+                        (value) {
+                      setState(() {
+                        road_noController = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 16), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
+            }),
               SizedBox(height: 16),
             buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {
@@ -195,14 +223,14 @@ class _RoadsWaterSupplyWorkState extends State<RoadsWaterSupplyWork> {
                 onPressed: () async {
                   if (selectedstart_date != null &&
                       selectedEndDate != null &&
-                      road_noController.text.isNotEmpty &&
+                      road_noController !=null &&
                       total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedroad_side != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     await roadsWaterSupplyViewModel.addRoadsWaterSupply(RoadsWaterSupplyModel(
                         block_no: selectedBlock,
-                        road_no: road_noController.text,
+                        road_no: road_noController,
                         total_length: total_lengthController.text,
                         road_side:selectedroad_side,
                         start_date: selectedstart_date,

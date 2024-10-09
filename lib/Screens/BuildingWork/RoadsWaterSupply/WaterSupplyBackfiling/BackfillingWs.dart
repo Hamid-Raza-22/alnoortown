@@ -23,8 +23,7 @@ class BackFillingWsState extends State<BackFillingWs> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-  TextEditingController road_noController = TextEditingController();
-  TextEditingController total_lengthController = TextEditingController();
+String? road_noController;  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedroad_side; // New variable for Road Side
   String? selectedStatus;
@@ -183,16 +182,16 @@ class BackFillingWsState extends State<BackFillingWs> {
                 onPressed: () async {
                   if (selectedstart_date != null &&
                       selectedEndDate != null &&
-                      road_noController.text.isNotEmpty &&
+                     // road_noController !=null &&
                       total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
-                      selectedroad_side != null && // Check if Road Side is selected
+                     // selectedroad_side != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     await backFillingWsViewModel.addWsBackFilling(BackFillingWsModel(
                         start_date: selectedstart_date,
                         expected_comp_date: selectedEndDate,
                         block_no: selectedBlock,
-                        road_no: road_noController.text,
+                        road_no: road_noController,
                         road_side:selectedroad_side,
                         total_length: total_lengthController.text,
                         water_supply_back_filling_comp_status: selectedStatus,

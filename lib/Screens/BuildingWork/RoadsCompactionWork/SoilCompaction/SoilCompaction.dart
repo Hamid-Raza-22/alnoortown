@@ -23,8 +23,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-  TextEditingController road_noController = TextEditingController();
-  TextEditingController total_lengthController = TextEditingController();
+String? road_noController;  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -122,6 +121,12 @@ class _SoilCompactionState extends State<SoilCompaction> {
                   .toSet()
                   .toList();
 
+              // Dynamically get the streets list from RoadDetailsViewModel
+              // final List<String> streets = roadDetailsViewModel.allRoadDetails
+              //     .map((streetDetail) => streetDetail.street.toString())
+              //     .toSet()
+              //     .toList();
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -136,6 +141,38 @@ class _SoilCompactionState extends State<SoilCompaction> {
                       });
                     },
                   ),
+                  const SizedBox(height: 10), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
+            }),
+
+            SizedBox(height: 10),
+            Obx(() {
+
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              final List<String> streets = roadDetailsViewModel.allRoadDetails
+                  .map((streetDetail) => streetDetail.street.toString())
+                  .toSet()
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'road_no'.tr(),
+                    road_noController,
+                    streets,
+                        (value) {
+                      setState(() {
+                        road_noController = value;
+                      });
+                    },
+                  ),
                   const SizedBox(height: 16), // Add spacing between dropdowns
 
                   // Street Dropdown
@@ -143,8 +180,6 @@ class _SoilCompactionState extends State<SoilCompaction> {
                 ],
               );
             }),
-              SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), road_noController),
               SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), total_lengthController),
               SizedBox(height: 16),
@@ -179,7 +214,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
                 onPressed: () async {
                   if (selectedstart_date != null &&
                       selectedEndDate != null &&
-                      road_noController.text.isNotEmpty &&
+                      road_noController !=null &&
                       total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedStatus != null) {
@@ -187,7 +222,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
                         start_date: selectedstart_date,
                         expected_comp_date: selectedEndDate,
                         block_no: selectedBlock,
-                        road_no: road_noController.text,
+                        road_no: road_noController,
                         total_length: total_lengthController.text,
                         soil_comp_status:selectedStatus,
                         date: _getFormattedDate(),

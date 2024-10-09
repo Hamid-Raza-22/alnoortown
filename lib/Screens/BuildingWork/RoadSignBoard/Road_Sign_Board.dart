@@ -5,7 +5,6 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
-import 'package:intl/intl.dart';
 import '../../../Models/BuildingWorkModels/RoadsSignBoardsModel/roads_sign_boards_model.dart';
 import '../../../ViewModels/BuildingWorkViewModel/RoadsSignBoardsViewModel/roads_sign_boards_view_model.dart';
 import 'RoadSignBoardSummary.dart';
@@ -19,12 +18,12 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
   RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
-  TextEditingController road_noController = TextEditingController();
   TextEditingController fromPlotController = TextEditingController();
   TextEditingController toPlotController = TextEditingController();
   String? selectedBlock;
   String? selectedroad_side;
   String? selectedStatus;
+  String? road_noController;
   List<Map<String, dynamic>> containerDataList = [];
 
   @override
@@ -118,6 +117,12 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
                   .toSet()
                   .toList();
 
+              // Dynamically get the streets list from RoadDetailsViewModel
+              // final List<String> streets = roadDetailsViewModel.allRoadDetails
+              //     .map((streetDetail) => streetDetail.street.toString())
+              //     .toSet()
+              //     .toList();
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -132,6 +137,38 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
                       });
                     },
                   ),
+                  const SizedBox(height: 10), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
+            }),
+
+            SizedBox(height: 10),
+            Obx(() {
+
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              final List<String> streets = roadDetailsViewModel.allRoadDetails
+                  .map((streetDetail) => streetDetail.street.toString())
+                  .toSet()
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'road_no'.tr(),
+                    road_noController,
+                    streets,
+                        (value) {
+                      setState(() {
+                        road_noController = value;
+                      });
+                    },
+                  ),
                   const SizedBox(height: 16), // Add spacing between dropdowns
 
                   // Street Dropdown
@@ -139,8 +176,6 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
                 ],
               );
             }),
-              SizedBox(height: 16),
-            buildTextFieldRow('road_no'.tr(), road_noController),
               SizedBox(height: 16),
             buildPlotNumberRow(),
               SizedBox(height: 16),
@@ -165,14 +200,14 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (selectedBlock != null &&
-                      road_noController.text.isNotEmpty &&
+                      road_noController != null&&
                       fromPlotController.text.isNotEmpty &&
                       toPlotController.text.isNotEmpty &&
                       selectedroad_side != null &&
                       selectedStatus != null) {
                     await roadsSignBoardsViewModel.addRoadsSignBoard(RoadsSignBoardsModel(
                        block_no: selectedBlock,
-                       road_no: road_noController.text,
+                       road_no: road_noController,
                        from_plot_no:fromPlotController.text,
                        to_plot_no: toPlotController.text,
                         road_side: selectedroad_side,

@@ -21,8 +21,7 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
   StreetRoadWaterChannelViewModel streetRoadWaterChannelViewModel = Get.put(StreetRoadWaterChannelViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
-  TextEditingController road_noController = TextEditingController();
-  TextEditingController noOfWaterChannelsController = TextEditingController();
+String? road_noController;  TextEditingController noOfWaterChannelsController = TextEditingController();
   String? selectedBlock;
   String? selectedroad_side;
   String? selectedStatus;
@@ -164,11 +163,11 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
                   // Block Dropdown
                   buildDropdownRow(
                     'road_no'.tr(),
-                    selectedBlock,
+                    road_noController,
                     streets,
                         (value) {
                       setState(() {
-                        selectedBlock = value;
+                        road_noController = value;
                       });
                     },
                   ),
@@ -205,14 +204,14 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (road_noController.text.isNotEmpty &&
+                  if (road_noController !=null &&
                       noOfWaterChannelsController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedroad_side != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     await streetRoadWaterChannelViewModel.addStreetRoad(StreetRoadWaterChannelModel(
                         block_no: selectedBlock,
-                        road_no: road_noController.text,
+                        road_no: road_noController,
                         road_side: selectedroad_side,
                         no_of_water_channels:  noOfWaterChannelsController.text,
                         water_channels_comp_status: selectedStatus,

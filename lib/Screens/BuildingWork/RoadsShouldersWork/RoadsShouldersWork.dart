@@ -21,8 +21,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
   RoadsShoulderWorkViewModel roadsShoulderWorkViewModel = Get.put(RoadsShoulderWorkViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-  TextEditingController road_noController = TextEditingController();
-  TextEditingController total_lengthController = TextEditingController();
+String? road_noController;  TextEditingController total_lengthController = TextEditingController();
   String? selectedBlock;
   String? selectedroad_side;
   String? selectedStatus;
@@ -167,11 +166,11 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                   // Block Dropdown
                   buildDropdownRow(
                     'road_no'.tr(),
-                    selectedBlock,
+                    road_noController,
                     streets,
                         (value) {
                       setState(() {
-                        selectedBlock = value;
+                        road_noController = value;
                       });
                     },
                   ),
@@ -222,7 +221,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                 onPressed: () async {
                   if (selectedstart_date != null &&
                       selectedEndDate != null &&
-                      road_noController.text.isNotEmpty &&
+                      road_noController !=null &&
                       total_lengthController.text.isNotEmpty &&
                       selectedBlock != null &&
                       selectedroad_side != null && // Check if Road Side is selected
@@ -231,7 +230,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                         start_date: selectedstart_date,
                         expected_comp_date: selectedEndDate,
                         block_no: selectedBlock,
-                        road_no: road_noController.text,
+                        road_no: road_noController,
                         road_side: selectedroad_side,
                         total_length: total_lengthController.text,
                         roads_shoulder_comp_status: selectedStatus,
