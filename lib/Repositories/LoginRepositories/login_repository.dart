@@ -1,4 +1,3 @@
-
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/LoginModels/login_models.dart';
@@ -60,19 +59,6 @@ class LoginRepository{
 
     return login;
   }
-  // Future<void> fetchAndSaveLogin() async {
-  //  await Config.fetchLatestConfig();
-  //   List<dynamic> data = await ApiService.getData(Config.getApiUrlLogin);
-  //   var dbClient = await dbHelper.db;
-  //
-  //   // Save data to database
-  //   for (var item in data) {
-  //     item['posted'] = 1; // Set posted to 1
-  //     LoginModels model = LoginModels.fromMap(item);
-  //     await dbClient.insert(tableNameLogin, model.toMap());
-  //   }
-  // }
-
 
   Future<void> fetchAndSaveLogin() async {
     await Config.fetchLatestConfig();
@@ -91,9 +77,6 @@ class LoginRepository{
           .set(model.toMap());
     }
   }
-
-
-
   Future<int>add(LoginModels loginModels) async{
     var dbClient = await dbHelper.db;
     return await dbClient.insert(tableNameLogin,loginModels.toMap());

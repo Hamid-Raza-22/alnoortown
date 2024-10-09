@@ -31,7 +31,6 @@ class ManholesModel{
         time:  json['time'],
         user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
-
     );
   }
 
@@ -45,7 +44,6 @@ class ManholesModel{
       'time':time,
       'user_id':user_id,
       'posted': posted,  // Include the posted status
-
     };
   }
 }

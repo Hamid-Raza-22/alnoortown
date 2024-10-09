@@ -99,7 +99,6 @@ class SittingAreaWorkViewModel extends GetxController {
       final isDateInRange = (fromDate == null || (entryDate != null && entryDate.isAfter(fromDate))) &&
           (toDate == null || (entryDate != null && entryDate.isBefore(toDate)));
       final isBlockMatch = block == null || (entry.block != null && entry.block!.contains(block));
-
       return isDateInRange && isBlockMatch;
     }).toList();
   }

@@ -1,4 +1,7 @@
 import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:al_noor_town/Models/BuildingWorkModels/RoadsEdgingWorkModel/roads_edging_work_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsEdgingWorksViewModel/roads_edging_work_view_model.dart';
@@ -16,6 +19,8 @@ class RoadsEdgingWork extends StatefulWidget {
 
 class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
   RoadsEdgingWorkViewModel roadsEdgingWorkViewModel = Get.put(RoadsEdgingWorkViewModel());
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController road_noController = TextEditingController();
@@ -211,31 +216,45 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
     );
   }
 
-  Widget buildDropdownRow(String label, String? selectedValue, List<String> items, ValueChanged<String?> onChanged) {
+  Widget buildDropdownRow(
+      String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          label,
-          style:   TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFFC69840)),
-        ),
-          SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          value: selectedValue,
-          decoration:   InputDecoration(
-            border: OutlineInputBorder(),
-            contentPadding: EdgeInsets.symmetric(horizontal: 8),
+          title,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFC69840),
           ),
-          items: items.map((item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          onChanged: onChanged,
+        ),
+        SizedBox(height: 8),
+        DropdownSearch<String>(
+          items: items,
+          selectedItem: selectedItem,
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF4A4A4A)),
+                borderRadius: BorderRadius.circular(8), // Adjust border radius
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Adjust padding
+            ),
+          ),
+          popupProps: PopupProps.menu(
+            showSearchBox: true, // Enables the search feature
+            itemBuilder: (context, item, isSelected) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Text(
+                  item,
+                  style: TextStyle(fontSize: 11), // Adjust font size for dropdown items
+                ),
+              );
+            },
+          ),
+          onChanged: onChanged, // Passes the selected value back to the caller
         ),
       ],
     );
