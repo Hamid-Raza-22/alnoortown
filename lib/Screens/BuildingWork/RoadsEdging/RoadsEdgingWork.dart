@@ -122,12 +122,6 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
                   .toSet()
                   .toList();
 
-              // Dynamically get the streets list from RoadDetailsViewModel
-              // final List<String> streets = roadDetailsViewModel.allRoadDetails
-              //     .map((streetDetail) => streetDetail.street.toString())
-              //     .toSet()
-              //     .toList();
-
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
