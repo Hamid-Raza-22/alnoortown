@@ -106,152 +106,152 @@ class LoginPageState extends State<LoginPage> {
   //   }
   // }
 
-  void _login() async {
-    setState(() {
-      _isLoading = true;  // Start loading
-      _loadingMessage = 'Checking internet connection...';  // Initial message
-    });
-
-    // Introduce a delay of 20 seconds
-    bool isConnected = false;
-    for (int i = 0; i < 20; i++) {
-      var connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult != ConnectivityResult.none) {
-        // Check if internet is actually working
-        try {
-          final result = await InternetAddress.lookup('example.com');
-          if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-            isConnected = true;
-            break;
-          }
-        } catch (_) {
-          // Internet is not working
-        }
-      }
-      await Future.delayed(Duration(seconds: 1));
-    }
-
-    if (!isConnected) {
-      setState(() {
-        _isLoading = false;
-        _loadingMessage = '';
-      });
-      Get.snackbar('Error', 'No internet connection', snackPosition: SnackPosition.BOTTOM);
-      return;
-    }
-
-    setState(() {
-      _loadingMessage = 'Checking internet speed...';  // Update message
-    });
-
-    // final internetSpeedTest = InternetSpeedTest();
-    // double downloadSpeed = 0.0;
-    //
-    // await internetSpeedTest.startDownloadTesting(
-    //   onProgress: (double percent, double transferRate, SpeedUnit unit) {
-    //     // You can update the UI with the progress if needed
-    //   },
-    //   onDone: (double transferRate, SpeedUnit unit) {
-    //     downloadSpeed = transferRate;
-    //   },
-    //   onError: (String errorMessage, String speedTestError) {
-    //     setState(() {
-    //       _isLoading = false;
-    //       _loadingMessage = '';
-    //     });
-    //     Get.snackbar('Error', 'Internet speed test failed', snackPosition: SnackPosition.BOTTOM);
-    //     return;
-    //   },
-    // );
-    //
-    // if (downloadSpeed < 5.0) {  // Assuming 5 Mbps as the threshold for good speed
-    //   setState(() {
-    //     _isLoading = false;
-    //     _loadingMessage = '';
-    //   });
-    //   Get.snackbar('Error', 'Internet speed is too slow', snackPosition: SnackPosition.BOTTOM);
-    //   return;
-    // }
-
-    setState(() {
-      _loadingMessage = 'Logging in...';  // Update message
-    });
-
-    userId = _emailController.text.trim();  // Get the entered user ID
-    bool success = await loginViewModel.login(
-      _emailController.text,
-      _passwordController.text,
-    );
-
-    if (success) {
-      setState(() {
-        _loadingMessage = 'Fetching Block details...';  // Update message
-      });
-      await blockDetailsViewModel.fetchAndSaveBlockDetailsData();
-
-      setState(() {
-        _loadingMessage = 'Fetching Road details...';  // Update message
-      });
-      await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
-
-      // Navigate to the next screen
-      Future.delayed(Duration(milliseconds: 300), () {
-        Get.offNamed('/home');
-      });
-    } else {
-      Get.snackbar('Error', 'Invalid user ID or password', snackPosition: SnackPosition.BOTTOM);
-    }
-
-    setState(() {
-      _isLoading = false;  // Stop loading
-      _loadingMessage = '';  // Reset message
-    });
-  }
-
-
-
-
-
-
-  //   void _login() async {
-  // // context.setLocale(Locale('en')); // English set karne ke liye
-  //   String email = _emailController.text.trim();
-  //   String password = _passwordController.text.trim();
+  // void _login() async {
+  //   setState(() {
+  //     _isLoading = true;  // Start loading
+  //     _loadingMessage = 'Checking internet connection...';  // Initial message
+  //   });
   //
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(builder: (context) =>   HomePage()),
+  //   // Introduce a delay of 20 seconds
+  //   bool isConnected = false;
+  //   for (int i = 0; i < 20; i++) {
+  //     var connectivityResult = await (Connectivity().checkConnectivity());
+  //     if (connectivityResult != ConnectivityResult.none) {
+  //       // Check if internet is actually working
+  //       try {
+  //         final result = await InternetAddress.lookup('example.com');
+  //         if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+  //           isConnected = true;
+  //           break;
+  //         }
+  //       } catch (_) {
+  //         // Internet is not working
+  //       }
+  //     }
+  //     await Future.delayed(Duration(seconds: 1));
+  //   }
+  //
+  //   if (!isConnected) {
+  //     setState(() {
+  //       _isLoading = false;
+  //       _loadingMessage = '';
+  //     });
+  //     Get.snackbar('Error', 'No internet connection', snackPosition: SnackPosition.BOTTOM);
+  //     return;
+  //   }
+  //
+  //   setState(() {
+  //     _loadingMessage = 'Checking internet speed...';  // Update message
+  //   });
+  //
+  //   // final internetSpeedTest = InternetSpeedTest();
+  //   // double downloadSpeed = 0.0;
+  //   //
+  //   // await internetSpeedTest.startDownloadTesting(
+  //   //   onProgress: (double percent, double transferRate, SpeedUnit unit) {
+  //   //     // You can update the UI with the progress if needed
+  //   //   },
+  //   //   onDone: (double transferRate, SpeedUnit unit) {
+  //   //     downloadSpeed = transferRate;
+  //   //   },
+  //   //   onError: (String errorMessage, String speedTestError) {
+  //   //     setState(() {
+  //   //       _isLoading = false;
+  //   //       _loadingMessage = '';
+  //   //     });
+  //   //     Get.snackbar('Error', 'Internet speed test failed', snackPosition: SnackPosition.BOTTOM);
+  //   //     return;
+  //   //   },
+  //   // );
+  //   //
+  //   // if (downloadSpeed < 5.0) {  // Assuming 5 Mbps as the threshold for good speed
+  //   //   setState(() {
+  //   //     _isLoading = false;
+  //   //     _loadingMessage = '';
+  //   //   });
+  //   //   Get.snackbar('Error', 'Internet speed is too slow', snackPosition: SnackPosition.BOTTOM);
+  //   //   return;
+  //   // }
+  //
+  //   setState(() {
+  //     _loadingMessage = 'Logging in...';  // Update message
+  //   });
+  //
+  //   userId = _emailController.text.trim();  // Get the entered user ID
+  //   bool success = await loginViewModel.login(
+  //     _emailController.text,
+  //     _passwordController.text,
   //   );
   //
-  //   try {
-  //     UserCredential userCredential = await FirebaseAuth.instance
-  //         .signInWithEmailAndPassword(email: email, password: password);
+  //   if (success) {
+  //     setState(() {
+  //       _loadingMessage = 'Fetching Block details...';  // Update message
+  //     });
+  //     await blockDetailsViewModel.fetchAndSaveBlockDetailsData();
   //
-  //     // Login successful, navigate to the HomePage
-  //     Navigator.pushReplacement(
-  //       context,
-  //       MaterialPageRoute(builder: (context) => HomePage()),
-  //     );
-  //   } on FirebaseAuthException catch (e) {
-  //     String errorMessage;
+  //     setState(() {
+  //       _loadingMessage = 'Fetching Road details...';  // Update message
+  //     });
+  //     await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
   //
-  //     if (e.code == 'user-not-found'.tr()) {
-  //       errorMessage = 'No user found for that email.'.tr();
-  //     } else if (e.code == 'wrong-password') {
-  //       errorMessage = 'Wrong password provided for that user.'.tr();
-  //     } else {
-  //       errorMessage = 'Login failed. Please try again later.'.tr();
-  //     }
-  //
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text(errorMessage)),
-  //     );
-  //   } catch (e) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(content: Text('An unexpected error occurred: $e'.tr())),
-  //     );
+  //     // Navigate to the next screen
+  //     Future.delayed(Duration(milliseconds: 300), () {
+  //       Get.offNamed('/home');
+  //     });
+  //   } else {
+  //     Get.snackbar('Error', 'Invalid user ID or password', snackPosition: SnackPosition.BOTTOM);
   //   }
+  //
+  //   setState(() {
+  //     _isLoading = false;  // Stop loading
+  //     _loadingMessage = '';  // Reset message
+  //   });
   // }
+
+
+
+
+
+
+    void _login() async {
+  // context.setLocale(Locale('en')); // English set karne ke liye
+  //   String email = _emailController.text.trim();
+  //   String password = _passwordController.text.trim();
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) =>   HomePage()),
+    );
+
+    // try {
+    //   UserCredential userCredential = await FirebaseAuth.instance
+    //       .signInWithEmailAndPassword(email: email, password: password);
+    //
+    //   // Login successful, navigate to the HomePage
+    //   Navigator.pushReplacement(
+    //     context,
+    //     MaterialPageRoute(builder: (context) => HomePage()),
+    //   );
+    // } on FirebaseAuthException catch (e) {
+    //   String errorMessage;
+    //
+    //   if (e.code == 'user-not-found'.tr()) {
+    //     errorMessage = 'No user found for that email.'.tr();
+    //   } else if (e.code == 'wrong-password') {
+    //     errorMessage = 'Wrong password provided for that user.'.tr();
+    //   } else {
+    //     errorMessage = 'Login failed. Please try again later.'.tr();
+    //   }
+    //
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text(errorMessage)),
+    //   );
+    // } catch (e) {
+    //   ScaffoldMessenger.of(context).showSnackBar(
+    //     SnackBar(content: Text('An unexpected error occurred: $e'.tr())),
+    //   );
+    // }
+  }
 
 
 
