@@ -14,6 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:internet_speed_test/callbacks_enum.dart';
 // import 'package:internet_speed_test/internet_speed_test.dart';
 
@@ -32,6 +33,7 @@ class LoginPageState extends State<LoginPage> {
   LoginViewModel loginViewModel =Get.put(LoginViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+
   bool _obscureText = true;
   bool _isLoading = false;
   double _loadingPercentage = 0.0;
@@ -107,6 +109,7 @@ class LoginPageState extends State<LoginPage> {
   // }
 
   void _login() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       _isLoading = true;  // Start loading
       _loadingMessage = 'Checking internet connection...';  // Initial message
@@ -177,7 +180,9 @@ class LoginPageState extends State<LoginPage> {
       _loadingMessage = 'Logging in...';  // Update message
     });
 
-    userId = _emailController.text.trim();  // Get the entered user ID
+
+    await prefs.setString('userId', _emailController.text.trim());
+// Get the entered user ID
     bool success = await loginViewModel.login(
       _emailController.text,
       _passwordController.text,

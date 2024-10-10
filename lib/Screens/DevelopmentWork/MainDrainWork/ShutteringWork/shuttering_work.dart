@@ -3,10 +3,14 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/shuttering_work_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/MainDrainWork/ShutteringWork/shuttering_work_summary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/shuttering_work_view_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get.dart' show Get, Inst;
+import 'package:get/get.dart' show Get, Inst, Obx;
+
+import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 
 class ShutteringWork extends StatefulWidget {
   const ShutteringWork({super.key});
@@ -19,8 +23,9 @@ class ShutteringWorkState extends State<ShutteringWork> {
   ShutteringWorkViewModel shutteringWorkViewModel = Get.put(ShutteringWorkViewModel());
   DBHelper dbHelper = DBHelper();
   int? shutterId;
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+
 
   String? selectedBlock;
   String? selectedStreet;
@@ -37,7 +42,11 @@ class ShutteringWorkState extends State<ShutteringWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-
+  Map<String, dynamic> containerData = {
+    "selectedBlock": null,
+    "selectedStreet": null,
+    "selectedTankers": null,
+  };
   void _clearFields() {
     setState(() {
       selectedBlock = null;
@@ -125,7 +134,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(),
+            buildBlockStreetRow(containerData),
             const SizedBox(height: 16),
             Text(
               'total_length_completed'.tr(),
@@ -133,10 +142,10 @@ class ShutteringWorkState extends State<ShutteringWork> {
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: numTankers,
+              initialValue: containerData["selectedTankers"],
               onChanged: (value) {
                 setState(() {
-                  numTankers = value;
+                  containerData["selectedTankers"] = value;
                 });
               },
               keyboardType: TextInputType.number,
@@ -151,17 +160,21 @@ class ShutteringWorkState extends State<ShutteringWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  final selectedBlock = containerData["selectedBlock"];
+                  final selectedStreet = containerData["selectedStreet"];
+                  final selectedTankers = containerData["selectedTankers"];
                   await shutteringWorkViewModel.addShutter(ShutteringWorkModel(
                     id: shutterId,
                     block_no: selectedBlock,
                     street_no: selectedStreet,
-                    completed_length: numTankers,
+                    completed_length: selectedTankers,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
                     user_id: userId
                   ));
                   await shutteringWorkViewModel.fetchAllShutter();
                   await shutteringWorkViewModel.postDataFromDatabaseToAPI();
+
 
                   _clearFields(); // Clear fields after submission
                   ScaffoldMessenger.of(context).showSnackBar(
@@ -189,53 +202,74 @@ class ShutteringWorkState extends State<ShutteringWork> {
       ),
     );
   }
+  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
+    return Obx(() {
+      // Dynamically get the blocks list from the BlockDetailsViewModel
+      final List<String> blocks = blockDetailsViewModel.allBlockDetails
+          .map((blockDetail) => blockDetail.block.toString())
+          .toSet()
+          .toList();
+      // Dynamically get the streets list from the BlockDetailsViewModel
+      final List<String> streets = roadDetailsViewModel.allRoadDetails
+          .map((streetDetail) => streetDetail.street.toString())
+          .toSet()
+          .toList();
 
-  Widget buildBlockStreetRow() {
-    return Row(
-      children: [
-        Expanded(
-          child: buildDropdownField('block_no'.tr(), selectedBlock, blocks, (value) {
-            setState(() {
-              selectedBlock = value;
-            });
-          }),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: buildDropdownField('street_no'.tr(), selectedStreet, streets, (value) {
-            setState(() {
-              selectedStreet = value;
-            });
-          }),
-        ),
-      ],
-    );
+      return Row(
+        children: [
+          Expanded(
+            child: buildDropdownField(
+                "block_no".tr(),containerData,  "selectedBlock", blocks),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: buildDropdownField(
+                "street_no".tr(),containerData,  "selectedStreet", streets),
+          ),
+        ],
+      );
+    });
   }
 
-  Widget buildDropdownField(String title, String? selectedValue, List<String> items, ValueChanged<String?> onChanged) {
+
+  Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
-        const SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          value: selectedValue,
-          items: items.map((item) {
-            return DropdownMenuItem(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
-          onChanged: onChanged,
-          decoration: const InputDecoration(
-            border: OutlineInputBorder(
-              borderSide: BorderSide(color: Color(0xFFC69840)),
+        SizedBox(height: 8),
+        DropdownSearch<String>(
+          items: items,
+          selectedItem: containerData[key],
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: const BorderSide(color: Color(0xFF4A4A4A)),
+                borderRadius: BorderRadius.circular(8), // Slightly larger border radius
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // More padding for a cleaner look
             ),
-            contentPadding: EdgeInsets.symmetric(horizontal: 8),
           ),
+          popupProps: PopupProps.menu(
+            showSearchBox: true, // Enables the search feature
+            itemBuilder: (context, item, isSelected) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Text(
+                  item,
+                  style: const TextStyle(fontSize: 11), // Slightly larger font for dropdown items
+                ),
+              );
+            },
+          ),
+          onChanged: (value) {
+            setState(() {
+              containerData[key] = value;
+            });
+          },
         ),
       ],
     );

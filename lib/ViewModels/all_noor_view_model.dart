@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/AttendenceModels/attendance_in_model.dart';
 import 'package:al_noor_town/ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
 import 'package:flutter/foundation.dart';
@@ -8,7 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
+import '../Models/AttendenceModels/attendance_out_model.dart';
 import '../main.dart';
+import 'AttendanceViewModel/attendance_out_view_model.dart';
 
 class HomeController extends GetxController {
   var isTapped = false.obs;
@@ -18,6 +21,7 @@ class HomeController extends GetxController {
   var formattedDurationString = '00:00:00'.obs;
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 final attendanceInViewModel = Get.put(AttendanceInViewModel());
+final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
   @override
   void onInit() {
     super.onInit();
@@ -124,12 +128,16 @@ final attendanceInViewModel = Get.put(AttendanceInViewModel());
       formattedDurationString.value = _formatDuration(newsecondpassed.toString());
     });
   }
+  String _getFormattedDate() {
+    final now = DateTime.now();
+    final formatter = DateFormat('d MMM yyyy');
+    return formatter.format(now);
+  }
   String _getFormattedtime() {
     final now = DateTime.now();
     final formatter = DateFormat('HH:mm:ss a');
     return formatter.format(now);
   }
-
   Future<void> toggleClockInOut() async {
     if (isClockedIn.value) {
       _stopTimer();
@@ -138,25 +146,48 @@ final attendanceInViewModel = Get.put(AttendanceInViewModel());
       _saveClockStatus(false);
       newsecondpassed = 0;
       formattedDurationString.value = '00:00:00';
+
+      await attendanceOutViewModel.addAttendOut(AttendanceOutModel(
+          time_out: _getFormattedtime(),
+          latitude: "71.33",
+          longitude: "32.44",
+          address_out: "Prem Nagar",
+          user_id: userId,
+          date: _getFormattedDate()
+      ));
+
+      await attendanceOutViewModel.fetchAllAttendOut();
+      isClockedIn.value = false; // Force it to be false after clock out
+      print("isClockedIn after forcing false: ${isClockedIn.value}");
+      print("Clocked Out");
     } else {
       await attendanceInViewModel.addAttend(AttendanceInModel(
-        time_in: _getFormattedtime(),
-        latitude: "71.33",
-        longitude: "32.44",
-        live_address: "Prem Nagar",
+          time_in: _getFormattedtime(),
+          latitude: "71.33",
+          longitude: "32.44",
+          live_address: "Prem Nagar",
+          user_id: userId,
+          date: _getFormattedDate()
       ));
 
       await attendanceInViewModel.fetchAllAttend();
+
       _saveCurrentTime();
       _saveClockStatus(true);
       startTimer();
+
       Workmanager().registerPeriodicTask(
         "1",
         "simplePeriodicTask",
         frequency: const Duration(minutes: 15),
       );
+
+
+      print("Clocked In");
     }
+
     isClockedIn.value = !isClockedIn.value;
+    print("isClockedIn: ${isClockedIn.value}");
   }
 
   void toggleTapped() {

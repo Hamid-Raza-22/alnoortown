@@ -33,10 +33,10 @@ class AttendanceOutModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
-      'time_in':time_out,
+      'time_out':time_out,
       'latitude':latitude,
       'longitude':longitude,
-      'live_address':address_out,
+      'address_out':address_out,
       'user_id':user_id,
       'attendance_out_date':date
 

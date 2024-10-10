@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
+import 'package:shared_preferences/shared_preferences.dart';
+import '../Globals/globals.dart';
 import '../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import '../ViewModels/all_noor_view_model.dart';
@@ -29,10 +31,14 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    userid();
     roadDetailsViewModel.fetchAllRoadDetails();
     blockDetailsViewModel.fetchAllBlockDetails();
   }
-
+Future<void> userid() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  userId =  prefs.getString('userId')!;
+}
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
@@ -135,7 +141,7 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                   Container(
                     color: Colors.transparent,
                     padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    child: Obx(() {
+                    child:Obx(() {
                       return ElevatedButton.icon(
                         onPressed: () async {
                           controller.toggleClockInOut();
@@ -156,7 +162,8 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
                           ),
                         ),
                       );
-                    }),
+                    })
+
                   ),
                 ],
               ),
@@ -182,62 +189,130 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     );
   }
 
-
   Widget buildCard(BuildContext context, String imagePath, String name, String route) {
     return GestureDetector(
-        onTap: () {
-          // Directly navigate to the route without checking if the user is clocked in
+      onTap: () {
+        if (controller.isClockedIn.value) {
+          // Navigate to the route only if user is clocked in
           Get.toNamed(route);
-        },
-        child: Container(
-            width: 180,
-            height: 180,
+        } else {
+          // Show a snackbar or alert if user is not clocked in
+          Get.snackbar(
+            'Error'.tr(),
+            'Please clock in before accessing this feature.'.tr(),
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: Colors.redAccent,
+            colorText: Colors.white,
+          );
+        }
+      },
+      child: Container(
+        width: 180,
+        height: 180,
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.3),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(20),
+          child: Container(
             decoration: BoxDecoration(
-              color: Colors.transparent,
+              color: Colors.white.withOpacity(0.2),
               borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.3),
-                  spreadRadius: 3,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
+              border: Border.all(
+                color: Colors.white.withOpacity(0.2),
+                width: 1.5,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: Image.asset(
+                    imagePath,
+                    height: 120,
+                    width: 120,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  name,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Color(0xFFC69840),
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                    width: 1.5,
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Image.asset(
-                        imagePath,
-                        height: 120,
-                        width: 120,
-                      ),
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      name,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: Color(0xFFC69840),
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
           ),
-       );
+        ),
+      ),
+    );
   }
+
+  // Widget buildCard(BuildContext context, String imagePath, String name, String route) {
+  //   return GestureDetector(
+  //       onTap: () {
+  //         // Directly navigate to the route without checking if the user is clocked in
+  //         Get.toNamed(route);
+  //       },
+  //       child: Container(
+  //           width: 180,
+  //           height: 180,
+  //           decoration: BoxDecoration(
+  //             color: Colors.transparent,
+  //             borderRadius: BorderRadius.circular(20),
+  //             boxShadow: [
+  //               BoxShadow(
+  //                 color: Colors.grey.withOpacity(0.3),
+  //                 spreadRadius: 3,
+  //                 blurRadius: 5,
+  //                 offset: Offset(0, 3),
+  //               ),
+  //             ],
+  //           ),
+  //           child: ClipRRect(
+  //             borderRadius: BorderRadius.circular(20),
+  //             child: Container(
+  //               decoration: BoxDecoration(
+  //                 color: Colors.white.withOpacity(0.2),
+  //                 borderRadius: BorderRadius.circular(20),
+  //                 border: Border.all(
+  //                   color: Colors.white.withOpacity(0.2),
+  //                   width: 1.5,
+  //                 ),
+  //               ),
+  //               child: Column(
+  //                 mainAxisAlignment: MainAxisAlignment.center,
+  //                 children: [
+  //                   Expanded(
+  //                     child: Image.asset(
+  //                       imagePath,
+  //                       height: 120,
+  //                       width: 120,
+  //                     ),
+  //                   ),
+  //                   SizedBox(height: 8),
+  //                   Text(
+  //                     name,
+  //                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+  //                       color: Color(0xFFC69840),
+  //                       fontWeight: FontWeight.bold,
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //      );
+  // }
 }

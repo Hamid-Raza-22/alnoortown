@@ -84,8 +84,8 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      //initialRoute: isAuthenticated ? '/home' : '/login',
-      initialRoute: '/',
+      initialRoute: isAuthenticated ? '/home' : '/login',
+      //initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),
         GetPage(name: '/login', page: () => LoginPage()),
