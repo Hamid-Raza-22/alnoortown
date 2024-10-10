@@ -2,12 +2,8 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:al_noor_town/Globals/globals.dart';
-import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/mud_filling_work_model.dart';
-import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/plantation_work_model.dart';
-import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mini_park_mud_filling_model.dart';
-import 'package:al_noor_town/ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
-import 'package:al_noor_town/ViewModels/AttendanceViewModel/attendance_out_view_model.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/boundary_grill_work_view_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/cubStones_work_view_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/gazebo_work_view_model.dart';
@@ -90,6 +86,7 @@ class LoginPageState extends State<LoginPage> {
   LoginViewModel loginViewModel =Get.put(LoginViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  MachineViewModel machineViewModel = Get.put(MachineViewModel());
   WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
   ExcavationViewModel excavationViewModel = Get.put(ExcavationViewModel());
   BackFillingViewModel backFillingViewModel = Get.put(BackFillingViewModel());
@@ -316,6 +313,10 @@ class LoginPageState extends State<LoginPage> {
         _loadingMessage = 'Fetching Road details...';  // Update message
       });
       await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
+      setState(() {
+        _loadingMessage = 'Machines details...';  // Update message
+      });
+      await machineViewModel.fetchAndInsertMachinesFromAPI();
 
       setState(() {
         _loadingMessage = 'Fetching WaterTanker details...';  // Update message

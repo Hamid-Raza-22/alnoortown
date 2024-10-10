@@ -141,12 +141,50 @@ String? road_noController;  TextEditingController total_lengthController = TextE
                       });
                     },
                   ),
+                  const SizedBox(height: 10), // Add spacing between dropdowns
+
+                  // Street Dropdown
+
+                ],
+              );
+            }),
+
+            SizedBox(height: 10),
+            Obx(() {
+
+
+              // Dynamically get the streets list from RoadDetailsViewModel
+              final List<String> streets = roadDetailsViewModel.allRoadDetails
+                  .map((streetDetail) => streetDetail.street.toString())
+                  .toSet()
+                  .toList();
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Block Dropdown
+                  buildDropdownRow(
+                    'road_no'.tr(),
+                    road_noController,
+                    streets,
+                        (value) {
+                      setState(() {
+                        road_noController = value;
+                      });
+                    },
+                  ),
                   const SizedBox(height: 16), // Add spacing between dropdowns
 
                   // Street Dropdown
 
                 ],
               );
+            }),
+            SizedBox(height: 16),
+            buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
+              setState(() {
+                selectedroad_side = value;
+              });
             }),
               SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), total_lengthController),
