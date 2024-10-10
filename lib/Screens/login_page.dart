@@ -73,6 +73,9 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
+import '../ViewModels/AttendanceViewModel/attendance_out_view_model.dart';
+
 class LoginPage extends StatefulWidget {
     LoginPage({super.key});
 
@@ -146,7 +149,6 @@ class LoginPageState extends State<LoginPage> {
   MgPlasterWorkViewModel mgPlasterWorkViewModel = Get.put(MgPlasterWorkViewModel());
   AttendanceInViewModel attendanceInViewModel = Get.put(AttendanceInViewModel());
   AttendanceOutViewModel attendanceOutViewModel = Get.put(AttendanceOutViewModel());
-  MachineViewModel machineViewModel = Get.put(MachineViewModel());
 
 
   bool _obscureText = true;
