@@ -3,15 +3,18 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/AttendenceModels/attendance_in_model.dart';
 import 'package:al_noor_town/ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
+import 'package:geolocator/geolocator.dart';
 import '../Models/AttendenceModels/attendance_out_model.dart';
 import '../main.dart';
 import 'AttendanceViewModel/attendance_out_view_model.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:permission_handler/permission_handler.dart' show Permission, PermissionActions, PermissionStatus, PermissionStatusGetters, openAppSettings;
 
 class HomeController extends GetxController {
   var isTapped = false.obs;
@@ -30,7 +33,11 @@ final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
     _clockRefresh();
     Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   }
-
+  Future<bool> _isLocationEnabled() async {
+    // Add your logic to check if location services are enabled
+    bool isLocationEnabled = await Geolocator.isLocationServiceEnabled();
+    return isLocationEnabled;
+  }
   void _saveCurrentTime() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     DateTime currentTime = DateTime.now();
@@ -40,7 +47,65 @@ final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
       print("Save Current Time");
     }
   }
+  Future<void> saveCurrentLocation() async {
+   // if (!mounted) return; // Check if the widget is still mounted
 
+
+    PermissionStatus permission = await Permission.location.request();
+
+    if (permission.isGranted) {
+      try {
+        Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high,
+        );
+        globalLatitude = position.latitude;
+        globalLongitude = position.longitude;
+
+        if (kDebugMode) {
+          print('Latitude: $globalLatitude, Longitude: $globalLongitude');
+        }
+
+        // Default address to "Pakistan" initially
+        String address1 = "Pakistan";
+
+        try {
+          // Attempt to get the address from coordinates
+          List<Placemark> placemarks = await placemarkFromCoordinates(
+              globalLatitude!, globalLongitude!);
+          Placemark? currentPlace = placemarks.isNotEmpty ? placemarks[0] : null;
+
+          if (currentPlace != null) {
+            address1 = "${currentPlace.thoroughfare ?? ''} ${currentPlace.subLocality ?? ''}, ${currentPlace.locality ?? ''} ${currentPlace.postalCode ?? ''}, ${currentPlace.country ?? ''}";
+
+            // Check if the constructed address is empty, fallback to "Pakistan"
+            if (address1.trim().isEmpty) {
+              address1 = "Pakistan";
+            }
+          }
+        } catch (e) {
+          if (kDebugMode) {
+            print('Error getting placemark: $e');
+          }
+          // Keep the address as "Pakistan"
+        }
+
+        liveAddress = address1;
+        // GPS is enabled
+
+        if (kDebugMode) {
+          print('Address is: $address1');
+        }
+
+      } catch (e) {
+        if (kDebugMode) {
+          print('Error getting location: $e');
+        }
+        //  isGpsEnabled = false; // GPS is not enabled
+      }
+    }
+
+
+  }
   String _formatDateTime(DateTime dateTime) {
     final formatter = DateFormat('HH:mm:ss');
     return formatter.format(dateTime);
@@ -138,6 +203,22 @@ final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
     final formatter = DateFormat('HH:mm:ss a');
     return formatter.format(now);
   }
+  Future<void> _requestLocationPermission() async {
+    LocationPermission permission = await Geolocator.requestPermission();
+
+    if (permission != LocationPermission.always &&
+        permission != LocationPermission.whileInUse) {
+      // Handle the case when permission is denied
+      Get.snackbar(
+        "Permission Required",
+        "Location permissions are required to clock in.",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 3),
+      );
+    }
+  }
   Future<void> toggleClockInOut() async {
     if (isClockedIn.value) {
       _stopTimer();
@@ -149,28 +230,49 @@ final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
 
       await attendanceOutViewModel.addAttendOut(AttendanceOutModel(
           time_out: _getFormattedtime(),
-          latitude: "71.33",
-          longitude: "32.44",
-          address_out: "Prem Nagar",
+          latitude: globalLatitude,
+          longitude: globalLongitude,
+          address_out: liveAddress,
           user_id: userId,
           date: _getFormattedDate()
       ));
 
       await attendanceOutViewModel.fetchAllAttendOut();
+      await attendanceOutViewModel.postDataFromDatabaseToAPI();
       isClockedIn.value = false; // Force it to be false after clock out
       print("isClockedIn after forcing false: ${isClockedIn.value}");
       print("Clocked Out");
     } else {
+
+      bool isLocationEnabled = await _isLocationEnabled();
+
+      if (!isLocationEnabled) {
+        Get.snackbar(
+          "Location Services Required",
+          "Please enable GPS or location services before clocking in.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.red,
+          colorText: Colors.white,
+          duration: Duration(seconds: 3),
+        );
+      }
+      bool isLocationPermissionGranted = await _checkLocationPermission();
+      if (!isLocationPermissionGranted) {
+        await _requestLocationPermission();
+      }
+      await saveCurrentLocation();
+     // await _getCurrentLocation();
       await attendanceInViewModel.addAttend(AttendanceInModel(
           time_in: _getFormattedtime(),
-          latitude: "71.33",
-          longitude: "32.44",
-          live_address: "Prem Nagar",
+          latitude: globalLatitude,
+          longitude: globalLongitude,
+          live_address: liveAddress,
           user_id: userId,
           date: _getFormattedDate()
       ));
 
       await attendanceInViewModel.fetchAllAttend();
+      await attendanceInViewModel.postDataFromDatabaseToAPI();
 
       _saveCurrentTime();
       _saveClockStatus(true);
@@ -189,7 +291,11 @@ final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
     isClockedIn.value = !isClockedIn.value;
     print("isClockedIn: ${isClockedIn.value}");
   }
-
+  Future<bool> _checkLocationPermission() async {
+    LocationPermission permission = await Geolocator.checkPermission();
+    return permission == LocationPermission.always ||
+        permission == LocationPermission.whileInUse;
+  }
   void toggleTapped() {
     isTapped.value = !isTapped.value;
   }

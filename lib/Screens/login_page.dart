@@ -3,6 +3,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
 import 'package:al_noor_town/ViewModels/LoginViewModel/login_view_model.dart';
 import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -33,6 +34,7 @@ class LoginPageState extends State<LoginPage> {
   LoginViewModel loginViewModel =Get.put(LoginViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  MachineViewModel machineViewModel = Get.put(MachineViewModel());
 
   bool _obscureText = true;
   bool _isLoading = false;
@@ -198,6 +200,10 @@ class LoginPageState extends State<LoginPage> {
         _loadingMessage = 'Fetching Road details...';  // Update message
       });
       await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
+      setState(() {
+        _loadingMessage = 'Machines details...';  // Update message
+      });
+      await machineViewModel.fetchAndInsertMachinesFromAPI();
 
       // Navigate to the next screen
       Future.delayed(Duration(milliseconds: 300), () {

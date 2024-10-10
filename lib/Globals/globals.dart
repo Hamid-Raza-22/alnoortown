@@ -3,8 +3,9 @@ import 'dart:ui';
 
 String userId="";
 // String password="";
-
-
+String liveAddress="";
+dynamic globalLatitude = "";
+dynamic globalLongitude = "";
 String tableNameMachine= 'machine';
 String tableNameWaterTanker='waterTanker';
 String tableNameExcavation='excavation';

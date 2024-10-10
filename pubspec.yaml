@@ -71,6 +71,9 @@ dependencies:
   firebase_analytics: ^11.3.2
   dropdown_search: ^5.0.3
   connectivity_plus: ^6.0.5
+  geolocator: ^11.0.0
+  permission_handler: ^10.3.0
+  geocoding: ^2.1.1
 #  internet_speed_test: ^1.0.0
 
 
