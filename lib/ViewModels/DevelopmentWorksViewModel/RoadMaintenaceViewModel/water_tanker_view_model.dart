@@ -23,9 +23,9 @@ class WaterTankerViewModel extends GetxController {
   Future<void> postDataFromDatabaseToAPI() async {
     try {
       // Step 1: Fetch machines that haven't been posted yet
-      var unPostedMachines = await waterTankerRepository.getUnPostedWaterTanker();
+      var unPostedWaterTanker = await waterTankerRepository.getUnPostedWaterTanker();
 
-      for (var waterTanker in unPostedMachines) {
+      for (var waterTanker in unPostedWaterTanker) {
         try {
           // Step 2: Attempt to post the data to the API
           await postWaterTankerToAPI(waterTanker);

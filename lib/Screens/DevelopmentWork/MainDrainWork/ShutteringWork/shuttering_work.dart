@@ -8,7 +8,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
-
 import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 

@@ -6,6 +6,7 @@ class AttendanceOutModel{
   dynamic longitude;
   dynamic address_out;
   dynamic date;
+  int posted;
 
   AttendanceOutModel({
     this.id,
@@ -14,7 +15,9 @@ class AttendanceOutModel{
     this.longitude,
     this.address_out,
     this.user_id,
-    this.date
+    this.date,
+    this.posted = 0
+
   });
 
   factory AttendanceOutModel.fromMap(Map<dynamic,dynamic>json)
@@ -26,7 +29,9 @@ class AttendanceOutModel{
         longitude: json['longitude'],
         address_out: json['address_out'],
         user_id: json['user_id'],
-        date:  json['attendance_out_date']
+        date:  json['attendance_out_date'],
+        posted: json['posted']?? 0
+
     );
   }
 
@@ -38,7 +43,9 @@ class AttendanceOutModel{
       'longitude':longitude,
       'address_out':address_out,
       'user_id':user_id,
-      'attendance_out_date':date
+      'attendance_out_date':date,
+      'posted':posted,
+
 
     };
   }
