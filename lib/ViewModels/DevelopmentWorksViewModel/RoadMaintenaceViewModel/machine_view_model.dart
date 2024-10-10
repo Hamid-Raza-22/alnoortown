@@ -44,20 +44,6 @@ class MachineViewModel extends GetxController {
     fetchAllMachines();
   }
 
-  // // Method to fetch machine data from API and insert it into the database
-  // Future<void> fetchAndInsertMachinesFromAPI() async {
-  //   print('${Config.getApiUrlMachine}$userId');
-  //   List<dynamic> data = await ApiService.getData('${Config.getApiUrlMachine}$userId');
-  //   var dbClient = await dbHelper.db;
-  //
-  //   // Save data to database
-  //   for (var item in data) {
-  //     item['posted'] = 1; // Set posted to 1
-  //     WaterTankerModel model = WaterTankerModel.fromMap(item);
-  //     await dbClient.insert(tableNameWaterTanker, model.toMap());
-  //   }
-  // }
-
   Future<void> fetchAndInsertMachinesFromAPI() async {
     try {
       // Fetch data from API

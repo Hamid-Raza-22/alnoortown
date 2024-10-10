@@ -40,7 +40,9 @@ class GrassWorkViewModel extends GetxController {
       }).toList();
     }
   }
-
+  fetchAndSaveGrassWorkData() async {
+    await grassWorkRepository .fetchAndSaveGrassWorkData();
+  }
   addGrass(GrassWorkModel grassWorkModel) {
     grassWorkRepository.add(grassWorkModel);
   }

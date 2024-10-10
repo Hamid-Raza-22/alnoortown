@@ -2,23 +2,80 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:al_noor_town/Globals/globals.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/mud_filling_work_model.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/FountainParkModel/plantation_work_model.dart';
+import 'package:al_noor_town/Models/BuildingWorkModels/MiniParksModel/mini_park_mud_filling_model.dart';
+import 'package:al_noor_town/ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
+import 'package:al_noor_town/ViewModels/AttendanceViewModel/attendance_out_view_model.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/boundary_grill_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/cubStones_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/gazebo_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/main_entrance_tiles_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/main_stage_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/mud_filling_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/plantation_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/sitting_area_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/walking_tracks_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/grass_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mini_park_curb_stone_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mini_park_mud_filling_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/monuments_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mp_fancy_light_poles_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/MiniParksViewModel/mp_plantation_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/ceiling_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/door_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/electricity_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/first_floor_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/foundation_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/mosque_excavation_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/paint_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/sanitary_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/tiles_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/base_sub_base_compaction_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/compaction_water_bound_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/sand_compaction_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/soil_compaction_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCurbstonesWorkViewModel/road_curb_stones_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsEdgingWorksViewModel/roads_edging_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsShouldersWorkViewModel/roads_shoulder_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsSignBoardsViewModel/roads_sign_boards_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/back_filling_ws_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWorkViewModel/roads_water_supply_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/StreetRoadwaterChannelViewModel/street_road_water_channel_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/canopy_column_pouring_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/main_gate_foundation_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/main_gate_pillar_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/mg_grey_structure_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewModel/mg_plaster_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/light_wires_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_excavation_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/asphalt_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/brick_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/iron_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/main_drain_excavation_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/man_holes_slab_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/plaster_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/shuttering_work_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/water_tanker_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/back_filling_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/excavation_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/manholes_view_model.dart';
+import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/pipeline_view_model.dart';
 import 'package:al_noor_town/ViewModels/LoginViewModel/login_view_model.dart';
+import 'package:al_noor_town/ViewModels/MaterialShiftingViewModel/material_shifting_view_model.dart';
+import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_model.dart';
 import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, SnackPosition;
 import 'package:http/http.dart' as http;
-import 'package:al_noor_town/Screens/signup_page.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// import 'package:internet_speed_test/callbacks_enum.dart';
-// import 'package:internet_speed_test/internet_speed_test.dart';
-
-import 'home_page.dart';
 
 class LoginPage extends StatefulWidget {
     LoginPage({super.key});
@@ -33,6 +90,67 @@ class LoginPageState extends State<LoginPage> {
   LoginViewModel loginViewModel =Get.put(LoginViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  WaterTankerViewModel waterTankerViewModel = Get.put(WaterTankerViewModel());
+  ExcavationViewModel excavationViewModel = Get.put(ExcavationViewModel());
+  BackFillingViewModel backFillingViewModel = Get.put(BackFillingViewModel());
+  ManholesViewModel manholesViewModel = Get.put(ManholesViewModel());
+  PipelineViewModel pipelineViewModel = Get.put(PipelineViewModel());
+  PolesExcavationViewModel polesExcavationViewModel = Get.put(PolesExcavationViewModel());
+  PolesViewModel polesViewModel = Get.put(PolesViewModel());
+  LightWiresViewModel lightWiresViewModel = Get.put(LightWiresViewModel());
+  IronWorkViewModel ironWorkViewModel = Get.put(IronWorkViewModel());
+  ManHolesSlabViewModel manHolesSlabViewModel = Get.put(ManHolesSlabViewModel());
+  AsphaltWorkViewModel asphaltWorkViewModel = Get.put(AsphaltWorkViewModel());
+  MainDrainExcavationViewModel mainDrainExcavationViewModel = Get.put(MainDrainExcavationViewModel());
+  BrickWorkViewModel brickWorkViewModel = Get.put(BrickWorkViewModel());
+  PlasterWorkViewModel plasterWorkViewModel = Get.put(PlasterWorkViewModel());
+  ShutteringWorkViewModel shutteringWorkViewModel = Get.put(ShutteringWorkViewModel());
+  MaterialShiftingViewModel materialShiftingViewModel = Get.put(MaterialShiftingViewModel());
+  NewMaterialViewModel newMaterialViewModel = Get.put(NewMaterialViewModel());
+  MosqueExcavationViewModel mosqueExcavationViewModel = Get.put(MosqueExcavationViewModel());
+  FoundationWorkViewModel foundationWorkViewModel = Get.put(FoundationWorkViewModel());
+  FirstFloorViewModel firstFloorViewModel = Get.put(FirstFloorViewModel());
+  TilesWorkViewModel tilesWorkViewModel = Get.put(TilesWorkViewModel());
+  SanitaryWorkViewModel sanitaryWorkViewModel = Get.put(SanitaryWorkViewModel());
+  CeilingWorkViewModel ceilingWorkViewModel = Get.put(CeilingWorkViewModel());
+  PaintWorkViewModel paintWorkViewModel = Get.put(PaintWorkViewModel());
+  ElectricityWorkViewModel electricityWorkViewModel = Get.put(ElectricityWorkViewModel());
+  DoorWorkViewModel doorWorkViewModel = Get.put(DoorWorkViewModel());
+  MudFillingWorkViewModel mudFillingWorkViewModel = Get.put(MudFillingWorkViewModel());
+  WalkingTracksWorkViewModel walkingTracksWorkViewModel = Get.put(WalkingTracksWorkViewModel());
+  CubStonesWorkViewModel cubStonesWorkViewModel = Get.put(CubStonesWorkViewModel());
+  SittingAreaWorkViewModel sittingAreaWorkViewModel = Get.put(SittingAreaWorkViewModel());
+  PlantationWorkViewModel plantationWorkViewModel = Get.put(PlantationWorkViewModel());
+  MainEntranceTilesWorkViewModel mainEntranceTilesWorkViewModel = Get.put(MainEntranceTilesWorkViewModel());
+  BoundaryGrillWorkViewModel boundaryGrillWorkViewModel = Get.put(BoundaryGrillWorkViewModel());
+  GazeboWorkViewModel gazeboWorkViewModel = Get.put(GazeboWorkViewModel());
+  MainStageWorkViewModel mainStageWorkViewModel = Get.put(MainStageWorkViewModel());
+  MiniParkMudFillingViewModel miniParkMudFillingViewModel = Get.put(MiniParkMudFillingViewModel());
+  GrassWorkViewModel grassWorkViewModel = Get.put(GrassWorkViewModel());
+  MiniParkCurbStoneViewModel miniParkCurbStoneViewModel = Get.put(MiniParkCurbStoneViewModel());
+  MpFancyLightPolesViewModel mpFancyLightPolesViewModel = Get.put(MpFancyLightPolesViewModel());
+  MpPlantationWorkViewModel mpPlantationWorkViewModel = Get.put(MpPlantationWorkViewModel());
+  MonumentsWorkViewModel monumentsWorkViewModel = Get.put(MonumentsWorkViewModel());
+  SandCompactionViewModel sandCompactionViewModel = Get.put(SandCompactionViewModel());
+  SoilCompactionViewModel soilCompactionViewModel = Get.put(SoilCompactionViewModel());
+  BaseSubBaseCompactionViewModel baseSubBaseCompactionViewModel = Get.put(BaseSubBaseCompactionViewModel());
+  CompactionWaterBoundViewModel compactionWaterBoundViewModel = Get.put(CompactionWaterBoundViewModel());
+  RoadsEdgingWorkViewModel roadsEdgingWorkViewModel = Get.put(RoadsEdgingWorkViewModel());
+  RoadsShoulderWorkViewModel roadsShoulderWorkViewModel = Get.put(RoadsShoulderWorkViewModel());
+  RoadsWaterSupplyViewModel roadsWaterSupplyViewModel = Get.put(RoadsWaterSupplyViewModel());
+  BackFillingWsViewModel backFillingWsViewModel = Get.put(BackFillingWsViewModel());
+  RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
+  RoadCurbStonesWorkViewModel roadCurbStonesWorkViewModel = Get.put(RoadCurbStonesWorkViewModel());
+  StreetRoadWaterChannelViewModel streetRoadWaterChannelViewModel = Get.put(StreetRoadWaterChannelViewModel());
+  MainGateFoundationWorkViewModel mainGateFoundationWorkViewModel = Get.put(MainGateFoundationWorkViewModel());
+  MainGatePillarWorkViewModel mainGatePillarWorkViewModel = Get.put(MainGatePillarWorkViewModel());
+  CanopyColumnPouringViewModel canopyColumnPouringViewModel = Get.put(CanopyColumnPouringViewModel());
+  MgGreyStructureViewModel mgGreyStructureViewModel = Get.put(MgGreyStructureViewModel());
+  MgPlasterWorkViewModel mgPlasterWorkViewModel = Get.put(MgPlasterWorkViewModel());
+  AttendanceInViewModel attendanceInViewModel = Get.put(AttendanceInViewModel());
+  AttendanceOutViewModel attendanceOutViewModel = Get.put(AttendanceOutViewModel());
+  MachineViewModel machineViewModel = Get.put(MachineViewModel());
+
 
   bool _obscureText = true;
   bool _isLoading = false;
@@ -199,6 +317,229 @@ class LoginPageState extends State<LoginPage> {
       });
       await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
 
+      setState(() {
+        _loadingMessage = 'Fetching WaterTanker details...';  // Update message
+      });
+      await waterTankerViewModel.fetchAndSaveTankerData();
+
+
+      setState(() {
+        _loadingMessage = 'Fetching Excavation details...';  // Update message
+      });
+      await excavationViewModel.fetchAndSaveExcavationData();
+
+      setState(() {
+        _loadingMessage = 'Fetching BackFilling details...';  // Update message
+      });
+      await backFillingViewModel.fetchAndSaveBackFillingData();
+      setState(() {
+        _loadingMessage = 'Fetching Manholes details...';  // Update message
+      });
+      await manholesViewModel.fetchAndSaveManholesData();
+      setState(() {
+        _loadingMessage = 'Fetching Pipeline details...';  // Update message
+      });
+      await pipelineViewModel.fetchAndSavePipeLineData();
+      setState(() {
+        _loadingMessage = 'Fetching Poles Excavation details...';  // Update message
+      });
+      await polesExcavationViewModel.fetchAndSavePolesExcavationData();
+      setState(() {
+        _loadingMessage = 'Fetching Poles details...';  // Update message
+      });
+      await polesViewModel.fetchAndSavePolesData();
+      setState(() {
+        _loadingMessage = 'Fetching LightWires details...';  // Update message
+      });
+      await lightWiresViewModel.fetchAndSaveLightWiresData();
+      setState(() {
+        _loadingMessage = 'Fetching IronWork details...';  // Update message
+      });
+      await ironWorkViewModel.fetchAndSaveIronWorksData();
+      setState(() {
+        _loadingMessage = 'Fetching ManHoles Slab details...';  // Update message
+      });
+      await manHolesSlabViewModel.fetchAndSaveManHolesData();
+      setState(() {
+        _loadingMessage = 'Fetching Asphalt details...';  // Update message
+      });
+      await asphaltWorkViewModel.fetchAndSaveAsphaltWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Drain Excavation details...';  // Update message
+      });
+      await mainDrainExcavationViewModel.fetchAndSaveMainDrainExcavationData();
+      setState(() {
+        _loadingMessage = 'Fetching Brick Work details...';  // Update message
+      });
+      await brickWorkViewModel.fetchAndSaveBrickWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Plaster Work details...';  // Update message
+      });
+      await plasterWorkViewModel.fetchAndSavePlasterWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Shuttering Work details...';  // Update message
+      });
+      await shutteringWorkViewModel.fetchAndSaveShutteringWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Mosque Excavation details...';  // Update message
+      });
+      await mosqueExcavationViewModel.fetchAndSaveMosqueExcavationData();
+      setState(() {
+        _loadingMessage = 'Fetching Mosque Foundation details...';  // Update message
+      });
+      await foundationWorkViewModel.fetchAndSaveFoundationWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching First Floor details...';  // Update message
+      });
+      await firstFloorViewModel.fetchAndSaveFirstFloorData();
+      setState(() {
+        _loadingMessage = 'Fetching Tiles Work details...';  // Update message
+      });
+      await tilesWorkViewModel.fetchAndSaveTilesWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Sanitary Work details...';  // Update message
+      });
+      await sanitaryWorkViewModel.fetchAndSaveSanitaryWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Ceiling Work details...';  // Update message
+      });
+      await ceilingWorkViewModel.fetchAndSaveCeilingWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Paint Work details...';  // Update message
+      });
+      await paintWorkViewModel.fetchAndSavePaintWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Electricity work details...';  // Update message
+      });
+      await electricityWorkViewModel.fetchAndSaveElectricityWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Doors Work details...';  // Update message
+      });
+      await doorWorkViewModel.fetchAndSaveDoorWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Mud Filling Work details...';  // Update message
+      });
+      await mudFillingWorkViewModel.fetchAndSaveMudFillingWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Walking Tracks details...';  // Update message
+      });
+      await walkingTracksWorkViewModel.fetchAndSaveWalkingTracksWorksData();
+      setState(() {
+        _loadingMessage = 'Fetching CurbStone Work details...';  // Update message
+      });
+      await cubStonesWorkViewModel.fetchAndSaveCurbStoneWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Sitting Area details...';  // Update message
+      });
+      await sittingAreaWorkViewModel.fetchAndSaveSittingAreaData();
+      setState(() {
+        _loadingMessage = 'Fetching Plantation details...';  // Update message
+      });
+      await plantationWorkViewModel.fetchAndSavePlantationWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Main Entrance Tiles Work details...';  // Update message
+      });
+      await mainEntranceTilesWorkViewModel.fetchAndSaveMainEntranceTilesWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Boundary Grill Work details...';  // Update message
+      });
+      await boundaryGrillWorkViewModel.fetchAndSaveBoundaryGrillWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Gazebo Work details...';  // Update message
+      });
+      await gazeboWorkViewModel.fetchAndSaveGazeboData();
+      setState(() {
+        _loadingMessage = 'Fetching Main Stage details...';  // Update message
+      });
+      await mainStageWorkViewModel.fetchAndSaveMainStageWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Mini Park MudFilling details...';  // Update message
+      });
+      await miniParkMudFillingViewModel.fetchAndSaveMiniParkMudFillingData();
+      setState(() {
+        _loadingMessage = 'Fetching Grass Work details...';  // Update message
+      });
+      await grassWorkViewModel.fetchAndSaveGrassWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Mini Park CurbStone details...';  // Update message
+      });
+      await miniParkCurbStoneViewModel.fetchAndSaveMiniParkCurbStoneData();
+      setState(() {
+        _loadingMessage = 'Fetching Fancy light Poles details...';  // Update message
+      });
+      await mpFancyLightPolesViewModel.fetchAndSaveMiniParkFancyLightPolesData();
+      setState(() {
+        _loadingMessage = 'Fetching Plantation Work mini Park details...';  // Update message
+      });
+      await mpPlantationWorkViewModel.fetchAndSaveMiniParkPlantationData();
+      setState(() {
+        _loadingMessage = 'Fetching monument Work details...';  // Update message
+      });
+      await monumentsWorkViewModel.fetchAndSaveMonumentData();
+      setState(() {
+        _loadingMessage = 'Fetching Sand Compaction details...';  // Update message
+      });
+      await sandCompactionViewModel.fetchAndSaveSandCompactionData();
+      setState(() {
+        _loadingMessage = 'Fetching soil Compaction details...';  // Update message
+      });
+      await soilCompactionViewModel.fetchAndSaveSoilCompactionData();
+      setState(() {
+        _loadingMessage = 'Fetching Base Sub Base Compaction details...';  // Update message
+      });
+      await baseSubBaseCompactionViewModel.fetchAndSaveBaseSubBaseCompactionData();
+      setState(() {
+        _loadingMessage = 'Fetching Compaction After Water Bound details...';  // Update message
+      });
+      await compactionWaterBoundViewModel.fetchAndSaveCompactionWaterBoundData();
+      setState(() {
+        _loadingMessage = 'Fetching Roads Edging details...';  // Update message
+      });
+      await roadsEdgingWorkViewModel.fetchAndSaveRoadsEdgingWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Roads Shoulder details...';  // Update message
+      });
+      await roadsShoulderWorkViewModel.fetchAndSaveRoadsShoulderWorkData();
+      setState(() {
+        _loadingMessage = 'Fetching Road Water Supply details...';  // Update message
+      });
+      await roadsWaterSupplyViewModel.fetchAndSaveRoadsWaterSupplyData()
+      ; setState(() {
+        _loadingMessage = 'Fetching Water Supply Back Filling  details...';  // Update message
+      });
+      await backFillingWsViewModel.fetchAndSaveBackFillingData()
+      ; setState(() {
+        _loadingMessage = 'Fetching RoadsSign Boards details...';  // Update message
+      });
+      await roadsSignBoardsViewModel.fetchAndSaveRoadsSignBoardsData()
+      ; setState(() {
+        _loadingMessage = 'Fetching Road Curb Stone Work details...';  // Update message
+      });
+      await roadCurbStonesWorkViewModel.fetchAndSaveRoadsCurbStonesWorkData()
+      ; setState(() {
+        _loadingMessage = 'Fetching Street Roads Water Channel details...';  // Update message
+      });
+      await streetRoadWaterChannelViewModel.fetchAndSaveStreetRoadsWaterChannelData()
+      ; setState(() {
+        _loadingMessage = 'Fetching Main Gate Foundation Work details...';  // Update message
+      });
+      await mainGateFoundationWorkViewModel.fetchAndSaveMainGateFoundationData()
+      ; setState(() {
+        _loadingMessage = 'Fetching Main Gate Pillars Brick Work details...';  // Update message
+      });
+      await mainGatePillarWorkViewModel.fetchAndSaveMainGatePillarData()
+      ; setState(() {
+        _loadingMessage = 'Fetching Main Gate Canopy Column Pouring Work details...';  // Update message
+      });
+      await canopyColumnPouringViewModel.fetchAndSaveCanopyColumnData()
+      ; setState(() {
+        _loadingMessage = 'Fetching Main Gate Gray Structure details...';  // Update message
+      });
+      await mgGreyStructureViewModel.fetchAndSaveMainGateGreyStructureData();
+      setState(() {
+        _loadingMessage = 'Fetching Main Gate Plaster Work details...';  // Update message
+      });
+      await mgPlasterWorkViewModel.fetchAndSaveMainGatePlasterData();
       // Navigate to the next screen
       Future.delayed(Duration(milliseconds: 300), () {
         Get.offNamed('/home');
