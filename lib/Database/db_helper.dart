@@ -93,4 +93,79 @@ class DBHelper {
       await db.execute(query);
     }
   }
+  Future<void> clearData() async {
+    final db = await this.db; // Get the database instance
+
+    // List of all table names to clear data
+    List<String> tableNames = [
+      tableNameMachine,
+      tableNameWaterTanker,
+      tableNameExcavation,
+      tableNameBackFiling,
+      tableNameManholes,
+      tableNamePipeLaying,
+      tableNameLightWires,
+      tableNamePolesExcavation,
+      tableNamePoles,
+      tableNameAsphaltWork,
+      tableNameBrickWork,
+      tableNameIronWork,
+      tableNameMainDrainExcavation,
+      tableNameManHolesSlabs,
+      tableNamePlasterWork,
+      tableNameShutteringWork,
+      tableNameShiftingWork,
+      tableNameMosqueExcavationWork,
+      tableNameNewMaterials,
+      tableNameAttendanceIn,
+      tableNameAttendanceOut,
+      tableNameFoundationWorkMosque,
+      tableNameFirstFloorMosque,
+      tableNameTilesWorkMosque,
+      tableNameSanitaryWorkMosque,
+      tableNameCeilingWorkMosque,
+      tableNamePaintWorkMosque,
+      tableNameElectricityWorkMosque,
+      tableNameBoundaryGrillWork,
+      tableNameCurbStonesWork,
+      tableNameGazeboWork,
+      tableNameMainEntranceTilesWork,
+      tableNameMainStage,
+      tableNameMudFillingWorkFountainPark,
+      tableNamePlantationWorkFountainPark,
+      tableNameSittingAreaWork,
+      tableNameWalkingTracksWork,
+      tableNameMudFillingMiniPark,
+      tableNameGrassWorkMiniPark,
+      tableNameCurbStonesWorkMiniPark,
+      tableNameFancyLightPolesMiniPark,
+      tableNamePlantationWorkMiniPark,
+      tableNameDoorsWorkMosque,
+      tableNameBaseSubBaseCompaction,
+      tableNameCompactionAfterWaterBound,
+      tableNameSandCompaction,
+      tableNameSoilCompaction,
+      tableNameRoadsEdging,
+      tableNameRoadShoulder,
+      tableNameMonumentWork,
+      tableNameRoadsWaterSupplyWork,
+      tableNameWaterSupplyBackFilling,
+      tableNameRoadsSignBoards,
+      tableNameRoadCurbStone,
+      tableNameStreetRoadWaterChannels,
+      tableNameMainGateCanopyColumnPouringWork,
+      tableNameFoundationWorkMainGate,
+      tableNamePillarsBrickWorkMainGate,
+      tableNameGreyStructureMainGate,
+      tableNamePlasterWorkMainGate,
+      tableNameRoadsDetail,
+      tableNameBlocksDetails,
+      tableNameLogin,
+    ];
+
+    for (var tableName in tableNames) {
+      await db.execute("DELETE FROM $tableName");
+    }
+  }
 }
+

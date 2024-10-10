@@ -239,9 +239,10 @@ final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
 
       await attendanceOutViewModel.fetchAllAttendOut();
       await attendanceOutViewModel.postDataFromDatabaseToAPI();
-      isClockedIn.value = false; // Force it to be false after clock out
+
       print("isClockedIn after forcing false: ${isClockedIn.value}");
       print("Clocked Out");
+      isClockedIn.value = false; // Force it to be false after clock out
     } else {
 
       bool isLocationEnabled = await _isLocationEnabled();
@@ -288,7 +289,7 @@ final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
       print("Clocked In");
     }
 
-    isClockedIn.value = !isClockedIn.value;
+    // isClockedIn.value = !isClockedIn.value;
     print("isClockedIn: ${isClockedIn.value}");
   }
   Future<bool> _checkLocationPermission() async {

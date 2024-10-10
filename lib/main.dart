@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:al_noor_town/Screens/BuildingWork/building_work_navigation.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/development_page.dart';
 import 'package:al_noor_town/Screens/MaterialShifting/material_shifting.dart';
@@ -6,6 +8,7 @@ import 'package:al_noor_town/Screens/home_page.dart';
 import 'package:al_noor_town/Screens/splash_screen.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +39,7 @@ Future<void> main() async {
   // Initialize ViewModels for the app
   // Get.lazyPut(() => BlockDetailsViewModel());  // Ensure HomeViewModel is lazily initialized
   // Get.lazyPut(() => RoadDetailsViewModel());  // Ensure HomeViewModel is lazily initialized
+  // Check internet connectivity before running the app
 
   runApp(
     Phoenix(
@@ -56,7 +60,25 @@ Future<void> main() async {
   )
   );
 }
+// Function to check internet connection
+Future<bool> checkInternetConnection() async {
+  var connectivityResult = await (Connectivity().checkConnectivity());
 
+  if (connectivityResult == ConnectivityResult.none) {
+    return false; // No internet connection
+  } else {
+    try {
+      // Test a network request to verify if internet access is available
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        return true; // Internet connection is working
+      }
+    } catch (e) {
+      return false; // No internet connection
+    }
+  }
+  return false;
+}
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     final prefs = await SharedPreferences.getInstance();

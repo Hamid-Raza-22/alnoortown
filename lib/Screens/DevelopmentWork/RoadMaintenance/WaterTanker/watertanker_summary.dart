@@ -19,7 +19,7 @@ class _WaterTankerSummaryState extends State<WaterTankerSummary> {
   void initState() {
     super.initState();
     waterTankerViewModel.fetchAllTanker();
-    waterTankerViewModel.fetchAndSaveTankerData();
+
   }
 
   @override

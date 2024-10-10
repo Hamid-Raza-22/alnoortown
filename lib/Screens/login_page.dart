@@ -68,10 +68,19 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, SnackPosition;
 import 'package:http/http.dart' as http;
+import 'package:al_noor_town/Screens/signup_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:internet_speed_test/callbacks_enum.dart';
+// import 'package:internet_speed_test/internet_speed_test.dart';
+
+import '../ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
+import '../ViewModels/AttendanceViewModel/attendance_out_view_model.dart';
+import '../main.dart';
+import 'home_page.dart';
 
 import '../ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
 import '../ViewModels/AttendanceViewModel/attendance_out_view_model.dart';
@@ -151,6 +160,7 @@ class LoginPageState extends State<LoginPage> {
   AttendanceOutViewModel attendanceOutViewModel = Get.put(AttendanceOutViewModel());
 
 
+
   bool _obscureText = true;
   bool _isLoading = false;
   double _loadingPercentage = 0.0;
@@ -163,14 +173,49 @@ class LoginPageState extends State<LoginPage> {
     });
   }
   @override
+  bool _hasInternet = true;
+  bool _isInternetLoading = true;
+
+  @override
   void initState() {
     super.initState();
-    loginViewModel.fetchAndSaveLoginData();
-    // roadDetailsViewModel.fetchAndSaveRoadDetailsData();
-    // blockDetailsViewModel.fetchAndSaveBlockDetailsData();
+    _checkInternetBeforeNavigation();
+
+  }
+  // Method to check the internet connection before navigating to the login page
+  Future<void> _checkInternetBeforeNavigation() async {
+    bool hasInternet = await checkInternetConnection();
+
+    if (!hasInternet) {
+      setState(() {
+        _hasInternet = false;
+      });
+
+      // Show a GetX Snackbar with an internet error message
+      Get.snackbar(
+        'Internet Error',
+        'No internet connection. The app will close shortly.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+        duration: Duration(seconds: 5),
+      );
+
+      // Delay for a few seconds before closing the app to allow user to see the message
+      await Future.delayed(Duration(seconds: 5));
+      exit(0); // Close the app if no internet connection
+    } else {
+     await loginViewModel.fetchAndSaveLoginData();
+      setState(() {
+        _hasInternet = true;
+        _isInternetLoading = false;
+      });
+    }
   }
 
-  final storage =   FlutterSecureStorage();
+
+
+  final storage =   const FlutterSecureStorage();
 
   // void _loginwithJWT() async {
   //   String email = _emailController.text.trim();
@@ -299,6 +344,7 @@ class LoginPageState extends State<LoginPage> {
 
 
     await prefs.setString('userId', _emailController.text.trim());
+     userId = prefs.getString('userId')!;
 // Get the entered user ID
     bool success = await loginViewModel.login(
       _emailController.text,
@@ -342,7 +388,7 @@ class LoginPageState extends State<LoginPage> {
       setState(() {
         _loadingMessage = 'Fetching Pipeline details...';  // Update message
       });
-      await pipelineViewModel.fetchAndSavePipeLineData();
+      // await pipelineViewModel.fetchAndSavePipeLineData();
       setState(() {
         _loadingMessage = 'Fetching Poles Excavation details...';  // Update message
       });
@@ -382,7 +428,7 @@ class LoginPageState extends State<LoginPage> {
       setState(() {
         _loadingMessage = 'Fetching Shuttering Work details...';  // Update message
       });
-      await shutteringWorkViewModel.fetchAndSaveShutteringWorkData();
+    //  await shutteringWorkViewModel.fetchAndSaveShutteringWorkData();
       setState(() {
         _loadingMessage = 'Fetching Mosque Excavation details...';  // Update message
       });
@@ -406,143 +452,178 @@ class LoginPageState extends State<LoginPage> {
       setState(() {
         _loadingMessage = 'Fetching Ceiling Work details...';  // Update message
       });
-      await ceilingWorkViewModel.fetchAndSaveCeilingWorkData();
+      ceilingWorkViewModel.fetchAndSaveCeilingWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Paint Work details...';  // Update message
       });
-      await paintWorkViewModel.fetchAndSavePaintWorkData();
+      paintWorkViewModel.fetchAndSavePaintWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Electricity work details...';  // Update message
       });
-      await electricityWorkViewModel.fetchAndSaveElectricityWorkData();
+      electricityWorkViewModel.fetchAndSaveElectricityWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Doors Work details...';  // Update message
       });
-      await doorWorkViewModel.fetchAndSaveDoorWorkData();
+      doorWorkViewModel.fetchAndSaveDoorWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Mud Filling Work details...';  // Update message
       });
-      await mudFillingWorkViewModel.fetchAndSaveMudFillingWorkData();
+      mudFillingWorkViewModel.fetchAndSaveMudFillingWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Walking Tracks details...';  // Update message
       });
-      await walkingTracksWorkViewModel.fetchAndSaveWalkingTracksWorksData();
+      walkingTracksWorkViewModel.fetchAndSaveWalkingTracksWorksData();
+
       setState(() {
         _loadingMessage = 'Fetching CurbStone Work details...';  // Update message
       });
-      await cubStonesWorkViewModel.fetchAndSaveCurbStoneWorkData();
+      cubStonesWorkViewModel.fetchAndSaveCurbStoneWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Sitting Area details...';  // Update message
       });
-      await sittingAreaWorkViewModel.fetchAndSaveSittingAreaData();
+      sittingAreaWorkViewModel.fetchAndSaveSittingAreaData();
+
       setState(() {
         _loadingMessage = 'Fetching Plantation details...';  // Update message
       });
-      await plantationWorkViewModel.fetchAndSavePlantationWorkData();
+      plantationWorkViewModel.fetchAndSavePlantationWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Main Entrance Tiles Work details...';  // Update message
       });
-      await mainEntranceTilesWorkViewModel.fetchAndSaveMainEntranceTilesWorkData();
+      mainEntranceTilesWorkViewModel.fetchAndSaveMainEntranceTilesWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Boundary Grill Work details...';  // Update message
       });
-      await boundaryGrillWorkViewModel.fetchAndSaveBoundaryGrillWorkData();
+      boundaryGrillWorkViewModel.fetchAndSaveBoundaryGrillWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Gazebo Work details...';  // Update message
       });
-      await gazeboWorkViewModel.fetchAndSaveGazeboData();
+      gazeboWorkViewModel.fetchAndSaveGazeboData();
+
       setState(() {
         _loadingMessage = 'Fetching Main Stage details...';  // Update message
       });
-      await mainStageWorkViewModel.fetchAndSaveMainStageWorkData();
+      mainStageWorkViewModel.fetchAndSaveMainStageWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Mini Park MudFilling details...';  // Update message
       });
-      await miniParkMudFillingViewModel.fetchAndSaveMiniParkMudFillingData();
+      miniParkMudFillingViewModel.fetchAndSaveMiniParkMudFillingData();
+
       setState(() {
         _loadingMessage = 'Fetching Grass Work details...';  // Update message
       });
-      await grassWorkViewModel.fetchAndSaveGrassWorkData();
+      grassWorkViewModel.fetchAndSaveGrassWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Mini Park CurbStone details...';  // Update message
       });
-      await miniParkCurbStoneViewModel.fetchAndSaveMiniParkCurbStoneData();
+      miniParkCurbStoneViewModel.fetchAndSaveMiniParkCurbStoneData();
+
       setState(() {
         _loadingMessage = 'Fetching Fancy light Poles details...';  // Update message
       });
-      await mpFancyLightPolesViewModel.fetchAndSaveMiniParkFancyLightPolesData();
+      mpFancyLightPolesViewModel.fetchAndSaveMiniParkFancyLightPolesData();
+
       setState(() {
         _loadingMessage = 'Fetching Plantation Work mini Park details...';  // Update message
       });
-      await mpPlantationWorkViewModel.fetchAndSaveMiniParkPlantationData();
+      mpPlantationWorkViewModel.fetchAndSaveMiniParkPlantationData();
+
       setState(() {
         _loadingMessage = 'Fetching monument Work details...';  // Update message
       });
-      await monumentsWorkViewModel.fetchAndSaveMonumentData();
+      monumentsWorkViewModel.fetchAndSaveMonumentData();
+
       setState(() {
         _loadingMessage = 'Fetching Sand Compaction details...';  // Update message
       });
-      await sandCompactionViewModel.fetchAndSaveSandCompactionData();
+      sandCompactionViewModel.fetchAndSaveSandCompactionData();
+
       setState(() {
         _loadingMessage = 'Fetching soil Compaction details...';  // Update message
       });
-      await soilCompactionViewModel.fetchAndSaveSoilCompactionData();
+      soilCompactionViewModel.fetchAndSaveSoilCompactionData();
+
       setState(() {
         _loadingMessage = 'Fetching Base Sub Base Compaction details...';  // Update message
       });
-      await baseSubBaseCompactionViewModel.fetchAndSaveBaseSubBaseCompactionData();
+      baseSubBaseCompactionViewModel.fetchAndSaveBaseSubBaseCompactionData();
+
       setState(() {
         _loadingMessage = 'Fetching Compaction After Water Bound details...';  // Update message
       });
-      await compactionWaterBoundViewModel.fetchAndSaveCompactionWaterBoundData();
+      compactionWaterBoundViewModel.fetchAndSaveCompactionWaterBoundData();
+
       setState(() {
         _loadingMessage = 'Fetching Roads Edging details...';  // Update message
       });
-      await roadsEdgingWorkViewModel.fetchAndSaveRoadsEdgingWorkData();
+      roadsEdgingWorkViewModel.fetchAndSaveRoadsEdgingWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Roads Shoulder details...';  // Update message
       });
-      await roadsShoulderWorkViewModel.fetchAndSaveRoadsShoulderWorkData();
+      roadsShoulderWorkViewModel.fetchAndSaveRoadsShoulderWorkData();
+
       setState(() {
         _loadingMessage = 'Fetching Road Water Supply details...';  // Update message
       });
-      await roadsWaterSupplyViewModel.fetchAndSaveRoadsWaterSupplyData()
-      ; setState(() {
-        _loadingMessage = 'Fetching Water Supply Back Filling  details...';  // Update message
+      roadsWaterSupplyViewModel.fetchAndSaveRoadsWaterSupplyData();
+
+      setState(() {
+        _loadingMessage = 'Fetching Water Supply Back Filling details...';  // Update message
       });
-      await backFillingWsViewModel.fetchAndSaveBackFillingData()
-      ; setState(() {
+      backFillingWsViewModel.fetchAndSaveBackFillingData();
+
+      setState(() {
         _loadingMessage = 'Fetching RoadsSign Boards details...';  // Update message
       });
-      await roadsSignBoardsViewModel.fetchAndSaveRoadsSignBoardsData()
-      ; setState(() {
+      roadsSignBoardsViewModel.fetchAndSaveRoadsSignBoardsData();
+
+      setState(() {
         _loadingMessage = 'Fetching Road Curb Stone Work details...';  // Update message
       });
-      await roadCurbStonesWorkViewModel.fetchAndSaveRoadsCurbStonesWorkData()
-      ; setState(() {
+      roadCurbStonesWorkViewModel.fetchAndSaveRoadsCurbStonesWorkData();
+
+      setState(() {
         _loadingMessage = 'Fetching Street Roads Water Channel details...';  // Update message
       });
-      await streetRoadWaterChannelViewModel.fetchAndSaveStreetRoadsWaterChannelData()
-      ; setState(() {
+      streetRoadWaterChannelViewModel.fetchAndSaveStreetRoadsWaterChannelData();
+
+      setState(() {
         _loadingMessage = 'Fetching Main Gate Foundation Work details...';  // Update message
       });
-      await mainGateFoundationWorkViewModel.fetchAndSaveMainGateFoundationData()
-      ; setState(() {
+      mainGateFoundationWorkViewModel.fetchAndSaveMainGateFoundationData();
+
+      setState(() {
         _loadingMessage = 'Fetching Main Gate Pillars Brick Work details...';  // Update message
       });
-      await mainGatePillarWorkViewModel.fetchAndSaveMainGatePillarData()
-      ; setState(() {
+      mainGatePillarWorkViewModel.fetchAndSaveMainGatePillarData();
+
+      setState(() {
         _loadingMessage = 'Fetching Main Gate Canopy Column Pouring Work details...';  // Update message
       });
-      await canopyColumnPouringViewModel.fetchAndSaveCanopyColumnData()
-      ; setState(() {
+      canopyColumnPouringViewModel.fetchAndSaveCanopyColumnData();
+
+      setState(() {
         _loadingMessage = 'Fetching Main Gate Gray Structure details...';  // Update message
       });
-      await mgGreyStructureViewModel.fetchAndSaveMainGateGreyStructureData();
+      mgGreyStructureViewModel.fetchAndSaveMainGateGreyStructureData();
+
       setState(() {
         _loadingMessage = 'Fetching Main Gate Plaster Work details...';  // Update message
       });
-      await mgPlasterWorkViewModel.fetchAndSaveMainGatePlasterData();
+      mgPlasterWorkViewModel.fetchAndSaveMainGatePlasterData();
+
       // Navigate to the next screen
       Future.delayed(Duration(milliseconds: 300), () {
         Get.offNamed('/home');

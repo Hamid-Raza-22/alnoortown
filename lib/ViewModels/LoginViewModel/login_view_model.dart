@@ -3,6 +3,7 @@ import 'package:al_noor_town/Repositories/LoginRepositories/login_repository.dar
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../Database/db_helper.dart';
 import '../../Globals/globals.dart';
 
 class LoginViewModel extends GetxController {
@@ -51,13 +52,16 @@ class LoginViewModel extends GetxController {
     isAuthenticated.value = false; // Set login status to false
     return false; // Login failed
   }
-  void logout() async {
+   logout() async {
     isAuthenticated.value = false; // Set login status to false
 
     // Clear authentication state
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isAuthenticated', false);
+    await prefs.remove("userId");
 
+    // Clear the data from all tables
+    await DBHelper().clearData();
   }
 
   fetchAllLogin() async{

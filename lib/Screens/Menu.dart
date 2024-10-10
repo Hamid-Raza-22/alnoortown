@@ -149,11 +149,11 @@ class _MenuState extends State<Menu> {
             ),
 
             InkWell( // Wrapping with InkWell for onTap functionality
-              onTap: () {
+              onTap: () async {
                 // Call the logout functionality here
                 // You may need to call your logout method in your LoginViewModel
                 // Example:
-                Get.put(LoginViewModel()).logout();
+                await Get.put(LoginViewModel()).logout();
                 // Navigate to the login screen
                 Get.offNamed('/login'); // Replace with your actual login route
               },
