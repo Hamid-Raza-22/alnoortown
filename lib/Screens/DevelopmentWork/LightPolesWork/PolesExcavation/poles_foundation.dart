@@ -26,8 +26,7 @@ class PolesFoundationState extends State<PolesFoundation> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   int? exId;
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
+
   Map<String, dynamic> containerData = {};
 
   @override
@@ -173,6 +172,7 @@ class PolesFoundationState extends State<PolesFoundation> {
                     user_id: userId
                   ));
                   await polesExcavationViewModel.fetchAllPoleExa();
+                   polesExcavationViewModel.postDataFromDatabaseToAPI();
 
                   // Clear fields after submission
                   setState(() {

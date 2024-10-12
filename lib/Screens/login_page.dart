@@ -353,276 +353,286 @@ class LoginPageState extends State<LoginPage> {
 
     if (success) {
       setState(() {
-        _loadingMessage = 'Fetching Block details...';  // Update message
+        _loadingMessage = 'Fetching Block details...'; // Update message
       });
       await blockDetailsViewModel.fetchAndSaveBlockDetailsData();
 
       setState(() {
-        _loadingMessage = 'Fetching Road details...';  // Update message
+        _loadingMessage = 'Fetching Road details...'; // Update message
       });
       await roadDetailsViewModel.fetchAndSaveRoadDetailsData();
       setState(() {
-        _loadingMessage = 'Machines details...';  // Update message
+        _loadingMessage = 'Machines details...'; // Update message
       });
-      await machineViewModel.fetchAndInsertMachinesFromAPI();
+      await machineViewModel.fetchAndSaveMachineData();
 
       setState(() {
-        _loadingMessage = 'Fetching WaterTanker details...';  // Update message
+        _loadingMessage = 'Fetching WaterTanker details...'; // Update message
       });
       await waterTankerViewModel.fetchAndSaveTankerData();
 
 
       setState(() {
-        _loadingMessage = 'Fetching Excavation details...';  // Update message
+        _loadingMessage = 'Fetching Excavation details...'; // Update message
       });
       await excavationViewModel.fetchAndSaveExcavationData();
 
       setState(() {
-        _loadingMessage = 'Fetching BackFilling details...';  // Update message
+        _loadingMessage = 'Fetching BackFilling details...'; // Update message
       });
       await backFillingViewModel.fetchAndSaveBackFillingData();
       setState(() {
-        _loadingMessage = 'Fetching Manholes details...';  // Update message
+        _loadingMessage = 'Fetching Manholes details...'; // Update message
       });
       await manholesViewModel.fetchAndSaveManholesData();
       setState(() {
-        _loadingMessage = 'Fetching Pipeline details...';  // Update message
+        _loadingMessage = 'Fetching Pipeline details...'; // Update message
       });
       // await pipelineViewModel.fetchAndSavePipeLineData();
       setState(() {
-        _loadingMessage = 'Fetching Poles Excavation details...';  // Update message
+        _loadingMessage =
+        'Fetching Poles Excavation details...'; // Update message
       });
       await polesExcavationViewModel.fetchAndSavePolesExcavationData();
       setState(() {
-        _loadingMessage = 'Fetching Poles details...';  // Update message
+        _loadingMessage = 'Fetching Poles details...'; // Update message
       });
       await polesViewModel.fetchAndSavePolesData();
       setState(() {
-        _loadingMessage = 'Fetching LightWires details...';  // Update message
+        _loadingMessage = 'Fetching LightWires details...'; // Update message
       });
       await lightWiresViewModel.fetchAndSaveLightWiresData();
       setState(() {
-        _loadingMessage = 'Fetching IronWork details...';  // Update message
+        _loadingMessage = 'Fetching IronWork details...'; // Update message
       });
       await ironWorkViewModel.fetchAndSaveIronWorksData();
       setState(() {
-        _loadingMessage = 'Fetching ManHoles Slab details...';  // Update message
+        _loadingMessage = 'Fetching ManHoles Slab details...'; // Update message
       });
       await manHolesSlabViewModel.fetchAndSaveManHolesData();
       setState(() {
-        _loadingMessage = 'Fetching Asphalt details...';  // Update message
+        _loadingMessage = 'Fetching Asphalt details...'; // Update message
       });
       await asphaltWorkViewModel.fetchAndSaveAsphaltWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Drain Excavation details...';  // Update message
+        _loadingMessage =
+        'Fetching Drain Excavation details...'; // Update message
       });
       await mainDrainExcavationViewModel.fetchAndSaveMainDrainExcavationData();
       setState(() {
-        _loadingMessage = 'Fetching Brick Work details...';  // Update message
+        _loadingMessage = 'Fetching Brick Work details...'; // Update message
       });
       await brickWorkViewModel.fetchAndSaveBrickWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Plaster Work details...';  // Update message
+        _loadingMessage = 'Fetching Plaster Work details...'; // Update message
       });
       await plasterWorkViewModel.fetchAndSavePlasterWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Shuttering Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Shuttering Work details...'; // Update message
       });
-    //  await shutteringWorkViewModel.fetchAndSaveShutteringWorkData();
+      //  await shutteringWorkViewModel.fetchAndSaveShutteringWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Mosque Excavation details...';  // Update message
+        _loadingMessage =
+        'Fetching Mosque Excavation details...'; // Update message
       });
       await mosqueExcavationViewModel.fetchAndSaveMosqueExcavationData();
       setState(() {
-        _loadingMessage = 'Fetching Mosque Foundation details...';  // Update message
+        _loadingMessage =
+        'Fetching Mosque Foundation details...'; // Update message
       });
       await foundationWorkViewModel.fetchAndSaveFoundationWorkData();
       setState(() {
-        _loadingMessage = 'Fetching First Floor details...';  // Update message
+        _loadingMessage = 'Fetching First Floor details...'; // Update message
       });
       await firstFloorViewModel.fetchAndSaveFirstFloorData();
       setState(() {
-        _loadingMessage = 'Fetching Tiles Work details...';  // Update message
+        _loadingMessage = 'Fetching Tiles Work details...'; // Update message
       });
       await tilesWorkViewModel.fetchAndSaveTilesWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Sanitary Work details...';  // Update message
+        _loadingMessage = 'Fetching Sanitary Work details...'; // Update message
       });
       await sanitaryWorkViewModel.fetchAndSaveSanitaryWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Ceiling Work details...';  // Update message
+        _loadingMessage = 'Fetching Ceiling Work details...'; // Update message
       });
-      ceilingWorkViewModel.fetchAndSaveCeilingWorkData();
-
+      await ceilingWorkViewModel.fetchAndSaveCeilingWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Paint Work details...';  // Update message
+        _loadingMessage = 'Fetching Paint Work details...'; // Update message
       });
-      paintWorkViewModel.fetchAndSavePaintWorkData();
 
+      await paintWorkViewModel.fetchAndSavePaintWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Electricity work details...';  // Update message
+        _loadingMessage =
+        'Fetching Electricity work details...'; // Update message
       });
-      electricityWorkViewModel.fetchAndSaveElectricityWorkData();
-
+      await electricityWorkViewModel.fetchAndSaveElectricityWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Doors Work details...';  // Update message
+        _loadingMessage = 'Fetching Doors Work details...'; // Update message
       });
-      doorWorkViewModel.fetchAndSaveDoorWorkData();
-
+      await doorWorkViewModel.fetchAndSaveDoorWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Mud Filling Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Mud Filling Work details...'; // Update message
       });
-      mudFillingWorkViewModel.fetchAndSaveMudFillingWorkData();
-
+      await mudFillingWorkViewModel.fetchAndSaveMudFillingWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Walking Tracks details...';  // Update message
+        _loadingMessage =
+        'Fetching Walking Tracks details...'; // Update message
       });
-      walkingTracksWorkViewModel.fetchAndSaveWalkingTracksWorksData();
-
+      await walkingTracksWorkViewModel.fetchAndSaveWalkingTracksWorksData();
       setState(() {
-        _loadingMessage = 'Fetching CurbStone Work details...';  // Update message
+        _loadingMessage =
+        'Fetching CurbStone Work details...'; // Update message
       });
-      cubStonesWorkViewModel.fetchAndSaveCurbStoneWorkData();
-
+      await cubStonesWorkViewModel.fetchAndSaveCurbStoneWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Sitting Area details...';  // Update message
+        _loadingMessage = 'Fetching Sitting Area details...'; // Update message
       });
-      sittingAreaWorkViewModel.fetchAndSaveSittingAreaData();
-
+      await sittingAreaWorkViewModel.fetchAndSaveSittingAreaData();
       setState(() {
-        _loadingMessage = 'Fetching Plantation details...';  // Update message
+        _loadingMessage = 'Fetching Plantation details...'; // Update message
       });
-      plantationWorkViewModel.fetchAndSavePlantationWorkData();
-
+      await plantationWorkViewModel.fetchAndSavePlantationWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Main Entrance Tiles Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Main Entrance Tiles Work details...'; // Update message
       });
-      mainEntranceTilesWorkViewModel.fetchAndSaveMainEntranceTilesWorkData();
-
+      await mainEntranceTilesWorkViewModel
+          .fetchAndSaveMainEntranceTilesWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Boundary Grill Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Boundary Grill Work details...'; // Update message
       });
-      boundaryGrillWorkViewModel.fetchAndSaveBoundaryGrillWorkData();
-
+      await boundaryGrillWorkViewModel.fetchAndSaveBoundaryGrillWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Gazebo Work details...';  // Update message
+        _loadingMessage = 'Fetching Gazebo Work details...'; // Update message
       });
-      gazeboWorkViewModel.fetchAndSaveGazeboData();
-
+      await gazeboWorkViewModel.fetchAndSaveGazeboData();
       setState(() {
-        _loadingMessage = 'Fetching Main Stage details...';  // Update message
+        _loadingMessage = 'Fetching Main Stage details...'; // Update message
       });
-      mainStageWorkViewModel.fetchAndSaveMainStageWorkData();
-
+      await mainStageWorkViewModel.fetchAndSaveMainStageWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Mini Park MudFilling details...';  // Update message
+        _loadingMessage =
+        'Fetching Mini Park MudFilling details...'; // Update message
       });
-      miniParkMudFillingViewModel.fetchAndSaveMiniParkMudFillingData();
-
+      await miniParkMudFillingViewModel.fetchAndSaveMiniParkMudFillingData();
       setState(() {
-        _loadingMessage = 'Fetching Grass Work details...';  // Update message
+        _loadingMessage = 'Fetching Grass Work details...'; // Update message
       });
-      grassWorkViewModel.fetchAndSaveGrassWorkData();
-
+      await grassWorkViewModel.fetchAndSaveGrassWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Mini Park CurbStone details...';  // Update message
+        _loadingMessage =
+        'Fetching Mini Park CurbStone details...'; // Update message
       });
-      miniParkCurbStoneViewModel.fetchAndSaveMiniParkCurbStoneData();
-
+      await miniParkCurbStoneViewModel.fetchAndSaveMiniParkCurbStoneData();
       setState(() {
-        _loadingMessage = 'Fetching Fancy light Poles details...';  // Update message
+        _loadingMessage =
+        'Fetching Fancy light Poles details...'; // Update message
       });
-      mpFancyLightPolesViewModel.fetchAndSaveMiniParkFancyLightPolesData();
-
+      await mpFancyLightPolesViewModel
+          .fetchAndSaveMiniParkFancyLightPolesData();
       setState(() {
-        _loadingMessage = 'Fetching Plantation Work mini Park details...';  // Update message
+        _loadingMessage =
+        'Fetching Plantation Work mini Park details...'; // Update message
       });
-      mpPlantationWorkViewModel.fetchAndSaveMiniParkPlantationData();
-
+      await mpPlantationWorkViewModel.fetchAndSaveMiniParkPlantationData();
       setState(() {
-        _loadingMessage = 'Fetching monument Work details...';  // Update message
+        _loadingMessage = 'Fetching monument Work details...'; // Update message
       });
-      monumentsWorkViewModel.fetchAndSaveMonumentData();
-
+      await monumentsWorkViewModel.fetchAndSaveMonumentData();
       setState(() {
-        _loadingMessage = 'Fetching Sand Compaction details...';  // Update message
+        _loadingMessage =
+        'Fetching Sand Compaction details...'; // Update message
       });
-      sandCompactionViewModel.fetchAndSaveSandCompactionData();
-
+      await sandCompactionViewModel.fetchAndSaveSandCompactionData();
       setState(() {
-        _loadingMessage = 'Fetching soil Compaction details...';  // Update message
+        _loadingMessage =
+        'Fetching soil Compaction details...'; // Update message
       });
-      soilCompactionViewModel.fetchAndSaveSoilCompactionData();
-
+      await soilCompactionViewModel.fetchAndSaveSoilCompactionData();
       setState(() {
-        _loadingMessage = 'Fetching Base Sub Base Compaction details...';  // Update message
+        _loadingMessage =
+        'Fetching Base Sub Base Compaction details...'; // Update message
       });
-      baseSubBaseCompactionViewModel.fetchAndSaveBaseSubBaseCompactionData();
-
+      await baseSubBaseCompactionViewModel
+          .fetchAndSaveBaseSubBaseCompactionData();
       setState(() {
-        _loadingMessage = 'Fetching Compaction After Water Bound details...';  // Update message
+        _loadingMessage =
+        'Fetching Compaction After Water Bound details...'; // Update message
       });
-      compactionWaterBoundViewModel.fetchAndSaveCompactionWaterBoundData();
-
+      await compactionWaterBoundViewModel
+          .fetchAndSaveCompactionWaterBoundData();
       setState(() {
-        _loadingMessage = 'Fetching Roads Edging details...';  // Update message
+        _loadingMessage = 'Fetching Roads Edging details...'; // Update message
       });
-      roadsEdgingWorkViewModel.fetchAndSaveRoadsEdgingWorkData();
-
+      await roadsEdgingWorkViewModel.fetchAndSaveRoadsEdgingWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Roads Shoulder details...';  // Update message
+        _loadingMessage =
+        'Fetching Roads Shoulder details...'; // Update message
       });
-      roadsShoulderWorkViewModel.fetchAndSaveRoadsShoulderWorkData();
-
+      await roadsShoulderWorkViewModel.fetchAndSaveRoadsShoulderWorkData();
       setState(() {
-        _loadingMessage = 'Fetching Road Water Supply details...';  // Update message
+        _loadingMessage =
+        'Fetching Road Water Supply details...'; // Update message
       });
-      roadsWaterSupplyViewModel.fetchAndSaveRoadsWaterSupplyData();
-
+      await roadsWaterSupplyViewModel.fetchAndSaveRoadsWaterSupplyData()
+      ;
       setState(() {
-        _loadingMessage = 'Fetching Water Supply Back Filling details...';  // Update message
+        _loadingMessage =
+        'Fetching Water Supply Back Filling  details...'; // Update message
       });
-      backFillingWsViewModel.fetchAndSaveBackFillingData();
-
+      await backFillingWsViewModel.fetchAndSaveBackFillingData()
+      ;
       setState(() {
-        _loadingMessage = 'Fetching RoadsSign Boards details...';  // Update message
+        _loadingMessage =
+        'Fetching RoadsSign Boards details...'; // Update message
       });
-      roadsSignBoardsViewModel.fetchAndSaveRoadsSignBoardsData();
-
+      await roadsSignBoardsViewModel.fetchAndSaveRoadsSignBoardsData()
+      ;
       setState(() {
-        _loadingMessage = 'Fetching Road Curb Stone Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Road Curb Stone Work details...'; // Update message
       });
-      roadCurbStonesWorkViewModel.fetchAndSaveRoadsCurbStonesWorkData();
-
+      await roadCurbStonesWorkViewModel.fetchAndSaveRoadsCurbStonesWorkData()
+      ;
       setState(() {
-        _loadingMessage = 'Fetching Street Roads Water Channel details...';  // Update message
+        _loadingMessage =
+        'Fetching Street Roads Water Channel details...'; // Update message
       });
-      streetRoadWaterChannelViewModel.fetchAndSaveStreetRoadsWaterChannelData();
-
+      await streetRoadWaterChannelViewModel
+          .fetchAndSaveStreetRoadsWaterChannelData()
+      ;
       setState(() {
-        _loadingMessage = 'Fetching Main Gate Foundation Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Main Gate Foundation Work details...'; // Update message
       });
-      mainGateFoundationWorkViewModel.fetchAndSaveMainGateFoundationData();
-
+      await mainGateFoundationWorkViewModel.fetchAndSaveMainGateFoundationData()
+      ;
       setState(() {
-        _loadingMessage = 'Fetching Main Gate Pillars Brick Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Main Gate Pillars Brick Work details...'; // Update message
       });
-      mainGatePillarWorkViewModel.fetchAndSaveMainGatePillarData();
-
+      await mainGatePillarWorkViewModel.fetchAndSaveMainGatePillarData()
+      ;
       setState(() {
-        _loadingMessage = 'Fetching Main Gate Canopy Column Pouring Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Main Gate Canopy Column Pouring Work details...'; // Update message
       });
-      canopyColumnPouringViewModel.fetchAndSaveCanopyColumnData();
-
+      await canopyColumnPouringViewModel.fetchAndSaveCanopyColumnData()
+      ;
       setState(() {
-        _loadingMessage = 'Fetching Main Gate Gray Structure details...';  // Update message
+        _loadingMessage =
+        'Fetching Main Gate Gray Structure details...'; // Update message
       });
-      mgGreyStructureViewModel.fetchAndSaveMainGateGreyStructureData();
-
+      await mgGreyStructureViewModel.fetchAndSaveMainGateGreyStructureData();
       setState(() {
-        _loadingMessage = 'Fetching Main Gate Plaster Work details...';  // Update message
+        _loadingMessage =
+        'Fetching Main Gate Plaster Work details...'; // Update message
       });
-      mgPlasterWorkViewModel.fetchAndSaveMainGatePlasterData();
+      await mgPlasterWorkViewModel.fetchAndSaveMainGatePlasterData();
 
       // Navigate to the next screen
       Future.delayed(Duration(milliseconds: 300), () {

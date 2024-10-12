@@ -74,9 +74,9 @@ class _FancyLightPolesState extends State<FancyLightPoles> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/curbstone.png',
-              fit: BoxFit.cover,
-              height: 190.0,
+              'assets/images/polesssssss-01.png',
+              fit: BoxFit.fitHeight,
+              height: 200.0,
             ),
           ),
           Expanded(

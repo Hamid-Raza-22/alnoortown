@@ -38,7 +38,7 @@ class MachineRepository{
 
     return machine;
   }
-  Future<void> fetchAndSaveTankerData() async {
+  Future<void> fetchAndSaveMachineData() async {
     List<dynamic> data = await ApiService.getData('${Config.getApiUrlMachine}$userId');
     var dbClient = await dbHelper.db;
 
@@ -46,7 +46,7 @@ class MachineRepository{
     for (var item in data) {
       item['posted'] = 1; // Set posted to 1
       MachineModel model = MachineModel.fromMap(item);
-      await dbClient.insert(tableNameWaterTanker, model.toMap());
+      await dbClient.insert(tableNameMachine, model.toMap());
     }
   }
   Future<List<MachineModel>> getUnPostedMachines() async {

@@ -22,7 +22,9 @@ class MachineViewModel extends GetxController {
     fetchAllMachines();
     fetchAndInsertMachinesFromAPI();
   }
-
+  fetchAndSaveMachineData() async {
+    await machineRepository.fetchAndSaveMachineData();
+  }
   Future<void> fetchAllMachines() async {
     var machines = await machineRepository.getMachine();
     allMachines.value = machines;
@@ -115,6 +117,10 @@ class MachineViewModel extends GetxController {
   }
   Future<void> postMachineToAPI(MachineModel machineModel) async {
     try {
+      await Config.fetchLatestConfig();
+      if (kDebugMode) {
+        print('Updated Machine Post API: ${Config.postApiUrlMachine}');
+      }
       var machineData = machineModel.toMap(); // Converts MachineModel to JSON
       final response = await http.post(
         Uri.parse(Config.postApiUrlMachine),  // Use the URL from Remote Config

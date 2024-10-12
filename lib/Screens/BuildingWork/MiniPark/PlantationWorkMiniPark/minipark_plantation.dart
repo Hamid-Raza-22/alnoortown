@@ -75,7 +75,7 @@ class _PlantationWorkmpState extends State<PlantationWorkmp> {
           SizedBox(
             width: double.infinity,
             child: Image.asset(
-              'assets/images/curbstone.png',
+              'assets/images/plantation.png',
               fit: BoxFit.cover,
               height: 190.0,
             ),
