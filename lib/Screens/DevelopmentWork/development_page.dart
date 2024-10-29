@@ -15,6 +15,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'LightPolesWork/FoundationWork/foundation_work.dart';
 import 'LightPolesWork/LightWiresWork/light_wires_work.dart';
 import 'LightPolesWork/Poles/poles.dart';
 import 'RoadMaintenance/Machines/machines.dart';
@@ -379,105 +380,138 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title:   Text(
+                  title: Text(
                     'select_your_work'.tr(),
                     style: const TextStyle(
                       color: Color(0xFFC69840),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  content: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                  PolesFoundation()),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/images/pol-01.png',
-                              height: 100,
-                              width: 100,
-                            ),
+                  content: SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PolesFoundation(),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/polesssssss-01.png',
+                                height: 100,
+                                width: 100,
+                              ),
                               const SizedBox(height: 10),
                               Text(
-                              'poles_excavation'.tr(),
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840),
+                                'Poles Foundation'.tr(),
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFC69840),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
                         const SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>   Poles()),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/images/polesssssss-01.png',
-                              height: 100,
-                              width: 100,
-                            ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Foundation(),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/pol-01.png',
+                                height: 100,
+                                width: 100,
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                'poles_excavation'.tr(),
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFC69840),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Poles(),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/polesssssss-01.png',
+                                height: 100,
+                                width: 100,
+                              ),
                               const SizedBox(height: 5),
                               Text(
-                              'poles'.tr(),
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840),
+                                'poles'.tr(),
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFC69840),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
                         const SizedBox(height: 5),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>   LightWiresWork()),
-                          );
-                        },
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/images/lightwire-01.png',
-                              height: 100,
-                              width: 100,
-                            ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LightWiresWork(),
+                              ),
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/images/lightwire-01.png',
+                                height: 100,
+                                width: 100,
+                              ),
                               const SizedBox(height: 5),
                               Text(
-                              'light_wires'.tr(),
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                color: Color(0xFFC69840),
+                                'light_wires'.tr(),
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  color: Color(0xFFC69840),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   actions: [
                     TextButton(
-                      child:   Text(
+                      child: Text(
                         'close'.tr(),
                         style: const TextStyle(color: Color(0xFFC69840)),
                       ),
@@ -490,10 +524,11 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   backgroundColor: Colors.white,
-                  contentPadding:   const EdgeInsets.all(20),
+                  contentPadding: const EdgeInsets.all(20),
                 );
               },
             );
+
             break;
           case 3:
             showDialog(

@@ -1,11 +1,15 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/NewMaterialModels/new_material_model.dart';
+import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:al_noor_town/ViewModels/NewMaterialViewModel/new_material_view_model.dart';
+import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import 'package:al_noor_town/Widgets/buildBlockRow.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, GetNavigation, Inst;
+import '../../Widgets/container_data.dart';
 import 'new_material_summary.dart';
 
 class NewMaterial extends StatefulWidget {
@@ -17,8 +21,11 @@ class NewMaterial extends StatefulWidget {
 
 class _NewMaterialState extends State<NewMaterial> {
   NewMaterialViewModel newMaterialViewModel = Get.put(NewMaterialViewModel());
+  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  RoadDetailsViewModel roadDetailsViewModel =Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   List<Map<String, dynamic>> containerDataList = [];
+  String? selectedBlock;
 
   @override
   void initState() {
@@ -28,6 +35,7 @@ class _NewMaterialState extends State<NewMaterial> {
 
   Map<String, dynamic> createInitialContainerData() {
     return {
+      "block":0,
       "sand": 0,
       "soil": 0,
       "base": 0,
@@ -112,7 +120,7 @@ class _NewMaterialState extends State<NewMaterial> {
   }
 
   Widget buildContainer(int index) {
-    var containerData = containerDataList[index];
+    var containerData2 = containerDataList[index];
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -124,26 +132,28 @@ class _NewMaterialState extends State<NewMaterial> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildLabelsAndFields(index, containerData, ['sand'.tr(), 'soil'.tr()]),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+            buildLabelsAndFields(index, containerData2, ['sand'.tr(), 'soil'.tr()]),
             const SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData, ['base'.tr(), 'sub_base'.tr()]),
+            buildLabelsAndFields(index, containerData2, ['base'.tr(), 'sub_base'.tr()]),
             const SizedBox(height: 16),
-            buildOtherMaterialRow(index, containerData),
+            buildOtherMaterialRow(index, containerData2),
             const SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData, ['water_bound'.tr()]),
+            buildLabelsAndFields(index, containerData2, ['water_bound'.tr()]),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  final sand = containerData["sand"];
-                  final soil = containerData["soil"];
-                  final base = containerData["base"];
-                  final sub_base = containerData["sub_base"];
-                  final water_bound = containerData["water_bound"];
-                  final other_material = containerData["other_material"];
-                  final other_material_value = containerData["other_material_value"];
+                  final sand = containerData2["sand"];
+                  final soil = containerData2["soil"];
+                  final base = containerData2["base"];
+                  final sub_base = containerData2["sub_base"];
+                  final water_bound = containerData2["water_bound"];
+                  final other_material = containerData2["other_material"];
+                  final other_material_value = containerData2["other_material_value"];
                   await newMaterialViewModel.addNewMaterial(
                     NewMaterialModel(
+                      block: containerData["selectedBlock"],
                       sand: sand,
                       soil: soil,
                       sub_base: sub_base,
@@ -162,7 +172,7 @@ class _NewMaterialState extends State<NewMaterial> {
 
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
-                      content: Text('Data Submitted: $containerData'),
+                      content: Text('Data Submitted: $containerData2'),
                     ),
                   );
 

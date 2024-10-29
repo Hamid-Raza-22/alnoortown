@@ -10,14 +10,14 @@ import 'package:get/get.dart' show Get, Inst, Obx;
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
 
-class PolesFoundation extends StatefulWidget {
-  PolesFoundation({super.key});
+class Foundation extends StatefulWidget {
+  Foundation({super.key});
 
   @override
   PolesFoundationState createState() => PolesFoundationState();
 }
 
-class PolesFoundationState extends State<PolesFoundation> {
+class PolesFoundationState extends State<Foundation> {
   PolesExcavationViewModel polesExcavationViewModel = Get.put(PolesExcavationViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
@@ -106,7 +106,7 @@ class PolesFoundationState extends State<PolesFoundation> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'poles_excavation_work'.tr(),
+                  'Poles Foundation Work'.tr(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -159,16 +159,16 @@ class PolesFoundationState extends State<PolesFoundation> {
                   final selectedStreet = containerData["selectedStreet"];
                   final polesExcavation = containerData["polesExcavation"];
                   await polesExcavationViewModel.addPoleExa(PolesExcavationModel(
-                    id: exId,
-                    block_no: selectedBlock,
-                    street_no: selectedStreet,
-                    no_of_excavation: polesExcavation,
-                    date: _getFormattedDate(),
-                    time: _getFormattedTime(),
-                    user_id: userId
+                      id: exId,
+                      block_no: selectedBlock,
+                      street_no: selectedStreet,
+                      no_of_excavation: polesExcavation,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime(),
+                      user_id: userId
                   ));
                   await polesExcavationViewModel.fetchAllPoleExa();
-                   polesExcavationViewModel.postDataFromDatabaseToAPI();
+                  polesExcavationViewModel.postDataFromDatabaseToAPI();
 
                   // Clear fields after submission
                   setState(() {
@@ -199,7 +199,4 @@ class PolesFoundationState extends State<PolesFoundation> {
       ),
     );
   }
-
-
-
 }

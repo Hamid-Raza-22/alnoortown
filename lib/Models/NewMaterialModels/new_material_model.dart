@@ -1,5 +1,6 @@
 class NewMaterialModel{
   int? id;
+  dynamic block;
   dynamic sand;
   dynamic soil;
   dynamic base;
@@ -13,6 +14,7 @@ class NewMaterialModel{
   int posted;  // New field to track whether data has been posted
 
   NewMaterialModel({
+    this.block,
     this.id,
     this.sand,
     this.soil,
@@ -32,6 +34,7 @@ class NewMaterialModel{
   {
     return NewMaterialModel(
       id: json['id'],
+      block: json['block'],
       sand: json['sand'],
       soil: json['soil'],
       base: json['base'],
@@ -49,6 +52,7 @@ class NewMaterialModel{
   Map<String, dynamic> toMap(){
     return {
       'id':id,
+      'block':block,
       'sand':sand,
       'soil':soil,
       'base':base,
