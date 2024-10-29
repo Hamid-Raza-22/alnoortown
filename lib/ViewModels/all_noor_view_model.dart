@@ -301,23 +301,30 @@ final attendanceOutViewModel = Get.put(AttendanceOutViewModel());
     isTapped.value = !isTapped.value;
   }
 
-  void showRunningTimerNotification(String timerValue) async {
-    const androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'your_channel_id',
-      'your_channel_name',
+
+  Future<void> showRunningTimerNotification(String timerValue) async {
+    final androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'your_channel_id', // Customize the channel ID
+      'Clockin Timer',   // Descriptive channel name
       importance: Importance.max,
       priority: Priority.high,
       ongoing: true,
       autoCancel: false,
+      styleInformation: BigTextStyleInformation( // Allows for larger body text
+        'You have been clocked in for $timerValue. Keep up the good work!',
+      ),
+      icon: '@drawable/ic_timer', // Add a custom icon (ensure to have this icon in your project)
+      ticker: 'Timer Running',
     );
-    const platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    final platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
 
     await flutterLocalNotificationsPlugin.show(
       0,
-      'Clockin Timer',
-      timerValue,
+      'Clockin Timer Running', // A more descriptive title
+      'Elapsed time: $timerValue', // Update time in this field
       platformChannelSpecifics,
-      payload: 'item x',
+      payload: 'item x', // Payload if any action is needed when clicked
     );
   }
 

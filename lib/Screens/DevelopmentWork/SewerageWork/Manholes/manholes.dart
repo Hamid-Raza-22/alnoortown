@@ -11,6 +11,7 @@ import 'package:intl/intl.dart';
 
 import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/custom_dropdown_widgets.dart';
 import 'manholes_summary.dart';
 
 class Manholes extends StatefulWidget {
@@ -27,9 +28,7 @@ class _ManholesState extends State<Manholes> {
 
   DBHelper dbHelper = DBHelper();
   int? holeId;
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
-  Map<String, dynamic> containerData = {};
+Map<String, dynamic> containerData = {};
 
   @override
   void initState() {
@@ -181,7 +180,7 @@ class _ManholesState extends State<Manholes> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
+            buildBlockStreetRow(containerData, roadDetailsViewModel),
             SizedBox(height: 16),
             Text(
               'No. of Manholes',
@@ -209,75 +208,4 @@ class _ManholesState extends State<Manholes> {
     );
   }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
-    return Obx(() {
-      // Dynamically get the blocks list from the BlockDetailsViewModel
-      final List<String> blocks = blockDetailsViewModel.allBlockDetails
-          .map((blockDetail) => blockDetail.block.toString())
-          .toSet()
-          .toList();
-      // Dynamically get the streets list from the BlockDetailsViewModel
-      final List<String> streets = roadDetailsViewModel.allRoadDetails
-          .map((streetDetail) => streetDetail.street.toString())
-          .toSet()
-          .toList();
-
-      return Row(
-        children: [
-          Expanded(
-            child: buildDropdownField(
-                "block_no".tr(),containerData,  "selectedBlock", blocks),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: buildDropdownField(
-                "street_no".tr(),containerData,  "selectedStreet", streets),
-          ),
-        ],
-      );
-    });
-  }
-
-  Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
-        ),
-        SizedBox(height: 8),
-        DropdownSearch<String>(
-          items: items,
-          selectedItem: containerData[key],
-          dropdownDecoratorProps: DropDownDecoratorProps(
-            dropdownSearchDecoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Color(0xFF4A4A4A)),
-                borderRadius: BorderRadius.circular(8), // Slightly larger border radius
-              ),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // More padding for a cleaner look
-            ),
-          ),
-          popupProps: PopupProps.menu(
-            showSearchBox: true, // Enables the search feature
-            itemBuilder: (context, item, isSelected) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Text(
-                  item,
-                  style: const TextStyle(fontSize: 11), // Slightly larger font for dropdown items
-                ),
-              );
-            },
-          ),
-          onChanged: (value) {
-            setState(() {
-              containerData[key] = value;
-            });
-          },
-        ),
-      ],
-    );
-  }
 }

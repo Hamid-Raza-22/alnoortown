@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
+import '../../../../Widgets/custom_dropdown_widgets.dart';
 import 'manholes_slabs_summary.dart';
 
 class ManholesSlabs extends StatefulWidget {
@@ -21,13 +22,12 @@ class ManholesSlabs extends StatefulWidget {
 }
 
 class ManholesSlabsState extends State<ManholesSlabs> {
-  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   ManHolesSlabViewModel manHolesSlabViewModel = Get.put(ManHolesSlabViewModel());
   DBHelper dbHelper = DBHelper();
   int? manId;
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
+ 
   List<Map<String, dynamic>> containerDataList = [];
 
   @override
@@ -188,7 +188,7 @@ class ManholesSlabsState extends State<ManholesSlabs> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
+            buildBlockStreetRow(containerData,roadDetailsViewModel),
             SizedBox(height: 16),
             Text(
               'no_of_slab_completed'.tr(),
@@ -259,32 +259,5 @@ class ManholesSlabsState extends State<ManholesSlabs> {
     );
   }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
-    return Obx(() {
-      // Dynamically get the blocks list from the BlockDetailsViewModel
-      final List<String> blocks = blockDetailsViewModel.allBlockDetails
-          .map((blockDetail) => blockDetail.block.toString())
-          .toSet()
-          .toList();
-      // Dynamically get the streets list from the BlockDetailsViewModel
-      final List<String> streets = roadDetailsViewModel.allRoadDetails
-          .map((streetDetail) => streetDetail.street.toString())
-          .toSet()
-          .toList();
 
-      return Row(
-        children: [
-          Expanded(
-            child: buildDropdownField(
-                "block_no".tr(),containerData,  "selectedBlock", blocks),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: buildDropdownField(
-                "street_no".tr(),containerData,  "selectedStreet", streets),
-          ),
-        ],
-      );
-    });
-  }
 }

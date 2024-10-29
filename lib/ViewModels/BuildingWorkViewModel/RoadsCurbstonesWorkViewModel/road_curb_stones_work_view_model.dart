@@ -8,7 +8,7 @@ import 'dart:convert';
 
 class RoadCurbStonesWorkViewModel extends GetxController {
   var allRoadCurb = <RoadCurbStonesWorkModel>[].obs;
-  var filteredRoadCurb = <RoadCurbStonesWorkModel>[].obs;
+  // var filteredRoadCurb = <RoadCurbStonesWorkModel>[].obs;
   RoadCurbStonesWorkRepository roadCurbStonesWorkRepository = RoadCurbStonesWorkRepository();
 
   @override
@@ -20,11 +20,11 @@ class RoadCurbStonesWorkViewModel extends GetxController {
   Future<void> fetchAllRoadCurb() async {
     var roadCurb = await roadCurbStonesWorkRepository.getRoadCurbStonesWork();
     allRoadCurb.value = roadCurb;
-    filteredRoadCurb.value = roadCurb;
+
   }
 
   void filterRoadCurb(DateTime? fromDate, DateTime? toDate, String? block) {
-    filteredRoadCurb.value = allRoadCurb.where((roadCurb) {
+    allRoadCurb.value = allRoadCurb.where((roadCurb) {
       final date = DateTime.parse(roadCurb.date!);
       final isWithinDateRange = (fromDate == null || date.isAfter(fromDate)) &&
           (toDate == null || date.isBefore(toDate));

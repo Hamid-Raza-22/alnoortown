@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:al_noor_town/Screens/BuildingWork/building_work_navigation.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/development_page.dart';
 import 'package:al_noor_town/Screens/MaterialShifting/material_shifting.dart';
 import 'package:al_noor_town/Screens/NewMaterial/new_material.dart';
+import 'package:al_noor_town/Screens/PolicyDBox.dart';
 import 'package:al_noor_town/Screens/home_page.dart';
 import 'package:al_noor_town/Screens/splash_screen.dart';
 import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
@@ -79,22 +81,49 @@ Future<bool> checkInternetConnection() async {
   }
   return false;
 }
+
+void startTimerAndUpdateNotification() async {
+  final prefs = await SharedPreferences.getInstance();
+
+  // Get startTime from SharedPreferences
+  final startTimeString = prefs.getString('startTime');
+
+  // Check if startTime is null and return early if it is
+  if (startTimeString == null) {
+    print('Error: startTime is null, cannot start the timer');
+    return;
+  }
+
+  final startTime = DateTime.parse(startTimeString);
+
+  Timer.periodic(Duration(seconds: 1), (Timer timer) async {
+    final isClockedIn = prefs.getBool('isClockedIn') ?? false;
+    if (!isClockedIn) {
+      timer.cancel(); // Stop the timer if the user is clocked out
+      return;
+    }
+
+    // Calculate the duration and format it as HH:mm:ss
+    final duration = DateTime.now().difference(startTime);
+    final formattedDuration = duration.toString().split('.').first.padLeft(8, "0");
+
+    // Update the notification with the live timer value
+    await HomeController().showRunningTimerNotification(formattedDuration);
+  });
+}
+
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     final prefs = await SharedPreferences.getInstance();
     final isClockedIn = prefs.getBool('isClockedIn') ?? false;
-    if (isClockedIn) {
-      final startTime = DateTime.parse(prefs.getString('startTime')!);
-      final duration = DateTime.now().difference(startTime);
-      final formattedDuration = duration.toString().split('.').first.padLeft(8, "0");
 
-      // Update the notification with the current timer value
-      HomeController().showRunningTimerNotification(formattedDuration);
+    if (isClockedIn) {
+      // Start the live timer when the user is clocked in
+      startTimerAndUpdateNotification();
     }
     return Future.value(true);
   });
 }
-
 class MyApp extends StatelessWidget {
   final bool isAuthenticated;
 
@@ -106,10 +135,11 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      initialRoute: isAuthenticated ? '/home' : '/login',
+      initialRoute: isAuthenticated ? '/home' : '/policy',
       //initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => SplashScreen()),
+        GetPage(name: '/policy', page: () => PolicyDialog()),
         GetPage(name: '/login', page: () => LoginPage()),
         GetPage(name: '/home', page: () =>  HomePage()),
         GetPage(name: '/development', page: () =>  DevelopmentPage()),

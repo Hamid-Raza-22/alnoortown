@@ -1,3 +1,4 @@
+import 'package:al_noor_town/Screens/BuildingWork/BoundaryWall/Pillars/Fixing/boundary_wall_fixing.dart';
 import 'package:al_noor_town/Screens/BuildingWork/FountainPark/BoundaryGril/boundary_gril_work.dart';
 import 'package:al_noor_town/Screens/BuildingWork/FountainPark/GazeboWork/gazebo_work.dart';
 import 'package:al_noor_town/Screens/BuildingWork/FountainPark/MainEntranceTilesWork/main_entrance_tiles.dart';
@@ -29,6 +30,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'BoundaryWall/Pillars/Removal/boundary_wall_removal.dart';
+import 'BoundaryWall/Planks/Fixing/boundary_wall_fixing.dart';
+import 'BoundaryWall/Planks/Removal/boundary_wall_removal.dart';
 import 'FountainPark/CurbstonesWork/curbstones_work.dart';
 import 'Mosque/CeilingWork/ceiling_work.dart';
 import 'Mosque/DoorsWork/doors_work.dart';
@@ -45,20 +49,6 @@ import 'RoadsCurbstonesWork/RoadsCurbstonesWork2.dart';
 import 'RoadsShouldersWork/RoadsShouldersWork.dart';
 import 'TownMainGate/Main Gate Pillars Brick/MainGatePillarsbrick.dart';
 
-//
-// enum WorkType {
-//   mosque,
-//   fountainPark,
-//   translatedMiniParks,
-//   roadsCompactionWork,
-//   roadsEdgingWork,
-//   roadsShouldersWork,
-//   roadsWaterSupplyWork,
-//   roadsSignBoards,
-//   roadsCurbstonesWork,
-//   streetRoadsWaterChannels,
-//   townMainGates,
-// }
 
 class Building_Navigation_Page extends StatefulWidget {
     Building_Navigation_Page({super.key});
@@ -86,6 +76,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     'roads_curbstones_work'.tr(),
     'street_roads_water_channels'.tr(),
     'town_main_gates'.tr(),
+    'Boundary Wall'.tr()
   ];
 
   List<String> imagePaths = [
@@ -179,7 +170,10 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
             texts[index] == 'mini_parks'.tr() ||
             texts[index] == 'roads_compaction_work'.tr() ||
             texts[index] == 'roads_water_supply_work'.tr() ||
-            texts[index] == 'town_main_gates'.tr()) {
+            texts[index] == 'town_main_gates'.tr()||
+             texts[index] == 'Boundary Wall'.tr()
+        ) {
+
           showAlertBox(index);
         } else {
           navigateToWorkPage(texts[index]);
@@ -261,6 +255,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
       Icons.electrical_services, // Electricity Work
       Icons.door_front_door, // Doors Work
     ];
+
 
     List<String> fountainParkNames = [
       'mud_filling_work'.tr(),
@@ -344,7 +339,22 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
       Icons.home,
       Icons.format_paint,
     ];
+    List<dynamic> boundaryWallNames = [
+      'Pillars'.tr(),
+      'Planks'.tr()
+    ];
 
+    List<IconData> boundaryWallIcons = [
+      Icons.construction, // Excavation Work
+      Icons.foundation, // Foundation Work
+      // Icons.account_balance, // First Floor
+      // Icons.grid_on, // Tiles Work
+      // Icons.plumbing, // Sanitary Work
+      // Icons.roofing, // Ceiling Work
+      // Icons.format_paint, // Paint Work
+      // Icons.electrical_services, // Electricity Work
+      // Icons.door_front_door, // Doors Work
+    ];
     showDialog(
       context: context,
       builder: (context) {
@@ -364,12 +374,15 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                   ? roadsCompactionNames.length
                   : (texts[index] == 'roads_water_supply_work'.tr())
                   ? roadsWaterSupplyNames.length
+                  : (texts[index] == 'Boundary Wall'.tr())
+                  ? boundaryWallNames.length
                   : townMainGatesNames.length,
               itemBuilder: (context, subIndex) {
                 return ListTile(
                   leading: Icon(
                     (texts[index] == 'mosque'.tr())
                         ? mosqueIcons[subIndex]
+
                         : (texts[index] == 'fountain_park'.tr())
                         ? fountainParkIcons[subIndex]
                         : (texts[index] == 'mini_parks'.tr())
@@ -378,6 +391,8 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                         ? roadsCompactionIcons[subIndex]
                         : (texts[index] == 'roads_water_supply_work'.tr())
                         ? roadsWaterSupplyIcons[subIndex]
+                        : (texts[index] == 'Boundary Wall'.tr())
+                        ? boundaryWallIcons[subIndex]
                         : townMainGatesIcons[subIndex],
                   ),
                   title: Text(
@@ -391,11 +406,20 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
                         ? roadsCompactionNames[subIndex]
                         : (texts[index] == 'roads_water_supply_work'.tr())
                         ? roadsWaterSupplyNames[subIndex]
+                        : (texts[index] == 'Boundary Wall'.tr())
+                        ? boundaryWallNames[subIndex]
                         : townMainGatesNames[subIndex],
                   ),
                   onTap: () {
-                    Navigator.pop(context);
-                    navigateToSubPage(texts[index], subIndex);
+                    if (texts[index] == 'Boundary Wall'.tr() &&
+                        (boundaryWallNames[subIndex] == 'Pillars'.tr() ||
+                            boundaryWallNames[subIndex] == 'Planks'.tr())) {
+                      Navigator.pop(context);
+                      showFixingRemovalOptions(boundaryWallNames[subIndex]);
+                    } else {
+                      Navigator.pop(context);
+                      navigateToSubPage(texts[index], subIndex);
+                    }
                   },
                 );
               },
@@ -406,6 +430,55 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     );
   }
 
+  void showFixingRemovalOptions(String item) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('$item Options'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                title: Text('Fixing'.tr()),
+                onTap: () {
+                  Navigator.pop(context); // Close the dialog first
+                  if (item == 'Pillars'.tr()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PillarsFixing()),
+                    );
+                  } else if (item == 'Planks'.tr()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PlanksFixing()),
+                    );
+                  }
+                },
+              ),
+              ListTile(
+                title: Text('Removal'.tr()),
+                onTap: () {
+                  Navigator.pop(context); // Close the dialog first
+                  if (item == 'Pillars'.tr()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PillarsRemoval()),
+                    );
+                  } else if (item == 'Planks'.tr()) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PlanksRemoval()),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   void navigateToWorkPage(dynamic workType) {
     String roadsEdgingWork = 'roads_edging_work'.tr();
@@ -454,6 +527,7 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
     String roadsCompactionWork = 'roads_compaction_work'.tr();
     String roadsWaterSupplyWork = 'roads_water_supply_work'.tr();
     String townMainGates = 'town_main_gates'.tr();
+    String boundaryWall = 'Boundary Wall'.tr();
 
     if (workType == translatedMosque) {
 
@@ -654,6 +728,21 @@ class _Building_Navigation_PageState extends State<Building_Navigation_Page> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => RoadsWaterSupplyWork()),
+          );
+          break;
+        case 1:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) =>  BackFillingWs()),
+          );
+          break;
+      }
+    }      else if ( workType == boundaryWall) {
+      switch (subIndex) {
+        case 0:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => PillarsFixing()),
           );
           break;
         case 1:

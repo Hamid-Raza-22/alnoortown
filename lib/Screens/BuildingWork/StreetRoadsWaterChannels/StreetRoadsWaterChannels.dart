@@ -10,6 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 
+import '../../../Widgets/container_data.dart';
+import '../../../Widgets/custom_container_widgets.dart';
+
 class StreetRoadsWaterChannels extends StatefulWidget {
     StreetRoadsWaterChannels({super.key});
 
@@ -21,11 +24,12 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
   StreetRoadWaterChannelViewModel streetRoadWaterChannelViewModel = Get.put(StreetRoadWaterChannelViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
-String? road_noController;  TextEditingController noOfWaterChannelsController = TextEditingController();
-  String? selectedBlock;
+ TextEditingController noOfWaterChannelsController = TextEditingController();
+
   String? selectedroad_side;
   String? selectedStatus;
-  List<Map<String, dynamic>> containerDataList = [];
+
+
 
   @override
   void initState() {
@@ -112,72 +116,17 @@ String? road_noController;  TextEditingController noOfWaterChannelsController = 
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(() {
-              // Dynamically get the blocks list from BlockDetailsViewModel
-              final List<String> blocks = blockDetailsViewModel.allBlockDetails
-                  .map((blockDetail) => blockDetail.block.toString())
-                  .toSet()
-                  .toList();
-
-              // Dynamically get the streets list from RoadDetailsViewModel
-              // final List<String> streets = roadDetailsViewModel.allRoadDetails
-              //     .map((streetDetail) => streetDetail.street.toString())
-              //     .toSet()
-              //     .toList();
-
-              return Column(
+            Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Block Dropdown
-                  buildDropdownRow(
-                    'block_no'.tr(),
-                    selectedBlock,
-                    blocks,
-                        (value) {
-                      setState(() {
-                        selectedBlock = value;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 10), // Add spacing between dropdowns
+                  buildBlockSRoadsColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
 
-                  // Street Dropdown
-
-                ],
-              );
-            }),
-
-            SizedBox(height: 10),
-            Obx(() {
-
-
-              // Dynamically get the streets list from RoadDetailsViewModel
-              final List<String> streets = roadDetailsViewModel.allRoadDetails
-                  .map((streetDetail) => streetDetail.street.toString())
-                  .toSet()
-                  .toList();
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Block Dropdown
-                  buildDropdownRow(
-                    'road_no'.tr(),
-                    road_noController,
-                    streets,
-                        (value) {
-                      setState(() {
-                        road_noController = value;
-                      });
-                    },
-                  ),
                   const SizedBox(height: 16), // Add spacing between dropdowns
 
-                  // Street Dropdown
-
                 ],
-              );
-            }),
+              ),
+
               SizedBox(height: 16),
             buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) {
               setState(() {
@@ -204,102 +153,115 @@ String? road_noController;  TextEditingController noOfWaterChannelsController = 
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (road_noController !=null &&
-                      noOfWaterChannelsController.text.isNotEmpty &&
-                      selectedBlock != null &&
-                      selectedroad_side != null && // Check if Road Side is selected
-                      selectedStatus != null) {
-                    await streetRoadWaterChannelViewModel.addStreetRoad(StreetRoadWaterChannelModel(
-                        block_no: selectedBlock,
-                        road_no: road_noController,
-                        road_side: selectedroad_side,
-                        no_of_water_channels:  noOfWaterChannelsController.text,
-                        water_channels_comp_status: selectedStatus,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime(),
-                      user_id: userId
+                  // Check if all required fields are filled
+                  if (containerData["selectedBlock"] != null &&
+                      containerData["selectedStreet"] != null &&
 
+                      noOfWaterChannelsController.text.isNotEmpty &&
+                      selectedroad_side != null &&
+                      selectedStatus != null) {
+
+                    // Submit data
+                    await streetRoadWaterChannelViewModel.addStreetRoad(StreetRoadWaterChannelModel(
+                      block_no: containerData["selectedBlock"],
+                      road_no: containerData["selectedStreet"],
+                      road_side: selectedroad_side,
+                      no_of_water_channels: noOfWaterChannelsController.text,
+                      water_channels_comp_status: selectedStatus,
+                      date: _getFormattedDate(),
+                      time: _getFormattedTime(),
+                      user_id: userId,
                     ));
 
+                    // Clear fields after submission
+                    setState(() {
+                      containerData["selectedBlock"] = null;
+                      containerData["selectedStreet"] = null;
+
+                      noOfWaterChannelsController.clear();
+                      selectedroad_side = null;
+                      selectedStatus = null;
+                    });
+
+                    // Fetch new data and update UI
                     await streetRoadWaterChannelViewModel.fetchAllStreetRoad();
                     await streetRoadWaterChannelViewModel.postDataFromDatabaseToAPI();
 
+                    // Show success message
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
+                      SnackBar(content: Text('entry_added_successfully'.tr())),
                     );
                   } else {
+                    // Show error if fields are missing
                     ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
+                      SnackBar(content: Text('please_fill_in_all_fields'.tr())),
                     );
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:   Color(0xFFF3F4F6),
-                  padding:
-                    EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle:   TextStyle(fontSize: 14),
+                  backgroundColor: Color(0xFFF3F4F6),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: TextStyle(fontSize: 14),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-                child:   Text('submit'.tr().tr(),
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
+                child: Text(
+                  'submit'.tr(),
+                  style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                ),
               ),
             ),
+
           ],
         ),
       ),
     );
   }
 
-  Widget buildDropdownRow(
-      String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: Color(0xFFC69840),
-          ),
-        ),
-        SizedBox(height: 8),
-        DropdownSearch<String>(
-          items: items,
-          selectedItem: selectedItem,
-          dropdownDecoratorProps: DropDownDecoratorProps(
-            dropdownSearchDecoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(color: Color(0xFF4A4A4A)),
-                borderRadius: BorderRadius.circular(8), // Adjust border radius
-              ),
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Adjust padding
-            ),
-          ),
-          popupProps: PopupProps.menu(
-            showSearchBox: true, // Enables the search feature
-            itemBuilder: (context, item, isSelected) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Text(
-                  item,
-                  style: TextStyle(fontSize: 11), // Adjust font size for dropdown items
-                ),
-              );
-            },
-          ),
-          onChanged: onChanged, // Passes the selected value back to the caller
-        ),
-      ],
-    );
-  }
+  // Widget buildDropdownRow(
+  //     String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       Text(
+  //         title,
+  //         style: TextStyle(
+  //           fontSize: 14,
+  //           fontWeight: FontWeight.bold,
+  //           color: Color(0xFFC69840),
+  //         ),
+  //       ),
+  //       SizedBox(height: 8),
+  //       DropdownSearch<String>(
+  //         items: items,
+  //         selectedItem: selectedItem,
+  //         dropdownDecoratorProps: DropDownDecoratorProps(
+  //           dropdownSearchDecoration: InputDecoration(
+  //             border: OutlineInputBorder(
+  //               borderSide: BorderSide(color: Color(0xFF4A4A4A)),
+  //               borderRadius: BorderRadius.circular(8), // Adjust border radius
+  //             ),
+  //             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Adjust padding
+  //           ),
+  //         ),
+  //         popupProps: PopupProps.menu(
+  //           showSearchBox: true, // Enables the search feature
+  //           itemBuilder: (context, item, isSelected) {
+  //             return Padding(
+  //               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  //               child: Text(
+  //                 item,
+  //                 style: TextStyle(fontSize: 11), // Adjust font size for dropdown items
+  //               ),
+  //             );
+  //           },
+  //         ),
+  //         onChanged: onChanged, // Passes the selected value back to the caller
+  //       ),
+  //     ],
+  //   );
+  // }
   Widget buildTextFieldRow(String label, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

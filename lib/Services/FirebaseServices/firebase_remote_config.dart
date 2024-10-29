@@ -97,6 +97,11 @@ class Config {
   static String get getApiUrlRoadsDetails => remoteConfig.getString('Roads_Details_get_url');
   static String get getApiUrlLogin => remoteConfig.getString('Login_get_url');
 
+  static String get getApiUrlPillarsFixing => remoteConfig.getString('Pillars_Fixing_get_url');
+  static String get getApiUrlPillarsRemoval => remoteConfig.getString('Pillars_Removal_get_url');
+  static String get getApiUrlPlanksFixing => remoteConfig.getString('Planks_Fixing_get_url');
+  static String get getApiUrlPlanksRemoval => remoteConfig.getString('Planks_Removal_get_url');
+
   // Static configuration parameters for POST API URLs with postApiUrl prefix
   static String get postApiUrlMachine => remoteConfig.getString('Machine_post_url');
   static String get postApiUrlWaterTanker => remoteConfig.getString('Water_Tanker_post_url');
@@ -158,6 +163,11 @@ class Config {
   static String get postApiUrlPillarsBrickWorkMainGate => remoteConfig.getString('Pillars_Brick_Work_Main_Gate_post_url');
   static String get postApiUrlGreyStructureMainGate => remoteConfig.getString('Grey_Structure_Main_Gate_post_url');
   static String get postApiUrlPlasterWorkMainGate => remoteConfig.getString('Plaster_Work_Main_Gate_post_url');
+
+  static String get postApiUrlPillarsFixing => remoteConfig.getString('Pillars_Fixing_post_url');
+  static String get postApiUrlPillarsRemoval => remoteConfig.getString('Pillars_Removal_post_url');
+  static String get postApiUrlPlanksFixing => remoteConfig.getString('Planks_Fixing_post_url');
+  static String get postApiUrlPlanksRemoval => remoteConfig.getString('Planks_Removal_post_url');
 
 
   }

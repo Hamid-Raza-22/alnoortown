@@ -87,6 +87,10 @@ class DBHelper {
       "CREATE TABLE IF NOT EXISTS $tableNamePlasterWorkMainGate(id INTEGER PRIMARY KEY,block_no TEXT, work_status TEXT,main_gate_plaster_work_date TEXT,time TEXT,user_id TEXT, posted INTEGER DEFAULT 0)",
       "CREATE TABLE IF NOT EXISTS $tableNameRoadsDetail(id INTEGER PRIMARY KEY,phase TEXT, block TEXT,street TEXT,length TEXT, road_type TEXT)",
       "CREATE TABLE IF NOT EXISTS $tableNameBlocksDetails(id INTEGER PRIMARY KEY, block TEXT,marla TEXT,plot_no TEXT)",
+      "CREATE TABLE IF NOT EXISTS $tableNamePillarsFixing(id INTEGER PRIMARY KEY, block TEXT,user_id TEXT,pillars_fixing_date TEXT, time TEXT,no_of_pillars TEXT, total_length TEXT, posted INTEGER DEFAULT 0)",
+      "CREATE TABLE IF NOT EXISTS $tableNamePillarsRemoval(id INTEGER PRIMARY KEY, block TEXT,user_id TEXT,pillars_removal_date TEXT, time TEXT,no_of_pillars TEXT, total_length TEXT, posted INTEGER DEFAULT 0)",
+      "CREATE TABLE IF NOT EXISTS $tableNamePlanksFixing(id INTEGER PRIMARY KEY, block TEXT,user_id TEXT,planks_fixing_date TEXT, time TEXT,no_of_planks TEXT, total_length TEXT, posted INTEGER DEFAULT 0)",
+      "CREATE TABLE IF NOT EXISTS $tableNamePlanksRemoval(id INTEGER PRIMARY KEY, block TEXT,user_id TEXT,planks_removal_date TEXT, time TEXT,no_of_planks TEXT, total_length TEXT, posted INTEGER DEFAULT 0)",
       "CREATE TABLE IF NOT EXISTS $tableNameLogin(id INTEGER PRIMARY KEY AUTOINCREMENT,user_name TEXT,contact TEXT,cnic TEXT,image TEXT,address TEXT,user_id TEXT,city TEXT,password TEXT)",
     ];
     for (var query in tableQueries) {

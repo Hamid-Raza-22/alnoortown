@@ -3,6 +3,10 @@ import 'dart:io';
 import 'dart:ui';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/BoundaryWallViewModel/PillarsViewModel/pillars_fixing_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/BoundaryWallViewModel/PillarsViewModel/pillars_removal_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/BoundaryWallViewModel/PlanksViewModel/planks_fixing_view_model.dart';
+import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/BoundaryWallViewModel/PlanksViewModel/planks_removal_view_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/machine_view_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/boundary_grill_work_view_model.dart';
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewModel/cubStones_work_view_model.dart';
@@ -158,6 +162,10 @@ class LoginPageState extends State<LoginPage> {
   MgPlasterWorkViewModel mgPlasterWorkViewModel = Get.put(MgPlasterWorkViewModel());
   AttendanceInViewModel attendanceInViewModel = Get.put(AttendanceInViewModel());
   AttendanceOutViewModel attendanceOutViewModel = Get.put(AttendanceOutViewModel());
+  PillarsFixingViewModel pillarsFixingViewModel = Get.put(PillarsFixingViewModel());
+  PillarsRemovalViewModel pillarsRemovalViewModel = Get.put(PillarsRemovalViewModel());
+  PlanksFixingViewModel planksFixingViewModel =Get.put(PlanksFixingViewModel());
+  PlanksRemovalViewModel planksRemovalViewModel = Get.put(PlanksRemovalViewModel());
 
 
 
@@ -633,6 +641,26 @@ class LoginPageState extends State<LoginPage> {
         'Fetching Main Gate Plaster Work details...'; // Update message
       });
       await mgPlasterWorkViewModel.fetchAndSaveMainGatePlasterData();
+      setState(() {
+        _loadingMessage =
+        'Fetching Pillars Fixing details...'; // Update message
+      });
+      await pillarsFixingViewModel.fetchAndSavePillarsFixingData();
+      setState(() {
+        _loadingMessage =
+        'Fetching Pillars Removal details...'; // Update message
+      });
+      await pillarsRemovalViewModel.fetchAndSavePillarsRemovalData();
+      setState(() {
+        _loadingMessage =
+        'Fetching Planks Fixing details...'; // Update message
+      });
+      await planksFixingViewModel.fetchAndSavePlanksFixingData();
+      setState(() {
+        _loadingMessage =
+        'Fetching Planks Removal details...'; // Update message
+      });
+      await planksRemovalViewModel.fetchAndSavePlanksRemovalData();
 
       // Navigate to the next screen
       Future.delayed(Duration(milliseconds: 300), () {

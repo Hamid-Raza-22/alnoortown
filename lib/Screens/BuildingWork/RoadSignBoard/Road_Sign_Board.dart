@@ -7,6 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import '../../../Models/BuildingWorkModels/RoadsSignBoardsModel/roads_sign_boards_model.dart';
 import '../../../ViewModels/BuildingWorkViewModel/RoadsSignBoardsViewModel/roads_sign_boards_view_model.dart';
+import '../../../Widgets/container_data.dart';
+import '../../../Widgets/custom_container_widgets.dart';
+import '../../../Widgets/custom_plots_no_drowpdown_widgets.dart';
 import 'RoadSignBoardSummary.dart';
 
 class RoadsSignBoards extends StatefulWidget {
@@ -20,11 +23,12 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   TextEditingController fromPlotController = TextEditingController();
   TextEditingController toPlotController = TextEditingController();
-  String? selectedBlock;
+
   String? selectedroad_side;
   String? selectedStatus;
-  String? road_noController;
-  List<Map<String, dynamic>> containerDataList = [];
+
+
+ 
 
   @override
   void initState() {
@@ -110,75 +114,33 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(() {
-              // Dynamically get the blocks list from BlockDetailsViewModel
-              final List<String> blocks = blockDetailsViewModel.allBlockDetails
-                  .map((blockDetail) => blockDetail.block.toString())
-                  .toSet()
-                  .toList();
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Block Dropdown
+                buildBlockSRoadsColumn(containerData, roadDetailsViewModel,blockDetailsViewModel),
 
-              // Dynamically get the streets list from RoadDetailsViewModel
-              // final List<String> streets = roadDetailsViewModel.allRoadDetails
-              //     .map((streetDetail) => streetDetail.street.toString())
-              //     .toSet()
-              //     .toList();
+                const SizedBox(height: 16), // Add spacing between dropdowns
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Block Dropdown
-                  buildDropdownRow(
-                    'block_no'.tr(),
-                    selectedBlock,
-                    blocks,
-                        (value) {
-                      setState(() {
-                        selectedBlock = value;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 10), // Add spacing between dropdowns
-
-                  // Street Dropdown
-
-                ],
-              );
-            }),
-
+              ],
+            ),
             SizedBox(height: 10),
-            Obx(() {
 
-
-              // Dynamically get the streets list from RoadDetailsViewModel
-              final List<String> streets = roadDetailsViewModel.allRoadDetails
-                  .map((streetDetail) => streetDetail.street.toString())
-                  .toSet()
-                  .toList();
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Block Dropdown
-                  buildDropdownRow(
-                    'road_no'.tr(),
-                    road_noController,
-                    streets,
-                        (value) {
-                      setState(() {
-                        road_noController = value;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 16), // Add spacing between dropdowns
-
-                  // Street Dropdown
-
-                ],
-              );
-            }),
               SizedBox(height: 16),
-            buildPlotNumberRow(),
-              SizedBox(height: 16),
+            // Wherever you're using the widget (e.g., PlotSelectionPage)
+            buildPlotNumberRow(
+              plotNumbers: blockDetailsViewModel.filteredPlots,
+              fromLabel: 'From Plot Number',
+              toLabel: 'To Plot Number',
+              onFromPlotChanged: (value) {
+                blockDetailsViewModel.selectedFromPlot.value = value!.toString();
+              },
+              onToPlotChanged: (value) {
+                blockDetailsViewModel.selectedToPlot.value = value!.toString();
+              },
+            ),
+
+            SizedBox(height: 16),
             buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) {
               setState(() {
                 selectedroad_side = value;
@@ -199,17 +161,17 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  if (selectedBlock != null &&
-                      road_noController != null&&
-                      fromPlotController.text.isNotEmpty &&
-                      toPlotController.text.isNotEmpty &&
+                  if (containerData["selectedBlock"] != null &&
+                      containerData["selectedStreet"] != null &&
+                      blockDetailsViewModel.selectedFromPlot.value.isNotEmpty &&
+                      blockDetailsViewModel.selectedToPlot.value.isNotEmpty &&
                       selectedroad_side != null &&
                       selectedStatus != null) {
                     await roadsSignBoardsViewModel.addRoadsSignBoard(RoadsSignBoardsModel(
-                       block_no: selectedBlock,
-                       road_no: road_noController,
-                       from_plot_no:fromPlotController.text,
-                       to_plot_no: toPlotController.text,
+                        block_no: containerData["selectedBlock"],
+                        road_no: containerData["selectedStreet"],
+                       from_plot_no:blockDetailsViewModel.selectedFromPlot.value,
+                       to_plot_no:  blockDetailsViewModel.selectedToPlot.value,
                         road_side: selectedroad_side,
                         comp_status: selectedStatus,
                         date: _getFormattedDate(),
@@ -251,20 +213,7 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
     );
   }
 
-  Widget buildPlotNumberRow() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(
-          child: buildTextField('from_plot_no'.tr(), fromPlotController),
-        ),
-          SizedBox(width: 16),
-        Expanded(
-          child: buildTextField('to_plot_no'.tr(), toPlotController),
-        ),
-      ],
-    );
-  }
+
   Widget buildTextFieldRow(String label, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -284,24 +233,7 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
     );
   }
 
-  Widget buildTextField(String label, TextEditingController controller) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          label,
-          style:   TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
-        ),
-          SizedBox(height: 8),
-        TextField(
-          controller: controller,
-          decoration:   InputDecoration(
-            border: OutlineInputBorder(),
-          ),
-        ),
-      ],
-    );
-  }
+
 
   Widget buildDropdownRow(
       String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {

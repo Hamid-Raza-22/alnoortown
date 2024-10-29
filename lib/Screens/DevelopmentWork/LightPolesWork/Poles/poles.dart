@@ -12,6 +12,7 @@ import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
+import '../../../../Widgets/custom_dropdown_widgets.dart';
 import 'poles_summary.dart';
 
 class Poles extends StatefulWidget {
@@ -22,13 +23,11 @@ class Poles extends StatefulWidget {
 }
 
 class _PolesState extends State<Poles> {
-  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   PolesViewModel polesViewModel = Get.put(PolesViewModel());
   DBHelper dbHelper = DBHelper();
   int? poleId;
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
 
   // Storing the form data
   Map<String, dynamic> containerData = {
@@ -128,7 +127,7 @@ class _PolesState extends State<Poles> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
+            buildBlockStreetRow(containerData, roadDetailsViewModel),
             SizedBox(height: 16),
             Text(
               "no_of_poles".tr(),
@@ -247,32 +246,5 @@ class _PolesState extends State<Poles> {
     );
   }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
-    return Obx(() {
-      // Dynamically get the blocks list from the BlockDetailsViewModel
-      final List<String> blocks = blockDetailsViewModel.allBlockDetails
-          .map((blockDetail) => blockDetail.block.toString())
-          .toSet()
-          .toList();
-      // Dynamically get the streets list from the BlockDetailsViewModel
-      final List<String> streets = roadDetailsViewModel.allRoadDetails
-          .map((streetDetail) => streetDetail.street.toString())
-          .toSet()
-          .toList();
 
-      return Row(
-        children: [
-          Expanded(
-            child: buildDropdownField(
-                "block_no".tr(),containerData,  "selectedBlock", blocks),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: buildDropdownField(
-                "street_no".tr(),containerData,  "selectedStreet", streets),
-          ),
-        ],
-      );
-    });
-  }
 }

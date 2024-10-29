@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
 import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
+import '../../../../Widgets/custom_dropdown_widgets.dart';
 import 'drain_excavation_summary.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
@@ -20,13 +21,10 @@ class DrainExcavation extends StatefulWidget {
 }
 
 class _DrainExcavationState extends State<DrainExcavation> {
-  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   MainDrainExcavationViewModel mainDrainExcavationViewModel = Get.put(MainDrainExcavationViewModel());
   DBHelper dbHelper = DBHelper();
   int? drainId;
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
   List<Map<String, dynamic>> containerDataList = [createInitialContainerData()];
 
   static Map<String, dynamic> createInitialContainerData() {
@@ -105,7 +103,7 @@ class _DrainExcavationState extends State<DrainExcavation> {
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'main_drain_excavation'.tr(),
+                  'Main Drain Excavation'.tr(),
                   style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -187,7 +185,7 @@ class _DrainExcavationState extends State<DrainExcavation> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
+            buildBlockStreetRow(containerData, roadDetailsViewModel),
             const SizedBox(height: 16),
             Text(
               'total_length_completed'.tr(),
@@ -215,75 +213,6 @@ class _DrainExcavationState extends State<DrainExcavation> {
     );
   }
 
-  Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
-        ),
-        SizedBox(height: 8),
-        DropdownSearch<String>(
-          items: items,
-          selectedItem: containerData[key],
-          dropdownDecoratorProps: DropDownDecoratorProps(
-            dropdownSearchDecoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Color(0xFF4A4A4A)),
-                borderRadius: BorderRadius.circular(8), // Slightly larger border radius
-              ),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // More padding for a cleaner look
-            ),
-          ),
-          popupProps: PopupProps.menu(
-            showSearchBox: true, // Enables the search feature
-            itemBuilder: (context, item, isSelected) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Text(
-                  item,
-                  style: const TextStyle(fontSize: 11), // Slightly larger font for dropdown items
-                ),
-              );
-            },
-          ),
-          onChanged: (value) {
-            setState(() {
-              containerData[key] = value;
-            });
-          },
-        ),
-      ],
-    );
-  }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
-    return Obx(() {
-      // Dynamically get the blocks list from the BlockDetailsViewModel
-      final List<String> blocks = blockDetailsViewModel.allBlockDetails
-          .map((blockDetail) => blockDetail.block.toString())
-          .toSet()
-          .toList();
-      // Dynamically get the streets list from the BlockDetailsViewModel
-      final List<String> streets = roadDetailsViewModel.allRoadDetails
-          .map((streetDetail) => streetDetail.street.toString())
-          .toSet()
-          .toList();
 
-      return Row(
-        children: [
-          Expanded(
-            child: buildDropdownField(
-                "block_no".tr(),containerData,  "selectedBlock", blocks),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: buildDropdownField(
-                "street_no".tr(),containerData,  "selectedStreet", streets),
-          ),
-        ],
-      );
-    });
-  }
 }

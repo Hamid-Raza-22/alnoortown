@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 class RoadDetailsViewModel extends GetxController {
 
   var allRoadDetails = <RoadsDetailModels>[].obs;
+  var selectedBlock = ''.obs; // Observable for the selected block
+  var filteredStreets = <String>[].obs; // Filtered list of streets based on block
   RoadDetailsRepository roadDetailsRepository = RoadDetailsRepository();
 
   @override
@@ -17,6 +19,15 @@ class RoadDetailsViewModel extends GetxController {
     var roadDetails = await roadDetailsRepository.getRoadsDetails();
     allRoadDetails.value = roadDetails;
 
+  }
+  // Update the list of streets when a block is selected
+  void updateFilteredStreets(String block) {
+    selectedBlock.value = block;
+    filteredStreets.value = allRoadDetails
+        .where((detail) => detail.block == block)
+        .map((detail) => detail.street.toString())
+        .toSet()
+        .toList();
   }
   fetchAndSaveRoadDetailsData() async {
     await roadDetailsRepository.fetchAndSaveRoadDetails();

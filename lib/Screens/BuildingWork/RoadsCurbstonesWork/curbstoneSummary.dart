@@ -59,7 +59,7 @@ class _RoadsCurbstonesWorkSummaryState extends State<RoadsCurbstonesWorkSummary>
             }),
             Expanded(
               child: Obx(() {
-                if (roadCurbStonesWorkViewModel.filteredRoadCurb.isEmpty) {
+                if (roadCurbStonesWorkViewModel.allRoadCurb.isEmpty) {
                   return Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +94,7 @@ class _RoadsCurbstonesWorkSummaryState extends State<RoadsCurbstonesWorkSummary>
                           mainAxisSpacing: 5.0,
                           childAspectRatio: 2.0,
                         ),
-                        itemCount: roadCurbStonesWorkViewModel.filteredRoadCurb.length * 6 + 6,
+                        itemCount: roadCurbStonesWorkViewModel.allRoadCurb.length * 6 + 6,
                         itemBuilder: (context, index) {
                           if (index < 6) {
                             return Container(
@@ -108,8 +108,8 @@ class _RoadsCurbstonesWorkSummaryState extends State<RoadsCurbstonesWorkSummary>
                             );
                           } else {
                             final entryIndex = (index - 6) ~/ 6;
-                            if (entryIndex < roadCurbStonesWorkViewModel.filteredRoadCurb.length) {
-                              final entry = roadCurbStonesWorkViewModel.filteredRoadCurb[entryIndex];
+                            if (entryIndex < roadCurbStonesWorkViewModel.allRoadCurb.length) {
+                              final entry = roadCurbStonesWorkViewModel.allRoadCurb[entryIndex];
                               final data = [
                                 entry.block_no ?? 'N/A',
                                 entry.road_no ?? 'N/A',

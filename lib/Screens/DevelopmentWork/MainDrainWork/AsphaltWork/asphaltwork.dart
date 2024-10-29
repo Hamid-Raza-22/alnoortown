@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
 import 'package:easy_localization/easy_localization.dart';
+import '../../../../Widgets/custom_dropdown_widgets.dart';
 import 'asphalt_work_summary.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
@@ -20,13 +21,11 @@ class AsphaltWork extends StatefulWidget {
 }
 
 class _AsphaltWorkState extends State<AsphaltWork> {
-  BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   AsphaltWorkViewModel asphaltWorkViewModel = Get.put(AsphaltWorkViewModel());
   DBHelper dbHelper = DBHelper();
   int? asphaltId;
-  final List<String> blocks = ["Block A", "Block B", "Block C", "Block D", "Block E", "Block F", "Block G"];
-  final List<String> streets = ["Street 1", "Street 2", "Street 3", "Street 4", "Street 5", "Street 6", "Street 7"];
 
   // Single container data for a single widget
   Map<String, dynamic> containerData = {
@@ -127,7 +126,7 @@ class _AsphaltWorkState extends State<AsphaltWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockStreetRow(containerData),
+            buildBlockStreetRow(containerData, roadDetailsViewModel),
             const SizedBox(height: 16),
             Text(
               'no_of_tons'.tr(),
@@ -215,77 +214,7 @@ class _AsphaltWorkState extends State<AsphaltWork> {
     );
   }
 
-  Widget buildDropdownField(String title, Map<String, dynamic> containerData, String key, List<String> items) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
-        ),
-        SizedBox(height: 8),
-        DropdownSearch<String>(
-          items: items,
-          selectedItem: containerData[key],
-          dropdownDecoratorProps: DropDownDecoratorProps(
-            dropdownSearchDecoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: const BorderSide(color: Color(0xFF4A4A4A)),
-                borderRadius: BorderRadius.circular(8), // Slightly larger border radius
-              ),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), // More padding for a cleaner look
-            ),
-          ),
-          popupProps: PopupProps.menu(
-            showSearchBox: true, // Enables the search feature
-            itemBuilder: (context, item, isSelected) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                child: Text(
-                  item,
-                  style: const TextStyle(fontSize: 11), // Slightly larger font for dropdown items
-                ),
-              );
-            },
-          ),
-          onChanged: (value) {
-            setState(() {
-              containerData[key] = value;
-            });
-          },
-        ),
-      ],
-    );
-  }
 
-  Widget buildBlockStreetRow(Map<String, dynamic> containerData) {
-    return Obx(() {
-      // Dynamically get the blocks list from the BlockDetailsViewModel
-      final List<String> blocks = blockDetailsViewModel.allBlockDetails
-          .map((blockDetail) => blockDetail.block.toString())
-          .toSet()
-          .toList();
-      // Dynamically get the streets list from the BlockDetailsViewModel
-      final List<String> streets = roadDetailsViewModel.allRoadDetails
-          .map((streetDetail) => streetDetail.street.toString())
-          .toSet()
-          .toList();
-
-      return Row(
-        children: [
-          Expanded(
-            child: buildDropdownField(
-                "block_no".tr(),containerData,  "selectedBlock", blocks),
-          ),
-          const SizedBox(width: 16),
-          Expanded(
-            child: buildDropdownField(
-                "street_no".tr(),containerData,  "selectedStreet", streets),
-          ),
-        ],
-      );
-    });
-  }
 
   Widget buildStatusRadioButtons() {
     return Column(

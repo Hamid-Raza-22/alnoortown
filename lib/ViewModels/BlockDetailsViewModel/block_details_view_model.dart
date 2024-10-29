@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 class BlockDetailsViewModel extends GetxController {
 
   var allBlockDetails = <BlocksDetailsModels>[].obs;
+  var filteredPlots = <String>[].obs; // Observable list for filtered plots
   BlockDetailsRepository blockDetailsRepository = BlockDetailsRepository();
-
+  var selectedFromPlot = ''.obs; // Selected value for from plot
+  var selectedToPlot = ''.obs; // Selected value for to plot
   @override
   void onInit(){
     // TODO: implement onInit
@@ -13,7 +15,12 @@ class BlockDetailsViewModel extends GetxController {
     fetchAllBlockDetails();
     //fetchAllLight();
   }
-
+  void filterPlotsByBlock(String selectedBlock) {
+    filteredPlots.value = allBlockDetails
+        .where((detail) => detail.block == selectedBlock)
+        .map((detail) => detail.plot_no.toString())
+        .toList();
+  }
   fetchAllBlockDetails() async{
     var blockDetails = await blockDetailsRepository.getBlockDetails();
     allBlockDetails.value = blockDetails;

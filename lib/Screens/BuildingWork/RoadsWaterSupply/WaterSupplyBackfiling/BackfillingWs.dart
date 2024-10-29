@@ -8,6 +8,8 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsWaterSupplyWo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/custom_container_widgets.dart';
 import 'backfilling_watersupply_summary.dart';
 
 class BackFillingWs extends StatefulWidget {
@@ -23,12 +25,12 @@ class BackFillingWsState extends State<BackFillingWs> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-String? road_noController;  TextEditingController total_lengthController = TextEditingController();
-  String? selectedBlock;
+
+TextEditingController total_lengthController = TextEditingController();
+
   String? selectedroad_side; // New variable for Road Side
   String? selectedStatus;
-  List<Map<String, dynamic>> containerDataList = [];
-
+ 
   @override
   void initState() {
     super.initState();
@@ -114,72 +116,16 @@ String? road_noController;  TextEditingController total_lengthController = TextE
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(() {
-              // Dynamically get the blocks list from BlockDetailsViewModel
-              final List<String> blocks = blockDetailsViewModel.allBlockDetails
-                  .map((blockDetail) => blockDetail.block.toString())
-                  .toSet()
-                  .toList();
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Block Dropdown
+                buildBlockSRoadsColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
 
-              // Dynamically get the streets list from RoadDetailsViewModel
-              // final List<String> streets = roadDetailsViewModel.allRoadDetails
-              //     .map((streetDetail) => streetDetail.street.toString())
-              //     .toSet()
-              //     .toList();
+                const SizedBox(height: 16), // Add spacing between dropdowns
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Block Dropdown
-                  buildDropdownRow(
-                    'block_no'.tr(),
-                    selectedBlock,
-                    blocks,
-                        (value) {
-                      setState(() {
-                        selectedBlock = value;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 10), // Add spacing between dropdowns
-
-                  // Street Dropdown
-
-                ],
-              );
-            }),
-
-            SizedBox(height: 10),
-            Obx(() {
-
-
-              // Dynamically get the streets list from RoadDetailsViewModel
-              final List<String> streets = roadDetailsViewModel.allRoadDetails
-                  .map((streetDetail) => streetDetail.street.toString())
-                  .toSet()
-                  .toList();
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Block Dropdown
-                  buildDropdownRow(
-                    'road_no'.tr(),
-                    road_noController,
-                    streets,
-                        (value) {
-                      setState(() {
-                        road_noController = value;
-                      });
-                    },
-                  ),
-                  const SizedBox(height: 16), // Add spacing between dropdowns
-
-                  // Street Dropdown
-
-                ],
-              );
-            }),
+              ],
+            ),
             SizedBox(height: 16),
             buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {
@@ -222,14 +168,16 @@ String? road_noController;  TextEditingController total_lengthController = TextE
                       selectedEndDate != null &&
                      // road_noController !=null &&
                       total_lengthController.text.isNotEmpty &&
-                      selectedBlock != null &&
-                     // selectedroad_side != null && // Check if Road Side is selected
+                      containerData["selectedBlock"] != null &&
+                      containerData["selectedStreet"] != null &&
+
+                      // selectedroad_side != null && // Check if Road Side is selected
                       selectedStatus != null) {
                     await backFillingWsViewModel.addWsBackFilling(BackFillingWsModel(
                         start_date: selectedstart_date,
                         expected_comp_date: selectedEndDate,
-                        block_no: selectedBlock,
-                        road_no: road_noController,
+                        block_no: containerData["selectedBlock"],
+                        road_no: containerData["selectedStreet"],
                         road_side:selectedroad_side,
                         total_length: total_lengthController.text,
                         water_supply_back_filling_comp_status: selectedStatus,
