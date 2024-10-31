@@ -25,14 +25,17 @@ class MachinesState extends State<Machines> {
   DBHelper dbHelper = DBHelper();
   int? machineId;
   final List<String> machines = [
-    "Excavator", "Bulldozer", "Crane", "Loader", "Dump Truck", "Forklift", "Paver", "Other"
+    "Excavator", "Bulldozer","Motor Roller","Motor Blade", "Crane", "Loader", "Dump Truck", "Forklift", "Paver", "Other"
   ];
   final List<Icon> machineIcons = [
     const Icon(Icons.construction, color: Color(0xFFC69840)),
     const Icon(Icons.agriculture, color: Color(0xFFC69840)),
+    const Icon(Icons.agriculture, color: Color(0xFFC69840)),
+    const Icon(Icons.agriculture, color: Color(0xFFC69840)),
     const Icon(Icons.account_balance, color: Color(0xFFC69840)),
     const Icon(Icons.local_shipping, color: Color(0xFFC69840)),
     const Icon(Icons.fire_truck, color: Color(0xFFC69840)),
+
     const Icon(Icons.precision_manufacturing, color: Color(0xFFC69840)),
     const Icon(Icons.add_box, color: Color(0xFFC69840)),
     const Icon(Icons.edit, color: Color(0xFFC69840)),
@@ -141,6 +144,7 @@ class MachinesState extends State<Machines> {
 
 
             const SizedBox(height: 10),
+           Text('  ${containerData["clockInTime"]}                             ${containerData["clockOutTime"]}'),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
@@ -163,21 +167,13 @@ class MachinesState extends State<Machines> {
                     user_id: userId
                   );
 
-                  try {
+                  if(selectedStreet!=null&& selectedBlock!=null && selectedMachine!=null) {
                     // Step 1: Add machine to the local database
                     await machineViewModel.addMachine(machineModel);
                     print('Machine added to local database');
 
                     // Step 2: Post data from the database to the API
                     await machineViewModel.postDataFromDatabaseToAPI();
-                  } catch (e) {
-                    print('Error posting machine data: $e');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Error posting to API: $e'),
-                      ),
-                    );
-                  }
 
                   // Clear fields after submission
                   setState(() {
@@ -189,7 +185,8 @@ class MachinesState extends State<Machines> {
                       "clockOutTime": "00:00 AM",
                     };
                   });
-
+                  isClockInPressed = false;
+                 isClockOutPressed = false;
                   // Show a success message
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
@@ -197,7 +194,15 @@ class MachinesState extends State<Machines> {
                         'Selected: $selectedMachine, $selectedBlock, $selectedStreet, Time In: $clockInTime, Time Out: $clockOutTime',
                       ),
                     ),
-                  );
+                  );     } else {
+                    // print('Pless');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Please all fill feilds'),
+                      ),
+                    );
+                  }
+
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
@@ -408,6 +413,9 @@ class MachinesState extends State<Machines> {
     );
   }
 
+  bool isClockInPressed = false;
+  bool isClockOutPressed = false;
+
   Widget buildTimeButtons() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -416,12 +424,18 @@ class MachinesState extends State<Machines> {
           onPressed: () {
             setState(() {
               containerData["clockInTime"] = getCurrentTime();
+              isClockInPressed = true;
             });
           },
           icon: const Icon(Icons.access_time, color: Color(0xFFC69840)),
-          label:  Text('time_in'.tr(), style: const TextStyle(color: Color(0xFFC69840))),
+          label: Text(
+            'time_in'.tr(),
+            style: TextStyle(
+              color: isClockInPressed ? Colors.white : Color(0xFFC69840),
+            ),
+          ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFF3F4F6),
+            backgroundColor: isClockInPressed ? Colors.red : Color(0xFFF3F4F6),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             textStyle: const TextStyle(fontSize: 14),
             shape: const RoundedRectangleBorder(
@@ -433,12 +447,18 @@ class MachinesState extends State<Machines> {
           onPressed: () {
             setState(() {
               containerData["clockOutTime"] = getCurrentTime();
+              isClockOutPressed = true;
             });
           },
           icon: const Icon(Icons.access_time, color: Color(0xFFC69840)),
-          label:  Text('time_out'.tr(), style: const TextStyle(color: Color(0xFFC69840))),
+          label: Text(
+            'time_out'.tr(),
+            style: TextStyle(
+              color: isClockOutPressed ? Colors.white : Color(0xFFC69840),
+            ),
+          ),
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xFFF3F4F6),
+            backgroundColor: isClockOutPressed ? Colors.red : Color(0xFFF3F4F6),
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             textStyle: const TextStyle(fontSize: 14),
             shape: const RoundedRectangleBorder(

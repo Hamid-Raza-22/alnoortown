@@ -2,6 +2,7 @@ import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/manholes_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/manholes_view_model.dart';
+import 'package:al_noor_town/Widgets/snackbar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class _ManholesState extends State<Manholes> {
   ManholesViewModel manholesViewModel = Get.put(ManholesViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+  TextEditingController totalController = TextEditingController();
 
   DBHelper dbHelper = DBHelper();
   int? holeId;
@@ -59,6 +61,7 @@ Map<String, dynamic> containerData = {};
   void _clearFields() {
     setState(() {
       containerData = createInitialContainerData();
+      totalController.clear();
     });
   }
 
@@ -130,6 +133,7 @@ Map<String, dynamic> containerData = {};
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  if(selectedStreet!=null&& selectedStreet!=null&& numTankers!=null){
                   await manholesViewModel.addWorker(ManholesModel(
                       id: holeId,
                       block_no: selectedBlock,
@@ -143,15 +147,13 @@ Map<String, dynamic> containerData = {};
                   await manholesViewModel.postDataFromDatabaseToAPI();
 
                   // await dbHelper.showAsphaltData();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
-                      ),
-                    ),
-                  );
+              showSnackBarSuccessfully(context);
                   _clearFields(); // Clear fields after submission
-                },
+                }else{
+                    showSnackBarPleaseFill(context);
+                  }
+
+                  },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -167,6 +169,11 @@ Map<String, dynamic> containerData = {};
         ),
       ),
     );
+  }
+  @override
+  void dispose() {
+    totalController.dispose(); // Dispose controller to free resources
+    super.dispose();
   }
 
   Widget buildContainer() {
@@ -188,7 +195,7 @@ Map<String, dynamic> containerData = {};
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              controller: totalController,
               onChanged: (value) {
                 setState(() {
                   containerData["numTankers"] = value;

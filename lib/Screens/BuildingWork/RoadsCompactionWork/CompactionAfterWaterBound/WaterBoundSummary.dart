@@ -130,6 +130,8 @@ class _WaterBoundSummaryState extends State<WaterBoundSummary> {
                               style: TextStyle(fontWeight: FontWeight.bold))),
                       DataColumn(
                           label: Text('total_length'.tr(),
+                              style: TextStyle(fontWeight: FontWeight.bold))),                      DataColumn(
+                          label: Text('Working Hours'.tr(),
                               style: TextStyle(fontWeight: FontWeight.bold))),
                       DataColumn(
                           label: Text('start_date'.tr(),
@@ -161,6 +163,7 @@ class _WaterBoundSummaryState extends State<WaterBoundSummary> {
                         DataCell(Text(entry.block_no ?? '')),
                         DataCell(Text(entry.road_no ?? '')),
                         DataCell(Text(entry.total_length ?? '')),
+                        DataCell(Text(entry.working_hours ?? '')),
                         DataCell(Text(start_date)),
                         DataCell(Text(expected_comp_date)),
                         DataCell(Text(entry.water_bound_comp_status ?? '')),

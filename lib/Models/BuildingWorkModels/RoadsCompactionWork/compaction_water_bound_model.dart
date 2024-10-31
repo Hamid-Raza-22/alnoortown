@@ -6,6 +6,7 @@ class CompactionWaterBoundModel{
   DateTime? start_date;
   DateTime? expected_comp_date;
   String? water_bound_comp_status;
+  dynamic working_hours;
   dynamic date;
   dynamic user_id;
   dynamic time;
@@ -21,6 +22,8 @@ class CompactionWaterBoundModel{
     this.water_bound_comp_status,
     this.date,
     this.user_id,
+    this.working_hours,
+
     this.time,
     this.posted = 0,  // Default to 0 (not posted)
 
@@ -39,7 +42,9 @@ class CompactionWaterBoundModel{
         date:  json['compaction_water_bound_date'],
         time:  json['time'],
         user_id: json['user_id'],
-      posted: json['posted']??0  // Get the posted status from the database
+        working_hours: json ['working_hours'],
+
+        posted: json['posted']??0  // Get the posted status from the database
     );
   }
 
@@ -55,6 +60,8 @@ class CompactionWaterBoundModel{
       'compaction_water_bound_date':date,
       'time':time,
       'user_id':user_id,
+      'working_hours':working_hours,
+
       'posted': posted,  // Include the posted status
 
     };

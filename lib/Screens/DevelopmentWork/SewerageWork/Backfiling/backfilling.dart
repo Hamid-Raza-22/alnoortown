@@ -2,6 +2,7 @@ import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/back_filing_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/back_filling_view_model.dart';
+import 'package:al_noor_town/Widgets/snackbar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -169,7 +170,7 @@ class _BackfilingState extends State<Backfiling> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final status = containerData["status"];
-
+                  if(selectedStreet!=null&& selectedStreet!=null && status!=null){
                   // Submit data
                   await backFillingViewModel.addFill(BackFilingModel(
                     id: fillingId,
@@ -191,12 +192,10 @@ class _BackfilingState extends State<Backfiling> {
                       "status": "",
                     };
                   });
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Selected: $selectedBlock, $selectedStreet, Backfiling Status: $status'),
-                    ),
-                  );
+                  showSnackBarSuccessfully(context);
+                  }else{
+                    showSnackBarPleaseFill(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),

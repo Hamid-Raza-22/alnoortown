@@ -22,6 +22,7 @@ class SoilCompaction extends StatefulWidget {
 class _SoilCompactionState extends State<SoilCompaction> {
   SoilCompactionViewModel soilCompactionViewModel = Get.put(SoilCompactionViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  TextEditingController total_timeController = TextEditingController();
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
@@ -130,6 +131,8 @@ class _SoilCompactionState extends State<SoilCompaction> {
 
         SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), total_lengthController),
+            SizedBox(height: 16),
+            buildTextFieldRow('Working Hours'.tr(), total_timeController),
               SizedBox(height: 16),
             buildDatePickerRow(
               'start_date'.tr(),
@@ -170,6 +173,7 @@ class _SoilCompactionState extends State<SoilCompaction> {
                       selectedStatus != null) {
                     await soilCompactionViewModel.addSoil(SoilCompactionModel(
                         start_date: selectedstart_date,
+                        working_hours: total_timeController.text,
                         expected_comp_date: selectedEndDate,
                         block_no: containerData["selectedBlock"],
                         road_no: containerData["selectedStreet"],

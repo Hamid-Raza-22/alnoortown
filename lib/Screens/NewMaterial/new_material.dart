@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, GetNavigation, Inst;
 import '../../Widgets/container_data.dart';
+import '../../Widgets/snackbar.dart';
 import 'new_material_summary.dart';
 
 class NewMaterial extends StatefulWidget {
@@ -26,6 +27,7 @@ class _NewMaterialState extends State<NewMaterial> {
   DBHelper dbHelper = DBHelper();
   List<Map<String, dynamic>> containerDataList = [];
   String? selectedBlock;
+  TextEditingController totalCOntroller = TextEditingController();
 
   @override
   void initState() {
@@ -44,6 +46,12 @@ class _NewMaterialState extends State<NewMaterial> {
       "other_material": "",
       "other_material_value": 0,
     };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
+    });
   }
 
   String _getFormattedDate() {
@@ -151,7 +159,9 @@ class _NewMaterialState extends State<NewMaterial> {
                   final water_bound = containerData2["water_bound"];
                   final other_material = containerData2["other_material"];
                   final other_material_value = containerData2["other_material_value"];
-                  await newMaterialViewModel.addNewMaterial(
+                  if(selectedBlock!=null){
+
+                    await newMaterialViewModel.addNewMaterial(
                     NewMaterialModel(
                       block: containerData["selectedBlock"],
                       sand: sand,
@@ -170,17 +180,18 @@ class _NewMaterialState extends State<NewMaterial> {
                   await newMaterialViewModel.fetchAllNewMaterial();
                   await newMaterialViewModel.postDataFromDatabaseToAPI();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Data Submitted: $containerData2'),
-                    ),
-                  );
 
+                  // Clear fields after submission
                   setState(() {
-                    containerDataList[index] = createInitialContainerData();
-                    containerDataList = [createInitialContainerData()];
-                  });
-                },
+    containerData = createInitialContainerData();
+    });
+    _clearFields();
+
+    showSnackBarSuccessfully(context);}
+    else{
+    showSnackBarPleaseFill(context);
+    }
+  },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -250,7 +261,7 @@ class _NewMaterialState extends State<NewMaterial> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
                Text(
-                "other_material".tr(),
+                "Other Material".tr(),
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
               ),
               const SizedBox(height: 8),

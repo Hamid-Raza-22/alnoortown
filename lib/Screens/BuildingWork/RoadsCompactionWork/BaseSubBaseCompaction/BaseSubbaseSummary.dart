@@ -120,6 +120,9 @@ class _BaseSubBaseCompactionSummaryState
                           label: Text('total_length'.tr(),
                               style: const TextStyle(fontWeight: FontWeight.bold))),
                       DataColumn(
+                          label: Text('Working Hours'.tr(),
+                              style: const TextStyle(fontWeight: FontWeight.bold))),
+                      DataColumn(
                           label: Text('start_date'.tr(),
                               style: const TextStyle(fontWeight: FontWeight.bold))),
                       DataColumn(
@@ -146,6 +149,7 @@ class _BaseSubBaseCompactionSummaryState
                         DataCell(Text(entry.block_no ?? '')),
                         DataCell(Text(entry.road_no ?? '')),
                         DataCell(Text(entry.total_length ?? '')),
+                        DataCell(Text(entry.working_hours ?? '')),
                         DataCell(Text(startDate)),
                         DataCell(Text(expectedCompDate)),
                         DataCell(Text(entry.base_sub_base_comp_status ?? '')),

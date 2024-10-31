@@ -6,6 +6,7 @@ class BaseSubBaseCompactionModel{
   DateTime? start_date;
   DateTime? expected_comp_date;
   String? base_sub_base_comp_status;
+  dynamic working_hours;
   dynamic date;
   dynamic user_id;
   dynamic time;
@@ -19,6 +20,7 @@ class BaseSubBaseCompactionModel{
     this.start_date,
     this.expected_comp_date,
     this.base_sub_base_comp_status,
+    this.working_hours,
     this.date,
     this.time,
     this.user_id,
@@ -39,6 +41,7 @@ class BaseSubBaseCompactionModel{
         date:  json['base_sub_base_compaction_date'],
         time:  json['time'],
         user_id: json['user_id'],
+      working_hours: json ['working_hours'],
       posted: json['posted']??0  // Get the posted status from the database
 
     );
@@ -56,6 +59,7 @@ class BaseSubBaseCompactionModel{
       'base_sub_base_compaction_date':date,
       'time':time,
       'user_id':user_id,
+      'working_hours':working_hours,
       'posted': posted,  // Include the posted status
     };
   }

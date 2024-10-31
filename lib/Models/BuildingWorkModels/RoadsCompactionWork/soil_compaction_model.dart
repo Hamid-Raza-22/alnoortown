@@ -6,6 +6,8 @@ class SoilCompactionModel{
   DateTime? start_date;
   DateTime? expected_comp_date;
   String?  soil_comp_status;
+  dynamic working_hours;
+
   dynamic date;
   dynamic time;
   dynamic user_id;
@@ -19,6 +21,8 @@ class SoilCompactionModel{
     this.start_date,
     this.expected_comp_date,
     this.soil_comp_status,
+    this.working_hours,
+
     this.date,
     this.time,
     this.user_id,
@@ -39,7 +43,9 @@ class SoilCompactionModel{
         date:  json['soil_compaction_date'],
         time:  json['time'],
         user_id: json['user_id'],
-      posted: json['posted']??0  // Get the posted status from the database
+        working_hours: json ['working_hours'],
+
+        posted: json['posted']??0  // Get the posted status from the database
 
     );
   }
@@ -56,6 +62,8 @@ class SoilCompactionModel{
       'soil_compaction_date':date,
       'time':time,
       'user_id':user_id,
+      'working_hours':working_hours,
+
       'posted': posted,  // Include the posted status
 
     };

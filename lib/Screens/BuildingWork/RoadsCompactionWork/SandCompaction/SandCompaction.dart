@@ -25,7 +25,9 @@ class _SandCompactionState extends State<SandCompaction> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
-String? road_noController;  TextEditingController total_lengthController = TextEditingController();
+String? road_noController;
+TextEditingController total_lengthController = TextEditingController();
+TextEditingController total_timeController = TextEditingController();
   String? selectedBlock;
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
@@ -121,13 +123,15 @@ String? road_noController;  TextEditingController total_lengthController = TextE
                 // Block Dropdown
                 buildBlockSRoadsColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
 
-                const SizedBox(height: 16), // Add spacing between dropdowns
 
               ],
             ),
 
             SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), total_lengthController),
+              SizedBox(height: 16),
+            buildTextFieldRow('Working Hours'.tr(), total_timeController),
+              // buildTimePickerTextField('time', total_timeController, context),
               SizedBox(height: 16),
             buildDatePickerRow(
               'start_date'.tr(),
@@ -170,6 +174,8 @@ String? road_noController;  TextEditingController total_lengthController = TextE
                     // Add the sand compaction entry
                     await sandCompactionViewModel.addSand(SandCompactionModel(
                         start_date: selectedstart_date,
+
+                        working_hours: total_timeController.text,
                         expected_comp_date: selectedEndDate,
                         block_no: containerData["selectedBlock"],
                         road_no: containerData["selectedStreet"],
@@ -309,6 +315,46 @@ String? road_noController;  TextEditingController total_lengthController = TextE
               style:   TextStyle(
                 fontSize: 14,
                 color: Color(0xFFC69840),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+  Widget buildTimePickerTextField(String label, TextEditingController controller, BuildContext context) {
+    Future<void> _selectTime() async {
+      TimeOfDay? pickedTime = await showTimePicker(
+        context: context,
+        initialTime: TimeOfDay.now(),
+      );
+
+      if (pickedTime != null) {
+        controller.text = pickedTime.format(context);
+      }
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFC69840),
+          ),
+        ),
+        SizedBox(height: 8),
+        GestureDetector(
+          onTap: _selectTime,
+          child: AbsorbPointer(
+            child: TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                contentPadding: EdgeInsets.symmetric(horizontal: 8),
+                hintText: 'Select Time',
               ),
             ),
           ),

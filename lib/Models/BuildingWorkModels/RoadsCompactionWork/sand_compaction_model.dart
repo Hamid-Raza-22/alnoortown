@@ -6,6 +6,7 @@ class SandCompactionModel{
   DateTime? start_date;
   DateTime? expected_comp_date;
   dynamic sand_comp_status;
+  dynamic working_hours;
   dynamic date;
   dynamic time;
   dynamic user_id;
@@ -23,7 +24,7 @@ class SandCompactionModel{
     this.time,
     this.user_id,
     this.posted = 0,  // Default to 0 (not posted)
-
+    this.working_hours,
   });
 
   factory SandCompactionModel.fromMap(Map<dynamic,dynamic>json)
@@ -38,6 +39,8 @@ class SandCompactionModel{
         sand_comp_status:json['sand_comp_status'],
         date:  json['sand_compaction_date'],
         time:  json['time'],
+        working_hours: json ['working_hours'],
+
         user_id: json['user_id'],
       posted: json['posted']??0  // Get the posted status from the database
 
@@ -56,6 +59,8 @@ class SandCompactionModel{
       'sand_compaction_date':date,
       'time':time,
       'user_id':user_id,
+      'working_hours':working_hours,
+
       'posted': posted,  // Include the posted status
 
     };

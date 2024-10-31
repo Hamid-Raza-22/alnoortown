@@ -22,6 +22,7 @@ class _BaseSubBaseState extends State<BaseSubBase> {
   BaseSubBaseCompactionViewModel baseSubBaseCompactionViewModel = Get.put(BaseSubBaseCompactionViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+  TextEditingController total_timeController = TextEditingController();
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
  TextEditingController total_lengthController = TextEditingController();
@@ -121,12 +122,14 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                 // Block Dropdown
                 buildBlockSRoadsColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
 
-                const SizedBox(height: 16), // Add spacing between dropdowns
+
 
               ],
             ),
               SizedBox(height: 16),
             buildTextFieldRow('total_length'.tr(), total_lengthController),
+            SizedBox(height: 16),
+            buildTextFieldRow('Working Hours'.tr(), total_timeController),
               SizedBox(height: 16),
             buildDatePickerRow(
               'start_date'.tr(),
@@ -168,6 +171,8 @@ class _BaseSubBaseState extends State<BaseSubBase> {
                         block_no: containerData["selectedBlock"],
                         road_no: containerData["selectedStreet"],
                         start_date: selectedstart_date ,
+                        working_hours: total_timeController.text,
+
                         expected_comp_date: selectedEndDate,
                         total_length: total_lengthController.text,
                         base_sub_base_comp_status:selectedStatus,

@@ -28,7 +28,7 @@ class NewMaterialSummary extends StatelessWidget {
           },
         ),
         title: Text(
-          'new_material_summary'.tr(),
+          'New Material Summary'.tr(),
           style: const TextStyle(
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -51,9 +51,6 @@ class NewMaterialSummary extends StatelessWidget {
             ),
             Expanded(
               child: Obx(() {
-                if (newMaterialViewModel.allNew.isEmpty) {
-                  return const Center(child: CircularProgressIndicator());
-                }
 
                 // Filter data by date range
                 var filteredData = newMaterialViewModel.allNew.where((entry) {
@@ -72,6 +69,7 @@ class NewMaterialSummary extends StatelessWidget {
                     children: [
                       Row(
                         children: [
+                          buildHeaderCell('block_no'.tr()),
                           buildHeaderCell('date'.tr()),
                           buildHeaderCell('time'.tr()),
                           buildHeaderCell('sand'.tr()),
@@ -79,14 +77,15 @@ class NewMaterialSummary extends StatelessWidget {
                           buildHeaderCell('base'.tr()),
                           buildHeaderCell('sub_base'.tr()),
                           buildHeaderCell('water_bound'.tr()),
-                          buildHeaderCell('other_material'.tr()),
-                          buildHeaderCell('other_quantity'.tr()),
+                          buildHeaderCell('other Material'.tr()),
+                          buildHeaderCell('Other Quantity'.tr()),
                         ],
                       ),
                       const SizedBox(height: 10),
                       ...filteredData.map((entry) {
                         return Row(
                           children: [
+                            buildDataCell(entry.block?.toString() ?? 'N/A'),
                             buildDataCell(entry.date?.toString() ?? 'N/A'),
                             buildDataCell(entry.time?.toString() ?? 'N/A'),
                             buildDataCell(entry.sand?.toString() ?? 'N/A'),

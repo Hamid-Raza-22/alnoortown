@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'poles_summary.dart';
 
 class Poles extends StatefulWidget {
@@ -28,13 +29,22 @@ class _PolesState extends State<Poles> {
   PolesViewModel polesViewModel = Get.put(PolesViewModel());
   DBHelper dbHelper = DBHelper();
   int? poleId;
+  TextEditingController totalCOntroller = TextEditingController();
+  Map<String, dynamic> containerData = {};
 
-  // Storing the form data
-  Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "poles": '',
-  };
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet": null,
+      "poles":null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
+    });
+  }
 
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -130,13 +140,12 @@ class _PolesState extends State<Poles> {
             buildBlockStreetRow(containerData, roadDetailsViewModel),
             SizedBox(height: 16),
             Text(
-              "no_of_poles".tr(),
+              "No. of Poles".tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["poles"],
-              onChanged: (value) {
+controller: totalCOntroller,              onChanged: (value) {
                 setState(() {
                   containerData["poles"] = value;
                 });
@@ -155,36 +164,35 @@ class _PolesState extends State<Poles> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final  selectedPoles= containerData["poles"];
+                  final selectedPoles = containerData["poles"];
+                  if (selectedStreet != null && selectedBlock != null &&
+                      selectedPoles != null) {
+                    // Save data to ViewModel
+                    await polesViewModel.addPole(PolesModel(
+                        id: poleId,
+                        block_no: selectedBlock,
+                        street_no: selectedStreet,
+                        no_of_poles: selectedPoles,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime(),
+                        user_id: userId
+                    ));
 
-                  // Save data to ViewModel
-                  await polesViewModel.addPole(PolesModel(
-                    id: poleId,
-                    block_no: selectedBlock,
-                    street_no: selectedStreet,
-                    no_of_poles: selectedPoles,
-                    date: _getFormattedDate(),
-                    time: _getFormattedTime(),
-                    user_id: userId
-                  ));
+                    await polesViewModel.fetchAllPole();
+                    await polesViewModel.postDataFromDatabaseToAPI();
 
-                  await polesViewModel.fetchAllPole();
-                  await polesViewModel.postDataFromDatabaseToAPI();
 
-                  // Clear form after submission
-                  setState(() {
-                    containerData["selectedBlock"] = null;
-                    containerData["selectedStreet"] = null;
-                    containerData["poles"] = '';
-                  });
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No of poles: $selectedPoles',
-                      ),
-                    ),
-                  );
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),

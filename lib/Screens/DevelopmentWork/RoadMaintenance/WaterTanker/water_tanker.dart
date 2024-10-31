@@ -3,6 +3,7 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/RoadMaintenanceModels/water_tanker_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/RoadMaintenance/WaterTanker/watertanker_summary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/RoadMaintenaceViewModel/water_tanker_view_model.dart';
+import 'package:al_noor_town/Widgets/snackbar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -146,6 +147,7 @@ RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final selectedTankers = containerData["selectedTankers"];
+                  if(selectedBlock!=null&& selectedStreet!=null&& selectedTankers){
                   await waterTankerViewModel.addTanker(WaterTankerModel(
                     id: tankerId,
                     block_no: selectedBlock,
@@ -164,14 +166,11 @@ RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
                     containerData["selectedTankers"] = null;
 
                   });
+                   showSnackBarSuccessfully(context);
+                 }else{
+                   showSnackBarPleaseFill(context);
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $selectedTankers',
-                      ),
-                    ),
-                  );
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor:   Color(0xFFF3F4F6),

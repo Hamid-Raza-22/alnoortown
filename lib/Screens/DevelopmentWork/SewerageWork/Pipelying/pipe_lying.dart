@@ -3,6 +3,7 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/SewerageWorksModels/pipeline_model.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/SewerageWork/Pipelying/pipelying_summary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/SewerageWorksViewModel/pipeline_view_model.dart';
+import 'package:al_noor_town/Widgets/snackbar.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -23,14 +24,21 @@ class _PipelyingState extends State<Pipelying> {
 
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   PipelineViewModel pipelineViewModel=Get.put(PipelineViewModel());
+  TextEditingController numTankersController =TextEditingController();
   DBHelper dbHelper = DBHelper();
   int? pipeId;
 Map<String, dynamic> containerData = {};
-
   @override
   void initState() {
     super.initState();
     containerData = createInitialContainerData();
+
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      numTankersController.clear();
+    });
   }
 
   String _getFormattedDate() {
@@ -121,6 +129,7 @@ Map<String, dynamic> containerData = {};
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  if(selectedStreet!=null&&selectedBlock!=null&& numTankers!=null){
 
                   await pipelineViewModel.addPipe(PipelineModel(
                       id: pipeId,
@@ -136,17 +145,13 @@ Map<String, dynamic> containerData = {};
 
                   // await dbHelper.showAsphaltData();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
-                      ),
-                    ),
-                  );
+                  showSnackBarSuccessfully(context);
 
-                  setState(() {
-                    containerData = createInitialContainerData();
-                  });
+               _clearFields();
+                  }
+                  else{
+                    showSnackBarPleaseFill(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),
@@ -184,7 +189,7 @@ Map<String, dynamic> containerData = {};
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+               controller: numTankersController,
               onChanged: (value) {
                 setState(() {
                   containerData["numTankers"] = value;
@@ -202,6 +207,12 @@ Map<String, dynamic> containerData = {};
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    numTankersController.dispose(); // Dispose controller to free resources
+    super.dispose();
   }
 
 

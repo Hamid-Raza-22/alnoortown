@@ -110,6 +110,8 @@ class _ExcavationSummaryState extends State<ExcavationSummary> {
 
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
                   child: Column(
                     children: [
                       // Header row
@@ -136,7 +138,7 @@ class _ExcavationSummaryState extends State<ExcavationSummary> {
                         );
                       }).toList(),
                     ],
-                  ),
+                  ),)
                 );
               }),
             ),

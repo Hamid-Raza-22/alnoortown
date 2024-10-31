@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'iron_work_summary.dart';
 
 class IronWork extends StatefulWidget {
@@ -25,12 +26,23 @@ class _IronWorkState extends State<IronWork> {
   final IronWorkViewModel ironWorkViewModel = Get.put(IronWorkViewModel());
   final DBHelper dbHelper = DBHelper();
   int? ironId;
+  TextEditingController totalCOntroller = TextEditingController();
+  Map<String, dynamic> containerData = {};
 
-  final Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "numTankers": '',
-  };
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet": null,
+      "numTankers":null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
+    });
+  }
 
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -44,7 +56,6 @@ class _IronWorkState extends State<IronWork> {
     return formatter.format(now);
   }
 
-  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,13 +136,13 @@ class _IronWorkState extends State<IronWork> {
           children: [
             buildBlockStreetRow(containerData, roadDetailsViewModel),
             const SizedBox(height: 16),
-            const Text(
-              'total_length_completed',
+             Text(
+              'total_length_completed'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+           controller: totalCOntroller,
               onChanged: (value) {
                 setState(() {
                   containerData["numTankers"] = value;
@@ -152,7 +163,7 @@ class _IronWorkState extends State<IronWork> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final completed_length = containerData["numTankers"];
-
+                 if(selectedStreet!=null&&selectedBlock!=null&& completed_length!=null){
                   // Add a new work entry
                   await ironWorkViewModel.addWorks(IronWorksModel(
                     id: ironId,
@@ -168,20 +179,17 @@ class _IronWorkState extends State<IronWork> {
                   await ironWorkViewModel.fetchAllWorks();
                   await ironWorkViewModel.postDataFromDatabaseToAPI();
 
-                  // Clear the fields after submission
-                  setState(() {
-                    containerData["selectedBlock"] = null;
-                    containerData["selectedStreet"] = null;
-                    containerData["numTankers"] = '';
-                  });
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, completed_length: $completed_length',
-                      ),
-                    ),
-                  );
+                  // Clear fields after submission
+                  setState(() {
+                    containerData = createInitialContainerData();
+                  });
+                  _clearFields();
+
+                  showSnackBarSuccessfully(context);}
+                 else{
+                   showSnackBarPleaseFill(context);
+                 }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),

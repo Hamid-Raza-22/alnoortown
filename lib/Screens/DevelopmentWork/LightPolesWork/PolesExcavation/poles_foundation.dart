@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 
 class PolesFoundation extends StatefulWidget {
   PolesFoundation({super.key});
@@ -22,13 +23,19 @@ class PolesFoundationState extends State<PolesFoundation> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   int? exId;
-
+  TextEditingController totalController =TextEditingController();
   Map<String, dynamic> containerData = {};
 
   @override
   void initState() {
     super.initState();
     containerData = createInitialContainerData();
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalController.clear(); // Clear the controller's text
+    });
   }
 
   Map<String, dynamic> createInitialContainerData() {
@@ -106,7 +113,7 @@ class PolesFoundationState extends State<PolesFoundation> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 16.0),
                 child: Text(
-                  'poles_excavation_work'.tr(),
+                  'Poles Excavation Work'.tr(),
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
                 ),
               ),
@@ -132,12 +139,12 @@ class PolesFoundationState extends State<PolesFoundation> {
             buildBlockStreetRow(containerData, roadDetailsViewModel),
             SizedBox(height: 16),
             Text(
-              "no_of_poles_excavation".tr(),
+              "No of Poles Excavation".tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["polesExcavation"],
+             controller: totalController,
               onChanged: (value) {
                 setState(() {
                   containerData["polesExcavation"] = value;
@@ -158,7 +165,10 @@ class PolesFoundationState extends State<PolesFoundation> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final polesExcavation = containerData["polesExcavation"];
-                  await polesExcavationViewModel.addPoleExa(PolesExcavationModel(
+    if(selectedStreet!=null&&selectedBlock!=null&& polesExcavation!=null){
+
+
+    await polesExcavationViewModel.addPoleExa(PolesExcavationModel(
                     id: exId,
                     block_no: selectedBlock,
                     street_no: selectedStreet,
@@ -175,13 +185,12 @@ class PolesFoundationState extends State<PolesFoundation> {
                     containerData = createInitialContainerData();
                   });
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Excavation: $polesExcavation',
-                      ),
-                    ),
-                  );
+                 _clearFields();
+
+                    showSnackBarSuccessfully(context);
+                  }   else{
+      showSnackBarPleaseFill(context);
+    }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),

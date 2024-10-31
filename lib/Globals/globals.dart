@@ -18,6 +18,7 @@ String tableNameManholes='manholes';
 String tableNamePipeLaying='pipeLaying';
 String tableNameLightWires='lightWires';
 String tableNamePolesExcavation='polesExcavation';
+String tableNamePolesFoundation='polesFoundation';
 String tableNamePoles='poles';
 String tableNameAsphaltWork='asphaltWork';
 String tableNameBrickWork='brickWork';

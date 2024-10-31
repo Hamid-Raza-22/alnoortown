@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
 import 'package:easy_localization/easy_localization.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'asphalt_work_summary.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
@@ -27,13 +28,29 @@ class _AsphaltWorkState extends State<AsphaltWork> {
   DBHelper dbHelper = DBHelper();
   int? asphaltId;
 
-  // Single container data for a single widget
-  Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "numTankers": '',
-    "status": null,
-  };
+  TextEditingController totalCOntroller = TextEditingController();
+  Map<String, dynamic> containerData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet": null,
+      "numTanker":null,
+      "status":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
+    });
+  }
 
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -134,7 +151,7 @@ class _AsphaltWorkState extends State<AsphaltWork> {
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              controller: totalCOntroller,
               onChanged: (value) {
                 setState(() {
                   containerData["numTankers"] = value;
@@ -163,7 +180,8 @@ class _AsphaltWorkState extends State<AsphaltWork> {
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
                   final status = containerData["status"];
-                  {
+                  if(selectedStreet!=null&&selectedBlock!=null&& numTankers!=null&& status!=null){
+
                     await asphaltWorkViewModel.addAsphalt(AsphaltWorkModel(
                       id: asphaltId,
                       block_no: selectedBlock,
@@ -177,25 +195,16 @@ class _AsphaltWorkState extends State<AsphaltWork> {
 
                     await asphaltWorkViewModel.fetchAllAsphalt();
                     await asphaltWorkViewModel.postDataFromDatabaseToAPI();
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
-
-                  // Clear the fields after submission
-                  setState(() {
-                    containerData = {
-                      "selectedBlock": null,
-                      "selectedStreet": null,
-                      "numTankers": '',
-                      "status": null,
-                    };
-                  });
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, Total Length: $numTankers, Backfilling Status: $status',
-                      ),
-                    ),
-                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),

@@ -6,6 +6,7 @@ class ShiftingWorkModel{
   dynamic date;
   dynamic time;
   dynamic user_id;
+  dynamic details;
   int posted;  // New field to track whether data has been posted
 
   ShiftingWorkModel({
@@ -16,6 +17,7 @@ class ShiftingWorkModel{
     this.date,
     this.time,
     this.user_id,
+    this.details,
     this.posted = 0,  // Default to 0 (not posted)
 
   });
@@ -30,6 +32,7 @@ class ShiftingWorkModel{
         date:  json['shifting_work_date'],
         time:  json['time'],
         user_id: json['user_id'],
+      details: json['details'],
       posted: json['posted']??0 // Get the posted status from the database
     );
   }
@@ -43,6 +46,7 @@ class ShiftingWorkModel{
       'shifting_work_date':date,
       'time':time,
       'user_id':user_id,
+      'details':details,
       'posted': posted,  // Include the posted status
 
     };

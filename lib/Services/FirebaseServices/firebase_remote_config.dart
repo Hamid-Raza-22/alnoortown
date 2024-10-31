@@ -41,6 +41,7 @@ class Config {
   static String get getApiUrlPipeLaying => remoteConfig.getString('Pipe_Laying_get_url');
   static String get getApiUrlLightWires => remoteConfig.getString('Light_Wires_get_url');
   static String get getApiUrlPolesExcavation => remoteConfig.getString('Poles_Excavation_get_url');
+  static String get getApiUrlPolesFoundation => remoteConfig.getString('Poles_Foundation_get_url');
   static String get getApiUrlPoles => remoteConfig.getString('Poles_get_url');
   static String get getApiUrlAsphaltWork => remoteConfig.getString('Asphalt_Work_get_url');
   static String get getApiUrlBrickWork => remoteConfig.getString('Brick_Work_get_url');
@@ -111,6 +112,7 @@ class Config {
   static String get postApiUrlPipeLaying => remoteConfig.getString('Pipe_Laying_post_url');
   static String get postApiUrlLightWires => remoteConfig.getString('Light_Wires_post_url');
   static String get postApiUrlPolesExcavation => remoteConfig.getString('Poles_Excavation_post_url');
+  static String get postApiUrlPolesFoundation => remoteConfig.getString('Poles_Foundation_post_url');
   static String get postApiUrlPoles => remoteConfig.getString('Poles_post_url');
   static String get postApiUrlAsphaltWork => remoteConfig.getString('Asphalt_Work_post_url');
   static String get postApiUrlBrickWork => remoteConfig.getString('Brick_Work_post_url');

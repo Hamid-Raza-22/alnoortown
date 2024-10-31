@@ -49,7 +49,7 @@ class PipelineRepository{
     for (var item in data) {
       item['posted'] = 1; // Set posted to 1
       PipelineModel model = PipelineModel.fromMap(item);
-      await dbClient.insert(tableNameWaterTanker, model.toMap());
+      await dbClient.insert(tableNamePipeLaying, model.toMap());
     }
   }
   Future<List<PipelineModel>> getUnPostedPipeLine() async {

@@ -1,8 +1,8 @@
 import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/RoadsCompactionWorkViewModel/sand_compaction_view_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+import 'package:get/get.dart' show Get, Inst, Obx;
+
 import '../../../ReusableDesigns/filter_widget.dart';
 
 class SandCompactionSummary extends StatefulWidget {
@@ -25,12 +25,12 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFFC69840)),
+          icon:  Icon(Icons.arrow_back, color: Color(0xFFC69840)),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        title: const Text(
+        title:  Text(
           'sand_compaction_summary',
           style: TextStyle(
             fontSize: 14,
@@ -41,7 +41,7 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding:  EdgeInsets.all(16.0),
         child: Column(
           children: [
             // Add the FilterWidget here
@@ -54,7 +54,7 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                 });
               },
             ),
-            const SizedBox(height: 16),
+             SizedBox(height: 16),
 
             Obx(() {
               // Use Obx to rebuild when the data changes
@@ -69,8 +69,8 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                         height: 200,
                         fit: BoxFit.cover,
                       ),
-                      const SizedBox(height: 16),
-                      const Text(
+                       SizedBox(height: 16),
+                       Text(
                         'No data available',
                         style: TextStyle(
                           color: Colors.grey,
@@ -103,8 +103,8 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                         height: 200,
                         fit: BoxFit.cover,
                       ),
-                      const SizedBox(height: 16),
-                      const Text(
+                       SizedBox(height: 16),
+                       Text(
                         'No data available',
                         style: TextStyle(
                           color: Colors.grey,
@@ -121,20 +121,21 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                 scrollDirection: Axis.horizontal,
                 child: DataTable(
                   columnSpacing: 12.0,
-                  headingRowColor: WidgetStateProperty.all(const Color(0xFFC69840)),
-                  border: const TableBorder(
+                  headingRowColor: WidgetStateProperty.all( Color(0xFFC69840)),
+                  border:  TableBorder(
                     horizontalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
                     verticalInside: BorderSide(color: Color(0xFFC69840), width: 1.0),
                   ),
                   columns: [
-                    const DataColumn(label: Text('block_no', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('road_no', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('total_length', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('start_date', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('end_date', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('status', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('date', style: TextStyle(fontWeight: FontWeight.bold))),
-                    const DataColumn(label: Text('time', style: TextStyle(fontWeight: FontWeight.bold))),
+                    DataColumn(label: Text('block_no'.tr(), style:  TextStyle(fontWeight: FontWeight.bold))),
+                     DataColumn(label: Text('road_no'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+                     DataColumn(label: Text('total_length'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+                     DataColumn(label: Text('Working Hours'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+                     DataColumn(label: Text('start_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+                     DataColumn(label: Text('end_date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+                     DataColumn(label: Text('status'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+                     DataColumn(label: Text('date'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
+                     DataColumn(label: Text('time'.tr(), style: TextStyle(fontWeight: FontWeight.bold))),
                   ],
                   rows: filteredData.map((entry) {
                     String start_date = entry.start_date != null
@@ -148,6 +149,7 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                       DataCell(Text(entry.block_no)),
                       DataCell(Text(entry.road_no)),
                       DataCell(Text(entry.total_length)),
+                      DataCell(Text(entry.working_hours)),
                       DataCell(Text(start_date)),
                       DataCell(Text(expected_comp_date)),
                       DataCell(Text(entry.sand_comp_status)),

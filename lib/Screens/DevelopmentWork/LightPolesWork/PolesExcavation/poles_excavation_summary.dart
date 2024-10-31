@@ -14,6 +14,7 @@ class PolesExcavationSummary extends StatefulWidget {
 class _PolesExcavationSummaryState extends State<PolesExcavationSummary> {
   final PolesExcavationViewModel polesExcavationViewModel = Get.put(PolesExcavationViewModel());
 
+
   DateTime? _fromDate;
   DateTime? _toDate;
   String? _block;

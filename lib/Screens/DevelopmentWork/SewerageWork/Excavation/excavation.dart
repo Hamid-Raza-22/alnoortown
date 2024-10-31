@@ -23,6 +23,8 @@ class ExcavationState extends State<Excavation> {
   ExcavationViewModel excavationViewModel = Get.put(ExcavationViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+  TextEditingController totalController = TextEditingController();
+
   DBHelper dbHelper = DBHelper();
   int? exaId;
   List<Map<String, dynamic>> containerDataList = [];
@@ -37,7 +39,8 @@ class ExcavationState extends State<Excavation> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers": '',
+      "numTankers": null,
+
     };
   }
 
@@ -56,6 +59,7 @@ class ExcavationState extends State<Excavation> {
   void _clearFields() {
     setState(() {
       containerDataList = [createInitialContainerData()];
+      totalController.clear();
     });
   }
 
@@ -155,7 +159,8 @@ class ExcavationState extends State<Excavation> {
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              controller: totalController,
+              // initialValue: containerData["numTankers"],
               onChanged: (value) {
                 setState(() {
                   containerData["numTankers"] = value;
@@ -176,6 +181,7 @@ class ExcavationState extends State<Excavation> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                if(selectedStreet!=null && selectedBlock!=null && numTankers!=null){
                   await excavationViewModel.addExa(ExcavationModel(
                     id: exaId,
                     block_no: selectedBlock,
@@ -198,7 +204,7 @@ class ExcavationState extends State<Excavation> {
 
                   // Clear fields after submission
                   _clearFields();
-                },
+                }},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -216,5 +222,10 @@ class ExcavationState extends State<Excavation> {
     );
   }
 
-
+  @override
+  void dispose() {
+    totalController.dispose(); // Dispose controller to free resources
+    super.dispose();
+  }
 }
+

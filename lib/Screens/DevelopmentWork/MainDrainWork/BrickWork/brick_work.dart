@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'brick_work_summary.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
@@ -21,17 +22,34 @@ class BrickWork extends StatefulWidget {
 
 class _BrickWorkState extends State<BrickWork> {
   BrickWorkViewModel brickWorkViewModel = Get.put(BrickWorkViewModel());
+  TextEditingController totalCOntroller = TextEditingController();
 
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   int? brickId;
 
-  // Single container data for single widget
-  Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "numTankers": '',
-  };
+  Map<String, dynamic> containerData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet": null,
+      "numTankers":null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
+    });
+  }
+
 
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -132,7 +150,7 @@ class _BrickWorkState extends State<BrickWork> {
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              controller: totalCOntroller,
               onChanged: (value) {
                 setState(() {
                   containerData["numTankers"] = value;
@@ -153,37 +171,33 @@ class _BrickWorkState extends State<BrickWork> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  if (selectedStreet != null && selectedBlock != null &&
+                      numTankers != null) {
+                    // Add the data
+                    await brickWorkViewModel.addBrick(BrickWorkModel(
+                        id: brickId,
+                        block_no: selectedBlock,
+                        street_no: selectedStreet,
+                        completed_length: numTankers,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime(),
+                        user_id: userId
+                    ));
 
-                  // Add the data
-                  await brickWorkViewModel.addBrick(BrickWorkModel(
-                    id: brickId,
-                    block_no: selectedBlock,
-                    street_no: selectedStreet,
-                    completed_length: numTankers,
-                    date: _getFormattedDate(),
-                    time: _getFormattedTime(),
-                    user_id: userId
-                  ));
+                    await brickWorkViewModel.fetchAllBrick();
+                    await brickWorkViewModel.postDataFromDatabaseToAPI();
 
-                  await brickWorkViewModel.fetchAllBrick();
-                  await brickWorkViewModel.postDataFromDatabaseToAPI();
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                  // Clear the fields after submission
-                  setState(() {
-                    containerData = {
-                      "selectedBlock": null,
-                      "selectedStreet": null,
-                      "numTankers": '',
-                    };
-                  });
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, completed_length: $numTankers',
-                      ),
-                    ),
-                  );
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),

@@ -3,13 +3,12 @@ import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/main_drain_excavation_model.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/main_drain_excavation_view_model.dart';
 import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
-import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'drain_excavation_summary.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
 
@@ -25,15 +24,28 @@ class _DrainExcavationState extends State<DrainExcavation> {
   MainDrainExcavationViewModel mainDrainExcavationViewModel = Get.put(MainDrainExcavationViewModel());
   DBHelper dbHelper = DBHelper();
   int? drainId;
-  List<Map<String, dynamic>> containerDataList = [createInitialContainerData()];
 
-  static Map<String, dynamic> createInitialContainerData() {
+  TextEditingController totalCOntroller = TextEditingController();
+  Map<String, dynamic> containerData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "totalcompleted_length": null,
-
+      "polesFoundation":null,
     };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
+    });
   }
 
   String _getFormattedDate() {
@@ -108,72 +120,14 @@ class _DrainExcavationState extends State<DrainExcavation> {
                 ),
               ),
             ),
-            ...containerDataList.asMap().entries.map((entry) {
-              int index = entry.key;
-              return Column(
-                children: [
-                  buildContainer(index),
-                  const SizedBox(height: 16),
-                ],
-              );
-            }),
-            const SizedBox(height: 16),
-            Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  for (var containerData in containerDataList) {
-                    final selectedBlock = containerData["selectedBlock"];
-                    final selectedStreet = containerData["selectedStreet"];
-                    final totalcompleted_length = containerData["totalcompleted_length"];
-
-                    await mainDrainExcavationViewModel.addWork(
-                        MainDrainExcavationModel(
-                            id: drainId,
-                            block_no: selectedBlock,
-                            street_no: selectedStreet,
-                            completed_length: totalcompleted_length,
-                            date: _getFormattedDate(),
-                            time: _getFormattedTime(),
-                          user_id: userId
-                        ));
-
-                    await mainDrainExcavationViewModel.fetchAllDrain();
-                    await mainDrainExcavationViewModel.postDataFromDatabaseToAPI();
-
-                  }
-
-                  // Clear all fields
-                  setState(() {
-                    containerDataList = [createInitialContainerData()];
-                  });
-
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: ${containerDataList[0]["selectedBlock"]}, ${containerDataList[0]["selectedStreet"]}, Total Lengths: ${containerDataList[0]["totalcompleted_length"]}',
-                      ),
-                    ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF3F4F6),
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                  textStyle: const TextStyle(fontSize: 14),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                ),
-                child: Text('submit'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-              ),
-            ),
+            buildContainer(),
           ],
         ),
       ),
     );
   }
+  Widget buildContainer() {
 
-  Widget buildContainer(int index) {
-    var containerData = containerDataList[index];
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -193,7 +147,7 @@ class _DrainExcavationState extends State<DrainExcavation> {
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["totalcompleted_length"],
+              controller: totalCOntroller,
               onChanged: (value) {
                 setState(() {
                   containerData["totalcompleted_length"] = value;
@@ -205,6 +159,52 @@ class _DrainExcavationState extends State<DrainExcavation> {
                   borderSide: BorderSide(color: Color(0xFFC69840)),
                 ),
                 contentPadding: EdgeInsets.symmetric(horizontal: 8),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Center(
+              child: ElevatedButton(
+                onPressed: () async {
+                  final selectedBlock = containerData["selectedBlock"];
+                  final selectedStreet = containerData["selectedStreet"];
+                  final totalcompleted_length = containerData["totalcompleted_length"];
+                  if (selectedStreet != null && selectedBlock != null &&
+                      totalcompleted_length != null) {
+                    await mainDrainExcavationViewModel.addWork(
+                        MainDrainExcavationModel(
+                            id: drainId,
+                            block_no: selectedBlock,
+                            street_no: selectedStreet,
+                            completed_length: totalcompleted_length,
+                            date: _getFormattedDate(),
+                            time: _getFormattedTime(),
+                            user_id: userId
+                        ));
+
+                    await mainDrainExcavationViewModel.fetchAllDrain();
+                    await mainDrainExcavationViewModel
+                        .postDataFromDatabaseToAPI();
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFF3F4F6),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  textStyle: const TextStyle(fontSize: 14),
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
+                child: Text('submit'.tr(), style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
               ),
             ),
           ],

@@ -396,7 +396,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => PolesFoundation(),
+                                builder: (context) => Foundation(),
                               ),
                             );
                           },
@@ -425,7 +425,7 @@ class _DevelopmentPageState extends State<DevelopmentPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => Foundation(),
+                                builder: (context) => PolesFoundation(),
                               ),
                             );
                           },

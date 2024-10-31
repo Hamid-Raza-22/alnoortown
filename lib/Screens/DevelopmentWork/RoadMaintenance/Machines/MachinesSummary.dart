@@ -115,6 +115,9 @@ class _MachinesSummaryState extends State<MachinesSummary> {
 
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+                    child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical, // Enable horizontal scrolling for columns
+
                   child: Column(
                     children: [
                       // Header row
@@ -145,7 +148,7 @@ class _MachinesSummaryState extends State<MachinesSummary> {
                         );
                       }),
                     ],
-                  ),
+                  ),)
                 );
               }),
             ),

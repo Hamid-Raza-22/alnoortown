@@ -13,6 +13,7 @@ import 'package:get/get.dart' show Get, Inst, Obx;
 import 'package:intl/intl.dart';
 
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 
 class PlasterWork extends StatefulWidget {
   PlasterWork({super.key});
@@ -27,25 +28,30 @@ class PlasterWorkState extends State<PlasterWork> {
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   int? plasterId;
- 
 
-  Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "numTankers": '',
-  };
+
+
+  TextEditingController totalCOntroller = TextEditingController();
+  Map<String, dynamic> containerData = {};
 
   @override
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
   }
 
   Map<String, dynamic> createInitialContainerData() {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers": '',
+      "numTankers":null,
     };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
+    });
   }
 
   String _getFormattedDate() {
@@ -147,7 +153,7 @@ class PlasterWorkState extends State<PlasterWork> {
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["numTankers"],
+              controller: totalCOntroller,
               onChanged: (value) {
                 setState(() {
                   containerData["numTankers"] = value;
@@ -168,30 +174,32 @@ class PlasterWorkState extends State<PlasterWork> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final numTankers = containerData["numTankers"];
+                  if (selectedStreet != null && selectedBlock != null &&
+                      numTankers != null) {
+                    await plasterWorkViewModel.addMan(PlasterWorkModel(
+                        id: plasterId,
+                        block_no: selectedBlock,
+                        street_no: selectedStreet,
+                        completed_length: numTankers,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime(),
+                        user_id: userId
+                    ));
+                    await plasterWorkViewModel.fetchAllPlaster();
+                    await plasterWorkViewModel.postDataFromDatabaseToAPI();
 
-                  await plasterWorkViewModel.addMan(PlasterWorkModel(
-                      id: plasterId,
-                      block_no: selectedBlock,
-                      street_no: selectedStreet,
-                      completed_length: numTankers,
-                      date: _getFormattedDate(),
-                      time: _getFormattedTime(),
-                    user_id: userId
-                  ));
-                  await plasterWorkViewModel.fetchAllPlaster();
-                  await plasterWorkViewModel.postDataFromDatabaseToAPI();
 
-                  setState(() {
-                    containerData = createInitialContainerData(); // Clear the fields
-                  });
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
-                      ),
-                    ),
-                  );
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),

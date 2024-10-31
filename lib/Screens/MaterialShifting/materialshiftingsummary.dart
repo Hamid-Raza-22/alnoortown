@@ -79,6 +79,7 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
                           children: [
                             buildHeaderCell('From Block'),
                             buildHeaderCell('To Block'),
+                            buildHeaderCell('Details'),
                             buildHeaderCell('Shifts'),
                             buildHeaderCell('Date'),
                             buildHeaderCell('Time'),
@@ -92,6 +93,7 @@ class MaterialShiftingSummaryPage extends StatelessWidget {
                               children: [
                                 buildDataCell(entry.from_block ?? 'N/A'),
                                 buildDataCell(entry.to_block ?? 'N/A'),
+                                buildDataCell(entry.details ?? 'N/A'),
                                 buildDataCell(entry.no_of_shift ?? 'N/A'),
                                 buildDataCell(entry.date ?? 'N/A'),
                                 buildDataCell(entry.time ?? 'N/A'),

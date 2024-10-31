@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, GetNavigation, Inst, Obx;
 import '../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../../Widgets/custom_dropdown_widgets.dart';
+import '../../Widgets/snackbar.dart';
 import 'materialshiftingsummary.dart';
 
 class MaterialShiftingPage extends StatefulWidget {
@@ -21,21 +22,34 @@ class MaterialShiftingPage extends StatefulWidget {
 
 class MaterialShiftingPageState extends State<MaterialShiftingPage> {
   MaterialShiftingViewModel materialShiftingViewModel = Get.put(MaterialShiftingViewModel());
+  TextEditingController detailsController= TextEditingController();
 
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   int? shiftId;
 
-  // Define a single data container
-  Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "selectedShifting": 0,
-  };
+
+  TextEditingController totalCOntroller = TextEditingController();
+  Map<String, dynamic> containerData = {};
 
   @override
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet": null,
+      "selectedShifting": 0,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+detailsController.clear();
+    });
   }
 
   String _getFormattedDate() {
@@ -105,6 +119,7 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                 ),
               ),
             ),
+
             buildContainer(),
             const SizedBox(height: 20),
             Center(
@@ -113,12 +128,14 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                   final from_block = containerData["selectedBlock"];
                   final to_block = containerData["selectedStreet"];
                   final no_of_shift = containerData["selectedShifting"];
+                if(from_block!=null && to_block!=null&& no_of_shift!=null){
 
-                  // Call addShift without await since it's a void function
+    // Call addShift without await since it's a void function
                   materialShiftingViewModel.addShift(ShiftingWorkModel(
                     id: shiftId,
                     from_block: from_block,
                     to_block: to_block,
+                    details: detailsController.text,
                     no_of_shift: no_of_shift,
                     date: _getFormattedDate(),
                     time: _getFormattedTime(),
@@ -130,20 +147,16 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
                   // Fetch all shifting data after adding
                   materialShiftingViewModel.fetchAllShifting();
 
+                  // Clear fields after submission
                   setState(() {
-                    // Clear the data container after submission
-                    containerData = {
-                      "selectedBlock": null,
-                      "selectedStreet": null,
-                      "selectedShifting": 0,
-                    };
+                    containerData = createInitialContainerData();
                   });
+                  _clearFields();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Data submitted and fields cleared.'),
-                    ),
-                  );
+                  showSnackBarSuccessfully(context);}
+                else{
+                  showSnackBarPleaseFill(context);
+                }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
@@ -177,6 +190,8 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
           children: [
             buildBlockRow(containerData, roadDetailsViewModel),
             const SizedBox(height: 16),
+            buildTextFieldRow('Details'.tr(), detailsController),
+            const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -233,6 +248,29 @@ class MaterialShiftingPageState extends State<MaterialShiftingPage> {
     );
   }
 
+
+  Widget buildTextFieldRow(String label, TextEditingController controller) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style:   TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFFC69840)),
+          ),
+          SizedBox(height: 8),
+          TextField(
+            controller: controller,
+            decoration:   InputDecoration(
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.symmetric(horizontal: 8),
+            ),
+          ),
+        ]
+    );
+  }
 
 
 }

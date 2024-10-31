@@ -16,7 +16,7 @@ class CompactionWaterBoundRepository{
     // Query the database
     List<Map> maps = await dbClient.query(
         tableNameCompactionAfterWaterBound,
-        columns: ['id', 'block_no', 'road_no','total_length','start_date','expected_comp_date','water_bound_comp_status','compaction_water_bound_date','time','posted','user_id']
+        columns: ['id', 'block_no', 'road_no','working_hours','total_length','start_date','expected_comp_date','water_bound_comp_status','compaction_water_bound_date','time','posted','user_id']
     );
 
     // Print the raw data retrieved from the database

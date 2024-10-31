@@ -9,8 +9,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst, Obx;
-import 'package:intl/intl.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'light_wires_work_summary.dart';
 
 class LightWiresWork extends StatefulWidget {
@@ -27,6 +27,7 @@ class LightWiresWorkState extends State<LightWiresWork> {
   DBHelper dbHelper = DBHelper();
   int? wireId;
  Map<String, dynamic> containerData = {};
+  TextEditingController totalCOntroller = TextEditingController();
 
   @override
   void initState() {
@@ -42,7 +43,12 @@ class LightWiresWorkState extends State<LightWiresWork> {
       "status": null,
     };
   }
-
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
+    });
+  }
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -140,12 +146,12 @@ class LightWiresWorkState extends State<LightWiresWork> {
             ),
             SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["total_length"],
+                 controller: totalCOntroller,
               onChanged: (value) {
-                setState(() {
-                  containerData["total_length"] = value;
-                });
-              },
+              setState(() {
+                containerData["total_length"] = value;
+              });
+            },
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -169,31 +175,33 @@ class LightWiresWorkState extends State<LightWiresWork> {
                   final selectedStreet = containerData["selectedStreet"];
                   final total_length = containerData["total_length"];
                   final status = containerData["status"];
-                  await lightWiresViewModel.addLight(LightWiresModel(
-                    id: wireId,
-                    block_no: selectedBlock,
-                    street_no: selectedStreet,
-                    total_length: total_length,
-                    light_wire_work_status: status,
-                    date: _getFormattedDate(),
-                    time: _getFormattedTime(),
-                    user_id: userId
-                  ));
-                  await lightWiresViewModel.fetchAllLight();
-                  await lightWiresViewModel.postDataFromDatabaseToAPI();
+                  if (selectedStreet != null && selectedBlock != null &&
+                      total_length != null && status != null) {
+                    await lightWiresViewModel.addLight(LightWiresModel(
+                        id: wireId,
+                        block_no: selectedBlock,
+                        street_no: selectedStreet,
+                        total_length: total_length,
+                        light_wire_work_status: status,
+                        date: _getFormattedDate(),
+                        time: _getFormattedTime(),
+                        user_id: userId
+                    ));
+                    await lightWiresViewModel.fetchAllLight();
+                    await lightWiresViewModel.postDataFromDatabaseToAPI();
 
-                  // Clear fields after submission
-                  setState(() {
-                    containerData = createInitialContainerData();
-                  });
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, Total Length: $total_length, Status: $status',
-                      ),
-                    ),
-                  );
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),

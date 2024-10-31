@@ -83,6 +83,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../ViewModels/AttendanceViewModel/attendance_in_view_model.dart';
 import '../ViewModels/AttendanceViewModel/attendance_out_view_model.dart';
+import '../ViewModels/DevelopmentWorksViewModel/LightPolesWorkViewModel/poles_foundation_view_model.dart';
 import '../main.dart';
 import 'home_page.dart';
 
@@ -109,6 +110,7 @@ class LoginPageState extends State<LoginPage> {
   ManholesViewModel manholesViewModel = Get.put(ManholesViewModel());
   PipelineViewModel pipelineViewModel = Get.put(PipelineViewModel());
   PolesExcavationViewModel polesExcavationViewModel = Get.put(PolesExcavationViewModel());
+  PolesFoundationViewModel polesFoundationViewModel = Get.put(PolesFoundationViewModel());
   PolesViewModel polesViewModel = Get.put(PolesViewModel());
   LightWiresViewModel lightWiresViewModel = Get.put(LightWiresViewModel());
   IronWorkViewModel ironWorkViewModel = Get.put(IronWorkViewModel());
@@ -396,12 +398,17 @@ class LoginPageState extends State<LoginPage> {
       setState(() {
         _loadingMessage = 'Fetching Pipeline details...'; // Update message
       });
-      // await pipelineViewModel.fetchAndSavePipeLineData();
+       await pipelineViewModel.fetchAndSavePipeLineData();
       setState(() {
         _loadingMessage =
         'Fetching Poles Excavation details...'; // Update message
       });
       await polesExcavationViewModel.fetchAndSavePolesExcavationData();
+      setState(() {
+        _loadingMessage =
+        'Fetching Poles Foundation details...'; // Update message
+      });
+      await polesFoundationViewModel.fetchAndSavePolesFoundationData();
       setState(() {
         _loadingMessage = 'Fetching Poles details...'; // Update message
       });
