@@ -119,6 +119,8 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
 
               return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
+                child:SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
                 child: DataTable(
                   columnSpacing: 12.0,
                   headingRowColor: WidgetStateProperty.all( Color(0xFFC69840)),
@@ -146,18 +148,19 @@ class _SandCompactionSummaryState extends State<SandCompactionSummary> {
                         : '';
 
                     return DataRow(cells: [
-                      DataCell(Text(entry.block_no)),
-                      DataCell(Text(entry.road_no)),
-                      DataCell(Text(entry.total_length)),
-                      DataCell(Text(entry.working_hours)),
-                      DataCell(Text(start_date)),
-                      DataCell(Text(expected_comp_date)),
-                      DataCell(Text(entry.sand_comp_status)),
-                      DataCell(Text(entry.date)),
-                      DataCell(Text(entry.time)),
+                      DataCell(Text(entry.block_no ?? 'N/A')), // Provide a default value if block_no is null
+                      DataCell(Text(entry.road_no ?? 'N/A')),
+                      DataCell(Text(entry.total_length ?? 'N/A')),
+                      DataCell(Text(entry.working_hours ?? 'N/A')),
+                      DataCell(Text(start_date.isNotEmpty ? start_date : 'N/A')),
+                      DataCell(Text(expected_comp_date.isNotEmpty ? expected_comp_date : 'N/A')),
+                      DataCell(Text(entry.sand_comp_status ?? 'N/A')),
+                      DataCell(Text(entry.date ?? 'N/A')),
+                      DataCell(Text(entry.time ?? 'N/A')),
                     ]);
+
                   }).toList(),
-                ),
+                ),)
               );
             }),
           ],

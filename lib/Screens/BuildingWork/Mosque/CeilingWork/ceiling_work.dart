@@ -9,6 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'package:get/get.dart' show Get, Inst;
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'CeilingWorkSummary.dart';
 
 class CeilingWork extends StatefulWidget {
@@ -23,18 +27,37 @@ class CeilingWorkState extends State<CeilingWork> {
   CeilingWorkViewModel ceilingWorkWorkViewModel=Get.put(CeilingWorkViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
 
+
   String? selectedBlock;
   String? selectedStatus;
+
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
 
   @override
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
     return formatter.format(now);
-  }  String _getFormattedTime() {
+  }
+  String _getFormattedTime() {
     final now = DateTime.now();
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
@@ -110,14 +133,11 @@ class CeilingWorkState extends State<CeilingWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
-              SizedBox(height: 16),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
+            SizedBox(height: 16),
               Text(
-              "ceiling_work_status".tr(),
+              "Status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -133,6 +153,7 @@ class CeilingWorkState extends State<CeilingWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
                   if (selectedBlock != null && selectedStatus != null) {
                     // Create a new entry
                     await ceilingWorkWorkViewModel.addCeiling(CeilingWorkModel(
@@ -145,24 +166,15 @@ class CeilingWorkState extends State<CeilingWork> {
                     ));
                     await ceilingWorkWorkViewModel.fetchAllCeiling();
                     await ceilingWorkWorkViewModel.postDataFromDatabaseToAPI();
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                    void showSnackBar(String message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    }
-
-
-                    // Call the callback after the async operation
-                    showSnackBar('entry_added_successfully'.tr());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('Please select a block and status.'),
-                      ),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -184,39 +196,39 @@ class CeilingWorkState extends State<CeilingWork> {
     );
   }
 
-  Widget buildBlockRow(ValueChanged<String?> onChanged) {
-    final List<String> blocks = blockDetailsViewModel.allBlockDetails
-        .map((blockDetail) => blockDetail.block.toString())
-        .toSet()
-        .toList();
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('block_no'.tr(),
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFC69840))),
-          SizedBox(height: 8),
-
-          DropdownSearch<String>(
-            items: blocks,
-            onChanged: onChanged,
-            dropdownDecoratorProps: DropDownDecoratorProps(
-              dropdownSearchDecoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFC69840)),
-                ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 8),
-              ),
-            ),
-            popupProps: PopupProps.menu(
-              showSearchBox: true,
-            ),
-          )
-        ]
-    );
-  }
+  // Widget buildBlockRow(ValueChanged<String?> onChanged) {
+  //   final List<String> blocks = blockDetailsViewModel.allBlockDetails
+  //       .map((blockDetail) => blockDetail.block.toString())
+  //       .toSet()
+  //       .toList();
+  //   return Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text('block_no'.tr(),
+  //             style: TextStyle(
+  //                 fontSize: 14,
+  //                 fontWeight: FontWeight.bold,
+  //                 color: Color(0xFFC69840))),
+  //         SizedBox(height: 8),
+  //
+  //         DropdownSearch<String>(
+  //           items: blocks,
+  //           onChanged: onChanged,
+  //           dropdownDecoratorProps: DropDownDecoratorProps(
+  //             dropdownSearchDecoration: InputDecoration(
+  //               border: OutlineInputBorder(
+  //                 borderSide: BorderSide(color: Color(0xFFC69840)),
+  //               ),
+  //               contentPadding: EdgeInsets.symmetric(horizontal: 8),
+  //             ),
+  //           ),
+  //           popupProps: PopupProps.menu(
+  //             showSearchBox: true,
+  //           ),
+  //         )
+  //       ]
+  //   );
+  // }
   Widget buildStatusRadioButtons(ValueChanged<String?> onChanged) {
     return Column(
       children: [

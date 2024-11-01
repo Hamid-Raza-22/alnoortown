@@ -10,6 +10,7 @@ import '../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart'
 import '../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import '../../../Widgets/container_data.dart';
 import '../../../Widgets/custom_container_widgets.dart';
+import '../../../Widgets/snackbar.dart';
 import 'RoadsShouldersWorkSummary.dart';
 
 class RoadsShouldersWork extends StatefulWidget {
@@ -31,10 +32,29 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
 
-  @override
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+      total_lengthController.clear();
+      selectedroad_side=null;
+      selectedStatus = null;
+      selectedstart_date = null;
+      selectedEndDate = null;
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -149,7 +169,7 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
             ),
               SizedBox(height: 16),
               Text(
-              'roads_edging_work_completion_status'.tr(),
+              'Status'.tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -188,17 +208,15 @@ class _RoadsShouldersWorkState extends State<RoadsShouldersWork> {
                     await roadsShoulderWorkViewModel.fetchAllRoadShoulder();
                     await roadsShoulderWorkViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

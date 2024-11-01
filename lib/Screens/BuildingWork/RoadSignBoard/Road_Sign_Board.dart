@@ -10,6 +10,7 @@ import '../../../ViewModels/BuildingWorkViewModel/RoadsSignBoardsViewModel/roads
 import '../../../Widgets/container_data.dart';
 import '../../../Widgets/custom_container_widgets.dart';
 import '../../../Widgets/custom_plots_no_drowpdown_widgets.dart';
+import '../../../Widgets/snackbar.dart';
 import 'RoadSignBoardSummary.dart';
 
 class RoadsSignBoards extends StatefulWidget {
@@ -21,20 +22,37 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
   RoadsSignBoardsViewModel roadsSignBoardsViewModel = Get.put(RoadsSignBoardsViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
-  TextEditingController fromPlotController = TextEditingController();
-  TextEditingController toPlotController = TextEditingController();
+ String? fromPlotController;
+  String? toPlotController;
 
   String? selectedroad_side;
   String? selectedStatus;
 
 
- 
-
-  @override
   void initState() {
     super.initState();
-    // _loadData();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+      fromPlotController=null;
+      selectedroad_side=null;
+      selectedStatus = null;
+      toPlotController=null;
+
+
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -128,15 +146,22 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
 
               SizedBox(height: 16),
             // Wherever you're using the widget (e.g., PlotSelectionPage)
+            // Call the buildPlotNumberRow widget here
             buildPlotNumberRow(
               plotNumbers: blockDetailsViewModel.filteredPlots,
               fromLabel: 'From Plot Number',
               toLabel: 'To Plot Number',
               onFromPlotChanged: (value) {
-                blockDetailsViewModel.selectedFromPlot.value = value!.toString();
+                setState(() {
+                  fromPlotController = value;
+                }); // Update the controller variable
+                blockDetailsViewModel.selectedFromPlot.value = value ?? ''; // Update ViewModel
               },
               onToPlotChanged: (value) {
-                blockDetailsViewModel.selectedToPlot.value = value!.toString();
+                setState(() {
+                  toPlotController = value;
+                }); // Update the controller variable
+                blockDetailsViewModel.selectedToPlot.value = value ?? ''; // Update ViewModel
               },
             ),
 
@@ -182,17 +207,15 @@ class _RoadsSignBoardsState extends State<RoadsSignBoards> {
                     await roadsSignBoardsViewModel.fetchAllRoadsSignBoard();
                     await roadsSignBoardsViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

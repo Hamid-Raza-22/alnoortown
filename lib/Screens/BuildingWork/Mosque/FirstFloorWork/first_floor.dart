@@ -7,6 +7,10 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/first_floor
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'FirstFloorSummaryPage.dart';
 
 class FirstFloorWork extends StatefulWidget {
@@ -25,11 +29,28 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
   String? selectedMudFillingStatus;
   String? selectedPlasterWorkStatus;
 
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+
   @override
   void initState() {
     super.initState();
-
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedBrickWorkStatus=null; // Clear the controller's text
+      selectedMudFillingStatus=null; // Clear the controller's text
+      selectedPlasterWorkStatus=null; // Clear the controller's text
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -111,17 +132,16 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
               SizedBox(height: 16),
             buildStatusColumn(),
               SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && selectedBrickWorkStatus != null && selectedMudFillingStatus != null && selectedPlasterWorkStatus != null) {
                     await firstFloorViewModel.addFirstFloor(FirstFloorModel(
                       block_no: selectedBlock,
@@ -135,23 +155,14 @@ class FirstFloorWorkState extends State<FirstFloorWork> {
                     await firstFloorViewModel.fetchAllFirstFloor();
                     await firstFloorViewModel.postDataFromDatabaseToAPI();
 
-                    void showSnackBar(String message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    }
+                      setState(() {
+                        containerData = createInitialContainerData();
+                      });
+                      _clearFields();
 
-
-                    // Call the callback after the async operation
-                    showSnackBar('entry_added_successfully'.tr());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('Please select all statuses.'),
-                      ),
-                    );
+                      showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'WalkingTracksSummaryPage.dart'; // Import for custom input formatter
 
 class WalkingTracksWork extends StatefulWidget {
@@ -108,7 +109,7 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildTextFieldRow("type_of_work".tr(), type_of_work),
+            buildTextFieldRow("Types Of Work".tr(), type_of_work),
             buildDatePickerRow(
               'start_date'.tr(),
               selectedstart_date,
@@ -143,30 +144,31 @@ class _WalkingTracksWorkState extends State<WalkingTracksWork> {
                       selectedEndDate != null &&
                       type_of_work.text.isNotEmpty &&
                       selectedStatus != null) {
-                    await walkingTracksWorkViewModel .addWalking(WalkingTracksWorkModel(
-                        start_date: selectedstart_date,
-                        expected_comp_date: selectedEndDate,
-                        type_of_work: type_of_work.text,
-                        walking_tracks_comp_status: selectedStatus,
-                        date: _getFormattedDate(),
-                        time: _getFormattedTime(),
-                      user_id: userId
-                    ));
+                    await walkingTracksWorkViewModel.addWalking(
+                        WalkingTracksWorkModel(
+                            start_date: selectedstart_date,
+                            expected_comp_date: selectedEndDate,
+                            type_of_work: type_of_work.text,
+                            walking_tracks_comp_status: selectedStatus,
+                            date: _getFormattedDate(),
+                            time: _getFormattedTime(),
+                            user_id: userId
+                        ));
 
                     await walkingTracksWorkViewModel.fetchAllWalking();
-                    await walkingTracksWorkViewModel.postDataFromDatabaseToAPI();
+                    await walkingTracksWorkViewModel
+                        .postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    setState(() {
+                      type_of_work.clear();
+                      selectedEndDate = null;
+                      selectedstart_date = null;
+                      selectedStatus = null; // Clear the controller's text
+                    });
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

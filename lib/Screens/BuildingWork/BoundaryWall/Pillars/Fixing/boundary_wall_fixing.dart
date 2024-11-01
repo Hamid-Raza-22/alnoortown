@@ -11,7 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 
+import '../../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../../Widgets/buildBlockRow.dart';
+import '../../../../../Widgets/container_data.dart';
 import '../../../../../Widgets/custom_text_feild.dart';
+import '../../../../../Widgets/snackbar.dart';
 import '../../../TownMainGate/Main Gate Plaster/MainGatePlasterSummary.dart';
 
 
@@ -25,15 +29,35 @@ class PillarsFixing extends StatefulWidget {
 class PillarsFixingState extends State<PillarsFixing> {
 PillarsFixingViewModel pillarsFixingViewModel = Get.put(PillarsFixingViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+TextEditingController noOfPillarsController=TextEditingController();
+TextEditingController totalLengthController=TextEditingController();
 
   String? selectedBlock;
   String? No_of_Pillars;
   String? Total_length;
 
-  @override
-  void initState() {
-    super.initState();
-  }
+void initState() {
+  super.initState();
+  containerData = createInitialContainerData();
+}
+
+Map<String, dynamic> createInitialContainerData() {
+  return {
+    "selectedBlock": null,
+    "selectedStreet":null
+  };
+}
+void _clearFields() {
+  setState(() {
+    containerData = createInitialContainerData();
+    No_of_Pillars=null; // Clear the controller's text
+    Total_length=null;
+    totalLengthController.clear();
+    noOfPillarsController.clear();
+  });
+}
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -112,14 +136,12 @@ PillarsFixingViewModel pillarsFixingViewModel = Get.put(PillarsFixingViewModel()
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
             SizedBox(height: 16),
             buildWorkStatusField(
           'No. of Pillars Fixing'.tr(),
+              noOfPillarsController,
               (value) {
                 setState(() {
                   No_of_Pillars = value;
@@ -130,6 +152,7 @@ PillarsFixingViewModel pillarsFixingViewModel = Get.put(PillarsFixingViewModel()
         SizedBox(height: 16),
             buildWorkStatusField(
               'Total Length'.tr(),
+                  totalLengthController,
                   (value) {
                 setState(() {
                   Total_length = value;
@@ -140,6 +163,8 @@ PillarsFixingViewModel pillarsFixingViewModel = Get.put(PillarsFixingViewModel()
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && No_of_Pillars!= null && Total_length!=null) {
                     await pillarsFixingViewModel.addPillarsFixing(PillarsFixingModel(
                         block: selectedBlock,
@@ -153,18 +178,15 @@ PillarsFixingViewModel pillarsFixingViewModel = Get.put(PillarsFixingViewModel()
 
                     await pillarsFixingViewModel.fetchAllPillarsFixing();
                     await pillarsFixingViewModel.postDataFromDatabaseToAPI();
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Please fill all the fields.'),
-                      ),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -185,39 +207,7 @@ PillarsFixingViewModel pillarsFixingViewModel = Get.put(PillarsFixingViewModel()
     );
   }
 
-  Widget buildBlockRow(ValueChanged<String?> onChanged) {
-    final List<String> blocks = blockDetailsViewModel.allBlockDetails
-        .map((blockDetail) => blockDetail.block.toString())
-        .toSet()
-        .toList();
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('block_no'.tr(),
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFC69840))),
-          SizedBox(height: 8),
 
-          DropdownSearch<String>(
-            items: blocks,
-            onChanged: onChanged,
-            dropdownDecoratorProps: DropDownDecoratorProps(
-              dropdownSearchDecoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFC69840)),
-                ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 8),
-              ),
-            ),
-            popupProps: PopupProps.menu(
-              showSearchBox: true,
-            ),
-          )
-        ]
-    );
-  }
 
 
 }

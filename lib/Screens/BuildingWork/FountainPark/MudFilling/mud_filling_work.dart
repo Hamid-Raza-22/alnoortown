@@ -5,6 +5,7 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewMo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 
+import '../../../../Widgets/snackbar.dart';
 import 'MudfillingSummaryPage.dart';
 
 class MudFillingWork extends StatefulWidget {
@@ -21,7 +22,14 @@ class MudFillingWorkState extends State<MudFillingWork> {
   TextEditingController dumpersController = TextEditingController();
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
-
+  void _clearFields() {
+    setState(() {
+      dumpersController.clear();
+      selectedEndDate=null;
+      selectedstart_date=null;
+      selectedStatus=null; // Clear the controller's text
+    });
+  }
   @override
   void initState() {
     super.initState();
@@ -155,17 +163,11 @@ class MudFillingWorkState extends State<MudFillingWork> {
                     await mudFillingWorkViewModel.fetchAllMud();
                     await mudFillingWorkViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                       SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

@@ -8,6 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'ElectricityWorkSummary.dart';
 
 class ElectricityWork extends StatefulWidget {
@@ -25,10 +29,24 @@ class ElectricityWorkState extends State<ElectricityWork> {
   String? selectedBlock;
   String? selectedStatus;
 
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+
   @override
   void initState() {
     super.initState();
-    // _loadData();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+    });
   }
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -111,14 +129,11 @@ class ElectricityWorkState extends State<ElectricityWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
-              SizedBox(height: 16),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
+            SizedBox(height: 16),
               Text(
-              "electricity_work_status".tr(),
+              "Status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -134,6 +149,8 @@ class ElectricityWorkState extends State<ElectricityWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && selectedStatus != null) {
                     await electricityWorkViewModel.addElectricity(ElectricityWorkModel(
                       block_no: selectedBlock,
@@ -146,23 +163,15 @@ class ElectricityWorkState extends State<ElectricityWork> {
                     await electricityWorkViewModel.fetchAllElectricity();
                     await electricityWorkViewModel.postDataFromDatabaseToAPI();
 
-                    void showSnackBar(String message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    }
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-
-                    // Call the callback after the async operation
-                    showSnackBar('entry_added_successfully'.tr());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('Please select a block and status.'),
-                      ),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

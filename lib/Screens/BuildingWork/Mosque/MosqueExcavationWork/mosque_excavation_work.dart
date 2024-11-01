@@ -7,6 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show Get, Inst;
 import 'package:intl/intl.dart';
 import '../../../../ViewModels/BuildingWorkViewModel/Mosque/mosque_excavation_view_model.dart';
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'mosque_summary_page.dart';
 
 class MosqueExcavationWork extends StatefulWidget {
@@ -19,14 +23,27 @@ class MosqueExcavationWork extends StatefulWidget {
 class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
   MosqueExcavationViewModel mosqueExcavationViewModel = Get.put(MosqueExcavationViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
-
   String? selectedBlock;
   String? selectedStatus;
+
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
 
   @override
   void initState() {
     super.initState();
-   // _loadData();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+    });
   }
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -109,12 +126,9 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
-              SizedBox(height: 16),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
+            SizedBox(height: 16),
                Text(
               "excavation_completion_status".tr(),
               style: TextStyle(
@@ -132,6 +146,8 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && selectedStatus != null) {
                     await mosqueExcavationViewModel.addMosque(MosqueExcavationWorkModel(
                       block_no: selectedBlock,
@@ -142,24 +158,14 @@ class MosqueExcavationWorkState extends State<MosqueExcavationWork> {
                     ));
                     await mosqueExcavationViewModel.fetchAllMosque();
                     await mosqueExcavationViewModel.postDataFromDatabaseToAPI();
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                    void showSnackBar(String message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    }
-                  //  await _saveData();
-
-                    // Call the callback after the async operation
-                    showSnackBar('entry_added_successfully'.tr());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('Please select a block and status.'),
-                      ),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

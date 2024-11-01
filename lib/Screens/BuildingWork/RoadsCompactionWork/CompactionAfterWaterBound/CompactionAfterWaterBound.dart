@@ -10,6 +10,7 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 import '../../../../Widgets/container_data.dart';
 import '../../../../Widgets/custom_container_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'WaterBoundSummary.dart';
 
 class CompactionAfterWaterBound extends StatefulWidget {
@@ -34,7 +35,29 @@ TextEditingController total_lengthController = TextEditingController();
   @override
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+
+      total_lengthController.clear();
+      total_timeController.clear();
+;
+      selectedStatus = null;
+      selectedstart_date = null;
+      selectedEndDate = null;
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -186,17 +209,16 @@ TextEditingController total_lengthController = TextEditingController();
                     await compactionWaterBoundViewModel.fetchAllWaterBound();
                     await compactionWaterBoundViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

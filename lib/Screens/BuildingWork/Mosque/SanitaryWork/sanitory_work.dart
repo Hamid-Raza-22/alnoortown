@@ -7,6 +7,10 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/sanitary_wo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'SanitaryWorkSummary.dart';
 
 class SanitaryWork extends StatefulWidget {
@@ -24,11 +28,26 @@ class _SanitaryWorkState extends State<SanitaryWork> {
   String? selectedBlock;
   String? selectedStatus;
 
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+
   @override
   void initState() {
     super.initState();
-   // Load data when the widget initializes
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -109,12 +128,10 @@ class _SanitaryWorkState extends State<SanitaryWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
-              SizedBox(height: 16),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
+
+            SizedBox(height: 16),
               Text(
                 'sanitary_work'.tr(),
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
@@ -129,6 +146,8 @@ class _SanitaryWorkState extends State<SanitaryWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && selectedStatus != null) {
                     await sanitaryWorkViewModel.addSanitary(SanitaryWorkModel(
                         block_no: selectedBlock,
@@ -139,14 +158,14 @@ class _SanitaryWorkState extends State<SanitaryWork> {
                     ));
                     await sanitaryWorkViewModel.fetchAllSanitary();
                     await sanitaryWorkViewModel.postDataFromDatabaseToAPI();
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('entry_added_successfully'.tr())),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Please select a block and status.')),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

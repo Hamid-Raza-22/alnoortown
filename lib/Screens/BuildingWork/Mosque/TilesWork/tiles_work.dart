@@ -7,6 +7,10 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/tiles_work_
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'tiles_work_summary.dart';
 
 class TilesWork extends StatefulWidget {
@@ -23,10 +27,27 @@ class TilesWorkState extends State<TilesWork> {
   String? selectedBlock;
   String? selectedStatus;
 
+
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+
   @override
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -107,11 +128,8 @@ class TilesWorkState extends State<TilesWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
               SizedBox(height: 16),
               Text(
                 'status'.tr(),
@@ -130,6 +148,8 @@ class TilesWorkState extends State<TilesWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && selectedStatus != null) {
                     await tilesWorkViewModel.addTiles(TilesWorkModel(
                       block_no: selectedBlock,
@@ -141,23 +161,15 @@ class TilesWorkState extends State<TilesWork> {
                     await tilesWorkViewModel.fetchAllTiles();
                     await tilesWorkViewModel.postDataFromDatabaseToAPI();
 
-                    void showSnackBar(String message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    }
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-
-                    // Call the callback after the async operation
-                    showSnackBar('entry_added_successfully'.tr());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('Please select a block and status.'),
-                      ),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

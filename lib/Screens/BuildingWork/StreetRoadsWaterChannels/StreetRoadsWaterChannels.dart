@@ -219,49 +219,49 @@ class _StreetRoadsWaterChannelsState extends State<StreetRoadsWaterChannels> {
     );
   }
 
-  // Widget buildDropdownRow(
-  //     String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.start,
-  //     children: [
-  //       Text(
-  //         title,
-  //         style: TextStyle(
-  //           fontSize: 14,
-  //           fontWeight: FontWeight.bold,
-  //           color: Color(0xFFC69840),
-  //         ),
-  //       ),
-  //       SizedBox(height: 8),
-  //       DropdownSearch<String>(
-  //         items: items,
-  //         selectedItem: selectedItem,
-  //         dropdownDecoratorProps: DropDownDecoratorProps(
-  //           dropdownSearchDecoration: InputDecoration(
-  //             border: OutlineInputBorder(
-  //               borderSide: BorderSide(color: Color(0xFF4A4A4A)),
-  //               borderRadius: BorderRadius.circular(8), // Adjust border radius
-  //             ),
-  //             contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Adjust padding
-  //           ),
-  //         ),
-  //         popupProps: PopupProps.menu(
-  //           showSearchBox: true, // Enables the search feature
-  //           itemBuilder: (context, item, isSelected) {
-  //             return Padding(
-  //               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-  //               child: Text(
-  //                 item,
-  //                 style: TextStyle(fontSize: 11), // Adjust font size for dropdown items
-  //               ),
-  //             );
-  //           },
-  //         ),
-  //         onChanged: onChanged, // Passes the selected value back to the caller
-  //       ),
-  //     ],
-  //   );
-  // }
+  Widget buildDropdownRow(
+      String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.bold,
+            color: Color(0xFFC69840),
+          ),
+        ),
+        SizedBox(height: 8),
+        DropdownSearch<String>(
+          items: items,
+          selectedItem: selectedItem,
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide(color: Color(0xFF4A4A4A)),
+                borderRadius: BorderRadius.circular(8), // Adjust border radius
+              ),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8), // Adjust padding
+            ),
+          ),
+          popupProps: PopupProps.menu(
+            showSearchBox: true, // Enables the search feature
+            itemBuilder: (context, item, isSelected) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                child: Text(
+                  item,
+                  style: TextStyle(fontSize: 11), // Adjust font size for dropdown items
+                ),
+              );
+            },
+          ),
+          onChanged: onChanged, // Passes the selected value back to the caller
+        ),
+      ],
+    );
+  }
   Widget buildTextFieldRow(String label, TextEditingController controller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

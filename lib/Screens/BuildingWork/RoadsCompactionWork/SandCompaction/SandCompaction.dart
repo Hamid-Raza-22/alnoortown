@@ -10,6 +10,7 @@ import 'package:intl/intl.dart';
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import '../../../../Widgets/container_data.dart';
 import '../../../../Widgets/custom_container_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'SandCompactionSummary.dart';
 
 class SandCompaction extends StatefulWidget {
@@ -30,12 +31,33 @@ TextEditingController total_lengthController = TextEditingController();
 TextEditingController total_timeController = TextEditingController();
   String? selectedBlock;
   String? selectedStatus;
-  List<Map<String, dynamic>> containerDataList = [];
-
   @override
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+      road_noController= null;
+      total_lengthController.clear();
+      total_timeController.clear();
+      selectedBlock = null;
+      selectedStatus = null;
+      selectedstart_date = null;
+      selectedEndDate = null;
+    });
+  }
+
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -190,32 +212,17 @@ TextEditingController total_timeController = TextEditingController();
                     await sandCompactionViewModel.fetchAllSand();
                     await sandCompactionViewModel.postDataFromDatabaseToAPI();
 
-                    // Show a success message
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-
-                    // Clear the fields after successful submission
+                    // Clear fields after submission
                     setState(() {
-                      road_noController= null;
-                      total_lengthController.clear();
-                      selectedBlock = null;
-                      selectedStatus = null;
-                      selectedstart_date = null;
-                      selectedEndDate = null;
+                      containerData = createInitialContainerData();
                     });
-                  } else {
-                    // Show an error message if fields are not filled
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
-
                 style: ElevatedButton.styleFrom(
                   backgroundColor:   Color(0xFFF3F4F6),
                   padding:

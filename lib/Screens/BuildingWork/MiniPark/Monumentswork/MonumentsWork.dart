@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'MonumentsWorkSummary.dart';
 
 class MonumentsWork extends StatefulWidget {
@@ -152,17 +153,16 @@ class _MonumentsWorkState extends State<MonumentsWork> {
                     await monumentsWorkViewModel.fetchAllMonument();
                     await monumentsWorkViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    setState(() {
+
+                      selectedEndDate = null;
+                      selectedstart_date = null;
+                      selectedStatus = null; // Clear the controller's text
+                    });
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

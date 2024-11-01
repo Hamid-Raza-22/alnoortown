@@ -134,7 +134,7 @@ Widget buildBlockStreetRow(Map<String, dynamic> containerData, RoadDetailsViewMo
   });
 }
 
-Widget buildBlockRow(Map<String, dynamic> containerData, RoadDetailsViewModel roadDetailsViewModel) {
+Widget buildBlockToBlockRow(Map<String, dynamic> containerData, RoadDetailsViewModel roadDetailsViewModel) {
   return Obx(() {
     final List<String> blocks = roadDetailsViewModel.allRoadDetails
         .map((detail) => detail.block.toString())

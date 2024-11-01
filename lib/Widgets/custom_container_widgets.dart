@@ -22,26 +22,21 @@ Widget buildBlockSRoadsColumn(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         buildDropdownRow(
-          "block_no".tr(),
-          containerData["selectedBlock"],
-          blocks,
-              (selectedBlock) {
-            // Update the selected block in containerData and filter streets
-            containerData["selectedBlock"] = selectedBlock;
-            roadDetailsViewModel.updateFilteredStreets(selectedBlock!);
-            blockDetailsViewModel.filterPlotsByBlock(selectedBlock);
-
-          },
+        "block_no".tr(),
+    containerData,
+    "selectedBlock",
+    blocks,
+    onChanged: (selectedBlock) {
+      roadDetailsViewModel.updateFilteredStreets(selectedBlock);
+    },
         ),
+
         const SizedBox(height: 16),
         buildDropdownRow(
-          "road_no".tr(),
-          containerData["selectedStreet"],
+          "street_no".tr(),
+          containerData,
+          "selectedStreet",
           roadDetailsViewModel.filteredStreets,
-              (selectedStreet) {
-            // Update the selected street in containerData
-            containerData["selectedStreet"] = selectedStreet;
-          },
         ),
       ],
     );
@@ -50,9 +45,10 @@ Widget buildBlockSRoadsColumn(
 
 Widget buildDropdownRow(
     String title,
-    String? selectedItem,
+    Map<String, dynamic> containerData,
+    String key,
     List<String> items,
-    ValueChanged<String?> onChanged,
+    {Function(String)? onChanged}
     ) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,7 +64,7 @@ Widget buildDropdownRow(
       const SizedBox(height: 8),
       DropdownSearch<String>(
         items: items,
-        selectedItem: selectedItem,
+        selectedItem: containerData[key],
         dropdownDecoratorProps: DropDownDecoratorProps(
           dropdownSearchDecoration: InputDecoration(
             border: OutlineInputBorder(
@@ -90,7 +86,12 @@ Widget buildDropdownRow(
             );
           },
         ),
-        onChanged: onChanged,
+        onChanged: (value) {
+          containerData[key] = value;
+          if (onChanged != null && value != null) {
+            onChanged(value);
+          }
+        },
       ),
     ],
   );

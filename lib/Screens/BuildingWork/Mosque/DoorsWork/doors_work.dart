@@ -7,6 +7,10 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/Mosque/door_work_v
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'DoorsWorkSummary.dart';
 
 class DoorsWork extends StatefulWidget {
@@ -23,11 +27,27 @@ class DoorsWorkState extends State<DoorsWork> {
   String? selectedBlock;
   String? selectedStatus;
 
+
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+
   @override
   void initState() {
     super.initState();
-    // _loadData();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -108,14 +128,10 @@ class DoorsWorkState extends State<DoorsWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
-              SizedBox(height: 16),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+            SizedBox(height: 16),
               Text(
-              "doors_work_status".tr(),
+              "Status".tr(),
               style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -131,6 +147,7 @@ class DoorsWorkState extends State<DoorsWork> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
                   if (selectedBlock != null && selectedStatus != null) {
                     await doorWorkViewModel.addDoor(DoorsWorkModel(
                       block_no: selectedBlock,
@@ -143,23 +160,14 @@ class DoorsWorkState extends State<DoorsWork> {
                     await doorWorkViewModel.fetchAllDoor();
                     await doorWorkViewModel.postDataFromDatabaseToAPI();
 
-                    void showSnackBar(String message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    }
-                    // await _saveData();
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                    // Call the callback after the async operation
-                    showSnackBar('entry_added_successfully'.tr());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('Please select a block and status.'),
-                      ),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

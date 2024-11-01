@@ -11,7 +11,10 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 
 import '../../../../../Models/BuildingWorkModels/BoundarywallModel/PlanksModel/planks_removal_model.dart';
+import '../../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../../Widgets/container_data.dart';
 import '../../../../../Widgets/custom_text_feild.dart';
+import '../../../../../Widgets/snackbar.dart';
 import '../../../TownMainGate/Main Gate Plaster/MainGatePlasterSummary.dart';
 
 
@@ -30,11 +33,30 @@ PlanksRemovalViewModel planksRemovalViewModel = Get.put(PlanksRemovalViewModel()
   String? No_of_Planks;
   String? Total_length;
 
+TextEditingController noOfPillarsController=TextEditingController();
+TextEditingController totalLengthController=TextEditingController();
+RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
 
-  @override
-  void initState() {
-    super.initState();
-  }
+void initState() {
+  super.initState();
+  containerData = createInitialContainerData();
+}
+
+Map<String, dynamic> createInitialContainerData() {
+  return {
+    "selectedBlock": null,
+    "selectedStreet":null
+  };
+}
+void _clearFields() {
+  setState(() {
+    containerData = createInitialContainerData();
+    No_of_Planks=null; // Clear the controller's text
+    Total_length=null;
+    totalLengthController.clear();
+    noOfPillarsController.clear();
+  });
+}
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -121,7 +143,9 @@ PlanksRemovalViewModel planksRemovalViewModel = Get.put(PlanksRemovalViewModel()
             SizedBox(height: 16),
             buildWorkStatusField(
               'No. of Pillars'.tr(),
-                  (value) {
+              noOfPillarsController,
+
+              (value) {
                 setState(() {
                   No_of_Planks = value;
                 });
@@ -131,7 +155,9 @@ PlanksRemovalViewModel planksRemovalViewModel = Get.put(PlanksRemovalViewModel()
             SizedBox(height: 16),
             buildWorkStatusField(
               'Total Length'.tr(),
-                  (value) {
+              totalLengthController,
+
+              (value) {
                 setState(() {
                   Total_length = value;
                 });
@@ -155,17 +181,14 @@ PlanksRemovalViewModel planksRemovalViewModel = Get.put(PlanksRemovalViewModel()
                     await planksRemovalViewModel.fetchAllPlanksRemoval();
                     await planksRemovalViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Please fill all the fields.'),
-                      ),
-                    );
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

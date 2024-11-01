@@ -10,6 +10,7 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 import '../../../../Widgets/container_data.dart';
 import '../../../../Widgets/custom_container_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'RoadsWaterSupplySummary.dart';
 
 class RoadsWaterSupplyWork extends StatefulWidget {
@@ -32,11 +33,29 @@ String? road_noController;  TextEditingController total_lengthController = TextE
   String? selectedStatus;
   List<Map<String, dynamic>> containerDataList = [];
 
- 
-  @override
+
+
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
+  }
 
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+      total_lengthController.clear();
+      selectedroad_side=null;
+      selectedStatus = null;
+      selectedstart_date = null;
+      selectedEndDate = null;
+    });
   }
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -194,17 +213,15 @@ String? road_noController;  TextEditingController total_lengthController = TextE
                     await roadsWaterSupplyViewModel.fetchAllRoadWaterSupply();
                     await roadsWaterSupplyViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

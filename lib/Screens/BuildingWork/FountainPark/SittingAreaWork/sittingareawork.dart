@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'SittingAreaSummaryPage.dart'; // Import for custom input formatter
 
 class SittingAreaWork extends StatefulWidget {
@@ -109,7 +110,7 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildTextFieldRow('type_of_work'.tr(), type_of_work),
+            buildTextFieldRow('Type of Work'.tr(), type_of_work),
             buildDatePickerRow(
               'start_date'.tr(),
               selectedstart_date,
@@ -156,17 +157,16 @@ class SittingAreaWorkState extends State<SittingAreaWork> {
                     await sittingAreaWorkViewModel.fetchAllSitting();
                     await sittingAreaWorkViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                     setState(() {
+                       type_of_work.clear();
+                       selectedEndDate = null;
+                       selectedstart_date = null;
+                       selectedStatus = null; // Clear the controller's text
+                     });
+                     showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

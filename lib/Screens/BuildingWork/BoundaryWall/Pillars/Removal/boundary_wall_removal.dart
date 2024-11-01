@@ -11,7 +11,10 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 
 import '../../../../../Models/BuildingWorkModels/BoundarywallModel/PillarsModel/pillars_removal_model.dart';
+import '../../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../../Widgets/container_data.dart';
 import '../../../../../Widgets/custom_text_feild.dart';
+import '../../../../../Widgets/snackbar.dart';
 import '../../../TownMainGate/Main Gate Plaster/MainGatePlasterSummary.dart';
 
 
@@ -30,11 +33,30 @@ BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
 String? No_of_Pillars;
 String? Total_length;
 
+TextEditingController noOfPillarsController=TextEditingController();
+TextEditingController totalLengthController=TextEditingController();
+RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
 
-  @override
-  void initState() {
-    super.initState();
-  }
+void initState() {
+  super.initState();
+  containerData = createInitialContainerData();
+}
+
+Map<String, dynamic> createInitialContainerData() {
+  return {
+    "selectedBlock": null,
+    "selectedStreet":null
+  };
+}
+void _clearFields() {
+  setState(() {
+    containerData = createInitialContainerData();
+    No_of_Pillars=null; // Clear the controller's text
+    Total_length=null;
+    totalLengthController.clear();
+    noOfPillarsController.clear();
+  });
+}
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -121,6 +143,7 @@ String? Total_length;
             SizedBox(height: 16),
             buildWorkStatusField(
               'No. of Pillars Removal'.tr(),
+              noOfPillarsController,
                   (value) {
                 setState(() {
                   No_of_Pillars = value;
@@ -131,6 +154,7 @@ String? Total_length;
             SizedBox(height: 16),
             buildWorkStatusField(
               'Total Length'.tr(),
+              totalLengthController,
                   (value) {
                 setState(() {
                   Total_length = value;
@@ -141,6 +165,8 @@ String? Total_length;
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && No_of_Pillars!= null && Total_length!=null) {
                     await pillarsRemovalViewModel.addPillarsRemoval(PillarsRemovalModel(
                         block: selectedBlock,
@@ -155,17 +181,14 @@ String? Total_length;
                     await pillarsRemovalViewModel.fetchAllPillarsRemoval();
                     await pillarsRemovalViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Please fill all the fields.'),
-                      ),
-                    );
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

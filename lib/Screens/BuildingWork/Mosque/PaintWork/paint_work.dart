@@ -9,6 +9,10 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 
 
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'PaintWorkSummary.dart';
 
 class PaintWork extends StatefulWidget {
@@ -24,11 +28,24 @@ class PaintWorkState extends State<PaintWork>{
 
   String? selectedBlock;
   String? selectedStatus;
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
 
   @override
   void initState() {
     super.initState();
-    // _loadData();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+    });
   }
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -110,11 +127,8 @@ class PaintWorkState extends State<PaintWork>{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
               SizedBox(height: 16),
               Text(
               "paint_work".tr(),
@@ -133,6 +147,8 @@ class PaintWorkState extends State<PaintWork>{
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && selectedStatus != null) {
                     await paintWorkViewModel.addPaint(PaintWorkModel(
                       block_no: selectedBlock,
@@ -143,23 +159,15 @@ class PaintWorkState extends State<PaintWork>{
                     ));
                     await paintWorkViewModel.fetchAllPaint();
                     await paintWorkViewModel.postDataFromDatabaseToAPI();
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                    void showSnackBar(String message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    }
-
-                    // Call the callback after the async operation
-                    showSnackBar('entry_added_successfully'.tr());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('Please select a block and status.'),
-                      ),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

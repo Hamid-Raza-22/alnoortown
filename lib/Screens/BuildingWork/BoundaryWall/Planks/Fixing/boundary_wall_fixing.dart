@@ -11,7 +11,10 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 
 import '../../../../../Models/BuildingWorkModels/BoundarywallModel/PlanksModel/planks_fixing_model.dart';
+import '../../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../../Widgets/container_data.dart';
 import '../../../../../Widgets/custom_text_feild.dart';
+import '../../../../../Widgets/snackbar.dart';
 import '../../../TownMainGate/Main Gate Plaster/MainGatePlasterSummary.dart';
 
 
@@ -32,9 +35,31 @@ PlanksFixingViewModel planksFixingViewModel = Get.put(PlanksFixingViewModel());
   String? work_status;
 
   @override
-  void initState() {
-    super.initState();
-  }
+
+  TextEditingController noOfPillarsController=TextEditingController();
+TextEditingController totalLengthController=TextEditingController();
+RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+
+void initState() {
+  super.initState();
+  containerData = createInitialContainerData();
+}
+
+Map<String, dynamic> createInitialContainerData() {
+  return {
+    "selectedBlock": null,
+    "selectedStreet":null
+  };
+}
+void _clearFields() {
+  setState(() {
+    containerData = createInitialContainerData();
+    No_of_Planks=null; // Clear the controller's text
+    Total_length=null;
+    totalLengthController.clear();
+    noOfPillarsController.clear();
+  });
+}
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -121,6 +146,7 @@ PlanksFixingViewModel planksFixingViewModel = Get.put(PlanksFixingViewModel());
             SizedBox(height: 16),
             buildWorkStatusField(
               'No. of Planks Fixing'.tr(),
+              noOfPillarsController,
                   (value) {
                 setState(() {
                   No_of_Planks = value;
@@ -131,6 +157,7 @@ PlanksFixingViewModel planksFixingViewModel = Get.put(PlanksFixingViewModel());
             SizedBox(height: 16),
             buildWorkStatusField(
               'Total Length'.tr(),
+              totalLengthController,
                   (value) {
                 setState(() {
                   Total_length = value;
@@ -141,6 +168,8 @@ PlanksFixingViewModel planksFixingViewModel = Get.put(PlanksFixingViewModel());
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && No_of_Planks!= null && Total_length!=null) {
                     await planksFixingViewModel.addPillarsFixing(PlanksFixingModel(
                         block: selectedBlock,
@@ -155,18 +184,14 @@ PlanksFixingViewModel planksFixingViewModel = Get.put(PlanksFixingViewModel());
                     await planksFixingViewModel.fetchAllPlanksFixing();
                     await planksFixingViewModel.postDataFromDatabaseToAPI();
 
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Please fill all the fields.'),
-                      ),
-                    );
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

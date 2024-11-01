@@ -10,6 +10,7 @@ import 'package:get/get.dart' show Get, Inst, Obx;
 
 import '../../../../Widgets/container_data.dart';
 import '../../../../Widgets/custom_container_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'backfilling_watersupply_summary.dart';
 
 class BackFillingWs extends StatefulWidget {
@@ -30,10 +31,28 @@ TextEditingController total_lengthController = TextEditingController();
 
   String? selectedroad_side; // New variable for Road Side
   String? selectedStatus;
- 
-  @override
+
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+      total_lengthController.clear();
+      selectedroad_side=null;
+      selectedStatus = null;
+      selectedstart_date = null;
+      selectedEndDate = null;
+    });
   }
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -61,13 +80,13 @@ TextEditingController total_lengthController = TextEditingController();
           IconButton(
             icon:   Icon(Icons.history_edu_outlined, color: Color(0xFFC69840)),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                     const BackFillingWaterSupplySummary(),
-                ),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(
+              //     builder: (context) =>
+              //        const BackFillingWaterSupplySummary(),
+              //   ),
+              // );
             },
           ),
         ],
@@ -188,17 +207,16 @@ TextEditingController total_lengthController = TextEditingController();
                     await backFillingWsViewModel.fetchAllWsBackFilling();
                     await backFillingWsViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

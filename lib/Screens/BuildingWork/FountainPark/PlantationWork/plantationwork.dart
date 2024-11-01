@@ -5,6 +5,7 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewMo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'PlantationWorkSummary.dart';
 
 class PlantationWork extends StatefulWidget {
@@ -149,17 +150,16 @@ class _PlantationWorkState extends State<PlantationWork> {
                     await plantationWorkViewModel.fetchAllPlant();
                     await plantationWorkViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    setState(() {
+
+                      selectedEndDate = null;
+                      selectedstart_date = null;
+                      selectedStatus = null; // Clear the controller's text
+                    });
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

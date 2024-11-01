@@ -25,14 +25,20 @@ class _NewMaterialState extends State<NewMaterial> {
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
   RoadDetailsViewModel roadDetailsViewModel =Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
-  List<Map<String, dynamic>> containerDataList = [];
-  String? selectedBlock;
-  TextEditingController totalCOntroller = TextEditingController();
 
+  String? selectedBlock;
+  TextEditingController totalDumpersController = TextEditingController();
+  TextEditingController sandController = TextEditingController();
+  TextEditingController soilController = TextEditingController();
+  TextEditingController baseController = TextEditingController();
+  TextEditingController subBaseController = TextEditingController();
+  TextEditingController otherMaterialController = TextEditingController();
+  TextEditingController waterBoundController = TextEditingController();
+  Map<String, dynamic> containerData = {};
   @override
   void initState() {
     super.initState();
-    containerDataList.add(createInitialContainerData());
+    containerData = createInitialContainerData();
   }
 
   Map<String, dynamic> createInitialContainerData() {
@@ -50,7 +56,13 @@ class _NewMaterialState extends State<NewMaterial> {
   void _clearFields() {
     setState(() {
       containerData = createInitialContainerData();
-      totalCOntroller.clear(); // Clear the controller's text
+      totalDumpersController.clear();// Clear the controller's text
+      sandController.clear();
+      soilController.clear();
+      baseController.clear();
+      subBaseController.clear();
+      otherMaterialController.clear();
+      waterBoundController.clear();
     });
   }
 
@@ -100,35 +112,30 @@ class _NewMaterialState extends State<NewMaterial> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
-            Center(
-              child: Text(
-                'new_material'.tr(),
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+            SizedBox(height: 1),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 16.0),
+                child: Text(
+                  'new_material'.tr(),
+                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
+                ),
               ),
             ),
-            ...containerDataList.asMap().entries.map((entry) {
-              int index = entry.key;
-              return Column(
-                children: [
-                  buildContainer(index),
-                  const SizedBox(height: 16),
-                ],
-              );
-            }),
-            const SizedBox(height: 16),
+            buildContainer(),
           ],
         ),
       ),
     );
   }
 
-  Widget buildContainer(int index) {
-    var containerData2 = containerDataList[index];
+  Widget buildContainer() {
+
 
     return Card(
       margin: const EdgeInsets.only(bottom: 16),
@@ -141,57 +148,62 @@ class _NewMaterialState extends State<NewMaterial> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
-            buildLabelsAndFields(index, containerData2, ['sand'.tr(), 'soil'.tr()]),
+            buildLabelsAndFields(
+              containerData,
+              [sandController, soilController],
+              ['sand'.tr(), 'soil'.tr()],
+            ),
             const SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData2, ['base'.tr(), 'sub_base'.tr()]),
+            buildLabelsAndFields( containerData,[baseController, subBaseController], ['base'.tr(), 'sub_base'.tr()]),
             const SizedBox(height: 16),
-            buildOtherMaterialRow(index, containerData2),
+            buildOtherMaterialRow( containerData),
             const SizedBox(height: 16),
-            buildLabelsAndFields(index, containerData2, ['water_bound'.tr()]),
+            buildLabelsAndFields( containerData,[waterBoundController], ['water_bound'.tr()]),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  final sand = containerData2["sand"];
-                  final soil = containerData2["soil"];
-                  final base = containerData2["base"];
-                  final sub_base = containerData2["sub_base"];
-                  final water_bound = containerData2["water_bound"];
-                  final other_material = containerData2["other_material"];
-                  final other_material_value = containerData2["other_material_value"];
-                  if(selectedBlock!=null){
-
+                  selectedBlock = containerData["selectedBlock"];
+                  final sand = containerData["sand"];
+                  final soil = containerData["soil"];
+                  final base = containerData["base"];
+                  final sub_base = containerData["sub_base"];
+                  final water_bound = containerData["water_bound"];
+                  final other_material = containerData["other_material"];
+                  final other_material_value = containerData["other_material_value"];
+                  if (selectedBlock != null) {
                     await newMaterialViewModel.addNewMaterial(
-                    NewMaterialModel(
-                      block: containerData["selectedBlock"],
-                      sand: sand,
-                      soil: soil,
-                      sub_base: sub_base,
-                      base: base,
-                      water_bound: water_bound,
-                      other_material: other_material,
-                      other_material_value:other_material_value ,
-                      date: _getFormattedDate(),
-                      time: _getFormattedTime(),
-                      user_id: userId
-                    ),
-                  );
+                      NewMaterialModel(
+                          block: containerData["selectedBlock"],
+                          sand: sand,
+                          soil: soil,
+                          sub_base: sub_base,
+                          base: base,
+                          water_bound: water_bound,
+                          other_material: other_material,
+                          other_material_value: other_material_value,
+                          date: _getFormattedDate(),
+                          time: _getFormattedTime(),
+                          user_id: userId
+                      ),
+                    );
 
-                  await newMaterialViewModel.fetchAllNewMaterial();
-                  await newMaterialViewModel.postDataFromDatabaseToAPI();
+                    await newMaterialViewModel.fetchAllNewMaterial();
+                    await newMaterialViewModel.postDataFromDatabaseToAPI();
 
 
-                  // Clear fields after submission
-                  setState(() {
-    containerData = createInitialContainerData();
-    });
-    _clearFields();
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-    showSnackBarSuccessfully(context);}
-    else{
-    showSnackBarPleaseFill(context);
-    }
-  },
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
+                  }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
                   padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -209,22 +221,26 @@ class _NewMaterialState extends State<NewMaterial> {
     );
   }
 
-  Widget buildLabelsAndFields(int index, Map<String, dynamic> containerData, List<String> labels) {
+  Widget buildLabelsAndFields(
+      Map<String, dynamic> containerData, List<TextEditingController> controllers, List<String> labels) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: labels.map((label) {
+      children: List.generate(labels.length, (index) {
+        String label = labels[index];
         String fieldName = getFieldName(label);
+        TextEditingController controller = controllers[index];
         return Expanded(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: buildEditableTextField(label, containerData, fieldName),
+            child: buildEditableTextField(label, containerData, controller, fieldName),
           ),
         );
-      }).toList(),
+      }),
     );
   }
 
-  Widget buildEditableTextField(String label, Map<String, dynamic> containerData, String fieldName) {
+  Widget buildEditableTextField(String label, Map<String, dynamic> containerData,
+      TextEditingController controller, String fieldName) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -233,6 +249,7 @@ class _NewMaterialState extends State<NewMaterial> {
           style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840)),
         ),
         TextField(
+          controller: controller,
           keyboardType: TextInputType.number,
           onChanged: (value) {
             setState(() {
@@ -251,8 +268,7 @@ class _NewMaterialState extends State<NewMaterial> {
       ],
     );
   }
-
-  Widget buildOtherMaterialRow(int index, Map<String, dynamic> containerData) {
+  Widget buildOtherMaterialRow( Map<String, dynamic> containerData) {
     return Row(
       children: [
         Expanded(
@@ -266,6 +282,7 @@ class _NewMaterialState extends State<NewMaterial> {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: otherMaterialController,
                 onChanged: (value) {
                   setState(() {
                     containerData["other_material"] = value;
@@ -294,6 +311,7 @@ class _NewMaterialState extends State<NewMaterial> {
               ),
               const SizedBox(height: 8),
               TextField(
+                controller: totalDumpersController,
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   setState(() {

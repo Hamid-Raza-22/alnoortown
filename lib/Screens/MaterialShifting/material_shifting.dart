@@ -188,7 +188,7 @@ detailsController.clear();
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow(containerData, roadDetailsViewModel),
+            buildBlockToBlockRow(containerData, roadDetailsViewModel),
             const SizedBox(height: 16),
             buildTextFieldRow('Details'.tr(), detailsController),
             const SizedBox(height: 20),

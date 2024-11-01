@@ -10,6 +10,7 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 import '../../../../Widgets/container_data.dart';
 import '../../../../Widgets/custom_container_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'SoilCompactionSummary.dart';
 
 class SoilCompaction extends StatefulWidget {
@@ -27,13 +28,34 @@ class _SoilCompactionState extends State<SoilCompaction> {
   DateTime? selectedstart_date;
   DateTime? selectedEndDate;
   TextEditingController total_lengthController = TextEditingController();
-
+  String? selectedBlock;
+  String? road_noController;
   String? selectedStatus;
 
 
-  @override
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+      road_noController= null;
+      total_lengthController.clear();
+      total_timeController.clear();
+      selectedBlock = null;
+      selectedStatus = null;
+      selectedstart_date = null;
+      selectedEndDate = null;
+    });
   }
   String _getFormattedDate() {
     final now = DateTime.now();
@@ -186,17 +208,15 @@ class _SoilCompactionState extends State<SoilCompaction> {
                     await soilCompactionViewModel.fetchAllSoil();
                     await soilCompactionViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

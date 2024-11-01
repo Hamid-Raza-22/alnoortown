@@ -10,6 +10,7 @@ import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, 
 import 'package:intl/intl.dart';
 import '../../../Widgets/container_data.dart';
 import '../../../Widgets/custom_container_widgets.dart';
+import '../../../Widgets/snackbar.dart';
 import 'RoadsEdgingSummary.dart';
 
 class RoadsEdgingWork extends StatefulWidget {
@@ -29,12 +30,31 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
 
   String? selectedroad_side; // New variable for Road Side
   String? selectedStatus;
- 
 
-  @override
+
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      selectedStatus=null; // Clear the controller's text
+      total_lengthController.clear();
+      selectedroad_side=null;
+      selectedStatus = null;
+      selectedstart_date = null;
+      selectedEndDate = null;
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -127,7 +147,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
               ],
             ),
               SizedBox(height: 16),
-            buildDropdownRow('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
+            buildDropdownRowLeftRight('road_side'.tr(), selectedroad_side, ['left'.tr(), 'right'.tr()], (value) { // Dropdown for Road Side
               setState(() {
                 selectedroad_side = value;
               });
@@ -188,20 +208,18 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
                     await roadsEdgingWorkViewModel.fetchAllRoadEdging();
                     await roadsEdgingWorkViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
-                style: ElevatedButton.styleFrom(
+                      style: ElevatedButton.styleFrom(
                   backgroundColor:   Color(0xFFF3F4F6),
                   padding:
                     EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -222,7 +240,7 @@ class _RoadsEdgingWorkState extends State<RoadsEdgingWork> {
   }
 
 
-  Widget buildDropdownRow(
+  Widget buildDropdownRowLeftRight(
       String title, String? selectedItem, List<String> items, ValueChanged<String?> onChanged) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

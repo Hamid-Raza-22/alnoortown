@@ -6,6 +6,8 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/FountainParkViewMo
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 
+import '../../../../Widgets/snackbar.dart';
+
 class CurbStonesWork extends StatefulWidget {
     CurbStonesWork({super.key});
 
@@ -149,24 +151,16 @@ class CurbStonesWorkState extends State<CurbStonesWork> {
                     await cubStonesWorkViewModel.fetchAllCubStones();
                     await cubStonesWorkViewModel.postDataFromDatabaseToAPI();
 
-                    // Define a callback to show the SnackBar
-                    void showSnackBar(String message) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(message),
-                        ),
-                      );
-                    }
+                    setState(() {
 
-
-                    // Call the callback after the async operation
-                    showSnackBar('entry_added_successfully'.tr());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                       SnackBar(
-                        content: Text('please_fill_in_all_fields'.tr()),
-                      ),
-                    );
+                      selectedEndDate = null;
+                      selectedstart_date = null;
+                      selectedStatus = null; // Clear the controller's text
+                    });
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(

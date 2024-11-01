@@ -11,6 +11,7 @@ import 'package:get/get.dart' show Get, Inst, Obx;
 import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 
 class ShutteringWork extends StatefulWidget {
   const ShutteringWork({super.key});
@@ -41,16 +42,26 @@ class ShutteringWorkState extends State<ShutteringWork> {
     final formatter = DateFormat('h:mm a');
     return formatter.format(now);
   }
-  Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "selectedTankers": null,
-  };
+  TextEditingController totalCOntroller = TextEditingController();
+  Map<String, dynamic> containerData = {};
+
+  @override
+  void initState() {
+    super.initState();
+    containerData = createInitialContainerData();
+  }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet": null,
+      "numTankers":null,
+    };
+  }
   void _clearFields() {
     setState(() {
-      selectedBlock = null;
-      selectedStreet = null;
-      numTankers = '';
+      containerData = createInitialContainerData();
+      totalCOntroller.clear(); // Clear the controller's text
     });
   }
 
@@ -141,7 +152,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
             ),
             const SizedBox(height: 8),
             TextFormField(
-              initialValue: containerData["selectedTankers"],
+              controller: totalCOntroller,
               onChanged: (value) {
                 setState(() {
                   containerData["selectedTankers"] = value;
@@ -162,28 +173,32 @@ class ShutteringWorkState extends State<ShutteringWork> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final selectedTankers = containerData["selectedTankers"];
-                  await shutteringWorkViewModel.addShutter(ShutteringWorkModel(
-                    id: shutterId,
-                    block_no: selectedBlock,
-                    street_no: selectedStreet,
-                    completed_length: selectedTankers,
-                    date: _getFormattedDate(),
-                    time: _getFormattedTime(),
-                    user_id: userId
-                  ));
-                  await shutteringWorkViewModel.fetchAllShutter();
-                  await shutteringWorkViewModel.postDataFromDatabaseToAPI();
+                  if (selectedStreet != null && selectedBlock != null &&
+                      selectedTankers != null) {
+                    await shutteringWorkViewModel.addShutter(
+                        ShutteringWorkModel(
+                            id: shutterId,
+                            block_no: selectedBlock,
+                            street_no: selectedStreet,
+                            completed_length: selectedTankers,
+                            date: _getFormattedDate(),
+                            time: _getFormattedTime(),
+                            user_id: userId
+                        ));
+                    await shutteringWorkViewModel.fetchAllShutter();
+                    await shutteringWorkViewModel.postDataFromDatabaseToAPI();
 
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
 
-                  _clearFields(); // Clear fields after submission
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
-                      ),
-                    ),
-                  );
-
+                    showSnackBarSuccessfully(context);
+                  }
+                  else {
+                    showSnackBarPleaseFill(context);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFF3F4F6),
