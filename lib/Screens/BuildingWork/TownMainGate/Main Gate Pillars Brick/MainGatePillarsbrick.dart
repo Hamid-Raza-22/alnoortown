@@ -7,6 +7,10 @@ import 'package:al_noor_town/ViewModels/BuildingWorkViewModel/TownMainGatesViewM
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' show ExtensionSnackbar, Get, GetNavigation, Inst, Obx, SnackPosition;
 import 'package:intl/intl.dart';
+import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/buildBlockRow.dart';
+import '../../../../Widgets/container_data.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'MainGatePillarsBrickSummary.dart';
 
 class MainGatePillarsBrickWork extends StatefulWidget {
@@ -19,14 +23,32 @@ class MainGatePillarsBrickWork extends StatefulWidget {
 class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
   MainGatePillarWorkViewModel mainGatePillarWorkViewModel=Get.put(MainGatePillarWorkViewModel());
   BlockDetailsViewModel blockDetailsViewModel = Get.put(BlockDetailsViewModel());
+  TextEditingController workStatusController=TextEditingController();
 
   String? selectedBlock;
   String? work_status;
 
-  @override
+  RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
+
   void initState() {
     super.initState();
+    containerData = createInitialContainerData();
   }
+
+  Map<String, dynamic> createInitialContainerData() {
+    return {
+      "selectedBlock": null,
+      "selectedStreet":null
+    };
+  }
+  void _clearFields() {
+    setState(() {
+      containerData = createInitialContainerData();
+      work_status=null; // Clear the controller's text
+      workStatusController.clear();
+    });
+  }
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -106,17 +128,16 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            buildBlockRow((value) {
-              setState(() {
-                selectedBlock = value;
-              });
-            }),
-              SizedBox(height: 16),
-            buildWorkStatusField(),
+            buildBlockColumn(containerData, roadDetailsViewModel, blockDetailsViewModel),
+
+            SizedBox(height: 16),
+            buildWorkStatusField(workStatusController),
               SizedBox(height: 16),
             Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  selectedBlock= containerData["selectedBlock"];
+
                   if (selectedBlock != null && work_status != null) {
                     await mainGatePillarWorkViewModel.addMainPillar(MainGatePillarWorkModel(
                       block_no: selectedBlock,
@@ -130,17 +151,16 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
                     await mainGatePillarWorkViewModel.fetchAllMainPillar();
                     await mainGatePillarWorkViewModel.postDataFromDatabaseToAPI();
 
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('entry_added_successfully'.tr()),
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                        content: Text('Please fill all the fields.'),
-                      ),
-                    );
+
+                    // Clear fields after submission
+                    setState(() {
+                      containerData = createInitialContainerData();
+                    });
+                    _clearFields();
+
+                    showSnackBarSuccessfully(context);}
+                  else{
+                    showSnackBarPleaseFill(context);
                   }
                 },
                 style: ElevatedButton.styleFrom(
@@ -161,49 +181,17 @@ class _MainGatePillarsBrickWorkState extends State<MainGatePillarsBrickWork> {
     );
   }
 
-  Widget buildBlockRow(ValueChanged<String?> onChanged) {
-    final List<String> blocks = blockDetailsViewModel.allBlockDetails
-        .map((blockDetail) => blockDetail.block.toString())
-        .toSet()
-        .toList();
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('block_no'.tr(),
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFC69840))),
-          SizedBox(height: 8),
-
-          DropdownSearch<String>(
-            items: blocks,
-            onChanged: onChanged,
-            dropdownDecoratorProps: DropDownDecoratorProps(
-              dropdownSearchDecoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide(color: Color(0xFFC69840)),
-                ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 8),
-              ),
-            ),
-            popupProps: PopupProps.menu(
-              showSearchBox: true,
-            ),
-          )
-        ]
-    );
-  }
-
-  Widget buildWorkStatusField() {
+  Widget buildWorkStatusField(TextEditingController contoller) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-          Text('work_status'.tr(),
+        Text('work_status'.tr(),
             style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: Color(0xFFC69840))),
-          SizedBox(height: 8),
+        SizedBox(height: 8),
         TextField(
+          controller: workStatusController,
           onChanged: (value) {
+
             setState(() {
               work_status = value;
             });
