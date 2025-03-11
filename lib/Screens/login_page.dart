@@ -319,34 +319,6 @@ class LoginPageState extends State<LoginPage> {
       _loadingMessage = 'Checking internet speed...';  // Update message
     });
 
-    // final internetSpeedTest = InternetSpeedTest();
-    // double downloadSpeed = 0.0;
-    //
-    // await internetSpeedTest.startDownloadTesting(
-    //   onProgress: (double percent, double transferRate, SpeedUnit unit) {
-    //     // You can update the UI with the progress if needed
-    //   },
-    //   onDone: (double transferRate, SpeedUnit unit) {
-    //     downloadSpeed = transferRate;
-    //   },
-    //   onError: (String errorMessage, String speedTestError) {
-    //     setState(() {
-    //       _isLoading = false;
-    //       _loadingMessage = '';
-    //     });
-    //     Get.snackbar('Error', 'Internet speed test failed', snackPosition: SnackPosition.BOTTOM);
-    //     return;
-    //   },
-    // );
-    //
-    // if (downloadSpeed < 5.0) {  // Assuming 5 Mbps as the threshold for good speed
-    //   setState(() {
-    //     _isLoading = false;
-    //     _loadingMessage = '';
-    //   });
-    //   Get.snackbar('Error', 'Internet speed is too slow', snackPosition: SnackPosition.BOTTOM);
-    //   return;
-    // }
 
     setState(() {
       _loadingMessage = 'Logging in...';  // Update message

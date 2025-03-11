@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:al_noor_town/Screens/BuildingWork/building_work_navigation.dart';
 import 'package:al_noor_town/Screens/DevelopmentWork/development_page.dart';
 import 'package:al_noor_town/Screens/MaterialShifting/material_shifting.dart';
@@ -8,7 +7,7 @@ import 'package:al_noor_town/Screens/NewMaterial/new_material.dart';
 import 'package:al_noor_town/Screens/PolicyDBox.dart';
 import 'package:al_noor_town/Screens/home_page.dart';
 import 'package:al_noor_town/Screens/splash_screen.dart';
-import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
+ import 'package:al_noor_town/Services/FirebaseServices/firebase_remote_config.dart';
 import 'package:al_noor_town/ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -21,10 +20,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workmanager/workmanager.dart';
 import 'Screens/login_page.dart';
 import 'Services/StripeServices/consts.dart';
+import 'ViewModels/LoginViewModel/login_view_model.dart';
 import 'ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'ViewModels/all_noor_view_model.dart';
 import 'Services/FirebaseServices/firebase_options.dart';
-
+LoginViewModel loginViewModel =Get.put(LoginViewModel());
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final prefs = await SharedPreferences.getInstance();
@@ -34,7 +34,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await Config.initialize();
-
+ // await loginViewModel.fetchAndSaveLoginData();
   Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
 //  await dotenv.load();
 //   Stripe.publishableKey = stripePublishableKey;
@@ -135,6 +135,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
+
       initialRoute: isAuthenticated ? '/home' : '/policy',
       //initialRoute: '/',
       getPages: [

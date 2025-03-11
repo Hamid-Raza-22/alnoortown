@@ -38,7 +38,7 @@ class _DrainExcavationState extends State<DrainExcavation> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "polesFoundation":null,
+      "totalcompleted_length":'',
     };
   }
   void _clearFields() {
@@ -167,15 +167,15 @@ class _DrainExcavationState extends State<DrainExcavation> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final totalcompleted_length = containerData["totalcompleted_length"];
+                  final totalCompletedLength = containerData["totalcompleted_length"];
                   if (selectedStreet != null && selectedBlock != null &&
-                      totalcompleted_length != null) {
+                      totalCOntroller.text.isNotEmpty && totalCompletedLength != null) {
                     await mainDrainExcavationViewModel.addWork(
                         MainDrainExcavationModel(
                             id: drainId,
                             block_no: selectedBlock,
                             street_no: selectedStreet,
-                            completed_length: totalcompleted_length,
+                            completed_length: totalCompletedLength,
                             date: _getFormattedDate(),
                             time: _getFormattedTime(),
                             user_id: userId

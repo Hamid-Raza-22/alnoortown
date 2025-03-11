@@ -1,4 +1,4 @@
-package com.metaxperts.al_noor_town
+package com.hamid.al_noor_town
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

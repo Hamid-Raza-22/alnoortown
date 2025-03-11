@@ -10,6 +10,7 @@ import 'package:get/get.dart' show Get, Inst, Obx;
 import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
+import '../../../../Widgets/snackbar.dart';
 import 'excavation_summary.dart';
 
 class Excavation extends StatefulWidget {
@@ -39,7 +40,7 @@ class ExcavationState extends State<Excavation> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers": null,
+      "numTankers": '',
 
     };
   }
@@ -180,8 +181,12 @@ class ExcavationState extends State<Excavation> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
-                if(selectedStreet!=null && selectedBlock!=null && numTankers!=null){
+                   String numTankers = containerData["numTankers"];
+                if (selectedStreet!=null
+                    && selectedBlock!=null
+                    && totalController.text.isNotEmpty
+                    && numTankers.isNotEmpty
+                  ) {
                   await excavationViewModel.addExa(ExcavationModel(
                     id: exaId,
                     block_no: selectedBlock,
@@ -194,17 +199,16 @@ class ExcavationState extends State<Excavation> {
                   await excavationViewModel.fetchAllExa();
                   await excavationViewModel.postDataFromDatabaseToAPI();
 
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        'Selected: $selectedBlock, $selectedStreet, No. of Tankers: $numTankers',
-                      ),
-                    ),
-                  );
-
-                  // Clear fields after submission
+                  setState(() {
+                    containerData = createInitialContainerData();
+                  });
                   _clearFields();
-                }},
+
+                  showSnackBarSuccessfully(context);}
+                else{
+                  showSnackBarPleaseFill(context);
+                }
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),

@@ -93,15 +93,15 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     final List<Map<String, dynamic>> rowsData = [
-      {'text': 'setting'.tr(), 'icon': Icons.settings},
+    //  {'text': 'setting'.tr(), 'icon': Icons.settings},
       {
         'text': 'select_language'.tr(),
         'icon': Icons.language,
         'onTap': _showLanguageDialog,
       },
-      {'text': 'profile'.tr(), 'icon': Icons.person_outline},
-      {'text': 'favorites'.tr(), 'icon': Icons.favorite_border},
-      {'text': 'about'.tr(), 'icon': Icons.info_outline},
+   //   {'text': 'profile'.tr(), 'icon': Icons.person_outline},
+    //  {'text': 'favorites'.tr(), 'icon': Icons.favorite_border},
+    //  {'text': 'about'.tr(), 'icon': Icons.info_outline},
     ];
 
     return Container(

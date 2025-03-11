@@ -128,8 +128,8 @@ Map<String, dynamic> containerData = {};
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
-                  if(selectedStreet!=null&&selectedBlock!=null&& numTankers!=null){
+                   String numTankers = containerData["numTankers"];
+                  if(selectedStreet!=null&&selectedBlock!=null&& numTankersController.text.isNotEmpty&& numTankers!=null){
 
                   await pipelineViewModel.addPipe(PipelineModel(
                       id: pipeId,

@@ -1,0 +1,2 @@
+C:/Users/maher/OneDrive/Desktop/alnoortown/android/app/.cxx/Debug/3b6sd5l1/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/maher/OneDrive/Desktop/alnoortown/android/app/.cxx/Debug/3b6sd5l1/armeabi-v7a/CMakeFiles/rebuild_cache.dir

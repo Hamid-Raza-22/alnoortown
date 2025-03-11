@@ -169,8 +169,8 @@ class _BackfilingState extends State<Backfiling> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final status = containerData["status"];
-                  if(selectedStreet!=null&& selectedStreet!=null && status!=null){
+                  String status = containerData["status"];
+                  if(selectedStreet!=null&& selectedStreet!=null &&status.isNotEmpty &&status!=null){
                   // Submit data
                   await backFillingViewModel.addFill(BackFilingModel(
                     id: fillingId,

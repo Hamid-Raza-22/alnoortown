@@ -173,8 +173,8 @@ class ManholesSlabsState extends State<ManholesSlabs> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
-                  if(selectedStreet!=null&&selectedBlock!=null&& numTankers!=null){
+                   String numTankers = containerData["numTankers"];
+                  if(selectedStreet!=null&&selectedBlock!=null&& totalCOntroller.text.isNotEmpty&& numTankers!=null){
 
                     await manHolesSlabViewModel.addMan(ManholesSlabModel(
                         id: manId,

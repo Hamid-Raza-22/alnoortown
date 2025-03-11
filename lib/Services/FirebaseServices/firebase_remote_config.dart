@@ -96,7 +96,7 @@ class Config {
   static String get getApiUrlPlasterWorkMainGate => remoteConfig.getString('Plaster_Work_Main_Gate_get_url');
   static String get getApiUrlBlocksDetails => remoteConfig.getString('Blocks_Details_get_url');
   static String get getApiUrlRoadsDetails => remoteConfig.getString('Roads_Details_get_url');
-  static String get getApiUrlLogin => remoteConfig.getString('Login_get_url');
+  static String get  getApiUrlLogin => remoteConfig.getString('Login_get_url');
 
   static String get getApiUrlPillarsFixing => remoteConfig.getString('Pillars_Fixing_get_url');
   static String get getApiUrlPillarsRemoval => remoteConfig.getString('Pillars_Removal_get_url');

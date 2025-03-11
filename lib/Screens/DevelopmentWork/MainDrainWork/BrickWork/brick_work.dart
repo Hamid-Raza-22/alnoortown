@@ -1,6 +1,8 @@
 import 'package:al_noor_town/Database/db_helper.dart';
 import 'package:al_noor_town/Globals/globals.dart';
 import 'package:al_noor_town/Models/DevelopmentsWorksModels/MainDrainWorksModels/brick_work_model.dart';
+import 'package:al_noor_town/Screens/BuildingWork/FountainPark/MainStage/MainStageWorkSummary.dart';
+import 'package:al_noor_town/Screens/BuildingWork/TownMainGate/Main%20Gate%20Plaster/MainGatePlasterSummary.dart';
 import 'package:al_noor_town/ViewModels/DevelopmentWorksViewModel/MainDrainWorkViewModel/brick_work_view_model.dart';
 import 'package:al_noor_town/ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -40,7 +42,7 @@ class _BrickWorkState extends State<BrickWork> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers":null,
+      "numTankers":'',
     };
   }
   void _clearFields() {
@@ -170,9 +172,10 @@ class _BrickWorkState extends State<BrickWork> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
+                   String numTankers = containerData["numTankers"];
+
                   if (selectedStreet != null && selectedBlock != null &&
-                      numTankers != null) {
+                      numTankers.isNotEmpty  && numTankers != null) {
                     // Add the data
                     await brickWorkViewModel.addBrick(BrickWorkModel(
                         id: brickId,

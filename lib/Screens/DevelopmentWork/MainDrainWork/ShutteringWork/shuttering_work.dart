@@ -55,7 +55,7 @@ class ShutteringWorkState extends State<ShutteringWork> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers":null,
+      "numTankers":'',
     };
   }
   void _clearFields() {

@@ -132,8 +132,8 @@ Map<String, dynamic> containerData = {};
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
-                  if(selectedStreet!=null&& selectedStreet!=null&& numTankers!=null){
+                   String numTankers = containerData["numTankers"];
+                  if(selectedStreet!=null&& selectedStreet!=null&& totalController.text.isNotEmpty&& numTankers.isNotEmpty&& numTankers!=null){
                   await manholesViewModel.addWorker(ManholesModel(
                       id: holeId,
                       block_no: selectedBlock,
@@ -146,14 +146,16 @@ Map<String, dynamic> containerData = {};
                   await manholesViewModel.fetchAllWorker();
                   await manholesViewModel.postDataFromDatabaseToAPI();
 
-                  // await dbHelper.showAsphaltData();
-              showSnackBarSuccessfully(context);
-                  _clearFields(); // Clear fields after submission
-                }else{
+                  setState(() {
+                    containerData = createInitialContainerData();
+                  });
+                  _clearFields();
+
+                  showSnackBarSuccessfully(context);}
+                  else{
                     showSnackBarPleaseFill(context);
                   }
-
-                  },
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF3F4F6),
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),

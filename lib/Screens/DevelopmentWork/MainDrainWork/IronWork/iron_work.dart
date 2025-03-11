@@ -34,7 +34,7 @@ class _IronWorkState extends State<IronWork> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers":null,
+      "numTankers":'',
     };
   }
   void _clearFields() {
@@ -162,8 +162,8 @@ class _IronWorkState extends State<IronWork> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final completed_length = containerData["numTankers"];
-                 if(selectedStreet!=null&&selectedBlock!=null&& completed_length!=null){
+                  String completed_length = containerData["numTankers"];
+                 if(selectedStreet!=null&&selectedBlock!=null&& totalCOntroller.text.isNotEmpty&& totalCOntroller.text.isNotEmpty&&completed_length!=null){
                   // Add a new work entry
                   await ironWorkViewModel.addWorks(IronWorksModel(
                     id: ironId,

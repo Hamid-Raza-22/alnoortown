@@ -12,6 +12,7 @@ import 'package:get/get.dart' show Get, Inst, Obx;
 
 import '../../../../ViewModels/BlockDetailsViewModel/block_details_view_model.dart';
 import '../../../../ViewModels/RoadDetailsViewModel/road_details_view_model.dart';
+import '../../../../Widgets/container_data.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
 
 class WaterTanker extends StatefulWidget {
@@ -28,11 +29,7 @@ RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
   DBHelper dbHelper = DBHelper();
   int? tankerId;
 
-  Map<String, dynamic> containerData = {
-    "selectedBlock": null,
-    "selectedStreet": null,
-    "selectedTankers": null,
-  };
+
   String _getFormattedDate() {
     final now = DateTime.now();
     final formatter = DateFormat('d MMM yyyy');
@@ -147,9 +144,9 @@ RoadDetailsViewModel roadDetailsViewModel = Get.put(RoadDetailsViewModel());
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final selectedTankers = containerData["selectedTankers"];
-                  if(selectedBlock!=null&& selectedStreet!=null&& selectedTankers){
+                  if(selectedBlock!=null&& selectedStreet!=null&& selectedTankers!= null){
                   await waterTankerViewModel.addTanker(WaterTankerModel(
-                    id: tankerId,
+                    // id: tankerId,
                     block_no: selectedBlock,
                     street_no: selectedStreet,
                     tanker_no: selectedTankers,

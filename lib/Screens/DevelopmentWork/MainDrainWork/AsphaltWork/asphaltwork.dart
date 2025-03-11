@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart' show Get, Inst;
 import 'package:easy_localization/easy_localization.dart';
+import '../../../../Widgets/container_data.dart';
 import '../../../../Widgets/custom_dropdown_widgets.dart';
 import '../../../../Widgets/snackbar.dart';
 import 'asphalt_work_summary.dart';
@@ -29,7 +30,7 @@ class _AsphaltWorkState extends State<AsphaltWork> {
   int? asphaltId;
 
   TextEditingController totalCOntroller = TextEditingController();
-  Map<String, dynamic> containerData = {};
+
 
   @override
   void initState() {
@@ -41,8 +42,8 @@ class _AsphaltWorkState extends State<AsphaltWork> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTanker":null,
-      "status":null
+      "numTanker":'',
+
     };
   }
   void _clearFields() {
@@ -178,12 +179,14 @@ class _AsphaltWorkState extends State<AsphaltWork> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
-                  final status = containerData["status"];
-                  if(selectedStreet!=null&&selectedBlock!=null&& numTankers!=null&& status!=null){
+                   final numTankers = containerData["numTankers"];
+                  String status = containerData["status"];
+                  if(selectedStreet!=null&&selectedBlock!=null&& totalCOntroller.text.isNotEmpty&&
+                      numTankers.isNotEmpty&&numTankers!=null&& status.isNotEmpty
+                  ){
 
                     await asphaltWorkViewModel.addAsphalt(AsphaltWorkModel(
-                      id: asphaltId,
+                      // id: asphaltId,
                       block_no: selectedBlock,
                       street_no: selectedStreet,
                       no_of_tons: numTankers,

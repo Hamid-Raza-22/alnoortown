@@ -31,30 +31,33 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "com.metaxperts.al_noor_town"
+    namespace "com.hamid.al_noor_town"
     ndkVersion flutter.ndkVersion
-    compileSdkVersion 34  // or the latest version
+    compileSdkVersion 35 // or the latest version
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+
+        // Enable core library desugaring
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = JavaVersion.VERSION_1_8
     }
 
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+//    sourceSets {
+//        main.java.srcDirs += 'src/main/kotlin'
+//    }
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.metaxperts.al_noor_town"
+        applicationId "com.hamid.al_noor_town"
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 35
 
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
@@ -84,14 +87,14 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'com.google.android.material:material:1.4.0'
-
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
     // Add other dependencies here
 }
-
-configurations.all {
-    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
-        if (details.requested.group == 'org.jetbrains.kotlin') {
-            details.useVersion '1.8.10'
-        }
-    }
-}
+//
+//configurations.all {
+//    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//        if (details.requested.group == 'org.jetbrains.kotlin') {
+//            details.useVersion '1.8.10'
+//        }
+//    }
+//}

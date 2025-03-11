@@ -173,7 +173,7 @@ class PolesFoundationState extends State<Foundation> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final polesFoundation = containerData["polesFoundation"];
-                  if(selectedStreet!=null&&selectedBlock!=null&& polesFoundation!=null){
+                  if(selectedStreet!=null&&selectedBlock!=null&& totalCOntroller.text.isNotEmpty&& polesFoundation!=null){
                   await polesFoundationViewModel.addPoleFoundation(PolesFoundationModel(
                       id: exId,
                       block_no: selectedBlock,

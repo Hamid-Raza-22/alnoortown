@@ -165,7 +165,7 @@ class PolesFoundationState extends State<PolesFoundation> {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
                   final polesExcavation = containerData["polesExcavation"];
-    if(selectedStreet!=null&&selectedBlock!=null&& polesExcavation!=null){
+    if(selectedStreet!=null&&selectedBlock!=null&& totalController.text.isNotEmpty&& polesExcavation!=null){
 
 
     await polesExcavationViewModel.addPoleExa(PolesExcavationModel(

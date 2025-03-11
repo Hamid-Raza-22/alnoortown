@@ -17,6 +17,28 @@ class BackFillingWsViewModel extends GetxController {
     super.onInit();
 
   }
+  // New method for filtering data based on date and block
+  void filterData(DateTime? fromDate, DateTime? toDate, String? block) {
+    List<BackFillingWsModel> filteredList = allWsBackFilling.where((entry) {
+      bool matchesDateRange = true;
+      bool matchesBlock = true;
+
+      if (fromDate != null && toDate != null) {
+        matchesDateRange = entry.start_date != null &&
+            entry.start_date!.isAfter(fromDate) &&
+            entry.start_date!.isBefore(toDate);
+      }
+
+      if (block != null && block.isNotEmpty) {
+        matchesBlock = entry.block_no != null &&
+            entry.block_no!.toLowerCase().contains(block.toLowerCase());
+      }
+
+      return matchesDateRange && matchesBlock;
+    }).toList();
+
+    allWsBackFilling.value = filteredList;
+  }
   Future<void> postDataFromDatabaseToAPI() async {
     try {
       // Step 1: Fetch machines that haven't been posted yet

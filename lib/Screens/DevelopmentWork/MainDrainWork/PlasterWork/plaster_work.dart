@@ -44,7 +44,7 @@ class PlasterWorkState extends State<PlasterWork> {
     return {
       "selectedBlock": null,
       "selectedStreet": null,
-      "numTankers":null,
+      "numTankers":'',
     };
   }
   void _clearFields() {
@@ -173,9 +173,9 @@ class PlasterWorkState extends State<PlasterWork> {
                 onPressed: () async {
                   final selectedBlock = containerData["selectedBlock"];
                   final selectedStreet = containerData["selectedStreet"];
-                  final numTankers = containerData["numTankers"];
+                   String numTankers = containerData["numTankers"];
                   if (selectedStreet != null && selectedBlock != null &&
-                      numTankers != null) {
+                      numTankers.isNotEmpty  && numTankers != null) {
                     await plasterWorkViewModel.addMan(PlasterWorkModel(
                         id: plasterId,
                         block_no: selectedBlock,
